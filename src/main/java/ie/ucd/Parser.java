@@ -15,13 +15,20 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import ie.ucd.objects.Project;
+import ie.ucd.objects.Staff;
+import ie.ucd.objects.Student;
+import ie.ucd.objects.SupervisorProject;
+
 public class Parser {
 	private ArrayList<Staff> allStaffsProjects = new ArrayList<Staff>();
 	private ArrayList<SupervisorProject> someStaffsProjects = new ArrayList<SupervisorProject>();
+	public ArrayList<String> allNames = new ArrayList<String>();
+	HashMap<Integer, Student> studentMap = new HashMap<Integer, Student>();
 	private int numberOfStudents;
 
 	public Parser() {
-		numberOfStudents = 60;
+		numberOfStudents = 20;
 	}
 
 	public Parser(int numberOfStudents) {
@@ -70,7 +77,9 @@ public class Parser {
 	public ArrayList<SupervisorProject> generateStaffProjects() throws IOException {
 		parseExcelFile();
 
-		for (int i = 0; i < numberOfStudents / 2; i++) {
+		int numAvgProjectsProposed = 3;
+		int numStaffMembers = numberOfStudents / 2;
+		for (int i = 0; i < numAvgProjectsProposed * numStaffMembers; i++) {
 			int randInt = new Random().nextInt(allStaffsProjects.size());
 			while (allStaffsProjects.get(randInt).isAllActivitiesUsed()) {
 				randInt = new Random().nextInt(allStaffsProjects.size());
@@ -84,7 +93,7 @@ public class Parser {
 
 	// 30, 60, 120, 250 staffs.
 	// https://stackoverflow.com/questions/51259388/read-data-from-excel-in-java
-	public ArrayList<Staff> parseExcelFile() throws IOException {
+	private ArrayList<Staff> parseExcelFile() throws IOException {
 		String excelFile = "MiskatonicStaffMembers.xlsx";
 
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(excelFile);
@@ -105,12 +114,10 @@ public class Parser {
 		}
 		is.close();
 		workbook.close();
-
 		return allStaffsProjects;
 	}
 
-	public HashMap<Integer, Student> generateStudents() throws IOException {
-		HashMap<Integer, Student> studentMap = new HashMap<Integer, Student>();
+	private ArrayList<String> parseNamesFile() throws IOException {
 		String txtFile = "initials.txt";
 
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(txtFile);
@@ -118,20 +125,33 @@ public class Parser {
 
 		while (reader.ready()) {
 			String line = reader.readLine();
-			String[] names = line.split(",")[2].split(" ");
-			String firstName = names[0];
+			allNames.add(line);
+		}
+		reader.close();
+		return allNames;
+	}
+
+	public HashMap<Integer, Student> generateStudents() throws IOException {
+		parseNamesFile();
+
+		HashMap<Integer, Student> studentMap = new HashMap<Integer, Student>();
+
+		for (int i = 0; i < numberOfStudents; i++) {
+			Integer randomInt = new Random().nextInt(allNames.size());
+			String[] name = allNames.get(randomInt).split(",")[1].split(" ");
+			String firstName = name[0];
 			String lastName = "";
-			if (names.length > 1) {
-				lastName = names[names.length - 1];
+			if (name.length > 1) {
+				lastName = name[name.length - 1];
 			}
 
 			Integer randomId = generateStudentId();
 			while (studentMap.containsKey(randomId)) {
 				randomId = generateStudentId();
 			}
-			studentMap.put(randomId, new Student(firstName, lastName, randomId, generatePreferenceList()));
+			String stream = generateStudentStream();
+			studentMap.put(randomId, new Student(firstName, lastName, randomId, stream, generatePreferenceList(stream)));
 		}
-
 		return studentMap;
 	}
 
@@ -139,19 +159,30 @@ public class Parser {
 		return new Random().nextInt(90000000) + 10000000; // 1000 0000 - 9999 9999.
 	}
 
-	private ArrayList<SupervisorProject> generatePreferenceList() {
+	private ArrayList<SupervisorProject> generatePreferenceList(String stream) {
 		ArrayList<SupervisorProject> list = new ArrayList<SupervisorProject>();
 		HashSet<Integer> usedIndex = new HashSet<Integer>();
 
 		for (int i = 0; i < 10;) {
-			int randomIndex = new Random().nextInt(list.size());
-			if (!usedIndex.contains(randomIndex)) {
+			int randomIndex = new Random().nextInt(someStaffsProjects.size());
+			SupervisorProject aSP = someStaffsProjects.get(randomIndex);
+			if (!usedIndex.contains(randomIndex) && aSP.hasCompatibleStream(stream)) {
 				usedIndex.add(randomIndex);
-				list.add(someStaffsProjects.get(randomIndex));
+				list.add(aSP);
 				i++;
 			}
 		}
 
 		return list;
+	}
+
+	private String generateStudentStream() {
+		int randomInt = new Random().nextInt(5) + 1; // 1-5
+
+		// 40% is DS, 2/5.
+		if (randomInt == 4 || randomInt == 5) {
+			return "DS";
+		}
+		return "CS"; // 60% is CS, 3/5.
 	}
 }

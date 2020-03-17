@@ -1,4 +1,4 @@
-package ie.ucd;
+package ie.ucd.objects;
 
 import java.util.Random;
 

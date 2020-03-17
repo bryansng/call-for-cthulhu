@@ -1,4 +1,4 @@
-package ie.ucd;
+package ie.ucd.objects;
 
 import java.util.Random;
 
@@ -12,9 +12,9 @@ public class Staff {
 
 	public Staff(String proposedBy, String researchActivities, String researchAreas, String specialFocus) {
 		this.proposedBy = proposedBy;
-		this.researchActivities = researchActivities.split(", ");
-		this.researchActivitiesUsed = new boolean[researchActivities.length()]; // are they initialized to false?
-		this.researchAreas = researchAreas.split(", ");
+		this.researchActivities = researchActivities.trim().split("\\s*,\\s*");
+		this.researchActivitiesUsed = new boolean[this.researchActivities.length]; // are they initialized to false?
+		this.researchAreas = researchAreas.trim().split("\\s*,\\s*");
 		this.specialFocus = parseSpecialFocus(specialFocus);
 	}
 

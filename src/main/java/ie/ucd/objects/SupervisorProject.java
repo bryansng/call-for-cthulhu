@@ -1,4 +1,4 @@
-package ie.ucd;
+package ie.ucd.objects;
 
 public class SupervisorProject {
 	public String proposedBy;
@@ -9,6 +9,14 @@ public class SupervisorProject {
 		this.proposedBy = proposedBy;
 		this.researchActivity = researchActivity;
 		this.specialFocus = specialFocus;
+	}
+
+	public Boolean hasCompatibleStream(String studentStream) {
+		// CS == CS or DS == DS
+		if (specialFocus.equals(studentStream) || (specialFocus.equals("CS+DS") && studentStream.equals("CS"))) {
+			return true;
+		}
+		return false;
 	}
 
 	public String toString() {
