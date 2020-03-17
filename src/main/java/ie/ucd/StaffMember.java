@@ -2,11 +2,11 @@ package ie.ucd;
 
 import java.util.Random;
 
-public class Project {
+public class StaffMember {
 	public String researchActivity;
 	public String specialFocus;
 
-	public Project(String researchActivity, String specialFocus) {
+	public StaffMember(String researchActivity, String specialFocus) {
 		this.researchActivity = researchActivity;
 		this.specialFocus = parseSpecialFocus(specialFocus);
 	}
