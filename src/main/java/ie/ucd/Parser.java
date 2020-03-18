@@ -126,13 +126,16 @@ public class Parser {
 		ArrayList<SupervisorProject> list = new ArrayList<SupervisorProject>();
 		HashSet<Integer> usedIndex = new HashSet<Integer>();
 
+		// assuming impossible to run out of projects to give as 1st preference since someStaffsProjects.size() always > numOfStudents.
 		for (int i = 0; i < 10;) {
 			int randomIndex = new Random().nextInt(someStaffsProjects.size());
 			SupervisorProject aSP = someStaffsProjects.get(randomIndex);
-			if (!usedIndex.contains(randomIndex) && aSP.hasCompatibleStream(stream) && aSP.doesStudentPreferProject()) {
+			if (!usedIndex.contains(randomIndex) && aSP.hasCompatibleStream(stream) && aSP.doesStudentPreferProject()
+					&& (i != 0 || (!aSP.isGivenAs1stPreference && i == 0))) {
 				aSP.incrementStudentsAssigned();
 				if (i == 0) {
 					aSP.incrementTimesAs1stPreference();
+					aSP.isGivenAs1stPreference = true;
 				}
 
 				usedIndex.add(randomIndex);

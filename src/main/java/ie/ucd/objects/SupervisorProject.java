@@ -6,6 +6,7 @@ public class SupervisorProject {
 	public String proposedBy;
 	public String researchActivity;
 	public String specialFocus;
+	public boolean isGivenAs1stPreference = false;
 	public double preferredProbability;
 	public double numStudentsAssigned = 0.0;
 	public double numTimesAsStudents1stPreference = 0.0;
