@@ -24,5 +24,5 @@
   	- Number of Projects (Y-axis) vs Percentage Project Distribution (X-axis)
 		![Alt text](readme-resources/img/bell_curve.png "Bell Curve")
 
-  	- Preference Probability (aka PDF, Y-axis) vs Percentage Project Distribution (aka percentage of that project distributed to students, X-axis)
+  	- Preference Probability (aka PDF, Blue) vs Percentage Project Distribution (aka percentage of that project distributed to students, Orange)
 		![Alt text](readme-resources/img/preference_probability_vs_percentage_project_distribution.png "Preference Probability vs Percentage Project Distribution")
