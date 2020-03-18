@@ -27,6 +27,10 @@ public class Parser {
 	HashMap<Integer, Student> studentMap = new HashMap<Integer, Student>();
 	private int numberOfStudents;
 
+	private double numDSStudents = 0.0;
+	private double numCSStudents = 0.0;
+	private double totalProjectsAssigned = 0.0;
+
 	public Parser() {
 		numberOfStudents = 20;
 	}
@@ -110,7 +114,9 @@ public class Parser {
 			String researchAreas = row.getCell(2) == null ? "" : row.getCell(2).getStringCellValue();
 			String specialFocus = row.getCell(3) == null ? "" : row.getCell(3).getStringCellValue();
 
-			allStaffsProjects.add(new Staff(proposedBy, researchActivity, researchAreas, specialFocus));
+			if (!researchActivity.equals("")) {
+				allStaffsProjects.add(new Staff(proposedBy, researchActivity, researchAreas, specialFocus));
+			}
 		}
 		is.close();
 		workbook.close();
@@ -167,9 +173,15 @@ public class Parser {
 			int randomIndex = new Random().nextInt(someStaffsProjects.size());
 			SupervisorProject aSP = someStaffsProjects.get(randomIndex);
 			if (!usedIndex.contains(randomIndex) && aSP.hasCompatibleStream(stream)) {
+				aSP.incrementStudentsAssigned();
+				if (i == 0) {
+					aSP.incrementTimesAs1stPreference();
+				}
+
 				usedIndex.add(randomIndex);
 				list.add(aSP);
 				i++;
+				totalProjectsAssigned++;
 			}
 		}
 
@@ -181,8 +193,37 @@ public class Parser {
 
 		// 40% is DS, 2/5.
 		if (randomInt == 4 || randomInt == 5) {
+			numDSStudents += 1.0;
 			return "DS";
 		}
+		numCSStudents += 1.0;
 		return "CS"; // 60% is CS, 3/5.
+	}
+
+	public String CSDSPercentage() {
+		return "Percentage CS: " + formatPercentage(numCSStudents / numberOfStudents * 100.0) + "\nPercentage DS: "
+				+ formatPercentage(numDSStudents / numberOfStudents * 100.0) + "\n";
+	}
+
+	public String ProjectDistributionPercentage() {
+		String res = "\n\nPercentage project distribution:\n";
+		for (SupervisorProject sp : someStaffsProjects) {
+			res += sp.researchActivity + " - " + sp.specialFocus + " - "
+					+ formatPercentage(sp.numStudentsAssigned / totalProjectsAssigned * 100) + "\n";
+		}
+		return res;
+	}
+
+	public String Project1stPreferencePercentage() {
+		String res = "\n\nPercentage project as 1st Preference:\n";
+		for (SupervisorProject sp : someStaffsProjects) {
+			res += sp.researchActivity + " - " + sp.specialFocus + " - "
+					+ formatPercentage(sp.numTimesAsStudents1stPreference / numberOfStudents * 100) + "\n";
+		}
+		return res;
+	}
+
+	private String formatPercentage(double percentage) {
+		return String.format("%.2f%%", percentage);
 	}
 }
