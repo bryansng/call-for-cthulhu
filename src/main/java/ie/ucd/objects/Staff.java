@@ -2,6 +2,8 @@ package ie.ucd.objects;
 
 import java.util.Random;
 
+import ie.ucd.Settings;
+
 public class Staff {
 	public String proposedBy;
 	public String[] researchActivities;
@@ -32,7 +34,8 @@ public class Staff {
 	}
 
 	public SupervisorProject getSupervisorProject() {
-		return new SupervisorProject(proposedBy, getRandomUnusedResearchActivity(), specialFocus);
+		return new SupervisorProject(proposedBy, getRandomUnusedResearchActivity(), specialFocus,
+				Settings.getProbability());
 	}
 
 	// need check if isAllActivitiesUsed, if not, this will loop indefinitely.

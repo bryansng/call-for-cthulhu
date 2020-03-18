@@ -8,7 +8,6 @@ import java.util.HashMap;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
@@ -28,9 +27,6 @@ public class Writer {
 
 		// Create a Workbook
 		Workbook workbook = new XSSFWorkbook(); // new HSSFWorkbook() for generating `.xls` file
-
-		/* CreationHelper helps us create instances of various things like DataFormat, Hyperlink, RichTextString etc, in a format (HSSF, XSSF) independent way */
-		CreationHelper createHelper = workbook.getCreationHelper();
 
 		// Create a Sheet
 		Sheet sheet = workbook.createSheet("Supervisors and their Projects");
@@ -88,9 +84,6 @@ public class Writer {
 		// Create a Workbook
 		Workbook workbook = new XSSFWorkbook(); // new HSSFWorkbook() for generating `.xls` file
 
-		/* CreationHelper helps us create instances of various things like DataFormat, Hyperlink, RichTextString etc, in a format (HSSF, XSSF) independent way */
-		CreationHelper createHelper = workbook.getCreationHelper();
-
 		// Create a Sheet
 		Sheet sheet = workbook.createSheet("Students");
 
@@ -137,6 +130,61 @@ public class Writer {
 
 		// Write the output to a file
 		FileOutputStream fileOut = new FileOutputStream("StudentPreference" + students.size() + ".xlsx");
+		workbook.write(fileOut);
+		fileOut.close();
+
+		// Closing the workbook
+		workbook.close();
+	}
+
+	public void writeAnalysis(Parser parser) throws IOException, InvalidFormatException {
+		String[] columns = { "Research Activity", "Stream", "PDF", "Percentage Distribution" };
+
+		// Create a Workbook
+		Workbook workbook = new XSSFWorkbook(); // new HSSFWorkbook() for generating `.xls` file
+
+		// Create a Sheet
+		Sheet sheet = workbook.createSheet("Analysis");
+
+		// Create a Font for styling header cells
+		Font headerFont = workbook.createFont();
+		headerFont.setBold(true);
+		headerFont.setFontHeightInPoints((short) 14);
+		headerFont.setColor(IndexedColors.RED.getIndex());
+
+		// Create a CellStyle with the font
+		CellStyle headerCellStyle = workbook.createCellStyle();
+		headerCellStyle.setFont(headerFont);
+
+		// Create a Row
+		Row headerRow = sheet.createRow(0);
+
+		// Create cells
+		for (int i = 0; i < columns.length; i++) {
+			Cell cell = headerRow.createCell(i);
+			cell.setCellValue(columns[i]);
+			cell.setCellStyle(headerCellStyle);
+		}
+
+		// Create Other rows and cells with employees data
+		int rowNum = 1;
+		for (SupervisorProject sp : parser.someStaffsProjects) {
+			Row row = sheet.createRow(rowNum++);
+
+			row.createCell(0).setCellValue(sp.researchActivity);
+			row.createCell(1).setCellValue(sp.specialFocus);
+			row.createCell(2).setCellValue(sp.preferredProbability);
+			row.createCell(3)
+					.setCellValue(parser.formatPercentage(sp.numStudentsAssigned / parser.totalProjectsAssigned * 100));
+		}
+
+		// Resize all columns to fit the content size
+		for (int i = 0; i < columns.length; i++) {
+			sheet.autoSizeColumn(i);
+		}
+
+		// Write the output to a file
+		FileOutputStream fileOut = new FileOutputStream("Analysis" + parser.numberOfStudents + ".xlsx");
 		workbook.write(fileOut);
 		fileOut.close();
 

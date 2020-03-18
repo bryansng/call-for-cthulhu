@@ -9,27 +9,24 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
-
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import ie.ucd.objects.Project;
 import ie.ucd.objects.Staff;
 import ie.ucd.objects.Student;
 import ie.ucd.objects.SupervisorProject;
 
 public class Parser {
-	private ArrayList<Staff> allStaffsProjects = new ArrayList<Staff>();
-	private ArrayList<SupervisorProject> someStaffsProjects = new ArrayList<SupervisorProject>();
+	public ArrayList<Staff> allStaffsProjects = new ArrayList<Staff>();
+	public ArrayList<SupervisorProject> someStaffsProjects = new ArrayList<SupervisorProject>();
 	public ArrayList<String> allNames = new ArrayList<String>();
 	HashMap<Integer, Student> studentMap = new HashMap<Integer, Student>();
-	private int numberOfStudents;
+	public int numberOfStudents;
 
-	private double numDSStudents = 0.0;
-	private double numCSStudents = 0.0;
-	private double totalProjectsAssigned = 0.0;
+	public double numDSStudents = 0.0;
+	public double numCSStudents = 0.0;
+	public double totalProjectsAssigned = 0.0;
 
 	public Parser() {
 		numberOfStudents = 20;
@@ -39,51 +36,11 @@ public class Parser {
 		this.numberOfStudents = numberOfStudents;
 	}
 
-	public ArrayList<Project> generateStaffProjectsV2() throws IOException {
-		ArrayList<String> staffNames = new ArrayList<String>();
-		ArrayList<Project> projectArray = new ArrayList<Project>();
-		String excelFile = "MiskatonicStaffMembers.xlsx";
-
-		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(excelFile);
-
-		XSSFWorkbook workbook = new XSSFWorkbook(is);
-		XSSFSheet spreadsheet = workbook.getSheetAt(0);
-		Iterator<Row> rowIterator = spreadsheet.iterator();
-
-		HashSet<String> projectSet = new HashSet<String>();
-		HashSet<String> staffNameSet = new HashSet<String>();
-		while (rowIterator.hasNext()) {
-			XSSFRow row = (XSSFRow) rowIterator.next();
-
-			String proposedBy = row.getCell(0) == null ? "" : row.getCell(0).getStringCellValue();
-			if (!staffNameSet.contains(proposedBy)) {
-				staffNameSet.add(proposedBy);
-				staffNames.add(proposedBy);
-			}
-
-			String[] researchActivities = row.getCell(1) == null ? new String[] {}
-					: row.getCell(1).getStringCellValue().split(", ");
-			String specialFocus = row.getCell(3) == null ? "" : row.getCell(3).getStringCellValue();
-
-			for (String researchActivity : researchActivities) {
-				if (!projectSet.contains(researchActivity)) {
-					projectSet.add(researchActivity);
-					projectArray.add(new Project(researchActivity, specialFocus));
-				}
-			}
-		}
-		is.close();
-		workbook.close();
-
-		return projectArray;
-	}
-
 	public ArrayList<SupervisorProject> generateStaffProjects() throws IOException {
 		parseExcelFile();
 
-		int numAvgProjectsProposed = 3;
 		int numStaffMembers = numberOfStudents / 2;
-		for (int i = 0; i < numAvgProjectsProposed * numStaffMembers; i++) {
+		for (int i = 0; i < Settings.numAvgProjectsProposed * numStaffMembers; i++) {
 			int randInt = new Random().nextInt(allStaffsProjects.size());
 			while (allStaffsProjects.get(randInt).isAllActivitiesUsed()) {
 				randInt = new Random().nextInt(allStaffsProjects.size());
@@ -172,7 +129,7 @@ public class Parser {
 		for (int i = 0; i < 10;) {
 			int randomIndex = new Random().nextInt(someStaffsProjects.size());
 			SupervisorProject aSP = someStaffsProjects.get(randomIndex);
-			if (!usedIndex.contains(randomIndex) && aSP.hasCompatibleStream(stream)) {
+			if (!usedIndex.contains(randomIndex) && aSP.hasCompatibleStream(stream) && aSP.doesStudentPreferProject()) {
 				aSP.incrementStudentsAssigned();
 				if (i == 0) {
 					aSP.incrementTimesAs1stPreference();
@@ -208,7 +165,7 @@ public class Parser {
 	public String ProjectDistributionPercentage() {
 		String res = "\n\nPercentage project distribution:\n";
 		for (SupervisorProject sp : someStaffsProjects) {
-			res += sp.researchActivity + " - " + sp.specialFocus + " - "
+			res += sp.researchActivity + " - " + sp.specialFocus + " - " + sp.preferredProbability + " - "
 					+ formatPercentage(sp.numStudentsAssigned / totalProjectsAssigned * 100) + "\n";
 		}
 		return res;
@@ -217,13 +174,13 @@ public class Parser {
 	public String Project1stPreferencePercentage() {
 		String res = "\n\nPercentage project as 1st Preference:\n";
 		for (SupervisorProject sp : someStaffsProjects) {
-			res += sp.researchActivity + " - " + sp.specialFocus + " - "
+			res += sp.researchActivity + " - " + sp.specialFocus + " - " + sp.preferredProbability + " - "
 					+ formatPercentage(sp.numTimesAsStudents1stPreference / numberOfStudents * 100) + "\n";
 		}
 		return res;
 	}
 
-	private String formatPercentage(double percentage) {
+	public String formatPercentage(double percentage) {
 		return String.format("%.2f%%", percentage);
 	}
 }
