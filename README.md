@@ -7,7 +7,7 @@
 ## How demands are met
 - Generate a spreadsheet of projects and supervisors, stating the target audience of each project.
   - Spreadsheet is generated in the form of Excel files (with .xlsx extensions). They are named `StaffProject<numberOfStudents>.xlsx`. Each row is in the form of \<Staff Name\> \<Research Activity\> \<Stream\>.
-  - \<Staff Name\> and \<Research Activity\> values are taken directly from `MiskatonicStaffMembers.xlsx`. Difference between mine and the given excel file is:
+  - \<Staff Name\> and \<Research Activity\> values are taken directly from `MiskatonicStaffMembers.xlsx`. Difference between ours and the given excel file is:
     - (1) There can exist the same Staff Name, but with different Research Activity. (i.e. "Staff members may propose multiple projects on multiple topics.")
     - (2) In `MiskatonicStaffMembers.xlsx`, each Staff has multiple Research Activities separated by `", "`. `StaffProject<numberOfStudents>.xlsx` has only one specific Research Activity per row.
     - (3) Stream of studies are made explicit. If cell was empty, 50:50 chance it will be `CS` or `CS+DS`, if Dagon Studies, it will be `DS`. (i.e. "DS members propose DS only projects. Non-DS members propose CS or CS+DS projects, but not DS-only projects.")
@@ -20,4 +20,9 @@
   - All named `StaffProject<numberOfStudents>.xlsx` respectively. (i.e. Generate test set with 60, 120, 240 and 500 students).
   - Match Project and Student if the streams match, i.e. P is CS == S is CS, P is DS == S is DS, and P is CS+DS == S is CS, where P stands for Project and S for student. (i.e. Students express preference for projects suited to their stream).
   - This is proven in `Analysis500 (ForDocumentation).xlsx`, which includes graphs to show you it works. Each project is assigned a preference probability (this probability is determined via Random.nextGaussian() (mean 0, stdev 1.0), then that double value is converted to probability via NormalDistribution of mean 0, stdev 1.0, by getting its equivalent Probability Density Function, PDF). During creation of preference list for each student, this probability of each project is used to determine if the student "prefers" it. (i.e. Projects are assigned in a normally distributed manner (e.g. bell curve), where some projects are more preferred than others).
-    - Include images here.
+
+  	- Number of Projects (Y-axis) vs Percentage Project Distribution (X-axis)
+		![Alt text](readme-resources/img/bell_curve.png "Bell Curve")
+
+  	- Preference Probability (aka PDF, Y-axis) vs Percentage Project Distribution (aka percentage of that project distributed to students, X-axis)
+		![Alt text](readme-resources/img/preference_probability_vs_percentage_project_distribution.png "Preference Probability vs Percentage Project Distribution")
