@@ -1,10 +1,10 @@
 package ie.ucd.objects;
 
 import java.util.Random;
-
 import ie.ucd.Settings;
+import ie.ucd.interfaces.StaffMemberInterface;
 
-public class StaffMember {
+public class StaffMember implements StaffMemberInterface {
 	private String proposedBy;
 	private String[] researchActivities;
 	private boolean[] researchActivitiesUsed;

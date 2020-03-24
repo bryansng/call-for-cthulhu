@@ -1,8 +1,9 @@
 package ie.ucd.objects;
 
 import ie.ucd.Settings;
+import ie.ucd.interfaces.ProjectInterface;
 
-public class Project {
+public class Project implements ProjectInterface {
 	private String proposedBy;
 	private String researchActivity;
 	private String stream;

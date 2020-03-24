@@ -1,8 +1,9 @@
 package ie.ucd.objects;
 
 import java.util.ArrayList;
+import ie.ucd.interfaces.StudentInterface;
 
-public class Student {
+public class Student implements StudentInterface {
 	public String firstName;
 	public String lastName;
 	public Integer id;
