@@ -4,24 +4,24 @@ import java.util.Random;
 
 import ie.ucd.Settings;
 
-public class Staff {
-	public String proposedBy;
-	public String[] researchActivities;
+public class StaffMember {
+	private String proposedBy;
+	private String[] researchActivities;
 	private boolean[] researchActivitiesUsed;
 	private int numActivitiesUsed = 0;
-	public String[] researchAreas;
-	public String specialFocus;
+	private String[] researchAreas;
+	private String stream;
 
-	public Staff(String proposedBy, String researchActivities, String researchAreas, String specialFocus) {
+	public StaffMember(String proposedBy, String researchActivities, String researchAreas, String stream) {
 		this.proposedBy = proposedBy;
 		this.researchActivities = researchActivities.trim().split("\\s*,\\s*");
 		this.researchActivitiesUsed = new boolean[this.researchActivities.length]; // are they initialized to false?
 		this.researchAreas = researchAreas.trim().split("\\s*,\\s*");
-		this.specialFocus = parseSpecialFocus(specialFocus);
+		this.stream = parseStream(stream);
 	}
 
-	private String parseSpecialFocus(String specialFocus) {
-		if (specialFocus.equals("Dagon Studies")) {
+	private String parseStream(String stream) {
+		if (stream.equals("Dagon Studies")) {
 			return "DS";
 		}
 		String[] streams = new String[] { "CS", "CS+DS" };
@@ -33,9 +33,8 @@ public class Staff {
 		return numActivitiesUsed == researchActivities.length;
 	}
 
-	public SupervisorProject getSupervisorProject() {
-		return new SupervisorProject(proposedBy, getRandomUnusedResearchActivity(), specialFocus,
-				Settings.getProbability());
+	public Project getProject() {
+		return new Project(proposedBy, getRandomUnusedResearchActivity(), stream, Settings.getProbability());
 	}
 
 	// need check if isAllActivitiesUsed, if not, this will loop indefinitely.
@@ -51,6 +50,38 @@ public class Staff {
 
 	public String toString() {
 		String buf = " - ";
-		return researchActivities + buf + specialFocus;
+		return researchActivities + buf + stream;
+	}
+
+	public String getProposedBy() {
+		return proposedBy;
+	}
+
+	public String[] getResearchActivities() {
+		return researchActivities;
+	}
+
+	public String[] getResearchAreas() {
+		return researchAreas;
+	}
+
+	public String getStream() {
+		return stream;
+	}
+
+	public void setProposedBy(String proposedBy) {
+		this.proposedBy = proposedBy;
+	}
+
+	public void setResearchActivities(String[] researchActivities) {
+		this.researchActivities = researchActivities;
+	}
+
+	public void setResearchAreas(String[] researchAreas) {
+		this.researchAreas = researchAreas;
+	}
+
+	public void setStream(String stream) {
+		this.stream = stream;
 	}
 }

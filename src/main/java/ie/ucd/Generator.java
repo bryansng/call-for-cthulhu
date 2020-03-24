@@ -12,15 +12,11 @@ import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import ie.ucd.objects.Student;
-import ie.ucd.objects.SupervisorProject;
+import ie.ucd.objects.Project;
 
 public class Generator {
-	Parser parser;
-	Writer writer = new Writer();
-	ArrayList<SupervisorProject> supervisorProject;
-	HashMap<Integer, Student> students;
-
 	public static void main(String[] args) throws IOException, InvalidFormatException {
+		System.out.println("Hello World!");
 		generateRequiredFiles();
 
 		// playingNormalDistribution();
@@ -28,15 +24,15 @@ public class Generator {
 
 	public static void generateRequiredFiles() throws IOException, InvalidFormatException {
 		Parser parser;
-		Writer writer = new Writer();
-		ArrayList<SupervisorProject> supervisorProject;
+		ExcelWriter writer = new ExcelWriter();
+		ArrayList<Project> supervisorProject;
 		HashMap<Integer, Student> students;
 
 		System.out.println("Generating for 60 students...");
 		parser = new Parser(60);
 		supervisorProject = parser.generateStaffProjects();
 		students = parser.generateStudents();
-		writer.writeSupervisorProjects(supervisorProject, 60);
+		writer.writeProjects(supervisorProject, 60);
 		writer.writeStudents(students);
 		writer.writeAnalysis(parser);
 		System.out.println(parser.CSDSPercentage());
@@ -47,7 +43,7 @@ public class Generator {
 		parser = new Parser(120);
 		supervisorProject = parser.generateStaffProjects();
 		students = parser.generateStudents();
-		writer.writeSupervisorProjects(supervisorProject, 120);
+		writer.writeProjects(supervisorProject, 120);
 		writer.writeStudents(students);
 		writer.writeAnalysis(parser);
 		System.out.println(parser.CSDSPercentage());
@@ -57,7 +53,7 @@ public class Generator {
 		parser = new Parser(240);
 		supervisorProject = parser.generateStaffProjects();
 		students = parser.generateStudents();
-		writer.writeSupervisorProjects(supervisorProject, 240);
+		writer.writeProjects(supervisorProject, 240);
 		writer.writeStudents(students);
 		writer.writeAnalysis(parser);
 		System.out.println(parser.CSDSPercentage());
@@ -67,7 +63,7 @@ public class Generator {
 		parser = new Parser(500);
 		supervisorProject = parser.generateStaffProjects();
 		students = parser.generateStudents();
-		writer.writeSupervisorProjects(supervisorProject, 500);
+		writer.writeProjects(supervisorProject, 500);
 		writer.writeStudents(students);
 		writer.writeAnalysis(parser);
 		System.out.println(parser.CSDSPercentage());

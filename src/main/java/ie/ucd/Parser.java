@@ -13,13 +13,13 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import ie.ucd.objects.Staff;
+import ie.ucd.objects.StaffMember;
 import ie.ucd.objects.Student;
-import ie.ucd.objects.SupervisorProject;
+import ie.ucd.objects.Project;
 
 public class Parser {
-	public ArrayList<Staff> allStaffsProjects = new ArrayList<Staff>();
-	public ArrayList<SupervisorProject> someStaffsProjects = new ArrayList<SupervisorProject>();
+	public ArrayList<StaffMember> allStaffsProjects = new ArrayList<StaffMember>();
+	public ArrayList<Project> someStaffsProjects = new ArrayList<Project>();
 	public ArrayList<String> allNames = new ArrayList<String>();
 	HashMap<Integer, Student> studentMap = new HashMap<Integer, Student>();
 	public int numberOfStudents;
@@ -36,7 +36,7 @@ public class Parser {
 		this.numberOfStudents = numberOfStudents;
 	}
 
-	public ArrayList<SupervisorProject> generateStaffProjects() throws IOException {
+	public ArrayList<Project> generateStaffProjects() throws IOException {
 		parseExcelFile();
 
 		int numStaffMembers = numberOfStudents / 2;
@@ -46,7 +46,7 @@ public class Parser {
 				randInt = new Random().nextInt(allStaffsProjects.size());
 			}
 
-			someStaffsProjects.add(allStaffsProjects.get(randInt).getSupervisorProject());
+			someStaffsProjects.add(allStaffsProjects.get(randInt).getProject());
 		}
 
 		return someStaffsProjects;
@@ -54,7 +54,7 @@ public class Parser {
 
 	// 30, 60, 120, 250 staffs.
 	// https://stackoverflow.com/questions/51259388/read-data-from-excel-in-java
-	private ArrayList<Staff> parseExcelFile() throws IOException {
+	private ArrayList<StaffMember> parseExcelFile() throws IOException {
 		String excelFile = "MiskatonicStaffMembers.xlsx";
 
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(excelFile);
@@ -72,7 +72,7 @@ public class Parser {
 			String specialFocus = row.getCell(3) == null ? "" : row.getCell(3).getStringCellValue();
 
 			if (!researchActivity.equals("")) {
-				allStaffsProjects.add(new Staff(proposedBy, researchActivity, researchAreas, specialFocus));
+				allStaffsProjects.add(new StaffMember(proposedBy, researchActivity, researchAreas, specialFocus));
 			}
 		}
 		is.close();
@@ -122,20 +122,20 @@ public class Parser {
 		return new Random().nextInt(90000000) + 10000000; // 1000 0000 - 9999 9999.
 	}
 
-	private ArrayList<SupervisorProject> generatePreferenceList(String stream) {
-		ArrayList<SupervisorProject> list = new ArrayList<SupervisorProject>();
+	private ArrayList<Project> generatePreferenceList(String stream) {
+		ArrayList<Project> list = new ArrayList<Project>();
 		HashSet<Integer> usedIndex = new HashSet<Integer>();
 
 		// assuming impossible to run out of projects to give as 1st preference since someStaffsProjects.size() always > numOfStudents.
 		for (int i = 0; i < 10;) {
 			int randomIndex = new Random().nextInt(someStaffsProjects.size());
-			SupervisorProject aSP = someStaffsProjects.get(randomIndex);
+			Project aSP = someStaffsProjects.get(randomIndex);
 			if (!usedIndex.contains(randomIndex) && aSP.hasCompatibleStream(stream) && aSP.doesStudentPreferProject()
-					&& (i != 0 || (!aSP.isGivenAs1stPreference && i == 0))) {
+					&& (i != 0 || (!aSP.getIsGivenAs1stPreference() && i == 0))) {
 				aSP.incrementStudentsAssigned();
 				if (i == 0) {
 					aSP.incrementTimesAs1stPreference();
-					aSP.isGivenAs1stPreference = true;
+					aSP.setIsGivenAs1stPreference(true);
 				}
 
 				usedIndex.add(randomIndex);
@@ -167,18 +167,18 @@ public class Parser {
 
 	public String ProjectDistributionPercentage() {
 		String res = "\n\nPercentage project distribution:\n";
-		for (SupervisorProject sp : someStaffsProjects) {
-			res += sp.researchActivity + " - " + sp.specialFocus + " - " + sp.preferredProbability + " - "
-					+ formatPercentage(sp.numStudentsAssigned / totalProjectsAssigned * 100) + "\n";
+		for (Project project : someStaffsProjects) {
+			res += project.getResearchActivity() + " - " + project.getStream() + " - " + project.getPreferredProbability()
+					+ " - " + formatPercentage(project.getNumStudentsAssigned() / totalProjectsAssigned * 100) + "\n";
 		}
 		return res;
 	}
 
 	public String Project1stPreferencePercentage() {
 		String res = "\n\nPercentage project as 1st Preference:\n";
-		for (SupervisorProject sp : someStaffsProjects) {
-			res += sp.researchActivity + " - " + sp.specialFocus + " - " + sp.preferredProbability + " - "
-					+ formatPercentage(sp.numTimesAsStudents1stPreference / numberOfStudents * 100) + "\n";
+		for (Project project : someStaffsProjects) {
+			res += project.getResearchActivity() + " - " + project.getStream() + " - " + project.getPreferredProbability()
+					+ " - " + formatPercentage(project.getNumTimesAsStudents1stPreference() / numberOfStudents * 100) + "\n";
 		}
 		return res;
 	}

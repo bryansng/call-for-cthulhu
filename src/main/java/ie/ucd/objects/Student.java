@@ -7,10 +7,9 @@ public class Student {
 	public String lastName;
 	public Integer id;
 	public String stream; // CS or DS.
-	public ArrayList<SupervisorProject> preferenceList;
+	public ArrayList<Project> preferenceList;
 
-	public Student(String firstName, String lastName, Integer id, String stream,
-			ArrayList<SupervisorProject> preferenceList) {
+	public Student(String firstName, String lastName, Integer id, String stream, ArrayList<Project> preferenceList) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.id = id;
@@ -23,8 +22,8 @@ public class Student {
 
 		String projects = "";
 		int count = 0;
-		for (SupervisorProject sp : preferenceList) {
-			projects += sp.researchActivity;
+		for (Project project : preferenceList) {
+			projects += project.getResearchActivity();
 			count++;
 
 			if (count < preferenceList.size()) {
@@ -33,5 +32,45 @@ public class Student {
 		}
 
 		return firstName + " " + lastName + buf + id + buf + stream + buf + projects;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public String getStream() {
+		return stream;
+	}
+
+	public ArrayList<Project> getPreferenceList() {
+		return preferenceList;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setStream(String stream) {
+		this.stream = stream;
+	}
+
+	public void setPreferenceList(ArrayList<Project> preferenceList) {
+		this.preferenceList = preferenceList;
 	}
 }

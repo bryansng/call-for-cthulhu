@@ -15,14 +15,13 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import ie.ucd.objects.Student;
-import ie.ucd.objects.SupervisorProject;
+import ie.ucd.objects.Project;
 
-public class Writer {
-	public Writer() {
+public class ExcelWriter {
+	public ExcelWriter() {
 	}
 
-	public void writeSupervisorProjects(ArrayList<SupervisorProject> staffs, int numOfStudents)
-			throws IOException, InvalidFormatException {
+	public void writeProjects(ArrayList<Project> projects, int numOfStudents) throws IOException, InvalidFormatException {
 		String[] columns = { "Staff Name", "Research Activity", "Stream" };
 
 		// Create a Workbook
@@ -53,12 +52,12 @@ public class Writer {
 
 		// Create Other rows and cells with employees data
 		int rowNum = 1;
-		for (SupervisorProject sp : staffs) {
+		for (Project project : projects) {
 			Row row = sheet.createRow(rowNum++);
 
-			row.createCell(0).setCellValue(sp.proposedBy);
-			row.createCell(1).setCellValue(sp.researchActivity);
-			row.createCell(2).setCellValue(sp.specialFocus);
+			row.createCell(0).setCellValue(project.getProposedBy());
+			row.createCell(1).setCellValue(project.getResearchActivity());
+			row.createCell(2).setCellValue(project.getStream());
 		}
 
 		// Resize all columns to fit the content size
@@ -119,7 +118,7 @@ public class Writer {
 			row.createCell(3).setCellValue(student.stream);
 
 			for (int i = 4, j = 0; i < 14; i++, j++) {
-				row.createCell(i).setCellValue(student.preferenceList.get(j).researchActivity);
+				row.createCell(i).setCellValue(student.preferenceList.get(j).getResearchActivity());
 			}
 		}
 
@@ -168,14 +167,14 @@ public class Writer {
 
 		// Create Other rows and cells with employees data
 		int rowNum = 1;
-		for (SupervisorProject sp : parser.someStaffsProjects) {
+		for (Project project : parser.someStaffsProjects) {
 			Row row = sheet.createRow(rowNum++);
 
-			row.createCell(0).setCellValue(sp.researchActivity);
-			row.createCell(1).setCellValue(sp.specialFocus);
-			row.createCell(2).setCellValue(sp.preferredProbability);
+			row.createCell(0).setCellValue(project.getResearchActivity());
+			row.createCell(1).setCellValue(project.getStream());
+			row.createCell(2).setCellValue(project.getPreferredProbability());
 			row.createCell(3)
-					.setCellValue(parser.formatPercentage(sp.numStudentsAssigned / parser.totalProjectsAssigned * 100));
+					.setCellValue(parser.formatPercentage(project.getNumStudentsAssigned() / parser.totalProjectsAssigned * 100));
 		}
 
 		// Resize all columns to fit the content size
