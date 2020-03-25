@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import ie.ucd.interfaces.StudentInterface;
 
 public class Student implements StudentInterface {
-	public String firstName;
-	public String lastName;
-	public Integer id;
-	public String stream; // CS or DS.
-	public Double gpa;
-	public ArrayList<Project> preferenceList;
+	private String firstName;
+	private String lastName;
+	private Integer id;
+	private String stream; // CS or DS.
+	private Double gpa;
+	private Project projectAssigned;
+	private ArrayList<Project> preferenceList;
 
 	public Student(String firstName, String lastName, Integer id, String stream, Double gpa,
 			ArrayList<Project> preferenceList) {
@@ -18,7 +19,14 @@ public class Student implements StudentInterface {
 		this.id = id;
 		this.stream = stream;
 		this.gpa = gpa;
+		this.projectAssigned = preferenceList.get(0);
 		this.preferenceList = preferenceList;
+	}
+
+	// in theory, if java stores by reference, their references should be the same, so can check via == if they memory location is the same.
+	public Boolean isGiven1stPreference() {
+		// return projectAssigned.equals(preferenceList.get(0));	// if use this, need to implement .equals() method in Project.java.
+		return projectAssigned == preferenceList.get(0);
 	}
 
 	public String toString() {
@@ -58,6 +66,10 @@ public class Student implements StudentInterface {
 		return gpa;
 	}
 
+	public Project getProjectAssigned() {
+		return projectAssigned;
+	}
+
 	public ArrayList<Project> getPreferenceList() {
 		return preferenceList;
 	}
@@ -80,6 +92,10 @@ public class Student implements StudentInterface {
 
 	public void setGPA(Double gpa) {
 		this.gpa = gpa;
+	}
+
+	public void setProjectAssigned(Project projectAssigned) {
+		this.projectAssigned = projectAssigned;
 	}
 
 	public void setPreferenceList(ArrayList<Project> preferenceList) {

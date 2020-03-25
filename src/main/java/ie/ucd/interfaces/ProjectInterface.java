@@ -15,7 +15,7 @@ public interface ProjectInterface {
 
 	public String getStream();
 
-	public Boolean getIsGivenAs1stPreference();
+	public Boolean isGivenAs1stPreference();
 
 	public Double getPreferredProbability();
 

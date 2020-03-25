@@ -60,7 +60,7 @@ public class Project implements ProjectInterface {
 		return stream;
 	}
 
-	public Boolean getIsGivenAs1stPreference() {
+	public Boolean isGivenAs1stPreference() {
 		return isGivenAs1stPreference;
 	}
 

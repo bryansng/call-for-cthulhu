@@ -112,13 +112,13 @@ public class ExcelWriter {
 		for (Student student : studentsArray) {
 			Row row = sheet.createRow(rowNum++);
 
-			row.createCell(0).setCellValue(student.firstName);
-			row.createCell(1).setCellValue(student.lastName);
-			row.createCell(2).setCellValue(student.id);
-			row.createCell(3).setCellValue(student.stream);
+			row.createCell(0).setCellValue(student.getFirstName());
+			row.createCell(1).setCellValue(student.getLastName());
+			row.createCell(2).setCellValue(student.getId());
+			row.createCell(3).setCellValue(student.getStream());
 
 			for (int i = 4, j = 0; i < 14; i++, j++) {
-				row.createCell(i).setCellValue(student.preferenceList.get(j).getResearchActivity());
+				row.createCell(i).setCellValue(student.getPreferenceList().get(j).getResearchActivity());
 			}
 		}
 

@@ -129,17 +129,17 @@ public class Parser {
 		// assuming impossible to run out of projects to give as 1st preference since someStaffsProjects.size() always > numOfStudents.
 		for (int i = 0; i < 10;) {
 			int randomIndex = new Random().nextInt(someStaffsProjects.size());
-			Project aSP = someStaffsProjects.get(randomIndex);
-			if (!usedIndex.contains(randomIndex) && aSP.hasCompatibleStream(stream) && aSP.doesStudentPreferProject()
-					&& (i != 0 || (!aSP.getIsGivenAs1stPreference() && i == 0))) {
-				aSP.incrementStudentsAssigned();
+			Project project = someStaffsProjects.get(randomIndex);
+			if (!usedIndex.contains(randomIndex) && project.hasCompatibleStream(stream) && project.doesStudentPreferProject()
+					&& (i != 0 || (!project.isGivenAs1stPreference() && i == 0))) {
+				project.incrementStudentsAssigned();
 				if (i == 0) {
-					aSP.incrementTimesAs1stPreference();
-					aSP.setIsGivenAs1stPreference(true);
+					project.incrementTimesAs1stPreference();
+					project.setIsGivenAs1stPreference(true);
 				}
 
 				usedIndex.add(randomIndex);
-				list.add(aSP);
+				list.add(project);
 				i++;
 				totalProjectsAssigned++;
 			}

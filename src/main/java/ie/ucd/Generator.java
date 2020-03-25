@@ -12,11 +12,12 @@ import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import ie.ucd.objects.Student;
+import ie.ucd.solvers.SimulatedAnnealing;
 import ie.ucd.objects.Project;
 
 public class Generator {
 	public static void main(String[] args) throws IOException, InvalidFormatException {
-		System.out.println("Hello World!");
+		System.out.println("Running application...");
 		generateRequiredFiles();
 
 		// playingNormalDistribution();
@@ -25,48 +26,49 @@ public class Generator {
 	public static void generateRequiredFiles() throws IOException, InvalidFormatException {
 		Parser parser;
 		ExcelWriter writer = new ExcelWriter();
-		ArrayList<Project> supervisorProject;
+		ArrayList<Project> projects;
 		HashMap<Integer, Student> students;
 
 		System.out.println("Generating for 60 students...");
 		parser = new Parser(60);
-		supervisorProject = parser.generateStaffProjects();
+		projects = parser.generateStaffProjects();
 		students = parser.generateStudents();
-		writer.writeProjects(supervisorProject, 60);
+		writer.writeProjects(projects, 60);
 		writer.writeStudents(students);
 		writer.writeAnalysis(parser);
 		System.out.println(parser.CSDSPercentage());
+		new SimulatedAnnealing(projects, students);
 		// System.out.println(parser.ProjectDistributionPercentage());
 		// System.out.println(parser.Project1stPreferencePercentage());
 
-		System.out.println("Generating for 120 students...");
-		parser = new Parser(120);
-		supervisorProject = parser.generateStaffProjects();
-		students = parser.generateStudents();
-		writer.writeProjects(supervisorProject, 120);
-		writer.writeStudents(students);
-		writer.writeAnalysis(parser);
-		System.out.println(parser.CSDSPercentage());
-		// System.out.println(parser.ProjectDistributionPercentage());
+		// System.out.println("Generating for 120 students...");
+		// parser = new Parser(120);
+		// projects = parser.generateStaffProjects();
+		// students = parser.generateStudents();
+		// writer.writeProjects(projects, 120);
+		// writer.writeStudents(students);
+		// writer.writeAnalysis(parser);
+		// System.out.println(parser.CSDSPercentage());
+		// // System.out.println(parser.ProjectDistributionPercentage());
 
-		System.out.println("Generating for 240 students...");
-		parser = new Parser(240);
-		supervisorProject = parser.generateStaffProjects();
-		students = parser.generateStudents();
-		writer.writeProjects(supervisorProject, 240);
-		writer.writeStudents(students);
-		writer.writeAnalysis(parser);
-		System.out.println(parser.CSDSPercentage());
-		// System.out.println(parser.ProjectDistributionPercentage());
+		// System.out.println("Generating for 240 students...");
+		// parser = new Parser(240);
+		// projects = parser.generateStaffProjects();
+		// students = parser.generateStudents();
+		// writer.writeProjects(projects, 240);
+		// writer.writeStudents(students);
+		// writer.writeAnalysis(parser);
+		// System.out.println(parser.CSDSPercentage());
+		// // System.out.println(parser.ProjectDistributionPercentage());
 
-		System.out.println("Generating for 500 students...");
-		parser = new Parser(500);
-		supervisorProject = parser.generateStaffProjects();
-		students = parser.generateStudents();
-		writer.writeProjects(supervisorProject, 500);
-		writer.writeStudents(students);
-		writer.writeAnalysis(parser);
-		System.out.println(parser.CSDSPercentage());
+		// System.out.println("Generating for 500 students...");
+		// parser = new Parser(500);
+		// projects = parser.generateStaffProjects();
+		// students = parser.generateStudents();
+		// writer.writeProjects(projects, 500);
+		// writer.writeStudents(students);
+		// writer.writeAnalysis(parser);
+		// System.out.println(parser.CSDSPercentage());
 		// System.out.println(parser.ProjectDistributionPercentage());
 		System.out.println("All done");
 	}
