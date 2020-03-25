@@ -1,6 +1,6 @@
 package ie.ucd.objects;
 
-import ie.ucd.Settings;
+import ie.ucd.Common;
 import ie.ucd.interfaces.ProjectInterface;
 
 public class Project implements ProjectInterface {
@@ -28,7 +28,7 @@ public class Project implements ProjectInterface {
 	}
 
 	public Boolean doesStudentPreferProject() {
-		double randomProb = Settings.getMin() + (Settings.getRange() * Settings.rand.nextDouble());
+		double randomProb = Common.getMin() + (Common.getRange() * Common.rand.nextDouble());
 		if (randomProb <= preferredProbability) {
 			return true;
 		}

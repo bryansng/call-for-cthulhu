@@ -40,7 +40,7 @@ public class Parser {
 		parseExcelFile();
 
 		int numStaffMembers = numberOfStudents / 2;
-		for (int i = 0; i < Settings.numAvgProjectsProposed * numStaffMembers; i++) {
+		for (int i = 0; i < Common.numAvgProjectsProposed * numStaffMembers; i++) {
 			int randInt = new Random().nextInt(allStaffsProjects.size());
 			while (allStaffsProjects.get(randInt).isAllActivitiesUsed()) {
 				randInt = new Random().nextInt(allStaffsProjects.size());
@@ -113,7 +113,7 @@ public class Parser {
 				randomId = generateStudentId();
 			}
 			String stream = generateStudentStream();
-			studentMap.put(randomId, new Student(firstName, lastName, randomId, stream, generatePreferenceList(stream)));
+			studentMap.put(randomId, new Student(firstName, lastName, randomId, stream, 0.0, generatePreferenceList(stream)));
 		}
 		return studentMap;
 	}

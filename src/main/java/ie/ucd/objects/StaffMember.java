@@ -1,7 +1,7 @@
 package ie.ucd.objects;
 
 import java.util.Random;
-import ie.ucd.Settings;
+import ie.ucd.Common;
 import ie.ucd.interfaces.StaffMemberInterface;
 
 public class StaffMember implements StaffMemberInterface {
@@ -34,7 +34,7 @@ public class StaffMember implements StaffMemberInterface {
 	}
 
 	public Project getProject() {
-		return new Project(proposedBy, getRandomUnusedResearchActivity(), stream, Settings.getProbability());
+		return new Project(proposedBy, getRandomUnusedResearchActivity(), stream, Common.getProbability());
 	}
 
 	// need check if isAllActivitiesUsed, if not, this will loop indefinitely.

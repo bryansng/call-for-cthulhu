@@ -8,13 +8,16 @@ public class Student implements StudentInterface {
 	public String lastName;
 	public Integer id;
 	public String stream; // CS or DS.
+	public Double gpa;
 	public ArrayList<Project> preferenceList;
 
-	public Student(String firstName, String lastName, Integer id, String stream, ArrayList<Project> preferenceList) {
+	public Student(String firstName, String lastName, Integer id, String stream, Double gpa,
+			ArrayList<Project> preferenceList) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.id = id;
 		this.stream = stream;
+		this.gpa = gpa;
 		this.preferenceList = preferenceList;
 	}
 
@@ -51,6 +54,10 @@ public class Student implements StudentInterface {
 		return stream;
 	}
 
+	public Double getGPA() {
+		return gpa;
+	}
+
 	public ArrayList<Project> getPreferenceList() {
 		return preferenceList;
 	}
@@ -69,6 +76,10 @@ public class Student implements StudentInterface {
 
 	public void setStream(String stream) {
 		this.stream = stream;
+	}
+
+	public void setGPA(Double gpa) {
+		this.gpa = gpa;
 	}
 
 	public void setPreferenceList(ArrayList<Project> preferenceList) {
