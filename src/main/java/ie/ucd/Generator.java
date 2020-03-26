@@ -15,9 +15,10 @@ import ie.ucd.objects.Student;
 import ie.ucd.objects.Project;
 
 public class Generator {
-	public static void main(String[] args) throws IOException, InvalidFormatException {
+	public static void main(String[] args) throws Exception {
 		System.out.println("Hello World!");
 		generateRequiredFiles();
+		readRequiredFiles();
 
 		// playingNormalDistribution();
 	}
@@ -82,6 +83,17 @@ public class Generator {
 		csvFileWriter.writeAnalysis(parser);
 		// System.out.println(parser.ProjectDistributionPercentage());
 		System.out.println("All done");
+	}
+
+	public static void readRequiredFiles() throws Exception {
+		CSVFileReader reader = new CSVFileReader();
+
+		//reads ProjectsCSV60.csv into projects
+		ArrayList<Project> projects = reader.readProject("ProjectsCSV60.csv");
+//		for (Project project : projects) System.out.println(project.toString());
+		//readers StudentsCSV60.csv into students
+		ArrayList<Student> students = reader.readStudents("StudentsCSV60.csv", projects);
+//		for(Student student : students) System.out.println(student.toString());
 	}
 
 	public static void playingNormalDistribution() {

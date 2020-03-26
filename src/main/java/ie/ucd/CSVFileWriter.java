@@ -16,7 +16,7 @@ public class CSVFileWriter {
     String newLine = "\n";
 
     public void writeProjects(ArrayList<Project> projects, int numOfStudents) throws IOException {
-        final String[] columns = {"Staff Name", "Research Activity", "Stream"};
+        final String[] columns = {"Staff Name", "Research Activity", "Stream", "Preferred Probability"};
         try {
             //create file
             File file = new File("ProjectsCSV" + numOfStudents + ".csv");
@@ -24,11 +24,11 @@ public class CSVFileWriter {
             //create writer
             FileWriter fileWriter = new FileWriter(file);
             //write header
-            fileWriter.write(columns[0] + separator + columns[1] + separator + columns[2] + newLine);
+            fileWriter.write(columns[0] + separator + columns[1] + separator + columns[2] + separator + columns[3] + newLine);
             //write the details
             for (Project project : projects) {
                 fileWriter.write(project.getProposedBy() + separator + project.getResearchActivity()
-                        + separator + project.getStream() + newLine);
+                        + separator + project.getStream() + separator + project.getPreferredProbability() + newLine);
             }
             //close writer
             fileWriter.flush();
@@ -99,7 +99,8 @@ public class CSVFileWriter {
             //write the details
             for (Project project : parser.someStaffsProjects) {
                 String analysis = parser.formatPercentage(project.getNumStudentsAssigned() / parser.totalProjectsAssigned * 100);
-                line = project.getResearchActivity() + separator + project.getStream() + separator + project.getPreferredProbability() + separator + analysis + newLine;
+                line = project.getResearchActivity() + separator + project.getStream() + separator
+                        + project.getPreferredProbability() + separator + analysis + newLine;
                 fileWriter.write(line);
             }
             //close writer
