@@ -54,7 +54,7 @@ public class Parser {
 
 	// 30, 60, 120, 250 staffs.
 	// https://stackoverflow.com/questions/51259388/read-data-from-excel-in-java
-	private ArrayList<StaffMember> parseExcelFile() throws IOException {
+	public ArrayList<StaffMember> parseExcelFile() throws IOException {
 		String excelFile = "MiskatonicStaffMembers.xlsx";
 
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(excelFile);

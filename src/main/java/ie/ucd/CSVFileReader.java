@@ -5,6 +5,7 @@ import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import ie.ucd.objects.Project;
+import ie.ucd.objects.StaffMember;
 import ie.ucd.objects.Student;
 
 import java.io.FileReader;
@@ -79,6 +80,30 @@ public class CSVFileReader {
             students.add(new Student(line[0], line[1], Integer.parseInt(line[2]), line[3], thisStudentsProjects));
         }
         return students;
+    }
+
+    public ArrayList<StaffMember> readStaffMembers(String filename) throws IOException {
+        CSVReader csvReader = null;
+        ArrayList<StaffMember> staffMembers = new ArrayList<StaffMember>();
+        String[] line;
+        try {
+            csvReader = new CSVReader(new FileReader(filename));
+        } catch (Exception e) {
+            System.out.println("error creating reader for input file: " + filename);
+        }
+
+        int flag = 0;
+        assert csvReader != null;
+        while ((line = csvReader.readNext()) != null) {
+            if (flag == 0) {
+                flag = 1;
+                continue;
+            }
+            String researchActivities = line[1].replaceAll(";", ",");
+            String researchAreas = line[2].replaceAll(";", ",");
+            staffMembers.add(new StaffMember(line[0], researchActivities, researchAreas, line[3]));
+        }
+        return staffMembers;
     }
 }
 

@@ -50,7 +50,10 @@ public class StaffMember {
 
 	public String toString() {
 		String buf = " - ";
-		return researchActivities + buf + stream;
+		String string = proposedBy + buf;
+		for (String researchActivity : researchActivities) string += researchActivity + buf;
+		string += stream;
+		return string;
 	}
 
 	public String getProposedBy() {

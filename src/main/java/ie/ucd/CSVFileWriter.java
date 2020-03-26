@@ -3,6 +3,7 @@ package ie.ucd;
 import java.io.*;
 
 import ie.ucd.objects.Project;
+import ie.ucd.objects.StaffMember;
 import ie.ucd.objects.Student;
 
 import java.io.FileWriter;
@@ -86,7 +87,7 @@ public class CSVFileWriter {
     }
 
     public void writeAnalysis(Parser parser) throws IOException {
-        String[] columns = {"Research Activity", "Stream", "PDF", "Percentage Distribution"};
+        String[] columns = {"Research Activity", "Stream", "Preferred Percentage", "Percentage Distribution"};
         String line = "";
         try {
             //create file
@@ -108,6 +109,60 @@ public class CSVFileWriter {
             fileWriter.close();
         } catch (Exception e) {
             System.out.println("I/O error in CSVFileWriter.writeAnalysis");
+        }
+    }
+
+    public void writeStaffMembers(ArrayList<StaffMember> staffMembers) {
+        String[] columns = {"Staff Member", "Research Activity", "Research Area", "Special Focus"};
+        String line = "";
+        try {
+            //create file
+            File file = new File("StaffMembersCSV.csv");
+            file.createNewFile();
+            //create writer
+            FileWriter fileWriter = new FileWriter(file);
+            //write header
+            fileWriter.write(columns[0] + separator + columns[1] + separator + columns[2] + separator + columns[3] + newLine);
+            //write the details
+            int skipFirst = 0;
+            for (StaffMember staffMember : staffMembers) {
+                if (skipFirst == 0) {
+                    skipFirst++;
+                    continue;
+                }
+                String[] researchActivities = staffMember.getResearchActivities();
+                String[] researchAreas = staffMember.getResearchAreas();
+
+                //build row to write to file
+                line = staffMember.getProposedBy() + separator;
+                int flag = 0;
+                for (String researchActivity : researchActivities) {
+                    if (flag == researchActivities.length - 1) {
+                        line += researchActivity + separator;
+                    } else {
+                        line += researchActivity + ";";
+                        flag++;
+                    }
+                }
+                flag = 0;
+                for (String researchArea : researchAreas) {
+                    if (flag == researchAreas.length - 1) {
+                        line += researchArea + separator;
+                    } else {
+                        line += researchArea + ";";
+                        flag++;
+                    }
+                }
+                line += staffMember.getStream() + newLine;
+
+                //write line to file
+                fileWriter.write(line);
+            }
+            //close writer
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (Exception e) {
+            System.out.println("I/O error in CSVFileWriter.writeStaffMembers");
         }
     }
 }

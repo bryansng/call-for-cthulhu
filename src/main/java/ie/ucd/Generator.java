@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 
+import ie.ucd.objects.StaffMember;
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -82,6 +83,11 @@ public class Generator {
 		csvFileWriter.writeStudents(students);
 		csvFileWriter.writeAnalysis(parser);
 		// System.out.println(parser.ProjectDistributionPercentage());
+
+		//generate staffMembers
+		System.out.println("Generating StaffMembers.csv");
+		ArrayList<StaffMember> staffMembers = parser.parseExcelFile();
+		csvFileWriter.writeStaffMembers(staffMembers);
 		System.out.println("All done\n");
 	}
 
@@ -112,6 +118,11 @@ public class Generator {
 		System.out.println("Done: StudentsCSV500.csv");
 
 //		for (Student student : students_500) System.out.println(student.toString());
+
+		//read staffMembers from CSV file
+		ArrayList<StaffMember> staffMembers = reader.readStaffMembers("StaffMembersCSV.csv");
+
+//		for(StaffMember staffMember : staffMembers) System.out.println(staffMember.toString());
 	}
 
 	public static void playingNormalDistribution() {
