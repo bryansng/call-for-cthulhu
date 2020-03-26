@@ -93,31 +93,38 @@ public class Student implements StudentInterface {
 		return preferenceList;
 	}
 
-	public void setFirstName(String firstName) {
+	public Student setFirstName(String firstName) {
 		this.firstName = firstName;
+		return this;
 	}
 
-	public void setLastName(String lastName) {
+	public Student setLastName(String lastName) {
 		this.lastName = lastName;
+		return this;
 	}
 
-	public void setId(Integer id) {
+	public Student setId(Integer id) {
 		this.id = id;
+		return this;
 	}
 
-	public void setStream(String stream) {
+	public Student setStream(String stream) {
 		this.stream = stream;
+		return this;
 	}
 
-	public void setGPA(Double gpa) {
+	public Student setGPA(Double gpa) {
 		this.gpa = gpa;
+		return this;
 	}
 
-	public void setProjectsAssigned(ArrayList<Project> projects) {
+	public Student setProjectsAssigned(ArrayList<Project> projects) {
 		this.projects = projects;
+		return this;
 	}
 
-	public void setPreferenceList(ArrayList<Project> preferenceList) {
+	public Student setPreferenceList(ArrayList<Project> preferenceList) {
 		this.preferenceList = preferenceList;
+		return this;
 	}
 }

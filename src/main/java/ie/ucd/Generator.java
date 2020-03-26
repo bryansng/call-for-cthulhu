@@ -17,7 +17,7 @@ import ie.ucd.objects.Project;
 
 public class Generator {
 	public static void main(String[] args) throws IOException, InvalidFormatException {
-		System.out.println("Running application...");
+		System.out.println("Running application...\n");
 		generateRequiredFiles();
 
 		// playingNormalDistribution();
@@ -33,11 +33,11 @@ public class Generator {
 		parser = new Parser(60);
 		projects = parser.generateStaffProjects();
 		students = parser.generateStudents();
-		writer.writeProjects(projects, 60);
-		writer.writeStudents(students);
-		writer.writeAnalysis(parser);
+		// writer.writeProjects(projects, 60);
+		// writer.writeStudents(students);
+		// writer.writeAnalysis(parser);
 		System.out.println(parser.CSDSPercentage());
-		new SimulatedAnnealing(projects, students);
+		new SimulatedAnnealing(projects, students).run();
 		// System.out.println(parser.ProjectDistributionPercentage());
 		// System.out.println(parser.Project1stPreferencePercentage());
 
