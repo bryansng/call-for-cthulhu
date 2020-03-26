@@ -82,18 +82,36 @@ public class Generator {
 		csvFileWriter.writeStudents(students);
 		csvFileWriter.writeAnalysis(parser);
 		// System.out.println(parser.ProjectDistributionPercentage());
-		System.out.println("All done");
+		System.out.println("All done\n");
 	}
 
 	public static void readRequiredFiles() throws Exception {
 		CSVFileReader reader = new CSVFileReader();
+		System.out.println("Reading the generated files now...");
 
-		//reads ProjectsCSV60.csv into projects
-		ArrayList<Project> projects = reader.readProject("ProjectsCSV60.csv");
-//		for (Project project : projects) System.out.println(project.toString());
-		//readers StudentsCSV60.csv into students
-		ArrayList<Student> students = reader.readStudents("StudentsCSV60.csv", projects);
-//		for(Student student : students) System.out.println(student.toString());
+		//reads all Project CSV files
+		ArrayList<Project> projects_60 = reader.readProject("ProjectsCSV60.csv");
+		System.out.println("Done: ProjectsCSV60.csv");
+		ArrayList<Project> projects_120 = reader.readProject("ProjectsCSV120.csv");
+		System.out.println("Done: ProjectsCSV120.csv");
+		ArrayList<Project> projects_240 = reader.readProject("ProjectsCSV240.csv");
+		System.out.println("Done: ProjectsCSV240.csv");
+		ArrayList<Project> projects_500 = reader.readProject("ProjectsCSV500.csv");
+		System.out.println("Done: ProjectsCSV500.csv");
+
+//		for (Project project_60 : projects) System.out.println(project.toString());
+
+		//reads Students from CSV files
+		ArrayList<Student> students_60 = reader.readStudents("StudentsCSV60.csv", projects_60);
+		System.out.println("Done: StudentsCSV60.csv");
+		ArrayList<Student> students_120 = reader.readStudents("StudentsCSV120.csv", projects_120);
+		System.out.println("Done: StudentsCSV120.csv");
+		ArrayList<Student> students_240 = reader.readStudents("StudentsCSV240.csv", projects_240);
+		System.out.println("Done: StudentsCSV240.csv");
+		ArrayList<Student> students_500 = reader.readStudents("StudentsCSV500.csv", projects_500);
+		System.out.println("Done: StudentsCSV500.csv");
+
+//		for (Student student : students_500) System.out.println(student.toString());
 	}
 
 	public static void playingNormalDistribution() {

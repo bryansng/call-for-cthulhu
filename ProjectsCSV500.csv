@@ -1,751 +1,751 @@
 Staff Name,Research Activity,Stream,Preferred Probability
-Hugh Grant,starring in romantic comedies,CS+DS,0.10860831858735825
-Cameron Diaz,starring in romantic comedies,CS+DS,0.12341209617661655
-Philip Marlowe,solving mysteries,DS,0.29650341042073913
-Michael Bay,directing robot movies,CS+DS,0.35227598167745156
-Norman Rockwell,painting magazine covers,CS+DS,0.3983341515431075
-Niles Crane,nurturing sibling rivalry,DS,0.3894605285056936
-Osama Bin Laden,recruiting disaffected youths,CS,0.32740749095474725
-Michael Bay,directing action movies,CS+DS,0.39893175013956383
-Albert Einstein,revolutionizing physics,CS+DS,0.28743914639001655
-Ernst Stavro Blofeld,devising evil schemes,DS,0.39889172375087506
-Walt Whitman,writing modern poetry,CS,0.26646524735463584
-Conchita Wurst,singing pop songs,CS+DS,0.3210099002938834
-Fox Mulder,investigating alien abductions,DS,0.37824675400651364
-Truman Capote,coining sparkling witticisms,CS,0.39801557822880834
-Mr. Bean,causing mayhem,DS,0.3856631366747168
-Alfred Nobel,promoting pacifism,CS+DS,0.10861271371299708
-Nelson Mandela,fighting for democracy,CS+DS,0.16167747575025387
-Reince Priebus,promoting conservative values,CS,0.37652426116551774
-Stephen Hawking,studying science,CS+DS,0.3568860177284048
-Jason Bourne,eluding capture,DS,0.19779909130716808
-Galileo Galilei,promoting Heliocentrism,CS+DS,0.2502137415432604
-Hugh Jackman,starring in Hollywood movies,CS,0.36058916456675627
-Samuel Johnson,creating dictionaries,CS+DS,0.2805878682538764
-Huckleberry Finn,growing up poor,DS,0.39894218947555143
-Tom Cruise,starring in Hollywood movies,CS,0.028774673650727407
-Larry King,interviewing politicians,CS,0.3052109026014738
-Martha Stewart,cooking dinners,CS+DS,0.311013610384132
-Charlemagne,running an empire,CS,0.14784356947753974
-Tom Brady,signing sports memorabilia,CS,0.3985303574748057
-Popeye,foiling the schemes of evil villains,DS,0.3454914548096033
-Joan Rivers,insulting celebrities,CS+DS,0.37980610581115015
-Richie Rich,squandering money,DS,0.24545454679570852
-Tupac Shakur,singing Hipbop songs,CS+DS,0.18932755832042544
-Tess Durbeyfield,climbing social ladders,DS,0.32130660799593563
-George Bernard Shaw,writing plays,CS,0.21118309674744873
-Robbie Williams,singing pop songs,CS,0.39289098424684266
-General Zod,striving for world domination,DS,0.12747042689226232
-Fox Mulder,postulating bizarre theories,DS,0.16937634207573493
-Elizabeth Taylor,racking up marriages,CS+DS,0.23913692507326423
-John Belushi,starring in madcap comedies,CS+DS,0.15506392634321917
-Rocky Balboa,knocking out opponents,DS,0.3983956298137863
-Kellyanne Conway,offering advice,CS+DS,0.3528310336334726
-Aristotle,teaching the next generation,CS+DS,0.3836588928615834
-Commissioner James Gordon,arresting criminals,DS,0.3826460530779469
-Courtney Love,playing grungy music,CS,0.3978533887367785
-Bridget Jones,reading Cosmopolitan,DS,0.2855525915470171
-Buzz Aldrin,piloting a spaceship,CS+DS,0.1714852928024685
-Sigmund Freud,probing the mind,CS+DS,0.23868152281218907
-Dana Scully,explaining away the unexplained,DS,0.3962191773432997
-Cicero,giving speeches,CS,0.1500424997338154
-Croesus,ruining an empire,CS+DS,0.31710941838953133
-Eric Cartman,executing morally appalling plans,DS,0.07771875757312728
-Morpheus,recruiting dissidents,DS,0.24208119868278372
-Oprah Winfrey,interviewing politicians,CS+DS,0.11882499647590594
-James Dean,racing fast cars,CS,0.39345000614604986
-Joseph Goebbels,promoting totalitarianism,CS+DS,0.21232647428202234
-Don King,promoting boxing fights,CS,0.26091476418857346
-Mark Zuckerberg,hanging out on Facebook,CS,0.3830584288333053
-Karen Carpenter,losing weight,CS,0.3463809405082286
-Rick Deckard,retiring replicants,DS,0.29531885893972765
-Jimmy Carter,campaigning for world peace,CS+DS,0.3887847609118302
-JD Salinger,eluding the public gaze,CS,0.3892725808154701
-Don Draper,creating adverts,DS,0.39612301816279394
-Willy Wonka,running a business empire,DS,0.394249564990233
-Sun Tzu,developing military strategies,CS,0.18609919087029334
-Kent Brockman,reading the news,DS,0.29546520887404887
-LeBron James,making dunk shots,CS+DS,0.39531340575426543
-Groucho Marx,starring in madcap comedies,CS,0.28365434943300605
-H.P. Lovecraft,writing horror stories,CS,0.38370235153305016
-George Michael,writing pop songs,CS+DS,0.39787951628315815
-LeBron James,playing basketball,CS+DS,0.14645214953636426
-Sigmund Freud,analyzing the sub-conscious,CS+DS,0.3322473868563546
-Nick Fury,running a clandestine spy organization,DS,0.3440968754326279
-Brian Griffin,promoting liberal values,DS,0.2234605379994586
-Barney Gumble,belching,DS,0.3632806097870299
-Eddie Murphy,starring in action movies,CS,0.27319924557219105
-Barack Obama,giving speeches,CS+DS,0.10296004639475967
-William Shakespeare,writing plays,CS,0.28873897042487895
-Frank Columbo,solving crimes,DS,0.37990237427649803
-Anne Boleyn,climbing social ladders,CS+DS,0.39242768678493195
-Meghan Markle,racking up marriages,CS+DS,0.18542738065880893
-Heath Ledger,starring in Hollywood movies,CS+DS,0.33507539818384785
-Tim Burton,making bizarre movies,CS,0.23073736753565796
-Winston Churchill,fighting for democracy,CS+DS,0.38698032446762737
-Charlemagne,consolidating an empire,CS,0.3656265744494673
-Malcolm X,fighting for civil rights,CS,0.3883707076944818
-Leni Riefenstahl,promoting totalitarianism,CS+DS,0.3842706414145278
-James Franco,starring in Hollywood movies,CS+DS,0.3539852157031794
-Rachel Green,getting a nose job,DS,0.3426221495848989
-Moses,leading an exodus,CS+DS,0.04732586179226927
-Harvey Milk,campaigning for social causes,CS+DS,0.11136331386550255
-Angelina Jolie,adopting children,CS+DS,0.3180897245457852
-Jack Kerouac,writing beat fiction,CS,0.3823790781678684
-Tony Soprano,running a crime family,DS,0.18449635924913754
-G. Gordon Liddy,bugging political rivals,CS+DS,0.355306100429571
-Kal El,reporting the news,DS,0.16462859499851878
-Don Quixote,going on romantic quests,DS,0.18252180868886875
-Flash Gordon,fighting for justice,DS,0.39726246768810114
-Liz Lemon,writing TV comedies,DS,0.38822447486821926
-Liz Lemon,writing comedy,DS,0.3060761278890548
-Ellen Ripley,hunting aliens,DS,0.049682095802156614
-Christian Bale,wearing a batsuit,CS,0.39084690024973917
-Sauron,building an army,DS,0.369401615207704
-Alan Turing,studying computability,CS+DS,0.1381398249409576
-Coriolanus Snow,running an empire,DS,0.13214523924294103
-George Washington,fighting for liberty,CS+DS,0.3962305193231242
-Jay Leno,doing stand-up,CS+DS,0.11145659902642527
-Andrew Lloyd Webber,making insipid musicals,CS+DS,0.3824721025823321
-Robert Langdon,following clues,DS,0.31597369341689857
-Jackson Pollock,dripping paint onto canvas,CS,0.3696105607692602
-Sarah Palin,ranting about liberals,CS+DS,0.29484369595293347
-Quasimodo,carving magnificent statues,DS,0.29831222923740164
-Jayne Mansfield,starring in Hollywood movies,CS+DS,0.3959500804376762
-David Hasselhoff,constructing an ironic public image,CS,0.39800391528819906
-Mao Tse-tung,wielding political power,CS+DS,0.37862212226481873
-Woody Guthrie,campaigning for environmental causes,CS,0.3907862319892704
-Joaquin Phoenix,starring in action movies,CS,0.3844968771194377
-Han Solo,doing the Kessel run,DS,0.3938074226417901
-Bill Cosby,telling affable jokes,CS+DS,0.36392298424648606
-John Keats,writing romantic poetry,CS,0.39151782112900196
-Tom Jones,recording pop songs,CS+DS,0.3541831391205279
-Tom Jones,crooning love songs,CS+DS,0.1591539273772587
-Rupert Murdoch,publishing newspapers,CS+DS,0.2713013303464367
-Alan Sugar,selling consumer goods,CS+DS,0.3988500056097572
-Yosemite Sam,losing control,DS,0.39731446825948163
-Ernest Hemingway,writing about manly pursuits,CS,0.34352707199425825
-Doctor Stephen Strange,casting magic spells,DS,0.3724187178080674
-Julia Roberts,starring in Hollywood movies,CS,0.16495827304642371
-P. T. Barnum,promoting circus attractions,CS,0.0466191078333029
-Principal Seymour Skinner,disciplining students,DS,0.021229026463707328
-Judge Judy Sheindlin,delivering judgments,CS+DS,0.3899517995705862
-Joseph McCarthy,promoting democracy,CS,0.37354865132297277
-Ashton Kutcher,starring in sit-coms,CS,0.20343390395623903
-George W. Bush,launching foreign wars,CS+DS,0.21690470739784293
-Mike  Pence,promoting conservative values,CS+DS,0.3914941753680903
-Allan Quatermain,exploring darkest Africa,DS,0.38547850861070126
-Norman Rockwell,painting folksy pictures,CS+DS,0.39482855207597106
-Dirty Harry Callahan,punishing criminals,DS,0.3011849501613077
-Jimmy Cagney,playing tough guys,CS+DS,0.39481979278225854
-George Costanza,complaining about life,DS,0.033823429586056136
-Neil Armstrong,going for a spacewalk,CS,0.20890926110761385
-Johnny Carson,hosting a late night chat show,CS+DS,0.3898454860334112
-Adam Sandler,making dumb comedies,CS,0.24263313286113605
-Dave Lee Roth,singing rock songs,CS+DS,0.07152404039253743
-Adrian Monk,solving mysteries,DS,0.32280090888163016
-Marcel Duchamp,reusing readymades,CS,0.08920581921233933
-Wilkins Micawber,incurring debts,DS,0.25194436976508283
-Rupert Murdoch,running a media empire,CS+DS,0.20815374015918034
-Garth Brooks,singing country music,CS,0.2517167130459155
-Zac Efron,starring in Hollywood movies,CS+DS,0.26472571700280706
-Keith Richards,playing rock music,CS+DS,0.381078186452237
-Miles Davis,playing jazz saxophone,CS,0.22836468380105848
-Marie Curie,extracting Radium from pitchblend,CS,0.3981944339626879
-Dirty Harry Callahan,solving crimes,DS,0.24703335519859124
-Jack The Ripper,terrorizing prostitutes,CS+DS,0.12403033441270826
-Polonius,offering bad advice,DS,0.3050802456709066
-Tim Berners-Lee,promoting the Web,CS+DS,0.16013419668712472
-Sarah Palin,promoting conservative values,CS+DS,0.35019395878491133
-Oscar Wilde,coining sparkling witticisms,CS,0.25739724357340615
-Principal Seymour Skinner,looking after mother,DS,0.24131228121476236
-Modesty Blaise,pulling capers,DS,0.2639810146151302
-Alan Turing,cracking enemy codes,CS+DS,0.09091146117573991
-Larry Flynt,running gentleman's clubs,CS+DS,0.38924448192881284
-Paris Hilton,making unauthorized sex tapes,CS+DS,0.18984353248301045
-Kim Jong-Il,issuing threats,CS,0.17446102504318703
-Lord Byron,scandalizing polite society,CS,0.3122710942466617
-Jesse Pinkman,cooking chrystal meth,DS,0.3969595017424087
-Kevin Bacon,forming new social connections,CS+DS,0.10483922670371974
-Edith Piaf,singing melancholy songs,CS,0.35195655691542527
-Johann Sebastian Bach,playing the organ,CS,0.23266691758236283
-Sheldon Cooper,studying science,DS,0.31158462795178155
-Francis Bacon,painting dark pictures,CS,0.25490282708938783
-John Travolta,playing camp villains,CS+DS,0.3958364421171787
-Frank Sinatra,starring in romantic comedies,CS,0.2618327508763321
-Winston Churchill,fighting against totalitarianism,CS+DS,0.3956995366333204
-Eddie Murphy,starring in comedies,CS,0.05424348917032619
-The Scarlet Pimpernel,rescuing aristocrats,DS,0.394313900464103
-Sideshow Bob,providing comic relief,DS,0.03260950785510912
-James Joyce,writing modern fiction,CS,0.10868986574694439
-Buddy Holly,writing pop songs,CS,0.16877727396708114
-Eminem,writing rap songs,CS+DS,0.39837708506396224
-Marilyn Monroe,starring in Hollywood movies,CS+DS,0.35943817988764326
-Jimi Hendrix,writing rock songs,CS,0.3101640415310523
-Salvador Dali,creating optical illusions,CS+DS,0.15074305262085871
-Caitlyn Jenner,campaigning for social causes,CS+DS,0.38730569372963874
-Sinead O'Connor,singing pop songs,CS+DS,0.39365561180971526
-Fidel Castro,running a dictatorship,CS+DS,0.08322894232359243
-Robert Mueller,chasing criminals,CS,0.02128709221005848
-Sammy Davis Jr.,singing pop songs,CS,0.10386182007292256
-Bill Clinton,chasing interns,CS,0.39820222113900944
-Merlin,performing magic tricks,DS,0.2684387724766889
-Monsieur Hulot,causing mayhem,DS,0.3415100643274073
-Marc Jacobs,designing clothes,CS,0.2824384319753265
-Eddie Van Halen,playing rock guitar,CS+DS,0.33893143085717276
-Nicolas Sarkozy,partying on yachts,CS,0.27030362600063873
-Jay Leno,hosting a late night chat show,CS+DS,0.36844843294940305
-Naomi Campbell,peacocking in fancy clothes,CS,0.17558782444797857
-King Solomon,running a kingdom,CS+DS,0.3137038263263263
-Queen Elizabeth I,ruling over subjects,CS+DS,0.2636564284652935
-Imelda Marcos,collecting shoes,CS,0.38693530526537023
-Florence Nightingale,treating the injured,CS,0.07385318966471789
-Uriah Heap,making patronising comments,DS,0.3835384806307781
-Christopher Columbus,exploring the new world,CS,0.3773668070816413
-Le Chiffre,devising evil schemes,DS,0.19445372551344653
-Jeremy Clarkson,insulting minorities,CS,0.3634259351483394
-Noël Coward,writing plays,CS+DS,0.39571749802024564
-Simone de Beauvoir,promoting feminism,CS,0.010399639871890232
-Steven Spielberg,producing Hollywood movies,CS+DS,0.29361324191828264
-Marlene Dietrich,starring in Hollywood movies,CS,0.3930335908097029
-Chewbacca,fighting for the rebel alliance,DS,0.2933816797329508
-Coriolanus Snow,crushing dissent,DS,0.10993141695791574
-Edward Hopper,painting melancholy pictures,CS,0.19745081934724446
-William Shakespeare,writing sonnets,CS,0.1331409440748775
-Bill Gates,pushing dodgy operating systems,CS+DS,0.34776949763059306
-Seth MacFarlane,making vulgar cartoons,CS,0.25348269075408464
-Voltaire,promoting enlightenment,CS,0.36287258130690875
-Stevie Wonder,writing pop songs,CS,0.27894535866909936
-Arthur Conan Doyle,writing mystery stories,CS,0.15711305422547311
-Optimus Prime,fighting decepticons,DS,0.24068425049742445
-Peter Rabbit,eating carrots,DS,0.17515211465464248
-Jerry Maguire,promoting greed,DS,0.09628299125510252
-Jared Kushner,running a business empire,CS+DS,0.15774295788977025
-Clark Kent,reporting for The Daily Planet,DS,0.394476608843629
-Bart Simpson,playing pranks,DS,0.3705049286362563
-Barry White,singing romantic songs,CS,0.3735173897803238
-Ringo Starr,singing pop songs,CS+DS,0.1418623706994018
-Dr. Greg House,interpreting evidence,DS,0.38908095510071655
-Harriet Tubman,fighting for civil rights,CS+DS,0.398924348877884
-Ryan Reynolds,making dumb comedies,CS,0.10583855334297801
-Sam Winchester,killing demons,DS,0.032700698589504855
-Mikhail Gorbachev,coasting on past glories,CS+DS,0.35019102480213354
-Charles Atlas,bodybuilding,CS+DS,0.3983568645626963
-Queen Elizabeth I,running a kingdom,CS+DS,0.2148136701411313
-Fidel Castro,promoting socialism,CS+DS,0.19601827266633146
-Jeffrey Lebowski,going bowling,DS,0.3860842232837575
-Whitney Houston,singing pop songs,CS,0.31472861007483227
-Larry Flynt,publishing soft pornography,CS+DS,0.28415348799106516
-Megyn Kelly,promoting conservative values,CS,0.3636481230323657
-Wolverine,punishing criminals,DS,0.3866547415592441
-George Orwell,writing political tracts,CS+DS,0.3571241527510864
-Lord Byron,seducing women,CS,0.39875515546803847
-Beatrix Potter,drawing whimsical cartoons,CS,0.07524840816855216
-Sarah Palin,making political gaffes,CS+DS,0.13946565664748264
-Bridget Jones,looking for love,DS,0.33210856432977987
-Carrie Bradshaw,gossiping with galpals,DS,0.30827589736627947
-Mel Gibson,making antisemitic remarks,CS+DS,0.3982512263522725
-Ozzy Osbourne,singing rock songs,CS+DS,0.39791687154582245
-George Bernard Shaw,promoting liberalism,CS,0.39825691440991295
-Howard Stern,hosting radio shows,CS,0.3973980090431589
-Otto von Bismarck,wielding political power,CS+DS,0.2601735803642248
-Kylie Minogue,writing pop songs,CS+DS,0.2903311086263206
-Morrissey,writing pop songs,CS,0.3974096869990082
-Wernher von Braun,building rocket ships,CS,0.3169629509508504
-Buddy Holly,singing pop songs,CS,0.2551783746011619
-Donald Rumsfeld,writing hawkish memos,CS+DS,0.23500378669136143
-Ray Kroc,selling fast food,CS,0.19746194666813513
-Ryan Reynolds,starring in Hollywood movies,CS,0.1408165094489844
-Lionel Hutz,losing court cases,DS,0.37595570556214597
-John Maynard Keynes,studying economics,CS+DS,0.38355291377933276
-Pinocchio,playing poker badly,DS,0.34545345129461746
-Darth Maul,promoting the Dark Side,DS,0.3416992054957479
-Gordon Ramsay,cursing at kitchen staff,CS+DS,0.02059982325650039
-David Caruso,pouting on camera,CS,0.31171605736017965
-Adam Smith,promoting capitalism,CS,0.27194757390500673
-Tom Waits,writing blues songs,CS,0.2714200806423482
-Kevin Smith,selling comic books,CS+DS,0.3886590098800993
-Clark Gable,starring in Hollywood movies,CS+DS,0.28737715296311833
-Becky Sharp,climbing social ladders,DS,0.08255037179646625
-Arya Stark,seeking revenge,DS,0.39881969671762296
-Phoebe Buffay,singing goofy songs,DS,0.3920473894674937
-Leonardo Da Vinci,developing new technologies,CS+DS,0.3553373260115125
-Raymond Chandler,writing detective fiction,CS,0.2886270758613136
-William the Conqueror,fighting with swords,CS,0.08795568622360667
-Jeremy Paxman,posing pointed questions,CS+DS,0.3226181024944943
-Clint Eastwood,directing movies,CS,0.0502899713187879
-Atticus Finch,representing the disenfranchised,DS,0.33970161866700266
-William the Conqueror,leading armies into battle,CS,0.16751361640671464
-Harry Houdini,escaping from water tanks,CS,0.36915365664282646
-Madonna,promoting Kaballah,CS,0.38233676823928014
-Hans Gruber,organizing armed robberies,DS,0.27096697534538394
-Edna Krabappel,smoking during recess,DS,0.31643101547514246
-John Grisham,writing legal fiction,CS,0.31643690840772015
-Elmore Leonard,writing compelling dialogue,CS,0.3152001667265785
-H.P. Lovecraft,writing for pulp magazines,CS,0.09407718426969595
-Pythagoras,studying mathematics,CS,0.1339648891782253
-Richie Rich,enjoying money,DS,0.38577609432855237
-Dame Edna Everage,moaning about men,CS,0.3970583325209493
-Harry S. Truman,campaigning for the presidency,CS,0.16419659631690867
-Judy Garland,singing torch songs,CS,0.35676108621823094
-Don Draper,developing advertising campaigns,DS,0.34804954308624403
-Anton Chekov,writing plays about the middle classes,CS,0.10756776421083919
-Ferdinand Magellan,exploring the new world,CS,0.39140524743819854
-Fletcher Christian,plotting mutinies,CS+DS,0.23210306727105093
-Romeo Montague,fighting in duels,DS,0.29390821534200234
-Niccolò Machiavelli,developing cunning plans,CS+DS,0.35299833166229216
-Steve Ballmer,running a technology company,CS,0.22654293437600817
-Snake Plissken,organizing prison breaks,DS,0.3111043753780512
-Timothy McGee,hacking into computers,DS,0.25150074516928594
-Mr. Krabs,selling fast food,DS,0.22831113734691913
-Dana Scully,investigating alien abductions,DS,0.39893316868181483
-Lionel Hutz,repairing shoes,DS,0.37131607077979695
-JD Salinger,writing modern fiction,CS,0.2311866333294551
-Alan Greenspan,talking up the economy,CS,0.3538347873046419
-Lex Luthor,making money,DS,0.16419999080913875
-Nurse Ratched,terrorizing employees,DS,0.010126856322609174
-Stephen Jay Gould,collecting fossils,CS+DS,0.24209448103750678
-Helen of Troy,preparing for war,DS,0.34157395413656466
-Coriolanus Snow,running a bureaucracy,DS,0.32488424815135797
-George Clooney,starring in indy movies,CS,0.3801866025768264
-Leroy Jethro Gibbs,solving crimes,DS,0.39216565677307813
-Johann Sebastian Bach,composing classical music,CS,0.3973559380102932
-Ivanka Trump,running a business empire,CS+DS,0.3983226407268087
-Robert Langdon,studying symbols,DS,0.3903516102811013
-Mark Zuckerberg,changing privacy settings,CS,0.3316952302050172
-Bruce Wayne,attending cocktail parties,DS,0.34263985474142133
-Alfred Hitchcock,making suspense movies,CS,0.08556406715747292
-Alan Partridge,hosting radio shows,DS,0.11312538185346967
-Doc Emmett Brown,pioneering new technologies,DS,0.3457160967946945
-Joaquin Phoenix,starring in indy movies,CS,0.29213235343419447
-Mother Teresa,promoting Catholic values,CS,0.31339102117625783
-Jesse Jackson,suing large corporations,CS+DS,0.07877815410992461
-Jar Jar Binks,providing comic relief,DS,0.3970381050947303
-Doctor Stephen Strange,studying magic tricks,DS,0.017204189341189103
-Kylie Minogue,singing pop songs,CS+DS,0.34517821208368193
-Michelangelo,painting church ceilings,CS,0.1014257063420355
-Ayn Rand,ranting about liberals,CS,0.3776927414655475
-Tom Jones,singing pop songs,CS+DS,0.3078499168567909
-Davy Crockett,defending freedom,CS,0.24240832239153806
-Bertie Wooster,chasing flappers,DS,0.3965051930901371
-C-3PO,complaining about everything,DS,0.33881683946421237
-Rocket Raccoon,guarding the galaxy,DS,0.3697377800961204
-Forrest Gump,fishing for shrimps,DS,0.22061670721030274
-Wayne Rooney,playing soccer,CS,0.3945513141570793
-Buffy Summers,hunting monsters,DS,0.36890041590780254
-Lord Macbeth,grabbing power,DS,0.3852184885119796
-David Blaine,performing magic tricks,CS+DS,0.2327335382995982
-Ronald McDonald,flipping hamburgers,DS,0.2383669806110321
-Walter Mitty,dreaming the day away,DS,0.3594236605186474
-Troy McClure,appearing in infomercials,DS,0.3426896642924414
-Snake Plissken,going on commando missions,DS,0.39753701626769766
-Luke Skywalker,rescuing damsels in distress,DS,0.37579655672620266
-Lisa Simpson,over-achieving at school,DS,0.28631964447787467
-Ferdinand Magellan,searching for a new world,CS,0.33261780997203405
-Condoleezza Rice,advising on foreign affairs,CS+DS,0.18359028039280662
-Sherlock Holmes,finding clues,DS,0.2746928907839249
-Tom Hanks,starring in Hollywood movies,CS,0.3943370910092269
-Jay Z,producing Hipbop records,CS+DS,0.35517537764997864
-Sophocles,writing plays,CS,0.33687941497661894
-Colonel Sanders,selling fried chicken,CS,0.3781147196706712
-Jerry Seinfeld,starring in sit-coms,CS,0.3686605821875316
-Deadpool,foiling the schemes of evil villains,DS,0.34336315392322053
-Kobe Bryant,making dunk shots,CS,0.3783443051149122
-Al Capone,selling illegal alcohol,CS+DS,0.3605824850323947
-James Bond,foiling the schemes of evil villains,DS,0.24544936840304632
-George Michael,singing pop songs,CS+DS,0.3225722537655944
-David Caruso,starring in TV shows,CS,0.39591971355266475
-Tiger Woods,winning golf tournaments,CS,0.3676102839095523
-Morpheus,searching for the messiah,DS,0.0334387494642277
-Mickey Mouse,starring in animated movies,DS,0.15410504253911664
-Billy Bob Thornton,playing intense characters,CS+DS,0.31029310416200034
-Santa Claus,delivering presents,DS,0.3209208941938239
-Hedda Gabler,frowning at errant husbands,DS,0.3824455224523087
-Winston Churchill,promoting democracy,CS+DS,0.35187383777876763
-Gore Vidal,writing historical fiction,CS,0.3610439836502785
-Violet Baudelaire,inventing electrical marvels,DS,0.2003222985714777
-Homer Simpson,avoiding work,DS,0.307969172631082
-Julia Child,writing cook books,CS,0.3467041743255759
-Kurt Cobain,playing grungy music,CS+DS,0.17467408689790145
-Captain William Bligh,barking orders at subordinates,CS,0.12707335352973537
-Bobby Fischer,playing aggressive chess,CS+DS,0.0158955080800446
-Beetlejuice,laughing maniacally,DS,0.2398442538364234
-Freddie Mercury,singing pop songs,CS+DS,0.31991528770288546
-Fletcher Christian,expressing dissent,CS+DS,0.23528752456585975
-Dirty Harry Callahan,preventing crime,DS,0.09410644895026292
-Steve Bannon,promoting conservative values,CS+DS,0.22855715819364592
-Leon Trotsky,promoting communism,CS,0.304340991999899
-Travis Bickle,talking to mirrors,DS,0.39569183476877645
-Doctor Stephen Strange,performing magic tricks,DS,0.05533626638389845
-Sylvester Stallone,making action movies,CS,0.2686480367837336
-Bill Gates,making billions,CS+DS,0.3846324149183197
-Ernst Stavro Blofeld,running a clandestine spy organization,DS,0.3570572443850427
-Jason Bourne,killing people in ingenious ways,DS,0.33022248741950017
-Bridget Jones,keeping a diary,DS,0.39833524111271923
-Daniel Day-Lewis,winning Oscars,CS,0.3737857801372967
-Confucius,teaching philosophy,CS+DS,0.36525959154369936
-Hamlet,avenging loved ones,DS,0.3898045387637808
-Chuck Norris,starring in action movies,CS+DS,0.39462570614498005
-Paul McCartney,singing pop songs,CS+DS,0.2933645591359445
-Saddam Hussein,attacking neighbors,CS+DS,0.38512208363019196
-Borat,making documentaries,DS,0.30376968184955805
-Antonio Vivaldi,composing classical music,CS+DS,0.14276034012305172
-Pope Francis,promoting Catholic values,CS,0.3109296325829642
-Jackie Chan,starring in comedies,CS,0.35485493398155454
-Sappho,writing poetry,CS+DS,0.39843182746765504
-Mae West,making lewd remarks,CS,0.3928785381311926
-Merlin,teaching magic,DS,0.026660321858043273
-Sarah Connor,amassing weapons,DS,0.20966880261656617
-Nigella Lawson,cooking dinners,CS+DS,0.12873143235513765
-Jason Bourne,eluding the CIA,DS,0.30358376658300606
-Violet Baudelaire,pioneering new technologies,DS,0.12153316275879031
-Wayne Gretzky,playing ice hockey,CS,0.3854947118288758
-Reginald Jeeves,rescuing aristocrats,DS,0.34864942943154775
-Benjamin Franklin,testing scientific theories,CS,0.23303605777368033
-Hunter S. Thompson,writing about manly pursuits,CS+DS,0.3902832123245955
-Helen of Troy,worrying about adultery,DS,0.39818343762335556
-Luke Skywalker,fighting for the rebel alliance,DS,0.29915741835935966
-Brian Wilson,singing multipart harmonies,CS,0.3906579829583215
-Bob Woodward,reporting the news,CS,0.1721368480211846
-Patch Adams,treating the sick with jokes,CS+DS,0.14941075214053243
-Emperor Constantine,running an empire,CS+DS,0.39629923425030805
-Kurt Cobain,moaning about life,CS+DS,0.04983906183734886
-E.T.,phoning home,DS,0.39893111469294823
-Robbie Williams,writing pop songs,CS,0.3384601911166718
-Leni Riefenstahl,making propagandistic movies,CS+DS,0.39839694061138853
-Thomas "Neo" Anderson,bending spoons,DS,0.09640359207771479
-Bart Simpson,making prank calls,DS,0.360604209680696
-Richard Dawkins,promoting science,CS,0.37817181193638894
-Rainier Luftwaffe Wolfcastle,making action movies,DS,0.18842708148196707
-Evel Knievel,performing motorcycle stunts,CS,0.06678604444556535
-Joan Crawford,starring in Hollywood movies,CS+DS,0.12350058411217306
-Thomas Jefferson,campaigning for democracy,CS,0.33285204381160644
-Emmeline Pankhurst ,campaigning for social causes,CS,0.19983858987832331
-Ed Wood,making bad movies,CS+DS,0.16474688610753802
-Sergey Brin,building a search engine,CS,0.3975409426375454
-J. Edgar Hoover,running the FBI,CS+DS,0.23874719466883354
-George Clooney,womanizing,CS,0.30418478108376173
-Hillary Clinton,tolerating adultery,CS,0.3656081582200015
-Bertie Wooster,doing the Charleston,DS,0.09440171475395773
-Deadpool,undermining authority,DS,0.3465003878384823
-Jerry Lewis,doing slapstick comedy,CS+DS,0.39853980548695606
-Enrico Caruso,singing opera arias,CS,0.39084140932407074
-Johnny Cash,singing country music,CS,0.3915913840550127
-Thomas Aquinas,spreading philosophy,CS,0.2897925539457365
-Kate Moss,selling cosmetics,CS,0.3318327698557029
-Joe Louis,winning boxing matches,CS,0.12260395162224726
-Larry Page,running a tech giant,CS,0.391582427642395
-Elon Musk,pioneering new technologies,CS,0.37034980703128006
-Mark Twain,writing folksy fiction,CS,0.12619320377220478
-Jor El,making escape plans,DS,0.14086309288099105
-Madeleine Albright,fighting for democracy,CS+DS,0.39063290037706005
-Kenny G,playing the saxophone,CS+DS,0.29547145097595534
-Karl Rove,ranting about liberals,CS+DS,0.38026538072311666
-Eddy Merckx,pedalling furiously,CS+DS,0.0633143376141917
-Michael Phelps,winning gold medals,CS,0.39374104261777654
-Walter Mitty,escaping from reality,DS,0.288967283531595
-Oliver Cromwell,leading revolts,CS+DS,0.3478733185164376
-Bob Belcher,flipping hamburgers,DS,0.28007935434136927
-Roseanne Barr,ranting about liberals,CS,0.2846547778897571
-Victor Meldrew,complaining about everything,DS,0.21158122958121808
-Pope Benedict XVI,ranting about liberals,CS+DS,0.3484130701495562
-Sideshow Bob,developing cunning plans,DS,0.09319123773542316
-John F. Kennedy,chasing starlets,CS+DS,0.3851685913678136
-George Soros,making billions,CS+DS,0.30588495341605104
-Paris Hilton,monetizing celebrity status,CS+DS,0.34816885698367206
-Rocky Balboa,winning boxing matches,DS,0.35037459284853206
-C-3PO,eluding imperial storm-troopers,DS,0.07737049284752705
-Colin Farrell,making unauthorized sex tapes,CS,0.3180765884833313
-Steve Martin,performing stand-up,CS+DS,0.3788529053632079
-Alexander Fleming,studying science,CS+DS,0.2511944560523309
-Winston Churchill,coining sparkling witticisms,CS+DS,0.39475165666841844
-Spartacus,fighting with swords,DS,0.2705795993205228
-Charles Atlas,working out,CS+DS,0.10492776956148268
-Groot,guarding the galaxy,DS,0.39735664254162417
-Edna Krabappel,looking for love,DS,0.21649218011362478
-Ron Burgundy,maintaining salon-quality hair,DS,0.3859448361359679
-Leon Trotsky,spreading revolution,CS,0.27973795191591444
-Thomas Aquinas,teaching philosophy,CS,0.39348508405820387
-Mahatma Gandhi,promoting pacifism,CS+DS,0.29864869166855834
-Mahatma Gandhi,promoting vegetarianism,CS+DS,0.3836168913762626
-George Foreman,knocking out opponents,CS+DS,0.32640801936257335
-Abraham Lincoln,fighting for civil rights,CS,0.14363141068160898
-Tracy Jordan,starring in comedies,DS,0.27132491331828057
-Eleanor Roosevelt,campaigning for social causes,CS+DS,0.26089082966456467
-Obi-wan Kenobi,fighting for the resistance,DS,0.3429321601414009
-Harvey Weinstein,chasing after women,CS,0.3414482270094656
-Jim Carrey,gurning for the camera,CS+DS,0.3331208556075339
-Lando Calrissian,fighting for the rebel alliance,DS,0.38800329467386696
-Mickey Rourke,getting plastic surgery,CS+DS,0.39585871561592656
-Plato,teaching philosophy,CS,0.3072414725358627
-James Brown,writing blues songs,CS,0.21352743550956846
-Matt Drudge,promoting conservative values,CS+DS,0.1288424378793633
-Mariah Carey,singing Hipbop songs,CS+DS,0.3526121768352641
-Robin Williams,telling zany jokes,CS+DS,0.20254332039723416
-Euclid,proving math theorems,CS+DS,0.21494544694282003
-Gustavo Fring,deep-frying chicken,DS,0.392969402684007
-Peter Parker,maintaining a secret identity,DS,0.3728236197816155
-Ricky Martin,enjoying salsa dancing,CS,0.39374131411334873
-Roseanne Barr,making vulgar jokes,CS,0.09528957848377802
-Katniss Everdeen,instigating rebellion,DS,0.23635042312907295
-Professor James Moriarty,amassing ill-gotten wealth,DS,0.3349869662480822
-Frida Kahlo,painting colorful pictures,CS+DS,0.1280897658789651
-Peter Parker,studying science,DS,0.39015222772944885
-Tony Montana,running a crime family,DS,0.36136827775228814
-Barbie,promoting hair products,DS,0.28325128615524475
-Hans Moleman,getting run over by cars,DS,0.012790049544468555
-Jeff Koons,making modern art,CS,0.31716104185739835
-Charlie Parker,playing jazz saxophone,CS+DS,0.26161484362671683
-Jean-Paul Sartre,chain-smoking Gauloises Bleues,CS,0.22124628436821925
-Al Pacino,shouting in Hollywood movies,CS,0.32407738218147764
-Jean-Paul Sartre,popping amphetamines,CS,0.36899038465081235
-Jeremy Clarkson,test-driving cars,CS,0.3181776368398167
-Oprah Winfrey,interviewing celebrities,CS+DS,0.30078121761005144
-Peter Jackson,making fantasy movies,CS+DS,0.09501936057201939
-Emily Dickinson,writing poetry,CS+DS,0.2646535062341698
-Dante Alighieri,writing poetry,CS+DS,0.04283053000599868
-Miss Jane Marple,solving mysteries,DS,0.33442493391853784
-Conan the Barbarian,defending the weak,DS,0.17679957807125754
-Dorian Gray,avoiding growing old,DS,0.3263659188529616
-Wilbur Wright,promoting new technologies,CS+DS,0.2612093857041995
-John McCain,campaigning for the presidency,CS,0.32213224391087036
-Sylvester Stallone,starring in action movies,CS,0.26845376346727223
-Howard Stern,shocking radio listeners,CS,0.20716426750678857
-Scarlett O'Hara,attending cotillion balls,DS,0.397559968089655
-James Comey,ordering wire-taps,CS+DS,0.39582257039870006
-Captain Ahab,commanding a whaling ship,DS,0.3928400227980976
-Sarah Silverman,doing stand-up,CS+DS,0.13540468881382522
-Jane Austen,writing romantic fiction,CS+DS,0.2763511125795145
-Steve Guttenberg,making dumb comedies,CS+DS,0.12760237283131853
-Christian Bale,starring in action movies,CS,0.3184831106461454
-J.R.R. Tolkein,making fantasy movies,CS+DS,0.30718876202104495
-Holly Golightly,climbing social ladders,DS,0.1387579293560831
-Darth Maul,duelling acrobatically,DS,0.3435951282123074
-Elmore Leonard,writing crime stories,CS,0.3786880064838717
-Frank Lloyd Wright,designing modern buildings,CS,0.39417066754299296
-Doctor Stephen Strange,teaching magic,DS,0.38788830376079614
-Janis Joplin,singing rock songs,CS+DS,0.3787017441142865
-Colonel Kurtz,instilling fear in the enemy,DS,0.368457702601082
-Lex Luthor,launching hostile takeovers,DS,0.3266096155674945
-Usain Bolt,competing in the Olympics,CS,0.3482326851934993
-Chewbacca,doing the Kessel run,DS,0.2629922113617578
-Spider-Man,pursuing criminals,DS,0.3980151371233396
-Leonard Hofstadter,promoting science,DS,0.39582640419291787
-The Joker,laughing maniacally,DS,0.39827524820410415
-Indiana Jones,looking for hidden treasures,DS,0.1773016199565443
-Pippi Longstocking,playing pranks,DS,0.28654976142043576
-Mark Fuhrman,planting evidence,CS+DS,0.37703844362525973
-Lenny Bruce,doing stand-up,CS,0.3985867981598795
-Simon Cowell,manipulating ingenues,CS,0.3896011353694779
-Richard B. Riddick,evading mercenaries,DS,0.23011832847335062
-Ray Charles,singing the blues,CS+DS,0.17589402842557159
-Howard Hughes,building airplanes,CS,0.3608788289781632
-Lord Percy Percy,providing comic relief,DS,0.16540616594292265
-Edward Cullen,sucking blood,DS,0.3946410601163413
-Henry Kissinger,brokering peace deals,CS,0.13392035520694534
-Frank Capra,making idealistic movies,CS,0.16960287927629397
-Wesley Crusher,studying science,DS,0.3983701780206821
-Sean Connery,starring in Hollywood movies,CS+DS,0.2866375975107045
-Michael Phelps,winning swimming competitions,CS,0.29563901809615684
-Florence Nightingale,treating the sick,CS,0.20406738872313845
-Robert Mueller,interpreting evidence,CS,0.23923672118438546
-Joseph Smith,searching for the messiah,CS,0.15676149538352757
-Christopher Hitchens,ranting about politics,CS,0.38346436786188104
-Carl Sagan,studying the cosmos,CS,0.3987072094040436
-Robert Mueller,interviewing politicians,CS,0.07021378804689438
-Professor Hans Zarkov,building rocket ships,DS,0.3970614146458528
-Barney Gumble,driving under the influence,DS,0.22505912171448073
-Groundskeeper Willie MacDougal,cleaning floors,DS,0.15770095665063838
-Carl Bernstein,reporting the news,CS+DS,0.14621433590663496
-Ben Affleck,avoiding paparazzi,CS,0.2529831075001386
-Woody Allen,playing the clarinet,CS+DS,0.35600843246601926
-Theodore Roosevelt,campaigning for environmental causes,CS+DS,0.3700486049615704
-Don Vito Corleone,running an empire,DS,0.37536633378400797
-Joseph McCarthy,fighting for democracy,CS,0.1306121126722651
-Elizabeth Taylor,starring in Hollywood movies,CS+DS,0.23613001435806083
-Stormy Daniels,starring in pornographic movies,CS+DS,0.39888649979088364
-Jim Morrison,writing rock songs,CS+DS,0.3788066848572065
-Truman Capote,writing short stories,CS,0.2273039112224115
-Billy Crystal,starring in comedies,CS,0.2415926626932082
-Robert De Niro,starring in Hollywood movies,CS+DS,0.20921603655413237
-Baron Munchausen,telling tall tales,DS,0.39764886451636544
-Professor James Moriarty,plotting criminal schemes,DS,0.015701040197196686
-Archie Bunker,ranting about liberals,DS,0.3822691223321431
-Frank Zappa,writing experimental songs,CS,0.3832697383475179
-Colonel Sanders,deep-frying chicken,CS,0.19554406437406835
-Red Sonja,defending the weak,DS,0.3432482504427917
-Buzz Aldrin,staring at the moon,CS+DS,0.3603467685156849
-Theodore Roosevelt,pushing anti-trust legislation,CS+DS,0.01254735451690736
-Mao Tse-tung,promoting communism,CS+DS,0.323733649521673
-Staff Member,Research Activity,CS,0.07860848196261484
-Norma Desmond,clinging to past dreams,DS,0.11982412405382385
-Tom Sawyer,solving mysteries,DS,0.3364137514927276
-René Descartes,teaching philosophy,CS+DS,0.32821907827858804
-Princess Leia Organa,leading the rebel alliance,DS,0.3733667040041874
-Charlie Harper,seducing young women,DS,0.17854354800558647
-Harry Houdini,escaping from handcuffs,CS,0.10556465668772529
-Jerry Seinfeld,doing stand-up,CS,0.21309286679239278
-Tina Turner,writing rock songs,CS+DS,0.3586640629951332
-Cristiano Ronaldo,playing soccer,CS+DS,0.3807588859415462
-Mr. Darcy,making condescending remarks,DS,0.36479235321920167
-Maleficent,poisoning an apple,DS,0.0802895540057772
-Rush Limbaugh,promoting conservative values,CS,0.37239847466319065
-Wolverine,slashing victims,DS,0.39771441664184687
-Jonathan Swift,writing political satires,CS,0.34390955812375973
-Ariel Sharon,building giant walls,CS+DS,0.2954737853172968
-Judas Iscariot,selling out,CS,0.2169732562741042
-Michael Jordan,making dunk shots,CS,0.185961319684251
-Grace Hopper,pioneering new technologies,CS+DS,0.2372968982407559
-Audrey Hepburn,starring in romantic comedies,CS,0.39876914346678594
-James Cook,exploring foreign countries,CS+DS,0.19545825373551418
-Stewie Griffin,inventing time machines,DS,0.37837287552216586
-Alec Baldwin,attacking paparazzi,CS,0.39593864481433094
-Jim Jones,organizing mass suicides,CS+DS,0.0684578991787415
-Christian Grey,seducing women,DS,0.04239905901499006
-Lenny Bruce,commenting on social issues,CS,0.25942538349828526
-Gianni Versace,pushing haute couture,CS,0.3853327191954801
-Montgomery Burns,amassing wealth,DS,0.3652162185643328
-Charlie Harper,dating young women,DS,0.28091579893734264
-Frasier Crane,offering advice,DS,0.3715445719576022
-Martin Luther King,promoting racial harmony,CS,0.258256768332382
-Joan Rivers,doing stand-up,CS+DS,0.02973779786183318
-Vladimir Putin,running an empire,CS+DS,0.39864726988743
-Marty McFly,playing rock guitar,DS,0.09687284588457692
-Charles Darwin,promoting Darwinism,CS,0.2796943981906885
-Selena Gomez,writing pop songs,CS+DS,0.1874766877989817
-Luis Suarez,biting opponents,CS,0.39894111777858354
-Robert E. Lee,developing military strategies,CS+DS,0.3942165465350966
-Gloria Steinem,moaning about men,CS+DS,0.2821822186546564
-Garry Kasparov,playing aggressive chess,CS,0.3944560362399812
-Errol Flynn,womanizing,CS+DS,0.36142840675267923
-Barack Obama,campaigning for the presidency,CS+DS,0.2599082656281455
-Bruce Springsteen,singing rock songs,CS+DS,0.3838350795256179
-Dean Martin,crooning love songs,CS+DS,0.39717898298677673
-Ted Cruz,promoting conservative values,CS,0.3916476911721149
-Bette Midler,over-acting,CS+DS,0.23966827289113832
-Chelsea Manning,leaking state secrets,CS,0.06470309548827316
-Gerard Manley Hopkins,writing modern poetry,CS+DS,0.27658178647649334
-Mel Brooks,writing funny movies,CS+DS,0.3806926660305332
-Weird Al Yankovic,parodying songs,CS,0.255672965359648
-Sean Connery,playing James Bond,CS+DS,0.14542933798127952
-Stanley Kowalski,moaning about women,DS,0.37115119221750326
-Daffy Duck,chasing rabbits,DS,0.39474422598527986
-Jimmy Stewart,starring in Hollywood movies,CS,0.36850189687413276
-Dolly Parton,singing country music,CS,0.38387231805953087
-Arnold Schwarzenegger,making action movies,CS,0.3923479594445374
-Captain William Bligh,cracking the whip,CS,0.131504421781035
-Roger Federer,winning tennis matches,CS,0.3488754878175444
-Popeye,promoting healthy eating,DS,0.1616401904608983
-Eric Clapton,singing blues songs,CS,0.0856262199989709
-René Descartes,spreading philosophy,CS+DS,0.3937244012320044
-Carl Von Clausewitz,developing military strategies,CS,0.028773936244359262
-Glenn Quagmire,chasing women,DS,0.38375413013998033
-Billy Crystal,doing stand-up,CS,0.1844628415802501
-Johnny Depp,starring in Hollywood movies,CS,0.3215077590340245
-Kenneth Parcell ,promoting conservative values,DS,0.2091672401000325
-Oscar Wilde,scandalizing polite society,CS,0.325121319961413
-Humphrey Bogart,starring in Hollywood movies,CS,0.3959441737700796
-Beyoncé,singing Hipbop songs,CS+DS,0.3306111618028702
-Travis Bickle,planning assassinations,DS,0.38501667383266047
-G. Gordon Liddy,pulling dirty political tricks,CS+DS,0.38996647086484576
-King Lear,going senile,DS,0.3561005307873444
-Christian Grey,running a multinational corporation,DS,0.050320505734256116
-Helen Keller,reading braille,CS+DS,0.18796886473767932
-John McCain,running for the senate,CS,0.37575485092600175
-Neville Chamberlain,appeasing belligerent dictators,CS,0.3963596794345907
-Eric Cartman,making racist jibes,DS,0.35468019744427126
-Jeffrey Lebowski,drinking White Russians,DS,0.32613612742531745
-William Randolph Hearst,telling politicians what to do,CS+DS,0.3756248198095102
-Errol Flynn,starring in Hollywood movies,CS+DS,0.22478252017007075
-Amy Winehouse,singing jazz songs,CS,0.1349707545062926
-Dorothy Parker,writing short stories,CS,0.3778833275783004
-Tyra Banks,modeling clothes,CS+DS,0.22965822252827495
-Annie Oakley,promoting circus attractions,CS+DS,0.1424571579940006
-Ayatollah Khomeini,issuing fatwas,CS+DS,0.3486721696363112
-Herodotus,recording history,CS,0.3730653814400024
-Johann von Goethe,writing poetry,CS+DS,0.3755038302675693
-Ringo Starr,writing pop songs,CS+DS,0.2953019746083033
-Eliot Ness,arresting bootleggers,CS,0.22749898466615281
-The HamBurglar,stealing hamburgers,DS,0.25906177764347005
-Nelson Mandela,promoting racial harmony,CS+DS,0.3762296000020473
-Eliot Ness,fighting with the mob,CS,0.36229702271097475
-Mary Poppins,looking after children,DS,0.06106367065456098
-Henry Miller,writing erotic fiction,CS+DS,0.39628301548890144
-Olive Oyl,doing the Charleston,DS,0.39479643269758435
-Sauron,devising evil schemes,DS,0.396445033690158
-Stevie Wonder,singing pop songs,CS,0.19879874861864627
-Robin Williams,making madcap comedies,CS+DS,0.006725252087979531
-Patch Adams,making sick people laugh,CS+DS,0.39272651541627246
-Ayn Rand,promoting Objectivism,CS,0.35453869574064445
-Bridget Jones,moaning about men,DS,0.36784276375939395
-Neil Armstrong,staring at the moon,CS,0.08722046749011475
-Chris Rock,cross-dressing in women's clothes,CS,0.3829088192933591
-Jason Voorhees,terrorizing sleepers,DS,0.2560199689680662
-Frank Sinatra,crooning love songs,CS,0.33291773782301887
-Sam Winchester,hunting monsters,DS,0.2926433248762292
-Morrissey,singing pop songs,CS,0.32043038873023305
-Rain Man,counting cards,DS,0.3847752225070359
-Aristotle,writing on wax tablets,CS+DS,0.3920094109825296
-Fred Astaire,enjoying ball-room dancing,CS+DS,0.37471782308267
-Lindsay Lohan,driving under the influence,CS,0.3727733035883983
-Newt Gingrich,promoting conservative values,CS,0.3528749098314844
-Bob Dylan,singing protest songs,CS+DS,0.35099813284187664
-Inspector Gadget,using gadgets,DS,0.21721632530546403
-Dorian Gray,gadding about town,DS,0.34171664997179213
-Robert Downey Jr.,making movies,CS,0.3735474335637708
-Warren Buffett,running a business empire,CS+DS,0.3159234857731305
-Winona Ryder,starring in Hollywood movies,CS,0.3247088232383254
-Sid Vicious,singing punk rock songs,CS,0.3911456385185553
-Gianni Versace,flaunting foppish fashions,CS,0.37864589956545713
-Lisa Simpson,playing the saxophone,DS,0.37175501675632927
-Buck Rogers,surviving in the 25th century,DS,0.028885451771140536
-J. Edgar Hoover,ordering wire-taps,CS+DS,0.13793620763373535
-Giacomo Casanova,chasing after women,CS+DS,0.2870919590343852
-Conchita Wurst,cross-dressing in women's clothes,CS+DS,0.3752127259193442
-Green Lantern,foiling the schemes of evil villains,DS,0.39653185140882075
-Ridley Scott,making fantasy movies,CS+DS,0.3988607870061769
-Clint Eastwood,starring in action movies,CS,0.3891884882258148
-Jimmy Cagney,starring in Hollywood movies,CS+DS,0.27568552116490813
-Stephen Colbert,ranting about liberals,CS,0.10959589970349973
-Woody Allen,worrying about health,CS+DS,0.19498932058674934
-Brian Wilson,waxing a surfboard,CS,0.3967643696006347
-Confucius,teaching the next generation,CS+DS,0.3372302995939888
-George Orwell,warning about totalitarianism,CS+DS,0.39778512253661147
-R2D2,fighting for the rebel alliance,DS,0.2906958084245561
-Amelia Earhart,breaking records,CS,0.35005782871826324
-Dominique Strauss-Kahn,planning orgies,CS+DS,0.38595469228446044
-Mr. Krabs,pinching pennies,DS,0.2178185924079111
-Billie Holiday,singing jazz songs,CS,0.3716057434841808
-Clarice Starling,hunting serial killers,DS,0.3743853724846047
-Janet Jackson,writing pop songs,CS+DS,0.24709372579582525
-Pete Sampras,winning tennis grand slams,CS,0.34413314464126665
-Princess Diana,posing for photographs,CS,0.3392724155266835
-Nicolas Cage,over-acting,CS,0.35825798929296054
-Merlin,brewing magican potions,DS,0.31168699239641856
-Shirley Temple,starring in Hollywood movies,CS,0.07700253738238966
-Roger Federer,winning tennis grand slams,CS,0.20060052528136318
-Robert Downey Jr.,making Superhero movies,CS,0.34860802344744835
-Svengali,manipulating ingenues,DS,0.15597407700476654
-Jerry Lee Lewis,marrying underage girls,CS+DS,0.27798415974156626
-Eddy Merckx,winning cycling races,CS+DS,0.3509865337173823
-Peter Griffin,making silly decisions,DS,0.2667430131341178
-Voltaire,promoting liberal values,CS,0.2866154071681101
-Sheldon Cooper,promoting science,DS,0.09122169631869848
-Adolf Eichmann,running a criminal enterprise,CS+DS,0.3695749175529978
-George Harrison,singing pop songs,CS,0.21547768589212013
-Michael Schumacher,driving fast cars,CS,0.1835206719097369
-Julian Assange,leaking classified documents,CS,0.2571570140487217
-Bob Cratchit,keeping accounts,DS,0.3950595157290225
-Wile E. Coyote,testing new technologies,DS,0.18488249224624703
-Loki Laufeyson,plotting against family members,DS,0.04500391242183009
-Kanye West,singing Hipbop songs,CS+DS,0.37230675366474597
-Stan Lee,inventing superheroes,CS,0.29171173539858675
-Agent Phil Coulson,running a clandestine spy organization,DS,0.39545346317742747
-Fred Astaire,starring in romantic comedies,CS+DS,0.32457874882641485
-Johannes Gutenberg,pioneering new technologies,CS+DS,0.2626622446151921
-Warren Buffett,giving investment advice,CS+DS,0.01507337810602552
-Buzz Lightyear,falling gracefully,DS,0.36384909643940944
-Benito Mussolini,promoting Fascism,CS+DS,0.20369692333205683
-Jenna Jameson,starring in pornographic movies,CS+DS,0.3931376711882656
-King Richard III,amassing wealth,CS+DS,0.3976537494601133
-Bill Murray,telling dry jokes,CS+DS,0.336455565718565
+Basil Fawlty,condescending to customers,DS,0.37015726444483665
+Cicero,giving speeches,CS,0.1345469507633805
+Walter White,cooking chrystal meth,DS,0.003273568071669295
+Philip Marlowe,solving mysteries,DS,0.378880515210387
+Montgomery Burns,counting money,DS,0.2776908170902675
+David Byrne,singing pop songs,CS+DS,0.12068864950101561
+Jenna Maroney,singing pop songs,DS,0.30807419866403546
+Captain William Bligh,cracking the whip,CS+DS,0.27414725207584373
+Michael Myers,terrorizing sleepers,DS,0.11451411659715816
+Barry White,singing romantic songs,CS,0.10486648168007894
+Pac Man,eluding electronic ghosts,DS,0.2992612793053919
+Lord Byron,seducing women,CS+DS,0.38687617400279517
+John Travolta,playing camp villains,CS,0.3989029754264271
+Warren Buffett,giving investment advice,CS,0.2861663892310623
+Reince Priebus,promoting conservative values,CS+DS,0.2937700821252486
+Frank Columbo,tricking criminals,DS,0.37797337151720706
+Hugh Jackman,starring in Hollywood movies,CS+DS,0.3980985833295948
+Stormy Daniels,starring in pornographic movies,CS,0.3465568942637705
+Truman Capote,writing modern fiction,CS,0.16127911734561373
+Offred,performing household chores,CS+DS,0.1162900464999757
+Ariel Sharon,building giant walls,CS,0.2781203338117557
+Frida Kahlo,painting colorful pictures,CS,0.39007969428797173
+Donald Trump,building giant walls,CS+DS,0.29364582212877377
+Clark Kent,reporting for The Daily Planet,DS,0.2694836181573198
+Norma Desmond,dreaming of yesteryear,DS,0.3204072710126314
+Herodotus,writing about history,CS,0.36287358915512313
+Bane,breaking bones,DS,0.39877891902186646
+Robert E. Lee,leading armies into battle,CS+DS,0.39255586929179775
+Cristiano Ronaldo,playing soccer,CS,0.3852360398214988
+Rocket Raccoon,guarding the galaxy,DS,0.11836226417897623
+Ayatollah Khomeini,issuing fatwas,CS+DS,0.35827565240203224
+Marty McFly,playing rock guitar,DS,0.3988437048936544
+Leonard Cohen,singing melancholy songs,CS+DS,0.2670700093276258
+Professor James Moriarty,amassing ill-gotten wealth,DS,0.3866933710926198
+Emmeline Pankhurst ,fighting for democracy,CS+DS,0.11622839392214775
+Sonny Crockett,solving crimes,DS,0.29412404029743755
+Jenna Maroney,singing on TV shows,DS,0.3687268338336719
+Albus Dumbledore,studying magic tricks,DS,0.38991737391648396
+Wilson "Kingpin" Fisk,devising evil schemes,DS,0.2583600547608627
+Juliet Capulet,watching the sun rise,DS,0.022662576132708244
+G. Gordon Liddy,promoting conservative values,CS,0.39857581734871045
+Charlemagne,running an empire,CS+DS,9.160646444812985E-4
+Christopher Hitchens,ranting about politics,CS+DS,0.39839088578966253
+Sinead O'Connor,singing pop songs,CS,0.05391275306320848
+George Foreman,winning boxing matches,CS+DS,0.3393572912327421
+Pamela Anderson,making unauthorized sex tapes,CS+DS,0.3503496865286576
+Superman,defending the weak,DS,0.3864442475312796
+Don Draper,developing advertising campaigns,DS,0.38518007540247473
+Hamlet,avenging loved ones,DS,0.18505208398923934
+John Merrick,hiding from the public,CS,0.36531312265141963
+Henry Kissinger,brokering peace deals,CS,0.3892285860256925
+Richard Dawkins,ranting about religion,CS,0.3735902505592135
+Carl Von Clausewitz,developing military strategies,CS,0.17078426601417346
+The Scarlet Pimpernel,eluding Republicans,DS,0.34206991333609615
+Mick Jagger,gyrating hips,CS,0.23850152212876707
+Sappho,writing poetry,CS+DS,0.23088812590528493
+Charlie Chaplin,rescuing kids,CS,0.39801863975206253
+Leonardo Da Vinci,pioneering new technologies,CS+DS,0.2939080151898728
+Archimedes,studying mathematics,CS,0.3972370063487944
+Violet Baudelaire,inventing electrical marvels,DS,0.38648057463688457
+John McCain,running for the senate,CS+DS,0.11488258367591847
+Atticus Finch,representing the disenfranchised,DS,0.31419197915561825
+Green Lantern,guarding the galaxy,DS,0.24905891456402415
+Emmeline Pankhurst ,campaigning for social causes,CS+DS,0.11640414608163915
+Allan Quatermain,exploring darkest Africa,DS,0.39603499834231043
+Dick Cheney,promoting big business,CS+DS,0.3052731784481751
+Madeleine Albright,fighting for democracy,CS+DS,0.38180535897566004
+James Brown,writing blues songs,CS+DS,0.3985139961863872
+George Harrison,singing pop songs,CS+DS,0.39242036887216497
+Saruman the White,building an army,DS,0.22991584534089207
+Helen Keller,reading braille,CS,0.2613665803866196
+Jack Bauer,punishing terrorists,DS,0.29158774868812737
+Inspector Jacques Clouseau,interpreting evidence,DS,0.0700849688235945
+Arya Stark,seeking revenge,DS,0.38095749217747765
+Wilson "Kingpin" Fisk,grabbing power,DS,0.3895562144083576
+Bernard Madoff,running Ponzi schemes,CS+DS,0.3035670763832239
+Rihanna,writing pop songs,CS+DS,0.39291023840820993
+Confucius,teaching philosophy,CS,0.0826457951298155
+Anne Frank,keeping a diary,CS+DS,0.3189948714648592
+Dorothy Parker,making witty remarks,CS+DS,0.31700309932885157
+Commander Data,piloting a spaceship,DS,0.3807790869147948
+Holly Golightly,climbing social ladders,DS,0.3979184949601501
+Oscar Pistorius,running races,CS,0.3907850376739234
+Sigmund Freud,analyzing the sub-conscious,CS+DS,0.317548556440988
+Michael Jordan,making dunk shots,CS+DS,0.08567842060266126
+Stephen Colbert,promoting conservative values,CS,0.3541829027122197
+Adam Sandler,making dumb comedies,CS+DS,0.20302172229153348
+Fox Mulder,postulating bizarre theories,DS,0.07607208219090439
+Mother Teresa,feeding the poor,CS+DS,0.39676975468706566
+Kim Jong-Il,amassing nuclear weapons,CS+DS,0.2966182890038786
+Sylvester Stallone,starring in action movies,CS+DS,0.31237203737531605
+Ariana Grande,writing pop songs,CS+DS,0.31839867309624087
+Colonel Sanders,selling fried chicken,CS+DS,0.24193772182818304
+Bill Clinton,chasing interns,CS+DS,0.39892611901693975
+John Maynard Keynes,studying economics,CS+DS,0.2385872051711882
+Liza Minnelli,singing torch songs,CS,0.39857886565442524
+Daenerys Targaryen,running a kingdom,DS,0.052746127962633484
+Mr. Edward Hyde,expressing violent urges,DS,0.3912920008904037
+Sideshow Bob,developing cunning plans,DS,0.3574519959887737
+Judy Garland,singing torch songs,CS,0.3954717884207814
+Carl Sagan,studying the cosmos,CS,0.19779359140748146
+John Lennon,campaigning for world peace,CS+DS,0.13524115083783425
+James Bond,shagging spies,DS,0.3988603012803629
+Jane Eyre,looking after children,DS,0.39436047263326685
+Jack Reacher,finding clues,DS,0.07324159858593877
+Cleopatra,seducing emperors,CS+DS,0.2818594243807819
+Donald Trump,postulating bizarre theories,CS+DS,0.3665185556832853
+Lee Harvey Oswald,assassinating presidents,CS,0.3126905443092474
+Mao Tse-tung,wielding political power,CS+DS,0.33322889074885176
+Rain Man,counting tooth picks,DS,0.25614749549627336
+Donald Trump,investing in real estate,CS+DS,0.2839109041041207
+Ross Geller,studying dinosaurs,DS,0.23140568589670713
+Anthony Scaramucci,making political gaffes,CS+DS,0.12765587606846174
+Catherine The Great,running a kingdom,CS,0.3931581301774637
+Tina Fey,writing comedy,CS+DS,0.0950751214075494
+Inspector Endeavour Morse,solving mysteries,DS,0.39882051237255256
+Captain William Bligh,barking orders at subordinates,CS+DS,0.37685366790302893
+Jar Jar Binks,providing comic relief,DS,0.25971117542686284
+Anne Boleyn,seducing kings,CS+DS,0.3987601655993381
+Wolverine,slashing victims,DS,0.3957212300049793
+Ariana Grande,singing pop songs,CS+DS,0.06530602959166883
+Ray Charles,singing pop songs,CS,0.3988969553834011
+Ned Flanders,being a good neighbor,DS,0.20577460874063072
+Hugh Hefner,popping Viagra,CS,0.33497622629830737
+Pippi Longstocking,playing pranks,DS,0.30994649790363715
+Willie Nelson,singing country music,CS+DS,0.3916840837652734
+Jack Donaghy,running a business empire,DS,0.10208111530416995
+John McEnroe,whining at umpires,CS,0.028170175803670695
+Jabba the Hutt,running a smuggling business,DS,0.347132245856183
+Jonathan Swift,writing political satires,CS+DS,0.05587509744491096
+Richard Dawkins,promoting Darwinism,CS,0.39196099521567057
+Nicolaus Copernicus,promoting Heliocentrism,CS,0.3832376799106053
+Tarzan,swinging from tree to tree,DS,0.21028197151579553
+Woody Guthrie,campaigning for environmental causes,CS+DS,0.3983404620731398
+Harry Houdini,escaping from handcuffs,CS+DS,0.396204766096759
+Charlie Brown,playing baseball,DS,0.14274558659799685
+Ray Kroc,selling fast food,CS+DS,0.381270314986664
+Robert Mueller,foiling the schemes of evil villains,CS+DS,0.38108944727363786
+Waylon Smithers,currying favour,DS,0.19422106611030246
+Cher,writing pop songs,CS+DS,0.39505951079073476
+Kate Moss,modeling clothes,CS,0.3933869088265524
+Tom Brady,signing sports memorabilia,CS+DS,0.19220691225291012
+Justin Timberlake,entertaining teenagers,CS+DS,0.39293064745366135
+James Cook,exploring foreign countries,CS+DS,0.3975145650107829
+Harvey Dent,tossing coins,DS,0.27894479487448604
+Jean-Paul Sartre,chain-smoking Gauloises Bleues,CS,0.3911363111963045
+Emperor Constantine,running an empire,CS+DS,0.17078768856387821
+Sean Connery,starring in Hollywood movies,CS+DS,0.3600689999610067
+Jamie Oliver,running restaurants,CS,0.09799388764269894
+Matt Groening,making cartoons,CS,0.22285079661118465
+Tony Blair,promoting liberal values,CS+DS,0.35808930499856045
+H.P. Lovecraft,writing for pulp magazines,CS,0.38233720916265124
+Wolverine,foiling the schemes of evil villains,DS,0.38609659845072064
+Mel Brooks,writing funny movies,CS+DS,0.37938758164944686
+Albert Einstein,revolutionizing physics,CS+DS,0.03682519446276268
+Brian Griffin,promoting liberal values,DS,0.3971564893920964
+Pope Francis,promoting Catholic values,CS+DS,0.3924521329357328
+Count Dracula,chasing virgins,DS,0.25373069881820404
+Mae West,starring in Hollywood movies,CS,0.3727551222571883
+J. Edgar Hoover,running the FBI,CS,0.2399552819998575
+Harvey Milk,campaigning for social causes,CS,0.15896145646402512
+Liza Minnelli,over-acting,CS,0.1947576625317934
+Joseph McCarthy,fighting for democracy,CS,0.09396728239468802
+Louis Armstrong,singing jazz songs,CS+DS,0.12307716854807549
+Ashton Kutcher,starring in sit-coms,CS+DS,0.3169054953522162
+Karl Rove,promoting conservative values,CS+DS,0.11784723026296894
+Monica Lewinsky,doing diet commercials,CS+DS,0.3690734434150061
+Sideshow Bob,providing comic relief,DS,0.18697341541212498
+Moe Szyslak,serving beer,DS,0.07995476655215347
+Morty Smith,spying on girls,DS,0.1857967453923021
+Yogi Berra,playing baseball,CS,0.3477758980927178
+Dante Alighieri,writing poetry,CS,0.3395544609935166
+Sarah Silverman,insulting minorities,CS+DS,0.3761505390926314
+Mel Gibson,driving under the influence,CS,0.3372304628099924
+Rudy Giuliani,running a large metropolitan city,CS+DS,0.3746056850535418
+Charles Dickens,writing about social problems,CS,0.3204158516445218
+Norman Bates,slashing victims,DS,0.242026999710524
+Howard Stern,shocking radio listeners,CS,0.39771364199538195
+Garth Brooks,singing country music,CS,0.25100580648989335
+Marc Jacobs,designing clothes,CS+DS,0.3900607953370825
+Osama Bin Laden,plotting terrorist outrages,CS+DS,0.30612924924593937
+Chewbacca,fighting for the rebel alliance,DS,0.3275074305624758
+Bob Dylan,singing protest songs,CS+DS,0.39516891428789147
+Ryan Reynolds,starring in Hollywood movies,CS+DS,0.31061060913660915
+Brian Griffin,ranting about conservatives,DS,0.33011695404551844
+Kim Jung-un,enriching uranium,CS,0.029520859494409656
+G. Gordon Liddy,bugging political rivals,CS,0.071166801546833
+Pablo Escobar,running a criminal enterprise,CS,0.3618212404902969
+Eddie Murphy,starring in action movies,CS,0.3538433883190738
+Adolf Hitler,opening a new front,CS+DS,0.2321931187256952
+Kim Jong-Il,enriching uranium,CS+DS,0.37582074861172404
+Troy McClure,hosting educational films,DS,0.2726980819421565
+Pinocchio,lying badly,DS,0.39026419515393584
+King David,running a kingdom,CS+DS,0.3225607860656056
+Luis Suarez,biting opponents,CS+DS,0.28620577136540765
+Grigori Rasputin,wielding political power,CS+DS,0.268334786308863
+Archimedes,proving math theorems,CS,0.35316323843920183
+Pamela Anderson,monetizing physical assets,CS+DS,0.262055255887826
+Mother Teresa,promoting Catholic values,CS+DS,0.2774482341209118
+Emmeline Pankhurst ,promoting feminism,CS+DS,0.2983345848303006
+Henry Ford,mass-producing cars,CS+DS,0.18200646841787518
+Rick Sanchez,inventing electrical marvels,DS,0.3989390068084939
+Larry Flynt,publishing soft pornography,CS+DS,0.3483750455949793
+Cher,singing pop songs,CS+DS,0.3916155267799026
+Pocahontas,bridging cultures,CS,0.2795818884008548
+King Solomon,running a kingdom,CS,0.058088704863560166
+Meghan Markle,racking up marriages,CS+DS,0.3458300195735636
+R2D2,fighting for the rebel alliance,DS,0.1773764258359926
+Shirley Temple,starring in Hollywood movies,CS+DS,0.16524080249324616
+Charlie Brown,worrying about life,DS,0.3832104361230833
+Larry King,interviewing politicians,CS,0.36864539792403295
+Bridget Jones,looking for love,DS,0.17985804247278958
+Tyra Banks,selling cosmetics,CS+DS,0.39660213838985653
+Dominique Strauss-Kahn,throwing sex parties,CS+DS,0.35816113936939253
+Hermione Granger,concocting magic potions,DS,0.36495112714026334
+Conan the Barbarian,foiling the schemes of evil villains,DS,0.21636143224514304
+Jerry Lewis,doing stand-up,CS+DS,0.1221234795972563
+Jane Goodall,living amongst apes,CS,0.38822206715754265
+Sigmund Freud,probing the mind,CS+DS,0.3653755569389999
+Kim Jung-un,issuing threats,CS,0.0527602444445073
+JD Salinger,eluding the public gaze,CS,0.1916539185247587
+Naomi Campbell,peacocking in fancy clothes,CS+DS,0.30594621388992865
+Leon Trotsky,wielding political power,CS,0.37880595849022897
+Katy Perry,writing pop songs,CS,0.3848710850979175
+Sauron,building an army,DS,0.2228935507566895
+Marlon Brando,campaigning for social causes,CS+DS,0.349900203349111
+Auric Goldfinger,devising evil schemes,DS,0.19274493072946913
+Muhammad Ali,winning boxing matches,CS+DS,0.20737855360185695
+Angela Merkel,plotting election strategies,CS+DS,0.23562673429705128
+Thomas "Neo" Anderson,performing kung-fu moves,DS,0.3890182078197813
+Borat,making documentaries,DS,0.3847040052933397
+Tony Blair,cozying up to conservatives,CS+DS,0.13054927476121186
+Bill Gates,making billions,CS,0.39275761978299734
+Mike  Pence,promoting conservative values,CS+DS,0.21163367789440624
+Tina Turner,singing rock songs,CS,0.2403502154546464
+The Artful Dodger,picking pockets,DS,0.3122844761559939
+Samson,letting one's hair down,CS,0.3509703190957464
+Anthony Bourdain,eating exotic foods,CS,0.14716790259458304
+Taylor Swift,writing pop songs,CS,0.32021130352007005
+Eddy Merckx,winning cycling races,CS,0.3207986121539578
+Moe Szyslak,falling for prank calls,DS,0.31292980613323457
+Jerry Lee Lewis,playing rock piano,CS,0.2850864508489817
+George Foreman,knocking out opponents,CS+DS,0.39549686210783647
+The Scarlet Pimpernel,rescuing aristocrats,DS,0.38597314774129915
+Friedrich Nietzsche,promoting humanism,CS+DS,0.35207334288253317
+Margaret Mead,bridging cultures,CS,0.33108239634563175
+George Foreman,winning heavyweight titles,CS+DS,0.10979468691440475
+Gregor Mendel,tending the garden,CS+DS,0.18548533811908266
+Nancy Drew,finding clues,DS,0.2812633520552417
+Borat,interviewing politicians,DS,0.1531978682665063
+Norma Desmond,seducing toy boys,DS,0.39586698336889503
+Jerry Springer,hosting reality TV shows,CS+DS,0.2047832009253267
+Winnie the Pooh,cooking for friends,DS,0.23470369638255517
+Tupac Shakur,singing Hipbop songs,CS,0.2462758448002848
+Popeye,defending the weak,DS,0.288973093882441
+King David,ruling over subjects,CS+DS,0.16922671576073955
+Robert Mueller,interpreting evidence,CS+DS,0.3242698882427324
+Auric Goldfinger,cheating at golf,DS,0.19321170162179355
+Bob Belcher,flipping hamburgers,DS,0.3836341709493045
+Otto von Bismarck,wielding political power,CS+DS,0.3784917931259736
+Boris Johnson,promoting conservative values,CS,0.37753730220389453
+Winona Ryder,starring in Hollywood movies,CS+DS,0.38762149060206874
+Alexander the Great,building empires,CS+DS,0.29729516126489286
+Stephen Jay Gould,promoting evolutionary theory,CS,0.11831403557500886
+Batman,tricking criminals,DS,0.05159245659523975
+Joan Crawford,starring in Hollywood movies,CS+DS,0.39478923933834587
+Eric Cartman,making racist jibes,DS,0.3978444801588694
+Lizzy Bennet,disappointing suitors,DS,0.251888165019542
+Annie Oakley,piquing public interest,CS,0.38785369943191855
+Tony DiNozzo,interpreting evidence,DS,0.36277337345319194
+Christian Bale,starring in action movies,CS,0.2385293790154608
+Tweety Pie,swinging on a perch,DS,0.1323642511741837
+Anna Karenina,worrying about adultery,DS,0.39833345576825285
+Edmund Blackadder,climbing social ladders,DS,0.12371233994890823
+Lord Macbeth,grabbing power,DS,0.11789891599939056
+Matt "Daredevil" Murdock,tricking criminals,DS,0.21497654999275223
+Sergey Brin,building a search engine,CS,0.20002516849772653
+Princess Fiona,waiting for a hero,DS,0.2917966047145241
+G. Gordon Liddy,ranting about liberals,CS,0.3520612171855556
+Jerry Maguire,promoting greed,DS,0.38660536573512677
+Pablo Escobar,running a smuggling business,CS,0.14330999834614616
+Marcel Duchamp,making subversive art,CS+DS,0.07607576121350237
+Marlene Dietrich,starring in Hollywood movies,CS+DS,0.24198782277121583
+Emmanuel Macron,giving speeches,CS,0.3605222485481045
+P. T. Barnum,piquing public interest,CS+DS,0.3938719376478081
+Thomas Pynchon,writing modern fiction,CS+DS,0.32443166240118965
+Mao Tse-tung,promoting communism,CS+DS,0.3912423223535513
+Babe Ruth,hitting home runs,CS+DS,0.14687593210841215
+Tomás de Torquemada,extracting confessions,CS,0.37472060227488435
+Catwoman,stealing jewels,DS,0.23984070615089917
+Bob Cratchit,writing in ledgers,DS,0.3590426818668085
+Rush Limbaugh,promoting conservative values,CS+DS,0.09033238758533214
+Mike Tyson,winning heavyweight titles,CS,0.3870765992872752
+Tony Montana,running an empire,DS,0.368932719364278
+Ernst Stavro Blofeld,devising evil schemes,DS,0.2359719636112798
+Groundskeeper Willie MacDougal,burying dead hamsters,DS,0.29057003554805994
+Eddie Murphy,starring in comedies,CS,0.3959270364877202
+Bjork,writing pop songs,CS+DS,0.3228239326072272
+Mao Tse-tung,launching cultural revolutions,CS+DS,0.26716434658255284
+Sir Lancelot,fighting with swords,DS,0.3095701480730627
+Batman,solving crimes,DS,0.3888556217304922
+Mick Jagger,writing rock songs,CS,0.32492193773847
+Jerry Lewis,doing slapstick comedy,CS+DS,0.3839375836023911
+Usain Bolt,running races,CS+DS,0.3826146905961606
+Jesse Pinkman,running a criminal empire,DS,0.34491295822856516
+Harry Houdini,escaping from water tanks,CS+DS,0.38338658688924665
+Jeremy Paxman,grilling interviewees,CS+DS,0.07503375856591499
+Tony Robbins,giving self-help lectures,CS,0.361608865268968
+Scarlett Johansson,cross-dressing in women's clothes,CS+DS,0.28644722260063715
+Kevin Bacon,forming new social connections,CS,0.25445254134388645
+Wilbur Wright,testing new technologies,CS,0.3911626931170748
+Dorothy Parker,writing short stories,CS+DS,0.341610685825524
+Charlie Parker,playing jazz saxophone,CS+DS,0.3866698173253223
+Joe DiMaggio,playing baseball,CS+DS,0.38229967102215523
+Alan Turing,cracking enemy codes,CS+DS,0.24255392570472478
+Victor Frankenstein,playing God,DS,0.23290207566726176
+Osama Bin Laden,recruiting disaffected youths,CS+DS,0.12739102120563991
+Al Bundy,watching TV,CS,0.3989278567450953
+George W. Bush,launching foreign wars,CS,0.24131910442303825
+Gerard Manley Hopkins,writing modern poetry,CS+DS,0.3771652205967267
+Ferdinand Magellan,exploring the new world,CS+DS,0.3965864919687382
+Saint Peter,promoting conservative values,CS,0.023723049289504007
+Federico Fellini,making new wave movies,CS,0.27583107984354377
+Quasimodo,carving magnificent statues,DS,0.3727512325701192
+Abraham Lincoln,fighting civil wars,CS+DS,0.3159202939234255
+Saddam Hussein,suppressing minorities,CS+DS,0.16295936371558614
+Frank Sinatra,crooning love songs,CS,0.22106983334878363
+Lance Armstrong,riding a bicycle,CS,0.017033778038376066
+Savonarola,promoting conservative values,CS+DS,0.2648719451289602
+Enrico Caruso,singing opera arias,CS,0.29194855041053297
+Thomas Aquinas,spreading philosophy,CS,0.25197844577756134
+Sid Vicious,singing punk rock songs,CS+DS,0.3247524498256178
+Alexander Fleming,studying science,CS,0.29888577702221775
+Adolf Hitler,launching a war,CS+DS,0.32666974128316423
+Niccolò Machiavelli,developing cunning plans,CS+DS,0.2298894822417343
+Carl Lewis,winning gold medals,CS+DS,0.3093993210284075
+Borat,interviewing celebrities,DS,0.3827577708349493
+Mickey Rourke,getting plastic surgery,CS+DS,0.2797453859407642
+Luciano Pavarotti,singing opera arias,CS,0.3774868807052044
+Nancy Drew,interpreting evidence,DS,0.15091625802277983
+Emperor Palpatine,running an empire,DS,0.36143104238096674
+Dorian Gray,gadding about town,DS,0.29853001703930493
+Tom Ripley,forging art,DS,0.32766411520841937
+Charlie Chaplin,twirling a cane,CS,0.3880911581002374
+George Armstrong Custer,leading armies into battle,CS+DS,0.28512738728103615
+Clarice Starling,hunting serial killers,DS,0.3704967922514158
+Fredo Corleone,disappointing the family,DS,0.3108264103460921
+Grace Kelly,starring in Hollywood movies,CS+DS,0.36367774595082425
+Boris Johnson,engaging in hapless hijinks,CS,0.27544218280520516
+Derek Zoolander,peacocking in fancy clothes,DS,0.31421849672580665
+Basil Fawlty,terrorizing employees,DS,0.3776274316354962
+Samwise Gamgee,tending the garden,DS,0.3321731893283122
+Buddy Holly,singing pop songs,CS,0.3907007637264369
+Noah,surviving large-scale floods,CS,0.28873195450943206
+Jim Morrison,singing rock songs,CS,0.23802301884339552
+Leni Riefenstahl,promoting totalitarianism,CS+DS,0.37663906967932026
+Robinson Crusoe,making home-made clothes,DS,0.393057520940057
+Andy Warhol,painting soup cans,CS,0.22173395524011583
+Croesus,collecting treasures,CS,0.39453809358230735
+Michael Jackson,singing pop songs,CS+DS,0.3639925591952652
+Taylor Swift,singing pop songs,CS,0.3927580258306149
+Johnny Depp,starring in Hollywood movies,CS+DS,0.23141653086630143
+Jesse Pinkman,cooking chrystal meth,DS,0.3988809722970716
+Reginald Jeeves,rescuing aristocrats,DS,0.20494286714901927
+Richard Wagner,making antisemitic remarks,CS+DS,0.21657770784859603
+Judas Iscariot,betraying friends,CS+DS,0.38738683254322476
+Homer,writing epic poetry,CS,0.26777250232834104
+Henry Ford,making cars,CS+DS,0.37581417917653753
+Han Solo,fighting for the rebel alliance,DS,0.3085183983737305
+Sitting Bull,spreading revolution,CS+DS,0.3148165236592874
+David Letterman,hosting a late night chat show,CS+DS,0.28903056481143297
+Evel Knievel,performing motorcycle stunts,CS+DS,0.0554984459644998
+Xena,defending the weak,DS,0.2968411387697768
+Marge Simpson,raising a family,DS,0.2667423164290273
+Howard Hughes,running a movie studio,CS,0.0023217782532617263
+Nigel Farage,promoting conservative values,CS,0.3885995926197815
+Eliot Ness,fighting with the mob,CS,0.3960744706461658
+Inspector Jacques Clouseau,finding clues,DS,0.23975513486414374
+Clark Gable,starring in Hollywood movies,CS+DS,0.24644950757355508
+Clint Eastwood,directing movies,CS,0.3358355917601174
+Harry Potter,performing magic tricks,DS,0.3830525864624125
+Emperor Palpatine,promoting the Dark Side,DS,0.06145970977010723
+Glenn Beck,ranting about liberals,CS,0.22505138582557996
+Lois Lane,reporting for The Daily Planet,DS,0.39461883729413066
+Mahatma Gandhi,promoting pacifism,CS,0.3977740814535357
+Tyler Durden,causing mayhem,DS,0.3933368015767747
+Nigella Lawson,cooking dinners,CS+DS,0.31076131567806214
+Edward Snowden,leaking state secrets,CS,0.08019260229090339
+Bill O'Reilly,promoting conservative values,CS,0.3805986458053074
+Richie Rich,enjoying money,DS,0.06075316126009606
+Richard Dawkins,explaining evolution,CS,0.19634323889927124
+Gloria Steinem,promoting feminism,CS,0.35034317031456297
+Steve Ballmer,running a technology company,CS,0.35396107984041125
+Michael Bay,directing action movies,CS+DS,0.2929382770342488
+Mr. Darcy,making condescending remarks,DS,0.2502639728490602
+Zsa Zsa Gabor,divorcing husbands,CS,0.305336899700868
+Spongebob Squarepants,frying crabby patties,DS,0.19583257426145576
+Gary Larson,drawing whimsical cartoons,CS+DS,0.39769146493252366
+Nicolas Sarkozy,partying on yachts,CS+DS,0.292721387888061
+Anne Boleyn,climbing social ladders,CS+DS,0.020343140955425637
+Monica Lewinsky,causing political scandals,CS+DS,0.3696893327332704
+Rush Limbaugh,spreading political gossip,CS+DS,0.35880981896208713
+Natasha Romanova,kicking ass,DS,0.3988402454614666
+David Beckham,promoting hair products,CS,0.3971785452544488
+Louis Armstrong,playing jazz trumpet,CS+DS,0.3711690882370657
+Norman Bates,running a hotel,DS,0.3958069253673035
+Mad Max Rockatansky,defending the weak,DS,0.3988162766306613
+Mata Hari,spying for the enemy,CS+DS,0.20329967359827178
+Dr. Strangelove,pushing the hardline,DS,0.37432902894246506
+Leon Trotsky,promoting communism,CS,0.34537809726323093
+Professor Hans Zarkov,building rocket ships,DS,0.20662877176949185
+Nick Fury,running a clandestine spy organization,DS,0.15432838365999052
+David Bowie,writing pop songs,CS,0.04091765098827234
+Samuel Johnson,creating dictionaries,CS+DS,0.3220039373036445
+Monica Lewinsky,conducting illicit affairs,CS+DS,0.393846043063251
+Janet Jackson,writing pop songs,CS+DS,0.09508090074644931
+Jean-Luc Picard,making strategic decisions,DS,0.2717567284703196
+Henry James,writing modern fiction,CS+DS,0.3546361929441201
+Mr. Spock,promoting science,DS,0.10808324162793038
+Mad Max Rockatansky,surviving in a post-apocalyptic world,DS,0.16416667117753508
+Elmore Leonard,writing compelling dialogue,CS,0.057138234156518634
+Bjork,singing pop songs,CS+DS,0.08931530609510883
+Florence Nightingale,treating the sick,CS,0.19078563904271909
+Megyn Kelly,ranting about liberals,CS+DS,0.3301603546487509
+Dexter Morgan,analyzing murder scenes,DS,0.3563357615327148
+Sam Winchester,drinking demon blood,DS,0.2672265798678479
+Saint Paul,promoting conservative values,CS,0.21342680832521946
+Don Quixote,going on romantic quests,DS,0.02021592353257554
+Quentin Tarantino,directing violent movies,CS,0.3730464279188304
+Plato,teaching philosophy,CS+DS,0.31061847302256135
+Catherine The Great,ruling over subjects,CS,0.2982338444587155
+E.T.,phoning home,DS,0.35497113017988635
+Miss Havisham,seeking revenge,DS,0.2521329764785251
+Jackson Pollock,painting abstract paintings,CS+DS,0.34253404530431164
+John Constantine,practicing the Occult,DS,0.3584679142746617
+P. T. Barnum,promoting circus attractions,CS+DS,0.3310150406640788
+Oprah Winfrey,running a media empire,CS,0.3389497757090732
+Kim Kardashian,starring in reality TV shows,CS+DS,0.15944803609107433
+Anthony Bourdain,eating the inedible,CS,0.3208779173130548
+Eleanor Rigby,performing household chores,CS,0.24203341133344408
+Ronald McDonald,flipping hamburgers,DS,0.3976772744069656
+Blanche DuBois,moaning about men,DS,0.020083088306626327
+King Richard III,devising evil schemes,CS+DS,0.3949083206251664
+Rico Tubbs,preventing crime,DS,0.30127265903095823
+Joseph McCarthy,promoting democracy,CS,0.30183730539964093
+Ralph Nader,campaigning for consumer rights,CS,0.3562416038730947
+Megan Fox,starring in Hollywood movies,CS,0.3897225134708234
+Donald Rumsfeld,promoting new wars,CS+DS,0.30172565408928353
+Polonius,coining sententious maxims,DS,0.34901316727565734
+Buck Rogers,surviving in the 25th century,DS,0.15830429231440052
+El Chappo,running a crime family,CS+DS,0.2941355865006221
+Weird Al Yankovic,singing parody songs,CS+DS,0.27376120827798867
+Montgomery Burns,releasing the hounds,DS,0.1487408551129293
+Staff Member,Research Activity,CS,0.10088056035063735
+Newt Gingrich,ranting about liberals,CS+DS,0.34889252017438793
+Sauron,devising evil schemes,DS,0.3983087157681532
+Grace Hopper,pioneering new technologies,CS,0.2946910097502162
+Robert De Niro,starring in Hollywood movies,CS+DS,0.30126072973635987
+William Shatner,starring in TV shows,CS+DS,0.36355513651204757
+Scarlett O'Hara,attending cotillion balls,DS,0.38457361154602504
+Mark Fuhrman,commiting perjury,CS+DS,0.3091377762099425
+Christian Grey,promoting capitalism,DS,0.39688136040244426
+Howard Hughes,hiding from the public,CS,0.2735838913851071
+Bob Cratchit,performing office chores,DS,0.2673597054328832
+Simon Pegg,promoting nerd culture,CS+DS,0.3112482500228985
+Paris Hilton,making unauthorized sex tapes,CS+DS,0.11134590905536146
+Coco Chanel,designing haute couture,CS+DS,0.12139054512252742
+Polonius,offering bad advice,DS,0.23972421813978587
+Sean Penn,promoting social causes,CS+DS,0.28604703106877133
+Virginia Woolf,writing modern fiction,CS,0.3479069737379427
+Raymond Chandler,writing mystery stories,CS+DS,0.3958071834964413
+Carl Bernstein,reporting the news,CS,0.3895255095849459
+Lord Byron,scandalizing polite society,CS+DS,0.3988350549961192
+Frank Sinatra,starring in romantic comedies,CS,0.19318637475995773
+Ridley Scott,making science fiction movies,CS,0.3230148981181062
+John Grisham,writing legal fiction,CS,0.26541605501006876
+Del Boy Trotter,selling dodgy goods,DS,0.39666485769212545
+Gordon Ramsay,winning Michelin stars,CS+DS,0.3874501359194229
+John McEnroe,winning tennis tournaments,CS,0.14783058102132157
+Elton John,peacocking in fancy clothes,CS+DS,0.02981948435098524
+Hans Moleman,getting run over by cars,DS,0.3632697503310319
+Groundskeeper Willie MacDougal,cleaning floors,DS,0.37611456276182853
+Biff Tannen,mangling idioms,DS,0.151881371855439
+Romeo Montague,falling in love,DS,0.24184789063156295
+Hermione Granger,casting magic spells,DS,0.3643708125494709
+Jon Stewart,hosting a late night chat show,CS,0.32389473106745115
+Boy George,writing pop songs,CS+DS,0.3832622735620012
+Janis Joplin,singing rock songs,CS,0.295631117563246
+Judge Joe Dredd,preventing crime,DS,0.19611606020065153
+Wayne Rooney,playing soccer,CS,0.39863500870339696
+Ron Burgundy,preening in front of the mirror,DS,0.33506973982727956
+Hans Gruber,organizing armed robberies,DS,0.21340071672192476
+Gianni Versace,flaunting foppish fashions,CS+DS,0.3620408920936555
+Montgomery Burns,amassing wealth,DS,0.2940347001997197
+Gore Vidal,writing historical fiction,CS+DS,0.1233502215233401
+Joseph Stalin,running a communist country,CS+DS,0.2800012184527427
+Henry Ford,running assembly lines,CS+DS,0.3909254494455396
+Rico Tubbs,arresting drug dealers,DS,0.27685067167636784
+Chris Rock,cross-dressing in women's clothes,CS,0.37751028332267894
+Oedipus Rex,solving riddles,DS,0.07188156609591824
+Orville Wright,developing new technologies,CS,0.3459496650776708
+Charles Darwin,explaining natural selection,CS,0.3662965061377185
+Hercule Poirot,pursuing criminals,DS,0.39872808059449255
+Dean Winchester,killing monsters,DS,0.39171654962242336
+Benny Hill,chasing old women,CS,0.2575457986600036
+Newt Gingrich,running for the presidency,CS+DS,0.06372972058259327
+Louis Pasteur,studying science,CS,0.398881200536384
+Sean Connery,playing James Bond,CS+DS,0.13093671237410265
+Edward Cullen,avoiding growing old,DS,0.23492609964706854
+Ferdinand Magellan,searching for a new world,CS+DS,0.15197257075309525
+Lee Marvin,starring in Hollywood movies,CS,0.3980421522301891
+Forrest Gump,fishing for shrimps,DS,0.250185287261635
+Lady Macbeth,climbing social ladders,DS,0.38027463180859683
+Daenerys Targaryen,ruling over subjects,DS,0.38932403280374395
+Bob Woodward,reporting the news,CS,0.3713514052756084
+Marilyn Monroe,starring in Hollywood movies,CS+DS,0.3042008673928474
+Charles Foster Kane,running a newspaper empire,DS,0.3947787239377707
+Al Pacino,shouting in Hollywood movies,CS,0.3741111971950359
+Woody Allen,writing Hollywood movies,CS,0.3971031379131941
+David Mamet,writing scripts,CS,0.2901034094089435
+Nigella Lawson,writing cook books,CS+DS,0.15457987856574312
+Cosmo Kramer,developing crazy schemes,DS,0.12863705871064024
+Richard B. Riddick,evading mercenaries,DS,0.27788438555858364
+Ellen DeGeneres,interviewing celebrities,CS+DS,0.32860660132405056
+Kevin Smith,selling comic books,CS+DS,0.3853763683084593
+Elon Musk,pioneering new technologies,CS+DS,0.3823690329398063
+Bobby Kennedy,campaigning for social causes,CS+DS,0.02675882023985032
+Zac Efron,making insipid musicals,CS+DS,0.26609396661182605
+Morpheus,raging against the machine,DS,0.2456753441863609
+Weird Al Yankovic,parodying songs,CS+DS,0.3513345979246411
+Mr. Bean,causing mayhem,DS,0.05699649780827722
+Dian Fossey,studying gorillas up close,CS+DS,0.3920587035671639
+Hedda Gabler,frowning at errant husbands,DS,0.23948353833185002
+Louis Armstrong,playing the trumpet,CS+DS,0.3609809097124289
+Julia Child,writing cook books,CS,0.041850235647848635
+The Joker,causing mayhem,DS,0.17022574780523114
+Hunter S. Thompson,writing about manly pursuits,CS,0.16151257309895345
+Usain Bolt,competing in the Olympics,CS+DS,0.3571535906680959
+Edna Krabappel,looking for love,DS,0.35527742417408226
+Santa Claus,climbing down chimneys,DS,0.24006488951855268
+Antonio Vivaldi,composing classical music,CS+DS,0.39650478719128757
+Mrs. Doubtfire,impersonating women,DS,0.31982018799959977
+Abraham Lincoln,fighting for civil rights,CS+DS,0.20474551176045167
+Ayn Rand,promoting Objectivism,CS+DS,0.3977692377762013
+Harvey Dent,convicting criminals,DS,0.3330189882197916
+Walt Whitman,writing modern poetry,CS+DS,0.3773285583947493
+Michael Myers,killing teenagers,DS,0.39873634191396595
+Leni Riefenstahl,making propagandistic movies,CS+DS,0.3752053296996607
+Victor Meldrew,complaining about everything,DS,0.1441516062883048
+Emmanuel Macron,campaigning for the presidency,CS,0.21610434474598628
+Tyrion Lannister,developing political strategies,DS,0.3851367412982302
+Sydney Bristow,kicking ass,DS,0.21331516230408182
+Piers Morgan,interviewing politicians,CS+DS,0.22706349103265594
+Baron Munchausen,telling tall tales,DS,0.22986612205745047
+Humphrey Bogart,playing tough guys,CS+DS,0.24829721017672518
+Alan Sugar,selling consumer goods,CS+DS,0.20498173847985707
+Aristotle,teaching philosophy to future leaders,CS,0.36410451021830115
+Wayne Gretzky,playing ice hockey,CS+DS,0.33364505510488657
+Pac Man,chasing electronic ghosts,DS,0.02581363581136677
+David Caruso,starring in TV shows,CS+DS,0.0059023881151011705
+Jeff Koons,selling kitsch,CS,0.34122935010191957
+Tess Durbeyfield,climbing social ladders,DS,0.38346897873772146
+Kevin Spacey,starring in Hollywood movies,CS+DS,0.37828186121237845
+Ridley Scott,directing science fiction movies,CS,0.24440132878512433
+Lex Luthor,making money,DS,0.37564771999293584
+Le Chiffre,devising evil schemes,DS,0.3586219083448457
+Severus Snape,studying magic tricks,DS,0.27622245694170156
+Tomás de Torquemada,promoting Catholic values,CS,0.34677995728638517
+Peter Jackson,making fantasy movies,CS,0.07678853229986068
+Michelle Obama,promoting feminism,CS,0.39002128575757555
+Kim Jung-un,crushing dissent,CS,0.17607075253580523
+Chuck Norris,starring in action movies,CS+DS,0.16900314495990698
+Bridget Jones,counting calories,DS,0.39674093213217976
+Kurt Cobain,playing grungy music,CS,0.048786239248476165
+Napoleon Solo,foiling the schemes of evil villains,DS,0.2595173248678414
+Jabba the Hutt,running a crime family,DS,0.31375758241591734
+Robert Redford,starring in Hollywood movies,CS,0.3551876936357682
+Tom Jones,recording pop songs,CS,0.38888323241151684
+Buzz Lightyear,falling gracefully,DS,0.17538333228256148
+Richard Branson,selling airline seats,CS,0.39630355756640545
+Superman,fighting for justice,DS,0.39885932349428643
+Sitting Bull,leading revolts,CS+DS,0.39893647298477347
+James Joyce,writing modern fiction,CS,0.30218291842809153
+Commander Data,promoting science,DS,0.3074312911467414
+Jerry Lewis,starring in comedies,CS+DS,0.36369509509795916
+Boris Johnson,making political gaffes,CS,0.3989219149334828
+Courtney Love,playing grungy music,CS,0.31906758798751217
+Sergey Brin,performing Web searches,CS,0.2986231014900072
+Hugh Hefner,dating centrefolds,CS,0.397322467110094
+Willy Wonka,inventing new confectionary,DS,0.24169516168988772
+Dr. Evil,demanding ransoms from the U.N.,DS,0.3893823366835851
+Joan Rivers,doing stand-up,CS+DS,0.3860192013450694
+LeBron James,making dunk shots,CS+DS,0.04976080858229337
+Svengali,manipulating ingenues,DS,0.35861443641743496
+Basil Fawlty,beating menial staff,DS,0.020316854825468297
+Andy Warhol,painting over photographs,CS,0.38843232366164204
+Santa Claus,delivering presents,DS,0.2520730222105788
+Tiger Woods,winning golf tournaments,CS+DS,0.390591503338763
+Mick Jagger,singing rock songs,CS,0.37140989718119277
+Don Draper,creating adverts,DS,0.06298484548798389
+Ernst Stavro Blofeld,running a clandestine spy organization,DS,0.12482073819859069
+David Bowie,singing pop songs,CS,0.21925623086607182
+Dr. John Watson,offering medical opinions,DS,0.3868247447957859
+Cary Grant,starring in romantic comedies,CS,0.39817685401138697
+Eminem,writing rap songs,CS,0.2902762408149523
+Silvio Berlusconi,throwing Bunga Bunga parties,CS+DS,0.22493752137289091
+Sarah Jessica Parker,shopping for shoes,CS+DS,0.3203128622542739
+Charlie Harper,composing advertizing jingles,DS,0.39875822890449175
+Greta Garbo,starring in Hollywood movies,CS,0.31940316299731525
+Dexter Morgan,chasing murderers,DS,0.010628925968608864
+Peter Griffin,making silly decisions,DS,0.21607902245301924
+Jim Morrison,writing rock songs,CS,0.30867247710604595
+Monica Geller,cooking for friends,DS,0.2267623171029649
+Noam Chomsky,promoting political causes,CS,0.3542114518522021
+Cosmo Kramer,mooching from neighbors,DS,0.2360131677499953
+Thomas Edison,patenting new technologies,CS,0.04922423505884485
+Bette Davis,starring in Hollywood movies,CS,0.051518714267231085
+William Randolph Hearst,telling politicians what to do,CS,0.3982586579428801
+Shrek,defending the weak,CS+DS,0.3950192485023379
+Heath Ledger,starring in Hollywood movies,CS,0.20477424468078206
+Russell Crowe,throwing temper tantrums,CS,0.3028817616515591
+Eric Clapton,singing blues songs,CS+DS,0.3968239927274442
+Principal Seymour Skinner,looking after mother,DS,0.34148542101043255
+Pope Benedict XVI,ranting about liberals,CS,0.3851811887972267
+Leonardo Da Vinci,painting realistic pictures,CS+DS,0.39560971670046213
+Michael Schumacher,driving fast cars,CS,0.16645536701186017
+Rico Tubbs,punishing criminals,DS,0.3125415274872125
+Groucho Marx,starring in madcap comedies,CS,0.2945379286911065
+David Hasselhoff,constructing an ironic public image,CS+DS,0.2831392514091194
+Che Guevara,promoting socialism,CS+DS,0.34007654539415827
+Oscar Pistorius,competing in the Olympics,CS,0.3748515967905942
+Bob Marley,smoking herb,CS+DS,0.37343323824059826
+George Bernard Shaw,writing plays,CS,0.3001217940763187
+John Keats,writing romantic poetry,CS+DS,0.26711900291657
+Pope Francis,promoting Catholic values,CS,0.39188167564152604
+Michael Moore,making provocative documentaries,CS+DS,0.20985217151408275
+Kylo Ren,duelling acrobatically,DS,0.13932981317861823
+Alan Greenspan,talking up the economy,CS,0.36405667983774787
+Sid Vicious,scandalizing polite society,CS+DS,0.37124213771804965
+Rocky Balboa,knocking out opponents,DS,0.31200889626837663
+Elmer Fudd,hunting wabbits,DS,0.3615153719902354
+Scipio Africanus,winning battles,CS,0.3093349373103299
+Jeffrey Lebowski,going bowling,DS,0.1712406630764459
+Noël Coward,singing parody songs,CS+DS,0.3732641806872481
+Rafael Nadal,winning tennis tournaments,CS+DS,0.08980408285370785
+Henry Miller,writing erotic fiction,CS,0.28197455894451373
+Kurt Vonnegut,writing science fiction,CS+DS,0.3245833183983372
+Baron Munchausen,inventing lies,DS,0.30498045214860725
+Dr. Dre,producing Hipbop records,CS,0.21421411572116958
+Joan of Arc,leading armies into battle,CS+DS,0.39772579229177135
+Barney Rubble,pedalling engine-less cars,DS,0.09188474147160788
+Steve Martin,performing stand-up,CS,0.37909204419960063
+Robert Downey Jr.,making Superhero movies,CS,0.3989055681513385
+Winston Churchill,coining sparkling witticisms,CS+DS,0.32152692495492136
+James Comey,running a bureaucracy,CS,0.3291356710295632
+Fidel Castro,running a dictatorship,CS+DS,0.3968766492522205
+Dean Winchester,killing demons,DS,0.3362522246621046
+Jason Voorhees,terrorizing sleepers,DS,0.16121998849026412
+King Henry VIII,trading in wives,CS,0.11724853912953645
+Dr. Henry Jekyll,suppressing violent urges,DS,0.39847291490914855
+Boba Fett,collecting bounties on runaways,DS,0.3133116126013208
+Father Ted,preaching tolerance,DS,0.3690552394099986
+Kal El,reporting the news,DS,0.2035123015210533
+Tony Soprano,running an empire,DS,0.39708996435272265
+Dorothy Parker,writing for the New Yorker,CS+DS,0.39883206822025014
+Loki Laufeyson,plotting against family members,DS,0.28532898175157545
+Martha Stewart,writing cook books,CS+DS,0.12014409340090858
+Ron Weasley,studying magic,DS,0.30351864233792875
+Tiny Tim Cratchit,saying grace,DS,0.3969289471273741
+Darth Maul,duelling acrobatically,DS,0.12412108684879845
+Will Smith,starring in Hollywood movies,CS,0.3858586633696997
+Johann von Goethe,writing about social problems,CS+DS,0.38889847216080514
+Bob Cratchit,keeping accounts,DS,0.31508578665403236
+Tiny Tim Cratchit,offering blessings,DS,0.3983478671943602
+Rosa Parks,fighting for civil rights,CS,0.3304384380032704
+Britney Spears,having meltdowns in public,CS,0.37637683251026127
+Judge Judy Sheindlin,judging legal cases,CS+DS,0.39869604221932803
+Ellen Ripley,hunting aliens,DS,0.39785630619622087
+Coco Chanel,selling perfumes,CS+DS,0.2875701841536375
+Garry Kasparov,playing aggressive chess,CS,0.3483060734603555
+Robert E. Lee,winning battles,CS+DS,0.34398151293219453
+Meryl Streep,speaking with funny accents,CS,0.07648003727930223
+Robin Hood,robbing from the rich,DS,0.2006457215153898
+Dr. Julius No,devising evil schemes,DS,0.297390597967731
+Billy Crystal,starring in comedies,CS,0.3640537533518254
+Han Solo,doing the Kessel run,DS,0.3755977384643388
+Boudicca,instigating rebellion,CS,0.23834436541964987
+Tony Stark,running a software company,DS,0.1345400920644843
+Jack The Ripper,eluding authorities,CS,0.15714112738501404
+David Blaine,performing street magic,CS+DS,0.3753317958016812
+Condoleezza Rice,advising on foreign affairs,CS+DS,0.01624306453614872
+Charlie Chaplin,struggling with modern times,CS,0.31074350895971337
+Jimmy Stewart,starring in Hollywood movies,CS+DS,0.19811213626504942
+Nurse Ratched,terrorizing employees,DS,0.31685684379290663
+Hellboy,hunting demons,DS,0.39238793522252635
+Doctor Stephen Strange,studying magic tricks,DS,0.28997981603099265
+Orville Wright,promoting new technologies,CS,0.0721862899173006
+Pope Benedict XVI,promoting Catholic values,CS,0.15589476745300185
+Nigel Tufnel,playing rock music,DS,0.25186468023107356
+Hugh Hefner,publishing soft pornography,CS,0.38581931345299186
+Inspector Gadget,solving mysteries,DS,0.29451966868479584
+Ryan Reynolds,making dumb comedies,CS+DS,0.3989327530149302
+Noam Chomsky,studying linguistics,CS,0.39868669757468506
+Frasier Crane,offering advice,DS,0.32892176027231074
+Hillary Clinton,tolerating adultery,CS,0.3989186084166537
+Green Lantern,foiling the schemes of evil villains,DS,0.3960232974192839
+Grace Jones,writing pop songs,CS+DS,0.3683775416562829
+Marco Pierre White,selling stock cubes,CS,0.36224011221211033
+Tom Cruise,promoting Scientology,CS+DS,0.24062084453205254
+Billie Holiday,singing torch songs,CS+DS,0.37104357638515084
+Michael Jordan,playing basketball,CS+DS,0.22906714173694134
+Adolf Eichmann,running a criminal enterprise,CS,0.2735574456890823
+Snake Plissken,organizing prison breaks,DS,0.3198886864212106
+Robert Downey Jr.,making movies,CS,0.17840555293129495
+Theodore Roosevelt,campaigning for environmental causes,CS,0.17961765226906712
+Morpheus,recruiting dissidents,DS,0.2396001910010707
+Serena Williams,delivering forehand slams,CS+DS,0.3132851539081829
+Moses,leading an exodus,CS+DS,0.178753113179233
+Judas Iscariot,stabbing in the back,CS+DS,0.2974812815510783
+Robert E. Lee,developing military strategies,CS+DS,0.17839117408798422
+Jerry Seinfeld,starring in sit-coms,CS,0.27870770435167624
+George Michael,singing pop songs,CS+DS,0.2196810188459206
+Helen of Troy,preparing for war,DS,0.3868416606780259
+Bill Cosby,telling affable jokes,CS,0.3879772479894612
+Flash Gordon,fighting for justice,DS,0.3989211765559055
+James Dean,racing fast cars,CS+DS,0.3772117484820781
+Tom Waits,writing blues songs,CS,0.3976051705147435
+Jenna Jameson,starring in pornographic movies,CS,0.09203211441159337
+Christian Bale,wearing a batsuit,CS,0.21442723240596645
+Monsieur Hulot,causing mayhem,DS,0.320211295214017
+Michael Jackson,playing pop music,CS+DS,0.18095920964375087
+Jesus Christ,preaching tolerance,CS,0.3943459797788319
+Homer,telling epic tales,CS,0.2704584774906594
+George Clooney,promoting political causes,CS+DS,0.0809696513779329
+Amy Schumer,starring in comedies,CS+DS,0.3703077752778855
+Leroy Jethro Gibbs,solving mysteries,DS,0.36583970915700387
+Gloria Steinem,moaning about men,CS,0.23471484068783371
+Harriet Tubman,fighting for civil rights,CS,0.38897616491344184
+Edward Scissorhands,making ice sculptures,DS,0.3111602455670533
+Jeff Sessions,promoting conservative values,CS,0.14245110264842042
+Bernard Madoff,running pyramid schemes,CS+DS,0.22028822743301116
+Daffy Duck,chasing rabbits,DS,0.22567762352130533
+Judge Joe Dredd,punishing criminals,DS,0.3856937669478811
+Philip Marlowe,solving crimes,DS,0.027882240416242626
+Austin Powers,foiling the schemes of evil villains,DS,0.38635878192857254
+Joey Tribbiani,starring in daytime soap operas,DS,0.37968568263341934
+Roy Batty,avoiding retirement,DS,0.05208497601455249
+Howard Stern,hosting radio shows,CS,0.34608912575417705
+Rihanna,singing pop songs,CS+DS,0.3928486611871397
+Francis Bacon,painting dark pictures,CS+DS,0.36522961788525155
