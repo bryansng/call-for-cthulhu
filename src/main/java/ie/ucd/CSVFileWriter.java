@@ -59,13 +59,13 @@ public class CSVFileWriter {
                     line = line.concat(separator);
             }
             fileWriter.write(line);
-            line = "";
 
             //write the details
             int rowNum = 1;
             for (Student student : studentCollection) {
+                line = "";
                 line += student.getFirstName() + separator + student.getLastName() + separator
-                        + student.getId() + separator + student.getStream();
+                        + student.getId() + separator + student.getStream() + separator;
                 for (int i = 0; i < student.preferenceList.size(); i++) {
                     line = line.concat(student.preferenceList.get(i).getResearchActivity());
                     if (i == student.preferenceList.size() - 1)
