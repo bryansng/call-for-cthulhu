@@ -113,7 +113,8 @@ public class Parser {
 				randomId = generateStudentId();
 			}
 			String stream = generateStudentStream();
-			studentMap.put(randomId, new Student(firstName, lastName, randomId, stream, 0.0, generatePreferenceList(stream)));
+			studentMap.put(randomId,
+					new Student(firstName, lastName, randomId, stream, 0.0, generatePreferenceList(stream, randomId)));
 		}
 		return studentMap;
 	}
@@ -122,7 +123,7 @@ public class Parser {
 		return new Random().nextInt(90000000) + 10000000; // 1000 0000 - 9999 9999.
 	}
 
-	private ArrayList<Project> generatePreferenceList(String stream) {
+	private ArrayList<Project> generatePreferenceList(String stream, Integer randomId) {
 		ArrayList<Project> list = new ArrayList<Project>();
 		HashSet<Integer> usedIndex = new HashSet<Integer>();
 
@@ -132,9 +133,10 @@ public class Parser {
 			Project project = someStaffsProjects.get(randomIndex);
 			if (!usedIndex.contains(randomIndex) && project.hasCompatibleStream(stream) && project.doesStudentPreferProject()
 					&& (i != 0 || (!project.isGivenAs1stPreference() && i == 0))) {
-				project.incrementStudentsAssigned();
+				project.incrementAsPreference();
 				if (i == 0) {
-					project.incrementTimesAs1stPreference();
+					project.incrementAs1stPreference();
+					project.incrementStudentsAssigned();
 					project.setIsGivenAs1stPreference(true);
 				}
 
@@ -169,7 +171,7 @@ public class Parser {
 		String res = "\n\nPercentage project distribution:\n";
 		for (Project project : someStaffsProjects) {
 			res += project.getResearchActivity() + " - " + project.getStream() + " - " + project.getPreferredProbability()
-					+ " - " + formatPercentage(project.getNumStudentsAssigned() / totalProjectsAssigned * 100) + "\n";
+					+ " - " + formatPercentage(project.getNumAsPreference() / totalProjectsAssigned * 100) + "\n";
 		}
 		return res;
 	}
@@ -178,7 +180,7 @@ public class Parser {
 		String res = "\n\nPercentage project as 1st Preference:\n";
 		for (Project project : someStaffsProjects) {
 			res += project.getResearchActivity() + " - " + project.getStream() + " - " + project.getPreferredProbability()
-					+ " - " + formatPercentage(project.getNumTimesAsStudents1stPreference() / numberOfStudents * 100) + "\n";
+					+ " - " + formatPercentage(project.getNumAs1stPreference() / numberOfStudents * 100) + "\n";
 		}
 		return res;
 	}

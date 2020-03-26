@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import ie.ucd.objects.Project;
 
 public interface StudentInterface {
-	public Boolean isGiven1stPreference();
-
 	public String getFirstName();
 
 	public String getLastName();
@@ -14,7 +12,7 @@ public interface StudentInterface {
 
 	public String getStream();
 
-	public Project getProjectAssigned();
+	public ArrayList<Project> getProjectAssigned();
 
 	public ArrayList<Project> getPreferenceList();
 
@@ -26,7 +24,7 @@ public interface StudentInterface {
 
 	public void setStream(String stream);
 
-	public void setProjectAssigned(Project projectAssigned);
+	public void setProjectsAssigned(ArrayList<Project> projectAssigned);
 
 	public void setPreferenceList(ArrayList<Project> preferenceList);
 }

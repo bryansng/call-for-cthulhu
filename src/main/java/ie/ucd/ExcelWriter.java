@@ -55,7 +55,7 @@ public class ExcelWriter {
 		for (Project project : projects) {
 			Row row = sheet.createRow(rowNum++);
 
-			row.createCell(0).setCellValue(project.getProposedBy());
+			row.createCell(0).setCellValue(project.getStaffMember().getProposedBy());
 			row.createCell(1).setCellValue(project.getResearchActivity());
 			row.createCell(2).setCellValue(project.getStream());
 		}
@@ -174,7 +174,7 @@ public class ExcelWriter {
 			row.createCell(1).setCellValue(project.getStream());
 			row.createCell(2).setCellValue(project.getPreferredProbability());
 			row.createCell(3)
-					.setCellValue(parser.formatPercentage(project.getNumStudentsAssigned() / parser.totalProjectsAssigned * 100));
+					.setCellValue(parser.formatPercentage(project.getNumAsPreference() / parser.totalProjectsAssigned * 100));
 		}
 
 		// Resize all columns to fit the content size

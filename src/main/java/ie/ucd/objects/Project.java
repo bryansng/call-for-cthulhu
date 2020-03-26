@@ -4,19 +4,31 @@ import ie.ucd.Common;
 import ie.ucd.interfaces.ProjectInterface;
 
 public class Project implements ProjectInterface {
-	private String proposedBy;
+	private StaffMember staffMember;
 	private String researchActivity;
 	private String stream;
 	private boolean isGivenAs1stPreference = false;
 	private double preferredProbability;
+	private double numAsPreference = 0.0;
+	private double numAs1stPreference = 0.0;
 	private double numStudentsAssigned = 0.0;
-	private double numTimesAsStudents1stPreference = 0.0;
 
-	public Project(String proposedBy, String researchActivity, String stream, double preferredProbability) {
-		this.proposedBy = proposedBy;
+	public Project(StaffMember staffMember, String researchActivity, String stream, double preferredProbability) {
+		this.staffMember = staffMember;
 		this.researchActivity = researchActivity;
 		this.stream = stream;
 		this.preferredProbability = preferredProbability;
+	}
+
+	public Double calculateSatisfaction() {
+		return assignmentSatisfaction();
+	}
+
+	private Double assignmentSatisfaction() {
+		if (numStudentsAssigned == 1.0) {
+			return -Common.COST_NONE_OR_MULTIPLE_PROJECTS;
+		}
+		return Common.COST_NONE_OR_MULTIPLE_PROJECTS * numStudentsAssigned;
 	}
 
 	public Boolean hasCompatibleStream(String studentStream) {
@@ -35,21 +47,25 @@ public class Project implements ProjectInterface {
 		return false;
 	}
 
+	public void incrementAsPreference() {
+		numAsPreference += 1.0;
+	}
+
+	public void incrementAs1stPreference() {
+		numAs1stPreference += 1.0;
+	}
+
 	public void incrementStudentsAssigned() {
 		numStudentsAssigned += 1.0;
 	}
 
-	public void incrementTimesAs1stPreference() {
-		numTimesAsStudents1stPreference += 1.0;
-	}
-
 	public String toString() {
 		String buf = "\t\t";
-		return proposedBy + buf + researchActivity + buf + stream + buf + preferredProbability;
+		return staffMember + buf + researchActivity + buf + stream + buf + preferredProbability;
 	}
 
-	public String getProposedBy() {
-		return proposedBy;
+	public StaffMember getStaffMember() {
+		return staffMember;
 	}
 
 	public String getResearchActivity() {
@@ -68,16 +84,20 @@ public class Project implements ProjectInterface {
 		return preferredProbability;
 	}
 
+	public Double getNumAsPreference() {
+		return numAsPreference;
+	}
+
+	public Double getNumAs1stPreference() {
+		return numAs1stPreference;
+	}
+
 	public Double getNumStudentsAssigned() {
 		return numStudentsAssigned;
 	}
 
-	public Double getNumTimesAsStudents1stPreference() {
-		return numTimesAsStudents1stPreference;
-	}
-
-	public void setProposedBy(String proposedBy) {
-		this.proposedBy = proposedBy;
+	public void setStaffMember(StaffMember staffMember) {
+		this.staffMember = staffMember;
 	}
 
 	public void setResearchActivity(String researchActivity) {

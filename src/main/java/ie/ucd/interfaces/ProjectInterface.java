@@ -1,15 +1,17 @@
 package ie.ucd.interfaces;
 
+import ie.ucd.objects.StaffMember;
+
 public interface ProjectInterface {
 	public Boolean hasCompatibleStream(String studentStream);
 
 	public Boolean doesStudentPreferProject();
 
-	public void incrementStudentsAssigned();
+	public void incrementAsPreference();
 
-	public void incrementTimesAs1stPreference();
+	public void incrementAs1stPreference();
 
-	public String getProposedBy();
+	public StaffMember getStaffMember();
 
 	public String getResearchActivity();
 
@@ -19,11 +21,11 @@ public interface ProjectInterface {
 
 	public Double getPreferredProbability();
 
-	public Double getNumStudentsAssigned();
+	public Double getNumAsPreference();
 
-	public Double getNumTimesAsStudents1stPreference();
+	public Double getNumAs1stPreference();
 
-	public void setProposedBy(String proposedBy);
+	public void setStaffMember(StaffMember proposedBy);
 
 	public void setResearchActivity(String researchActivity);
 

@@ -34,7 +34,7 @@ public class StaffMember implements StaffMemberInterface {
 	}
 
 	public Project getProject() {
-		return new Project(proposedBy, getRandomUnusedResearchActivity(), stream, Common.getProbability());
+		return new Project(this, getRandomUnusedResearchActivity(), stream, Common.getProbability());
 	}
 
 	// need check if isAllActivitiesUsed, if not, this will loop indefinitely.

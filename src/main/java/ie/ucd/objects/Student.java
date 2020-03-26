@@ -1,6 +1,8 @@
 package ie.ucd.objects;
 
 import java.util.ArrayList;
+
+import ie.ucd.Common;
 import ie.ucd.interfaces.StudentInterface;
 
 public class Student implements StudentInterface {
@@ -9,7 +11,7 @@ public class Student implements StudentInterface {
 	private Integer id;
 	private String stream; // CS or DS.
 	private Double gpa;
-	private Project projectAssigned;
+	private ArrayList<Project> projects = new ArrayList<Project>();
 	private ArrayList<Project> preferenceList;
 
 	public Student(String firstName, String lastName, Integer id, String stream, Double gpa,
@@ -19,14 +21,31 @@ public class Student implements StudentInterface {
 		this.id = id;
 		this.stream = stream;
 		this.gpa = gpa;
-		this.projectAssigned = preferenceList.get(0);
+		this.projects.add(preferenceList.get(0));
 		this.preferenceList = preferenceList;
 	}
 
-	// in theory, if java stores by reference, their references should be the same, so can check via == if they memory location is the same.
-	public Boolean isGiven1stPreference() {
-		// return projectAssigned.equals(preferenceList.get(0));	// if use this, need to implement .equals() method in Project.java.
-		return projectAssigned == preferenceList.get(0);
+	public Double calculateSatisfaction() {
+		return preferenceSatisfaction() + streamSatisfaction() + assignmentSatisfaction();
+	}
+
+	private Double preferenceSatisfaction() {
+		int position = preferenceList.indexOf(projects.get(0));
+		return position == -1 ? Common.COST_NOT_ASSIGNED_PREFERENCE_PROJECTS : 10.0 - position;
+	}
+
+	private Double streamSatisfaction() {
+		if (projects.get(0).hasCompatibleStream(stream)) {
+			return -Common.COST_UNSUITED_STREAM;
+		}
+		return Common.COST_UNSUITED_STREAM;
+	}
+
+	private Double assignmentSatisfaction() {
+		if (projects.size() == 1.0) {
+			return -Common.COST_NONE_OR_MULTIPLE_PROJECTS;
+		}
+		return Common.COST_NONE_OR_MULTIPLE_PROJECTS * projects.size();
 	}
 
 	public String toString() {
@@ -66,8 +85,8 @@ public class Student implements StudentInterface {
 		return gpa;
 	}
 
-	public Project getProjectAssigned() {
-		return projectAssigned;
+	public ArrayList<Project> getProjectAssigned() {
+		return projects;
 	}
 
 	public ArrayList<Project> getPreferenceList() {
@@ -94,8 +113,8 @@ public class Student implements StudentInterface {
 		this.gpa = gpa;
 	}
 
-	public void setProjectAssigned(Project projectAssigned) {
-		this.projectAssigned = projectAssigned;
+	public void setProjectsAssigned(ArrayList<Project> projects) {
+		this.projects = projects;
 	}
 
 	public void setPreferenceList(ArrayList<Project> preferenceList) {

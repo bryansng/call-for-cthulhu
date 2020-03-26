@@ -6,6 +6,12 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 
 public class Common {
+	// the below are used during calculating of global/local satisfaction.
+	public static final double COST_NOT_ASSIGNED_PREFERENCE_PROJECTS = -5.0;
+	public static final double COST_UNSUITED_STREAM = -1.0;
+	public static final double COST_NONE_OR_MULTIPLE_PROJECTS = -1.0;
+
+	// the below are used during generation of our random candidate solution.
 	public static Random rand = new Random();
 	public static int numAvgProjectsProposed = 3;
 	public static AbstractRealDistribution distr = new NormalDistribution();
