@@ -24,6 +24,7 @@ public class Generator {
 
 	public static void generateRequiredFiles() throws IOException, InvalidFormatException {
 		Parser parser;
+		CSVFileWriter csvFileWriter = new CSVFileWriter();
 		ExcelWriter writer = new ExcelWriter();
 		ArrayList<Project> supervisorProject;
 		HashMap<Integer, Student> students;
@@ -36,6 +37,9 @@ public class Generator {
 		writer.writeStudents(students);
 		writer.writeAnalysis(parser);
 		System.out.println(parser.CSDSPercentage());
+		csvFileWriter.writeProjects(supervisorProject, 60);
+		csvFileWriter.writeStudents(students);
+		csvFileWriter.writeAnalysis(parser);
 		// System.out.println(parser.ProjectDistributionPercentage());
 		// System.out.println(parser.Project1stPreferencePercentage());
 
@@ -47,6 +51,9 @@ public class Generator {
 		writer.writeStudents(students);
 		writer.writeAnalysis(parser);
 		System.out.println(parser.CSDSPercentage());
+		csvFileWriter.writeProjects(supervisorProject, 120);
+		csvFileWriter.writeStudents(students);
+		csvFileWriter.writeAnalysis(parser);
 		// System.out.println(parser.ProjectDistributionPercentage());
 
 		System.out.println("Generating for 240 students...");
@@ -57,6 +64,9 @@ public class Generator {
 		writer.writeStudents(students);
 		writer.writeAnalysis(parser);
 		System.out.println(parser.CSDSPercentage());
+		csvFileWriter.writeProjects(supervisorProject, 240);
+		csvFileWriter.writeStudents(students);
+		csvFileWriter.writeAnalysis(parser);
 		// System.out.println(parser.ProjectDistributionPercentage());
 
 		System.out.println("Generating for 500 students...");
@@ -67,6 +77,9 @@ public class Generator {
 		writer.writeStudents(students);
 		writer.writeAnalysis(parser);
 		System.out.println(parser.CSDSPercentage());
+		csvFileWriter.writeProjects(supervisorProject, 500);
+		csvFileWriter.writeStudents(students);
+		csvFileWriter.writeAnalysis(parser);
 		// System.out.println(parser.ProjectDistributionPercentage());
 		System.out.println("All done");
 	}
