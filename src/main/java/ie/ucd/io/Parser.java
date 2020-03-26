@@ -1,10 +1,11 @@
-package ie.ucd;
+package ie.ucd.io;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
@@ -14,10 +15,12 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import ie.ucd.objects.StaffMember;
 import ie.ucd.objects.Student;
+import ie.ucd.Common;
 import ie.ucd.objects.Project;
 
 public class Parser {
 	public ArrayList<StaffMember> allStaffsProjects = new ArrayList<StaffMember>();
+	public HashMap<String, StaffMember> allStaffMembers = new HashMap<String, StaffMember>();
 	public ArrayList<Project> someStaffsProjects = new ArrayList<Project>();
 	public ArrayList<String> allNames = new ArrayList<String>();
 	public int numberOfStudents;
@@ -57,7 +60,7 @@ public class Parser {
 
 	// 30, 60, 120, 250 staffs.
 	// https://stackoverflow.com/questions/51259388/read-data-from-excel-in-java
-	private ArrayList<StaffMember> parseExcelFile() throws IOException {
+	public ArrayList<StaffMember> parseExcelFile() throws IOException {
 		String excelFile = "MiskatonicStaffMembers.xlsx";
 
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(excelFile);
@@ -75,7 +78,9 @@ public class Parser {
 			String specialFocus = row.getCell(3) == null ? "" : row.getCell(3).getStringCellValue();
 
 			if (!researchActivity.equals("")) {
-				allStaffsProjects.add(new StaffMember(proposedBy, researchActivity, researchAreas, specialFocus));
+				StaffMember staffMember = new StaffMember(proposedBy, researchActivity, researchAreas, specialFocus);
+				allStaffsProjects.add(staffMember);
+				allStaffMembers.put(proposedBy, staffMember);
 			}
 		}
 		is.close();

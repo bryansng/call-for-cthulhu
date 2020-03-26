@@ -50,7 +50,11 @@ public class StaffMember implements StaffMemberInterface {
 
 	public String toString() {
 		String buf = " - ";
-		return researchActivities + buf + stream;
+		String string = proposedBy + buf;
+		for (String researchActivity : researchActivities)
+			string += researchActivity + ",";
+		string += buf + stream;
+		return string;
 	}
 
 	public String getProposedBy() {

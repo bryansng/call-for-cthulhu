@@ -61,7 +61,7 @@ public class Project implements ProjectInterface {
 
 	public String toString() {
 		String buf = "\t";
-		return staffMember + buf + researchActivity + buf + stream + buf + preferredProbability;
+		return staffMember.getProposedBy() + buf + researchActivity + buf + stream + buf + preferredProbability;
 	}
 
 	public StaffMember getStaffMember() {
