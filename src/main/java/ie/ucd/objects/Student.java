@@ -16,12 +16,17 @@ public class Student implements StudentInterface {
 
 	public Student(String firstName, String lastName, Integer id, String stream, Double gpa,
 			ArrayList<Project> preferenceList) {
+		this(firstName, lastName, id, stream, gpa, preferenceList.get(0), preferenceList);
+	}
+
+	public Student(String firstName, String lastName, Integer id, String stream, Double gpa, Project projectAssigned,
+			ArrayList<Project> preferenceList) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.id = id;
 		this.stream = stream;
 		this.gpa = gpa;
-		this.projects.add(preferenceList.get(0));
+		this.projects.add(projectAssigned);
 		this.preferenceList = preferenceList;
 	}
 
@@ -89,6 +94,10 @@ public class Student implements StudentInterface {
 		return projects;
 	}
 
+	public Project getProjectAssigned(Integer index) {
+		return projects.get(index);
+	}
+
 	public ArrayList<Project> getPreferenceList() {
 		return preferenceList;
 	}
@@ -123,8 +132,17 @@ public class Student implements StudentInterface {
 		return this;
 	}
 
+	public Student setProjectAssigned(Project project, Integer index) {
+		this.projects.set(index, project);
+		return this;
+	}
+
 	public Student setPreferenceList(ArrayList<Project> preferenceList) {
 		this.preferenceList = preferenceList;
 		return this;
+	}
+
+	public Student getCopy() {
+		return new Student(firstName, lastName, id, stream, gpa, projects.get(0), preferenceList);
 	}
 }

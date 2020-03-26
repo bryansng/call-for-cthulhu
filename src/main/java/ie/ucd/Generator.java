@@ -2,7 +2,6 @@ package ie.ucd;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
@@ -27,17 +26,17 @@ public class Generator {
 		Parser parser;
 		ExcelWriter writer = new ExcelWriter();
 		ArrayList<Project> projects;
-		HashMap<Integer, Student> students;
+		ArrayList<Student> students;
 
 		System.out.println("Generating for 60 students...");
 		parser = new Parser(60);
 		projects = parser.generateStaffProjects();
 		students = parser.generateStudents();
 		// writer.writeProjects(projects, 60);
-		// writer.writeStudents(students);
+		writer.writeStudents(students);
 		// writer.writeAnalysis(parser);
 		System.out.println(parser.CSDSPercentage());
-		new SimulatedAnnealing(projects, students).run();
+		students = new SimulatedAnnealing().run(projects, students);
 		// System.out.println(parser.ProjectDistributionPercentage());
 		// System.out.println(parser.Project1stPreferencePercentage());
 

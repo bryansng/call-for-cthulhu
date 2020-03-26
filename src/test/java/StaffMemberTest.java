@@ -13,7 +13,7 @@ public class StaffMemberTest {
 	protected void setUp() throws Exception {
 		System.out.println("Setting StaffMemberTest up!");
 		dummyStaffMember = new StaffMember("Wolfgang Amadeus Mozart", "composing classical music, playing the piano",
-				"Classical music", "CS+DS");
+				"Classical music", "");
 	}
 
 	@Test
@@ -26,7 +26,6 @@ public class StaffMemberTest {
 		System.out.println("Running: testInitiailization");
 		Assert.assertEquals("Wolfgang Amadeus Mozart", dummyStaffMember.getProposedBy());
 		Assert.assertEquals(2, dummyStaffMember.getResearchActivities().length);
-		Assert.assertEquals("CS", dummyStaffMember.getStream());
 		Assert.assertTrue(possibleStreams.contains(dummyStaffMember.getStream()));
 		Assert.assertEquals(1, dummyStaffMember.getResearchAreas().length);
 	}

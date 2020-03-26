@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
@@ -21,7 +20,6 @@ public class Parser {
 	public ArrayList<StaffMember> allStaffsProjects = new ArrayList<StaffMember>();
 	public ArrayList<Project> someStaffsProjects = new ArrayList<Project>();
 	public ArrayList<String> allNames = new ArrayList<String>();
-	HashMap<Integer, Student> studentMap = new HashMap<Integer, Student>();
 	public int numberOfStudents;
 
 	public double numDSStudents = 0.0;
@@ -94,10 +92,11 @@ public class Parser {
 		return allNames;
 	}
 
-	public HashMap<Integer, Student> generateStudents() throws IOException {
+	public ArrayList<Student> generateStudents() throws IOException {
 		parseNamesFile();
 
-		HashMap<Integer, Student> studentMap = new HashMap<Integer, Student>();
+		HashSet<Integer> usedStudentIDs = new HashSet<Integer>();
+		ArrayList<Student> students = new ArrayList<Student>();
 
 		for (int i = 0; i < numberOfStudents; i++) {
 			Integer randomInt = new Random().nextInt(allNames.size());
@@ -109,14 +108,14 @@ public class Parser {
 			}
 
 			Integer randomId = generateStudentId();
-			while (studentMap.containsKey(randomId)) {
+			while (usedStudentIDs.contains(randomId)) {
 				randomId = generateStudentId();
 			}
 			String stream = generateStudentStream();
-			studentMap.put(randomId,
-					new Student(firstName, lastName, randomId, stream, 0.0, generatePreferenceList(stream, randomId)));
+			usedStudentIDs.add(randomId);
+			students.add(new Student(firstName, lastName, randomId, stream, 0.0, generatePreferenceList(stream, randomId)));
 		}
-		return studentMap;
+		return students;
 	}
 
 	private Integer generateStudentId() {

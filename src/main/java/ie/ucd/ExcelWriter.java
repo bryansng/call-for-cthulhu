@@ -3,8 +3,6 @@ package ie.ucd;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -75,7 +73,7 @@ public class ExcelWriter {
 	}
 
 	// https://www.callicoder.com/java-write-excel-file-apache-poi/
-	public void writeStudents(HashMap<Integer, Student> students) throws IOException, InvalidFormatException {
+	public void writeStudents(ArrayList<Student> students) throws IOException, InvalidFormatException {
 		String[] columns = { "First Name", "Last Name", "ID", "Stream", "Preference 1", "Preference 2", "Preference 3",
 				"Preference 4", "Preference 5", "Preference 6", "Preference 7", "Preference 8", "Preference 9",
 				"Preference 10" };
@@ -108,8 +106,7 @@ public class ExcelWriter {
 
 		// Create Other rows and cells with employees data
 		int rowNum = 1;
-		Collection<Student> studentsArray = students.values();
-		for (Student student : studentsArray) {
+		for (Student student : students) {
 			Row row = sheet.createRow(rowNum++);
 
 			row.createCell(0).setCellValue(student.getFirstName());
