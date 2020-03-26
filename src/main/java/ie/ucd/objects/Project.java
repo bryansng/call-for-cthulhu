@@ -60,7 +60,7 @@ public class Project implements ProjectInterface {
 	}
 
 	public String toString() {
-		String buf = "\t\t";
+		String buf = "\t";
 		return staffMember + buf + researchActivity + buf + stream + buf + preferredProbability;
 	}
 

@@ -11,10 +11,17 @@ public class SimulatedAnnealing {
 	double storedSatisfaction;
 
 	public ArrayList<Student> run(ArrayList<Project> projects, ArrayList<Student> students) {
-		double temperature = Common.SHOW_SA_DEBUG ? 100 : 1000.0; // 100
-		double coolingRate = 0.003;
-		double boltzmannConstant = 1.38064852e-23;
-		int maxIteration = Common.SHOW_SA_DEBUG ? 999 : 999999; // 999
+		double temperature;
+		double coolingRate;
+		if (students.size() <= 180) {
+			temperature = 100.0;
+			coolingRate = 0.03;
+		} else {
+			temperature = 500.0;
+			coolingRate = 0.003;
+		}
+		double minTemperature = 0.1;
+		int maxIteration = Common.SHOW_SA_DEBUG ? 999 : 9999999; // 999
 		// int maxIteration = projects.size();
 
 		// keep track of students.
@@ -24,12 +31,12 @@ public class SimulatedAnnealing {
 		ArrayList<Student> bestStudents = currStudents;
 
 		// minimizing negative fitness == maximizing positive fitness?
-		double currEnergy = calculateEnergy(currStudents);
+		double currEnergy = calculateEnergy(currStudents, projects);
 		double nextEnergy;
 		double bestEnergy = currEnergy;
 		System.out.println("Running Simulated Annealing (" + maxIteration + " Loops):\n");
 		System.out.println("Starting energy: " + currEnergy);
-		for (int i = 0; i < maxIteration && temperature > 0.1; i++) {
+		for (int i = 0; i < maxIteration && temperature > minTemperature; i++) {
 			if (Common.SHOW_SA_DEBUG)
 				System.out.println("\nLoop " + i + " (temperature: " + temperature + ", bestEnergy: " + bestEnergy + "):");
 			// random move to students to get new students.
@@ -39,7 +46,7 @@ public class SimulatedAnnealing {
 			nextStudents = makeRandomMove(currStudents);
 
 			// compute new energy.
-			nextEnergy = calculateEnergy(nextStudents);
+			nextEnergy = calculateEnergy(nextStudents, projects);
 
 			// decide if accept this new solution.
 			double randomProbability = new Random().nextDouble();
@@ -73,7 +80,7 @@ public class SimulatedAnnealing {
 				bestEnergy = nextEnergy;
 				System.out.println("\nNew best solution found.");
 				System.out.println("Satisfaction: " + storedSatisfaction);
-				System.out.println("1.0 / Satisfaction * 100000: " + calculateEnergy(nextStudents));
+				System.out.println("1.0 / Satisfaction * 100000: " + calculateEnergy(nextStudents, projects));
 				System.out.println("currEnergy: " + currEnergy);
 				System.out.println("nextEnergy: " + nextEnergy + "\n");
 			}
@@ -81,9 +88,11 @@ public class SimulatedAnnealing {
 			// cool system.
 			temperature *= 1 - coolingRate;
 		}
-		System.out.println("bestEnergy: " + bestEnergy);
 		System.out.println("currEnergy: " + currEnergy);
-		System.out.println(toStringStudents(bestStudents));
+		System.out.println("currSatisfaction: " + calculateGlobalSatisfaction(currStudents, projects));
+		System.out.println("bestEnergy: " + bestEnergy);
+		System.out.println("bestSatisfaction: " + calculateGlobalSatisfaction(bestStudents, projects));
+		// System.out.println(toStringStudents(bestStudents));
 		return bestStudents;
 	}
 
@@ -134,14 +143,17 @@ public class SimulatedAnnealing {
 		return newStudents;
 	}
 
-	private Double calculateEnergy(ArrayList<Student> students) {
-		return 1.0 / calculateGlobalSatisfaction(students) * 100000;
+	private Double calculateEnergy(ArrayList<Student> students, ArrayList<Project> projects) {
+		return 1.0 / calculateGlobalSatisfaction(students, projects) * 100000;
 	}
 
-	private Double calculateGlobalSatisfaction(ArrayList<Student> students) {
+	private Double calculateGlobalSatisfaction(ArrayList<Student> students, ArrayList<Project> projects) {
 		Double satisfaction = 0.0;
 		for (Student student : students) {
 			satisfaction += student.calculateSatisfaction();
+		}
+		for (Project project : projects) {
+			satisfaction += project.calculateSatisfaction();
 		}
 
 		// if less than or equal to 1, complement of satisfaction (i.e. 1 / satisfaction) would be an opposite effect, so we limit satisfaction minimum limit to 2.0.
