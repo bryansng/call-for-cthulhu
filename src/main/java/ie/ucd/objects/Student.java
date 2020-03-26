@@ -54,6 +54,11 @@ public class Student implements StudentInterface {
 	}
 
 	public String toString() {
+		String buf = "\t";
+		return firstName + " " + lastName + buf + id + buf + this.projects.get(0).getResearchActivity() + buf + stream;
+	}
+
+	public String toStringPreferenceList() {
 		String buf = "\t\t";
 
 		String projects = "";
@@ -67,7 +72,7 @@ public class Student implements StudentInterface {
 			}
 		}
 
-		return firstName + " " + lastName + buf + id + buf + stream + buf + projects;
+		return firstName + " " + lastName + buf + id + buf + this.projects.get(0) + buf + stream + buf + projects;
 	}
 
 	public String getFirstName() {

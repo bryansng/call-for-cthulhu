@@ -26,16 +26,18 @@ public class Parser {
 	public double numCSStudents = 0.0;
 	public double totalProjectsAssigned = 0.0;
 
-	public Parser() {
-		numberOfStudents = 20;
+	public Parser() throws IOException {
+		this(20);
 	}
 
-	public Parser(int numberOfStudents) {
+	public Parser(int numberOfStudents) throws IOException {
 		this.numberOfStudents = numberOfStudents;
+		parseExcelFile();
+		parseNamesFile();
 	}
 
-	public ArrayList<Project> generateStaffProjects() throws IOException {
-		parseExcelFile();
+	public ArrayList<Project> generateStaffProjects() {
+		someStaffsProjects = new ArrayList<Project>();
 
 		int numStaffMembers = numberOfStudents / 2;
 		for (int i = 0; i < Common.numAvgProjectsProposed * numStaffMembers; i++) {
@@ -47,6 +49,9 @@ public class Parser {
 			someStaffsProjects.add(allStaffsProjects.get(randInt).getProject());
 		}
 
+		if (isUnevenProjectStreamAllocation()) {
+			return generateStaffProjects();
+		}
 		return someStaffsProjects;
 	}
 
@@ -93,8 +98,6 @@ public class Parser {
 	}
 
 	public ArrayList<Student> generateStudents() throws IOException {
-		parseNamesFile();
-
 		HashSet<Integer> usedStudentIDs = new HashSet<Integer>();
 		ArrayList<Student> students = new ArrayList<Student>();
 
@@ -162,8 +165,15 @@ public class Parser {
 	}
 
 	public String CSDSPercentage() {
-		return "Percentage CS: " + formatPercentage(numCSStudents / numberOfStudents * 100.0) + "\nPercentage DS: "
-				+ formatPercentage(numDSStudents / numberOfStudents * 100.0) + "\n";
+		return "Percentage CS: " + getCSPercentage() + "\nPercentage DS: " + getDSPercentage() + "\n";
+	}
+
+	private String getCSPercentage() {
+		return formatPercentage(numCSStudents / numberOfStudents * 100.0);
+	}
+
+	private String getDSPercentage() {
+		return formatPercentage(numDSStudents / numberOfStudents * 100.0);
 	}
 
 	public String ProjectDistributionPercentage() {
@@ -186,5 +196,16 @@ public class Parser {
 
 	public String formatPercentage(double percentage) {
 		return String.format("%.2f%%", percentage);
+	}
+
+	private Boolean isUnevenProjectStreamAllocation() {
+		int numDS = 0;
+		for (Project project : someStaffsProjects) {
+			if (project.getStream().equals("DS")) {
+				numDS += 1;
+			}
+		}
+		double percentDS = numDS * 1.0 / someStaffsProjects.size();
+		return percentDS >= 47.5 && percentDS <= 52.5;
 	}
 }
