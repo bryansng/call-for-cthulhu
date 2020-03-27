@@ -18,6 +18,7 @@ public class Generator {
 		// generateExcelFiles();
 		generateCSVFiles();
 		readCSVFiles();
+		// readTest();
 		// applySimulatedAnnealing();
 
 		// playingNormalDistribution();
@@ -134,6 +135,17 @@ public class Generator {
 		ArrayList<StaffMember> staffMembers = parser.allStaffsProjects;
 		csvFileWriter.writeStaffMembers(staffMembers);
 		System.out.println("All done\n");
+	}
+
+	public static void readTest() throws Exception {
+		Parser parser = new Parser();
+		CSVFileReader reader = new CSVFileReader();
+		ArrayList<Project> projects = reader.readProject("CSVs/ProjectsCSV100.csv", parser.allStaffMembers);
+		ArrayList<Student> students = reader.readStudents("CSVs/StudentsCSV100.csv", projects);
+		for (Student s : students) {
+			System.out.println(s);
+		}
+		System.out.println("Done: StudentsCSV100.csv");
 	}
 
 	public static void readCSVFiles() throws Exception {

@@ -62,6 +62,7 @@ public class CSVFileReader {
         }
 
         int flag = 0;
+        // int aIndex = 0;
         assert csvReader != null;
         while ((line = csvReader.readNext()) != null) {
             if (flag == 0) {
@@ -71,11 +72,16 @@ public class CSVFileReader {
             ArrayList<Project> thisStudentsProjects = new ArrayList<Project>();
             for (int i = 4; i < 14; i++) {
                 for (Project project : projects) {
-                    if (project.getResearchActivity().equals(line[i]))
+                    if (project.getResearchActivity().equals(line[i])) {
                         thisStudentsProjects.add(project);
+                        break;
+                    }
                 }
             }
+            // System.out.println(thisStudentsProjects.size() < 10);
             students.add(new Student(line[0], line[1], Integer.parseInt(line[2]), line[3], 0.0, thisStudentsProjects));
+            // System.out.println(aIndex + " " + students.get(students.size() - 1));
+            // aIndex += 1;
         }
         return students;
     }

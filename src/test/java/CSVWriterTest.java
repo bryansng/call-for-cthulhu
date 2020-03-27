@@ -29,10 +29,34 @@ public class CSVWriterTest {
 	public void testWriteProject() {
 		System.out.println("Running: testWriteProject");
 
+		Boolean hasException = false;
 		try {
 			dummyWriter.writeProjects(parser.generateStaffProjects(), parser.numberOfStudents);
 		} catch (IOException e) {
+			hasException = true;
 		}
+		Assert.assertEquals("Exception raised, expected no exceptions.", false, hasException);
+	}
+
+	@Test
+	@DisplayName("Test writeStudent")
+	public void testWriteStudent() throws InterruptedException {
+		System.out.println("Running: testWriteStudent");
+
+		Boolean hasException = false;
+		try {
+			dummyWriter.writeProjects(parser.generateStaffProjects(), parser.numberOfStudents);
+			dummyWriter.writeStudents(parser.generateStudents());
+		} catch (IOException e) {
+			hasException = true;
+		}
+		Assert.assertEquals("Exception raised, expected no exceptions.", false, hasException);
+	}
+
+	@Test
+	@DisplayName("Test readWrittenProject")
+	public void testReadWrittenProject() {
+		System.out.println("Running: testReadWrittenProject");
 
 		ArrayList<Project> dummyProjects = null;
 		try {
@@ -44,22 +68,17 @@ public class CSVWriterTest {
 	}
 
 	@Test
-	@DisplayName("Test writeStudent")
-	public void testWriteStudent() throws InterruptedException {
-		System.out.println("Running: testWriteStudent");
+	@DisplayName("Test readWrittenStudent")
+	public void testReadWrittenStudent() throws InterruptedException {
+		System.out.println("Running: testReadWrittenStudent");
 
 		ArrayList<Project> dummyProjects = null;
 		ArrayList<Student> dummyStudents = null;
 		try {
-			dummyProjects = parser.generateStaffProjects();
-			dummyWriter.writeStudents(parser.generateStudents());
-		} catch (IOException e) {
-		}
-
-		try {
-			Thread.sleep(1000); // wait for file to finish writing.
+			dummyProjects = dummyReader.readProject("CSVs/ProjectsCSV100.csv", parser.allStaffMembers);
 			dummyStudents = dummyReader.readStudents("CSVs/StudentsCSV100.csv", dummyProjects);
 		} catch (Exception e) {
+			// e.printStackTrace();
 		}
 		Assert.assertNotNull("Students null, expected successful write then read.", dummyStudents);
 		Assert.assertEquals(100, dummyStudents.size());
