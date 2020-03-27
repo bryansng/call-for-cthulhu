@@ -1,11 +1,9 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-
 import ie.ucd.io.CSVFileReader;
 import ie.ucd.io.Parser;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.Student;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -168,6 +166,8 @@ public class CSVReaderTest {
 	protected void tearDown() throws Exception {
 		System.out.println("Running: tearDown");
 		dummyReader = null;
+		parser = null;
 		Assert.assertNull(dummyReader);
+		Assert.assertNull(parser);
 	}
 }

@@ -1,40 +1,40 @@
 Staff Member,Research Activity,Research Area,Special Focus
 Daniel Day-Lewis,performing serious acting;winning Oscars,Acting;Hollywood;Serious Acting,CS+DS
 Tina Fey,writing comedy,Comedy,CS
-Abraham Lincoln,fighting for civil rights;fighting civil wars,American politics,CS
-John Wilkes Booth,assassinating presidents,American politics,CS
+Abraham Lincoln,fighting for civil rights;fighting civil wars,American politics,CS+DS
+John Wilkes Booth,assassinating presidents,American politics,CS+DS
 Adam Sandler,making dumb comedies,Comedy,CS+DS
-Adam Smith,promoting capitalism,Capitalism,CS+DS
+Adam Smith,promoting capitalism,Capitalism,CS
 Adam West,wearing tights,Comedy,CS+DS
 The Joker,causing mayhem;spreading fear;laughing maniacally,DC Comics;Gotham City,DS
 Al Bundy,watching TV,Family life;Comedy,CS+DS
 Al Capone,selling illegal alcohol,Prohibition;the Mafia;Chicago,CS
-Eliot Ness,arresting bootleggers;fighting with the mob,Prohibition;the Mafia;Chicago;the Law,CS
+Eliot Ness,arresting bootleggers;fighting with the mob,Prohibition;the Mafia;Chicago;the Law,CS+DS
 Al Gore,lecturing about climate change,the Left;the Democrats;the Environment,CS
-Al Pacino,shouting in Hollywood movies,Acting;Hollywood,CS
-Alan Greenspan,talking up the economy,Economics,CS
+Al Pacino,shouting in Hollywood movies,Acting;Hollywood,CS+DS
+Alan Greenspan,talking up the economy,Economics,CS+DS
 Alan Sugar,selling consumer goods,British business,CS
 Albert Einstein,revolutionizing physics,Physics;Relativity,CS
 Alec Baldwin,attacking paparazzi,Acting;Hollywood,CS+DS
-Alfred Hitchcock,making suspense movies,Directing;Suspense,CS
+Alfred Hitchcock,making suspense movies,Directing;Suspense,CS+DS
 Allan Quatermain,exploring darkest Africa,Victorian literature,DS
 Andrew Lloyd Webber,making insipid musicals,Musicals;Musical Theatre,CS+DS
 Andy Warhol,painting over photographs;painting soup cans,Modern painting;Pop art,CS
-Angelina Jolie,adopting children;starring in Hollywood movies,Acting;Hollywood,CS
+Angelina Jolie,adopting children;starring in Hollywood movies,Acting;Hollywood,CS+DS
 Ann Coulter,ranting about liberals,the Right;the Republicans,CS+DS
 Anna Karenina,worrying about adultery,Russian literature,DS
 Emma Bovary,planning adultery;climbing social ladders,Madame Bovary;the Middle Class,DS
 Anthony Bourdain,eating exotic foods;eating the inedible,Cooking;the Kitchen,CS+DS
-Anton Chekov,writing plays about the middle classes,Russian literature,CS+DS
-Antonio Vivaldi,composing classical music,Classical music,CS+DS
+Anton Chekov,writing plays about the middle classes,Russian literature,CS
+Antonio Vivaldi,composing classical music,Classical music,CS
 Archie Bunker,ranting about liberals;ranting about minorities,American culture;the Working Class,DS
-Ariel Sharon,building giant walls,Israeli politics;Middle-Eastern politics,CS+DS
+Ariel Sharon,building giant walls,Israeli politics;Middle-Eastern politics,CS
 Aristotle,writing on wax tablets;teaching philosophy to future leaders;teaching the next generation,Ancient philosophy;Greek philosophy;the Ancient world;Ancient Greece,CS+DS
-Arnold Schwarzenegger,working out;making action movies,Acting;Action movies,CS+DS
-Arthur Conan Doyle,writing mystery stories,Detective fiction,CS
+Arnold Schwarzenegger,working out;making action movies,Acting;Action movies,CS
+Arthur Conan Doyle,writing mystery stories,Detective fiction,CS+DS
 Atticus Finch,representing the disenfranchised,the Law;the American South,DS
 Audrey Hepburn,starring in romantic comedies,Acting;Hollywood,CS+DS
-Aung San Suu Kyi,campaigning for democracy,Asian politics,CS+DS
+Aung San Suu Kyi,campaigning for democracy,Asian politics,CS
 Austin Powers,foiling the schemes of evil villains;shagging spies,Spy spoofs;Bond spoofs;Spy movies,DS
 Ayn Rand,promoting Objectivism;ranting about liberals,Capitalism;Objective philosophy,CS+DS
 Babe Ruth,hitting home runs,Baseball;American sports,CS+DS
@@ -42,32 +42,32 @@ Barack Obama,campaigning for the presidency;giving speeches,American politics,CS
 Barry White,singing romantic songs,Pop music;Love songs,CS
 Bart Simpson,playing pranks;making prank calls,Family life;Comedy,DS
 Basil Fawlty,condescending to customers;beating menial staff;terrorizing employees;running a hotel,British comedy;the Hotel business,DS
-Bear Grylls,eating bugs;licking frogs;sucking roots,Reality TV;the Outback,CS+DS
-Ben Affleck,making bad movie choices;avoiding paparazzi,Acting;Hollywood,CS+DS
+Bear Grylls,eating bugs;licking frogs;sucking roots,Reality TV;the Outback,CS
+Ben Affleck,making bad movie choices;avoiding paparazzi,Acting;Hollywood,CS
 Benedict Arnold,betraying friends;stabbing in the back;selling out;changing sides,American history;American politics;Betrayal,CS
 Benjamin Franklin,testing scientific theories,American history;American politics,CS+DS
-Benny Hill,chasing old women,British comedy;British humour,CS+DS
+Benny Hill,chasing old women,British comedy;British humour,CS
 Bertie Wooster,playing the piano;chasing flappers;doing the Charleston,British comedy;British class politics,DS
 Reginald Jeeves,rescuing aristocrats,British comedy;British class politics,DS
 Bill Clinton,chasing interns,American politics;the Left;the Democrats,CS+DS
 Bill Cosby,telling affable jokes,American comedy;American culture;Comedy;Acting,CS+DS
-Bill Gates,making billions;pushing dodgy operating systems;funding a cure for malaria,Microsoft;Technology;Software;the Software business,CS
+Bill Gates,making billions;pushing dodgy operating systems;funding a cure for malaria,Microsoft;Technology;Software;the Software business,CS+DS
 Bill Murray,starring in indy movies;telling dry jokes,American comedy;American culture,CS+DS
 Billy Bob Thornton,playing intense characters;starring in indy movies,Acting;Hollywood,CS
 Billy Crystal,doing stand-up;starring in comedies,American comedy;American culture;Comedy;Acting,CS
 Bing Crosby,singing middle-of-the-road songs,Pop music;Love songs,CS
-Bob Dylan,singing protest songs,Folk music;Protest songs,CS+DS
+Bob Dylan,singing protest songs,Folk music;Protest songs,CS
 Leonard Cohen,singing melancholy songs,Love songs,CS
-Bob Marley,smoking herb;singing reggae songs,Reggae music;Pop Music;Carribean music,CS
+Bob Marley,smoking herb;singing reggae songs,Reggae music;Pop Music;Carribean music,CS+DS
 Boba Fett,collecting bounties on runaways;tracking down fugitives,Star Wars,DS
-Bobby Fischer,playing aggressive chess,Chess,CS
+Bobby Fischer,playing aggressive chess,Chess,CS+DS
 Bono,singing rock songs;avoiding taxes;preaching to presidents,Rock music,CS
 Brad Pitt,starring in Hollywood movies,Acting;Hollywood,CS+DS
-Brian Wilson,waxing a surfboard;singing multipart harmonies,Pop music;Love songs;the Beach Boys,CS+DS
+Brian Wilson,waxing a surfboard;singing multipart harmonies,Pop music;Love songs;the Beach Boys,CS
 Bridget Jones,keeping a diary;moaning about men,British culture,DS
 Britney Spears,flirting with rednecks;having meltdowns in public,Pop music;Tweeny music,CS+DS
-Bruce Lee,performing kung-fu moves;starring in kung-fu movies,Martial Arts;Kung Fu,CS+DS
-Bruce Springsteen,singing rock songs,Rock music,CS+DS
+Bruce Lee,performing kung-fu moves;starring in kung-fu movies,Martial Arts;Kung Fu,CS
+Bruce Springsteen,singing rock songs,Rock music,CS
 Bruce Wayne,attending cocktail parties;running a multinational corporation;maintaining a secret identity,DC Comics;Big business;Gotham City,DS
 Commissioner James Gordon,pursuing criminals;apprehending criminals;arresting criminals,DC Comics;Gotham City,DS
 Harvey Dent,convicting criminals;tempting fate;tossing coins,DC Comics;Gotham City,DS
@@ -77,28 +77,28 @@ Buck Rogers,surviving in the 25th century,Space Operas,DS
 Buddha,promoting Buddhism,Eastern religion;Eastern philosophy,CS
 Buzz Aldrin,piloting the lunar module;collecting rock samples;piloting a spaceship;staring at the moon,NASA;Space flight;the Moon,CS
 Buzz Lightyear,falling gracefully,Pixar;Toy Story,DS
-Emperor Caligula,terrorizing citizens;abusing power,the Roman Empire;Ancient Rome,CS
+Emperor Caligula,terrorizing citizens;abusing power,the Roman Empire;Ancient Rome,CS+DS
 Cameron Diaz,starring in romantic comedies,Acting;Comedy,CS
 Captain Ahab,chasing a great white whale;commanding a whaling ship,Moby Dick;Whaling,DS
 Cardinal Richelieu,plotting strategies;directing the business of state,French history;French politics;pre-Revolutionary France,CS
-Carl Lewis,winning gold medals;competing in athletic events,Athletics;the Olympics,CS
-Carl Sagan,studying the cosmos,Astronomy;the Cosmos,CS+DS
+Carl Lewis,winning gold medals;competing in athletic events,Athletics;the Olympics,CS+DS
+Carl Sagan,studying the cosmos,Astronomy;the Cosmos,CS
 Stephen Jay Gould,collecting fossils;promoting evolutionary theory,Evolution;Humanism,CS+DS
 Carrie Bradshaw,writing about sex;shopping for shoes;gossiping with galpals,Sex and the City;Manhattan,DS
-Enrico Caruso,singing opera arias,Opera,CS
-Cary Grant,starring in romantic comedies,Acting;Hollywood,CS+DS
-Giacomo Casanova,chasing after women;seducing women;womanizing,Italian culture;Italian culture;Romance,CS
-Charlemagne,running an empire;consolidating an empire,the Medieval world;European history,CS+DS
+Enrico Caruso,singing opera arias,Opera,CS+DS
+Cary Grant,starring in romantic comedies,Acting;Hollywood,CS
+Giacomo Casanova,chasing after women;seducing women;womanizing,Italian culture;Italian culture;Romance,CS+DS
+Charlemagne,running an empire;consolidating an empire,the Medieval world;European history,CS
 Charles Atlas,working out;bodybuilding,Bodybuilding,CS
-Charles Darwin,explaining evolution;promoting Darwinism;explaining natural selection,the Natural Sciences;Evolution,CS+DS
+Charles Darwin,explaining evolution;promoting Darwinism;explaining natural selection,the Natural Sciences;Evolution,CS
 Charles Dickens,writing about social problems;writing serialized stories,Victorian literature,CS+DS
 Charles Foster Kane,running a newspaper empire;publishing newspapers;running for governor;promoting yellow journalism,the Newspaper industry;Citizen Kane,DS
 Charlie Brown,playing baseball;worrying about life,Peanuts;American culture,DS
 Charlie Chaplin,twirling a cane;rescuing kids;struggling with modern times,Black-and-white movies;Comedy;Hollywood,CS+DS
 Charlie Parker,playing jazz saxophone,Jazz,CS
-Che Guevara,spreading revolution;promoting communism;promoting socialism,Cuban politics;the Cuban revolution;Cuba,CS+DS
+Che Guevara,spreading revolution;promoting communism;promoting socialism,Cuban politics;the Cuban revolution;Cuba,CS
 Christian Bale,starring in action movies;wearing a batsuit,Hollywood;Acting,CS+DS
-Christopher Columbus,searching for a new world;exploring the new world,the Americas;the Age of Discovery,CS+DS
+Christopher Columbus,searching for a new world;exploring the new world,the Americas;the Age of Discovery,CS
 Christopher Hitchens,ranting about politics,Political criticism;the Left,CS+DS
 Chuck Norris,starring in action movies,Hollywood;Acting;Action movies,CS+DS
 Cicero,giving speeches;defending plaintiffs,Oratory;Rhetoric;Ancient Rome;Roman politics,CS+DS
@@ -106,114 +106,114 @@ Clark Gable,starring in Hollywood movies,Hollywood;Acting,CS+DS
 Clark Kent,reporting for The Daily Planet,DC Comics;Metropolis;the Daily Planet,DS
 Cleopatra,seducing emperors,Ancient Egypt,CS+DS
 Julius Caesar,running an empire,Roman politics;Ancient Rome,CS
-Clint Eastwood,starring in action movies;directing movies,Hollywood;Acting,CS
-Colin Farrell,starring in Hollywood movies;starring in indy movies;womanizing;making unauthorized sex tapes,Hollywood;Acting,CS
-Colonel Sanders,deep-frying chicken;selling fried chicken,KFC;Fried Chicken;Southern Food;Fast Food,CS+DS
-Confucius,teaching philosophy;spreading philosophy;teaching the next generation,Chinese philosophy;Eastern philosophy,CS+DS
-Nicolaus Copernicus,promoting Heliocentrism,Astronomy;the Cosmos;Medieval science,CS+DS
+Clint Eastwood,starring in action movies;directing movies,Hollywood;Acting,CS+DS
+Colin Farrell,starring in Hollywood movies;starring in indy movies;womanizing;making unauthorized sex tapes,Hollywood;Acting,CS+DS
+Colonel Sanders,deep-frying chicken;selling fried chicken,KFC;Fried Chicken;Southern Food;Fast Food,CS
+Confucius,teaching philosophy;spreading philosophy;teaching the next generation,Chinese philosophy;Eastern philosophy,CS
+Nicolaus Copernicus,promoting Heliocentrism,Astronomy;the Cosmos;Medieval science,CS
 Cosmo Kramer,mooching from neighbors;developing crazy schemes,The Seinfeld Chronicles;Comedy,DS
 Courtney Love,playing grungy music,Rock music;Alternative Rock,CS
 Croesus,collecting treasures;ruining an empire;running an empire,Lydia;the Ancient world,CS
-Herodotus,writing about history;recording history,Ancient Greece;the Ancient world,CS
+Herodotus,writing about history;recording history,Ancient Greece;the Ancient world,CS+DS
 Daffy Duck,chasing rabbits;spitting while speaking,Looney Tunes;Warner Bros animation,DS
 Dame Edna Everage,moaning about men,Australia;Drag;Cross-Dressing,CS+DS
 Dan Brown,writing pot-boilers,The Da Vinci Code;Popular fiction,CS
 Robert Langdon,studying symbols;studying icons;following clues,Symbology;Religious Iconology,DS
 Dan Quayle,campaigning for the senate,American politics;the Right,CS+DS
-Daniel Craig,starring in action movies;starring in indy movies;playing James Bond,Acting;James Bond,CS+DS
+Daniel Craig,starring in action movies;starring in indy movies;playing James Bond,Acting;James Bond,CS
 Daniel Boone,hunting raccoons,the American West,CS+DS
 Dante Alighieri,writing poetry,Italian literature;Italian poetry,CS
 Darth Maul,promoting the Dark Side;fighting the forces of good;duelling acrobatically,Star Wars;the Dark Side,DS
 Darth Vader,promoting the Dark Side;working for the forces of darkness;fighting the forces of good;duelling acrobatically,Star Wars;the Dark Side,DS
-Davy Crockett,hunting raccoons;defending freedom,American politics,CS+DS
-David Beckham,playing soccer;promoting hair products,English soccer;Soccer,CS
+Davy Crockett,hunting raccoons;defending freedom,American politics,CS
+David Beckham,playing soccer;promoting hair products,English soccer;Soccer,CS+DS
 David Blaine,performing street magic;performing magic tricks,Magic;Street Magic,CS
-David Bowie,singing pop songs;writing pop songs,Cross-Dressing;Pop music,CS
+David Bowie,singing pop songs;writing pop songs,Cross-Dressing;Pop music,CS+DS
 David Byrne,singing pop songs;writing pop songs,Pop music,CS+DS
-David Caruso,starring in TV shows;pouting on camera,Acting;CSI: Miami;Police Procedurals,CS
+David Caruso,starring in TV shows;pouting on camera,Acting;CSI: Miami;Police Procedurals,CS+DS
 David Hasselhoff,starring in reality TV shows;constructing an ironic public image,Acting;Pop music;Baywatch;Knight Rider,CS+DS
-Dave Lee Roth,singing rock songs,Rock music,CS+DS
-David Letterman,hosting a late night chat show,Late-night TV;Chat Shows;CBS,CS+DS
-David Lynch,directing weird movies;writing weird movies,Movies;Twin Peaks,CS+DS
+Dave Lee Roth,singing rock songs,Rock music,CS
+David Letterman,hosting a late night chat show,Late-night TV;Chat Shows;CBS,CS
+David Lynch,directing weird movies;writing weird movies,Movies;Twin Peaks,CS
 Dalton Trumbo,writing scripts;writing compelling dialogue,Movies;Politics;Communism;the Left,CS+DS
 David Mamet,writing plays;writing scripts;directing movies,Movies;Theatre,CS+DS
-Dean Martin,singing middle-of-the-road songs;recording pop songs;starring in romantic comedies;crooning love songs,Easy Listening;the Rat Pack,CS
-Deepak Chopra,promoting Eastern philosophy,Eastern philosophy;Self-Help,CS+DS
+Dean Martin,singing middle-of-the-road songs;recording pop songs;starring in romantic comedies;crooning love songs,Easy Listening;the Rat Pack,CS+DS
+Deepak Chopra,promoting Eastern philosophy,Eastern philosophy;Self-Help,CS
 Dexter Morgan,chasing murderers;killing murderers;analyzing murder scenes;revelling in blood spatter,Miami-Dade,DS
-Dian Fossey,studying gorillas up close;living amongst apes,Rwanda;Gorillas;Zoology,CS
-Dick Cheney,promoting big business,the Right;the Republicans;American politics,CS
+Dian Fossey,studying gorillas up close;living amongst apes,Rwanda;Gorillas;Zoology,CS+DS
+Dick Cheney,promoting big business,the Right;the Republicans;American politics,CS+DS
 Dolly Parton,singing country music,Country music,CS
 Don Vito Corleone,running a crime family;running an empire,the Mafia;The Godfather,DS
-Don King,promoting boxing fights,Boxing,CS+DS
+Don King,promoting boxing fights,Boxing,CS
 Donald Duck,eating Peking duck;setting mousetraps,Walt Disney animation,DS
-Donald Trump,investing in real estate;developing real estate;building giant walls;postulating bizarre theories,Real Estate,CS
+Donald Trump,investing in real estate;developing real estate;building giant walls;postulating bizarre theories,Real Estate,CS+DS
 Dorian Gray,gadding about town;practicing good skin care;avoiding growing old,The Picture of Dorian Gray;Victorian literature,DS
 Christian Grey,running a multinational corporation;seducing women;womanizing;promoting capitalism,Fifty Shades of Grey,DS
 Doris Day,starring in romantic comedies,Hollywood;Acting,CS+DS
 Dorothy Parker,writing for the New Yorker;making witty remarks;writing short stories,American literature;The Algonquin Round Table,CS
 Dr. John Watson,chasing criminals;offering medical opinions;writing up case notes,Sherlock Holmes;Detective fiction;Victorian literature,DS
 Professor James Moriarty,plotting criminal schemes;amassing ill-gotten wealth,Sherlock Holmes;detective fiction;Victorian literature,DS
-Eddie Murphy,starring in action movies;starring in comedies,American comedy;American culture;Movies;Stand-Up Comedy,CS
+Eddie Murphy,starring in action movies;starring in comedies,American comedy;American culture;Movies;Stand-Up Comedy,CS+DS
 Eddie Van Halen,playing rock music;playing rock guitar,Rock music;Guitar music,CS+DS
-Eddy Merckx,pedalling furiously;winning cycling races,Cycling,CS+DS
-Edith Piaf,singing melancholy songs,Cabaret singing,CS
-Edward Hopper,painting melancholy pictures,American art;Painting,CS
-Elizabeth Taylor,starring in Hollywood movies;racking up marriages,Acting;Movies,CS+DS
+Eddy Merckx,pedalling furiously;winning cycling races,Cycling,CS
+Edith Piaf,singing melancholy songs,Cabaret singing,CS+DS
+Edward Hopper,painting melancholy pictures,American art;Painting,CS+DS
+Elizabeth Taylor,starring in Hollywood movies;racking up marriages,Acting;Movies,CS
 Elmer Fudd,hunting rabbits;hunting wabbits,Looney Tunes;Warner Bros animation,DS
 Elmore Leonard,writing crime stories;writing compelling dialogue,Crime fiction,CS
 Elvis Presley,singing rock songs;starring in romantic comedies;gyrating hips;frying peanut-butter and banana sandwiches,Rock music;Musical movies,CS+DS
-Emily Dickinson,writing poetry,Poetry,CS
-Eminem,writing rap songs,Rap music,CS
+Emily Dickinson,writing poetry,Poetry,CS+DS
+Eminem,writing rap songs,Rap music,CS+DS
 Emperor Constantine,running an empire,Roman politics;Ancient Rome,CS
 Ming The Merciless,running an empire;terrorizing Earth,Flash Gordon,DS
 Emperor Palpatine,running an empire;promoting the Dark Side,Star Wars;the Dark Side,DS
-Erasmus,promoting humanism,Humanism,CS+DS
-Eric Clapton,singing blues songs;writing blues songs,Blues music,CS
-Ernest Hemingway,writing short stories;writing modern fiction;writing about manly pursuits,American literature,CS+DS
+Erasmus,promoting humanism,Humanism,CS
+Eric Clapton,singing blues songs;writing blues songs,Blues music,CS+DS
+Ernest Hemingway,writing short stories;writing modern fiction;writing about manly pursuits,American literature,CS
 Errol Flynn,starring in Hollywood movies;womanizing;starring in action movies,Hollywood;Acting;Action movies,CS
-Euclid,studying mathematics;proving math theorems,Mathematics;Geometry;Ancient Greece,CS
-Evel Knievel,performing motorcycle stunts;jumping over buses on motorbikes,Motorcycle stunts,CS
+Euclid,studying mathematics;proving math theorems,Mathematics;Geometry;Ancient Greece,CS+DS
+Evel Knievel,performing motorcycle stunts;jumping over buses on motorbikes,Motorcycle stunts,CS+DS
 Federico Fellini,making new wave movies;making Italian movies,Italian Neo-realism,CS+DS
-Fidel Castro,running a dictatorship;promoting socialism,Cuban politics;the Cuban revolution;Cuba,CS+DS
+Fidel Castro,running a dictatorship;promoting socialism,Cuban politics;the Cuban revolution;Cuba,CS
 Flash Gordon,fighting for justice;defending the Earth,Flash Gordon,DS
 Florence Nightingale,treating the sick;treating the injured,the Crimean War;Victorian medicine,CS
 Forrest Gump,fishing for shrimps;eating a box of chocolates,Greenbow Alabama;the American South,DS
-Francis Bacon,painting dark pictures,Expressionist art;Expressionist painting,CS
-Francis Crick,studying genetics;modeling DNA,Biology;DNA;The Double Helix;Genetics,CS+DS
+Francis Bacon,painting dark pictures,Expressionist art;Expressionist painting,CS+DS
+Francis Crick,studying genetics;modeling DNA,Biology;DNA;The Double Helix;Genetics,CS
 Frank Capra,making idealistic movies,It's a Wonderful Life;Hollywood,CS
 Frank Columbo,solving crimes;pursuing criminals;tricking criminals;extracting confessions,Detective fiction,DS
-Frank Gehry,designing modern buildings,American architecture;Modern architecture,CS+DS
+Frank Gehry,designing modern buildings,American architecture;Modern architecture,CS
 Frank Lloyd Wright,designing modern buildings,American architecture;Modern architecture,CS
-Frank Sinatra,singing middle-of-the-road songs;crooning love songs;recording pop songs;starring in romantic comedies,Easy Listening;the Rat Pack,CS+DS
-Frank Zappa,singing experimental songs;writing experimental songs,Experimental music,CS
-Franz Liszt,playing classical piano,Classical music;Piano music,CS
+Frank Sinatra,singing middle-of-the-road songs;crooning love songs;recording pop songs;starring in romantic comedies,Easy Listening;the Rat Pack,CS
+Frank Zappa,singing experimental songs;writing experimental songs,Experimental music,CS+DS
+Franz Liszt,playing classical piano,Classical music;Piano music,CS+DS
 Fred Astaire,starring in romantic comedies;starring in musical comedies;starring in Hollywood movies;enjoying ball-room dancing,Dancing;Hollywood,CS+DS
 Fredo Corleone,disappointing the family;complaining about big brother,The Godfather,DS
 Garry Kasparov,playing aggressive chess,Chess,CS
 Garry Trudeau,drawing political cartoons,Doonesbury;Political Cartoons,CS+DS
-Garth Brooks,singing country music,Country music,CS+DS
-Gary Larson,drawing whimsical cartoons,Apolitical Cartoons;The Far Side,CS+DS
+Garth Brooks,singing country music,Country music,CS
+Gary Larson,drawing whimsical cartoons,Apolitical Cartoons;The Far Side,CS
 Genghis Khan,running an empire,the Mongols;Mongolia,CS
-George Bernard Shaw,promoting liberalism;writing plays,British theatre;Victorian literature,CS+DS
-George Clooney,starring in Hollywood movies;starring in indy movies;womanizing;promoting political causes,Hollywood;Acting,CS+DS
+George Bernard Shaw,promoting liberalism;writing plays,British theatre;Victorian literature,CS
+George Clooney,starring in Hollywood movies;starring in indy movies;womanizing;promoting political causes,Hollywood;Acting,CS
 George Costanza,complaining about life,The Seinfeld Chronicles;Comedy,DS
-George Foreman,winning heavyweight titles;knocking out opponents;winning boxing matches,Boxing,CS
-George Harrison,playing guitar;singing pop songs,The Beatles;Pop music,CS
-George Orwell,promoting liberalism;warning about totalitarianism;writing political tracts;writing polemics,Dystopian fiction,CS
+George Foreman,winning heavyweight titles;knocking out opponents;winning boxing matches,Boxing,CS+DS
+George Harrison,playing guitar;singing pop songs,The Beatles;Pop music,CS+DS
+George Orwell,promoting liberalism;warning about totalitarianism;writing political tracts;writing polemics,Dystopian fiction,CS+DS
 George Soros,managing hedge funds;making billions,Hedge Funds;Speculation,CS+DS
-George W. Bush,launching foreign wars,the Right;the Republicans;American politics,CS+DS
+George W. Bush,launching foreign wars,the Right;the Republicans;American politics,CS
 George Washington,leading revolutions;fighting for liberty,the American War of Independence,CS
-Gerard Manley Hopkins,writing modern poetry,Poetry;Sprung Rhyme,CS
+Gerard Manley Hopkins,writing modern poetry,Poetry;Sprung Rhyme,CS+DS
 Megyn Kelly,promoting conservative values;ranting about liberals,the Right;the Republicans;American politics;Fox News,CS+DS
-Bill O'Reilly,promoting conservative values;ranting about liberals,the Right;the Republicans;American politics;Fox News,CS
+Bill O'Reilly,promoting conservative values;ranting about liberals,the Right;the Republicans;American politics;Fox News,CS+DS
 Glenn Beck,promoting conservative values;ranting about liberals,the Right;the Republicans;American politics;Fox News,CS+DS
 Gloria Steinem,promoting feminism;moaning about men,Feminism;the Woman's movement,CS+DS
 Mikhail Gorbachev,coasting on past glories,the Soviet Union;the Cold War,CS
-Gordon Ramsay,cursing at kitchen staff;winning Michelin stars;cooking fancy food,Cooking;the Kitchen;Haute Cuisine,CS+DS
-Grace Kelly,dining with playboy princes;starring in Hollywood movies;starring in romantic comedies,Hollywood;Acting;Monacco,CS
-Greta Garbo,starring in Hollywood movies,Hollywood;Acting,CS
+Gordon Ramsay,cursing at kitchen staff;winning Michelin stars;cooking fancy food,Cooking;the Kitchen;Haute Cuisine,CS
+Grace Kelly,dining with playboy princes;starring in Hollywood movies;starring in romantic comedies,Hollywood;Acting;Monacco,CS+DS
+Greta Garbo,starring in Hollywood movies,Hollywood;Acting,CS+DS
 Groucho Marx,starring in madcap comedies,Hollywood;Comedy;The Marx Brothers,CS
-Gwyneth Paltrow,running a new-age website;starring in Hollywood movies;raising new-age children;picking weird children names,Hollywood;Acting,CS+DS
+Gwyneth Paltrow,running a new-age website;starring in Hollywood movies;raising new-age children;picking weird children names,Hollywood;Acting,CS
 H.P. Lovecraft,writing purple prose;writing horror stories;writing for pulp magazines,Horror fiction,CS
 Han Solo,piloting the Millenium Falcon;doing the Kessel run;smuggling contraband;fighting for the rebel alliance,Star Wars,DS
 Jabba the Hutt,running a crime family;running a smuggling business,Star Wars,DS
@@ -222,32 +222,32 @@ Harry Houdini,escaping from handcuffs;escaping from water tanks,Escapology;Stage
 Harry Potter,performing magic tricks;studying magic tricks;playing quidditch,Hogwarts;Teen fiction;Magic,DS
 Lord Voldemort,devising evil schemes;striving for world domination;meddling in the dark arts;tormenting muggles,Hogwarts;Teen fiction;Magic,DS
 Albus Dumbledore,performing magic tricks;studying magic tricks;teaching magic;running a school for gifted teens;teaching the next generation,Hogwarts;Teen fiction;Magic,DS
-Heath Ledger,starring in Hollywood movies,Hollywood;Acting,CS
+Heath Ledger,starring in Hollywood movies,Hollywood;Acting,CS+DS
 Helen Keller,reading braille;avoiding eye contact,American education,CS
-Henry Ford,mass-producing cars;running assembly lines;making cars,the Motor industry;the Car industry,CS+DS
+Henry Ford,mass-producing cars;running assembly lines;making cars,the Motor industry;the Car industry,CS
 Henry James,writing modern fiction,American literature,CS
 Henry Kissinger,brokering peace deals,the Right;the Republicans;American politics,CS
 Henry Miller,writing erotic fiction,American literature,CS
 Hercule Poirot,solving crimes;pursuing criminals;tricking criminals;extracting confessions,Detective fiction;Drawing room mysteries,DS
-Hillary Clinton,running for the senate;campaigning for the presidency;frowning at errant husbands;tolerating adultery,American politics;the Left;the Democrats,CS+DS
+Hillary Clinton,running for the senate;campaigning for the presidency;frowning at errant husbands;tolerating adultery,American politics;the Left;the Democrats,CS
 Homer,writing epic poetry;telling epic tales,Ancient Greece;the Ancient world,CS
 Homer Simpson,eating donuts;avoiding work;working with nuclear materials;drinking Duff beer,The Simpsons;Springfield,DS
 O.J. Simpson,playing golf;making threatening phone calls;signing sports memorabilia;shilling for rental car companies,American football,CS+DS
-Mark Fuhrman,abusing minorities;commiting perjury;planting evidence;lying on the stand,the Law;Crime;Reality TV,CS+DS
-Howard Hughes,running an empire;building airplanes;running a movie studio;hiding from the public,the Aviation industry;the Movie business,CS
+Mark Fuhrman,abusing minorities;commiting perjury;planting evidence;lying on the stand,the Law;Crime;Reality TV,CS
+Howard Hughes,running an empire;building airplanes;running a movie studio;hiding from the public,the Aviation industry;the Movie business,CS+DS
 Howard Stern,shocking radio listeners;hosting radio shows,Talk radio,CS+DS
-Hugh Grant,starring in romantic comedies,Hollywood;Acting;Comedy,CS
+Hugh Grant,starring in romantic comedies,Hollywood;Acting;Comedy,CS+DS
 Hugh Hefner,publishing soft pornography;dating centrefolds;popping Viagra,Playboy Magazine;Soft pornography,CS+DS
 Hugh Jackman,starring in Hollywood movies,Acting;Movies;Singing;Hollywood;Australia,CS+DS
 Hulk Hogan,pretending to wrestle;pretending to fight,Wrestling,CS
 Humphrey Bogart,starring in Hollywood movies;playing tough guys,Hollywood;Acting,CS
-Imelda Marcos,shopping for shoes;collecting shoes,the Phllippines,CS+DS
+Imelda Marcos,shopping for shoes;collecting shoes,the Phllippines,CS
 Indiana Jones,looking for hidden treasures;punching out Nazis;digging for antiquities;unearthing ancient tombs,Raiders of the Lost Ark;Archeology,DS
 Jack Bauer,chasing terrorists;punishing terrorists;tracking down terrorists;preventing terrorism,24;American Counter-Terrorism,DS
 Jack Kerouac,writing beat fiction;driving around America,the Beat generation;American literature,CS+DS
 Jack Nicholson,starring in Hollywood movies;womanizing;starring in romantic comedies,Hollywood;Acting,CS+DS
 Jack The Ripper,terrorizing prostitutes;eluding authorities;slashing victims;eluding capture,Victorian London;Victorian England,CS+DS
-Jackie Chan,starring in action movies;starring in comedies,Hong Kong;Martial Arts,CS+DS
+Jackie Chan,starring in action movies;starring in comedies,Hong Kong;Martial Arts,CS
 Jackson Pollock,dripping paint onto canvas;painting abstract paintings,Modern art;Abstract art;Abstract painting,CS+DS
 James Bond,foiling the schemes of evil villains;shagging spies;killing for Mi6,James Bond;Mi6;Espionage,DS
 Auric Goldfinger,devising evil schemes;cheating at golf,James Bond;Terrorism;Finance,DS
@@ -257,117 +257,117 @@ Sir Hugo Drax,devising evil schemes;striving for world domination,James Bond;Ter
 Le Chiffre,devising evil schemes;cheating at poker;playing Baccarat,James Bond;Terrorism;Finance,DS
 James Dean,starring in Hollywood movies;racing fast cars,Hollywood;Acting,CS+DS
 James Franco,starring in Hollywood movies,Hollywood;Acting,CS+DS
-James Joyce,writing modern fiction,Modern literature;Irish literature,CS+DS
+James Joyce,writing modern fiction,Modern literature;Irish literature,CS
 James T. Kirk,making strategic decisions;commanding a spaceship,Star Trek;the U.S.S. Enterprise;Starfleet,DS
-Jamie Oliver,cooking dinners;running restaurants;promoting healthy eating,Cooking;the Kitchen,CS
+Jamie Oliver,cooking dinners;running restaurants;promoting healthy eating,Cooking;the Kitchen,CS+DS
 Jane Austen,writing romantic fiction,Romantic novels;Romantic literature,CS+DS
 Janis Joplin,singing rock songs,Psychadelic music,CS+DS
 Jar Jar Binks,providing comic relief,Star Wars,DS
 Jason Bourne,eluding capture;killing people in ingenious ways;eluding the CIA,CIA;Espionage,DS
 Jay Leno,doing stand-up;hosting a late night chat show,Late-night TV;Chat Shows;NBC;Stand-Up Comedy,CS+DS
 Jay Z,producing Hipbop records;singing Hipbop songs,Rap music;Hip-Hop,CS
-JD Salinger,hiding from the public;writing modern fiction;eluding the public gaze,American literature,CS+DS
-Beyoncé,singing Hipbop songs,Rap music;Hip-Hop,CS
+JD Salinger,hiding from the public;writing modern fiction;eluding the public gaze,American literature,CS
+Beyoncé,singing Hipbop songs,Rap music;Hip-Hop,CS+DS
 Jeff Koons,making modern art;selling modern art;making kitsch;selling kitsch,American art;Modern art,CS+DS
 Jenna Jameson,starring in pornographic movies,Pornography;Porn movies,CS+DS
-Jeremy Clarkson,hosting automotive shows;test-driving cars;insulting minorities,the Right;Cars,CS
-Piers Morgan,interviewing celebrities;interviewing politicians,Chat Shows;the News,CS+DS
-Jerry Lee Lewis,singing rock songs;playing rock piano;marrying underage girls,Rock music,CS
-Jerry Lewis,doing slapstick comedy;starring in comedies;doing stand-up,Comedy;Movies;Hollywood,CS
+Jeremy Clarkson,hosting automotive shows;test-driving cars;insulting minorities,the Right;Cars,CS+DS
+Piers Morgan,interviewing celebrities;interviewing politicians,Chat Shows;the News,CS
+Jerry Lee Lewis,singing rock songs;playing rock piano;marrying underage girls,Rock music,CS+DS
+Jerry Lewis,doing slapstick comedy;starring in comedies;doing stand-up,Comedy;Movies;Hollywood,CS+DS
 Jerry Seinfeld,doing stand-up;starring in sit-coms,The Seinfeld Chronicles;Comedy,CS+DS
-Jerry Springer,hosting reality TV shows,Reality TV;Afternoon TV,CS+DS
+Jerry Springer,hosting reality TV shows,Reality TV;Afternoon TV,CS
 Jesse Jackson,suing large corporations;promoting racial harmony,the Left;the Democrats;American politics,CS+DS
-Jim Jones,running a religious cult;organizing mass suicides,Christian Fundamentalism,CS+DS
-Jim Morrison,singing rock songs;writing rock songs,Rock music,CS+DS
+Jim Jones,running a religious cult;organizing mass suicides,Christian Fundamentalism,CS
+Jim Morrison,singing rock songs;writing rock songs,Rock music,CS
 Jimi Hendrix,singing rock songs;writing rock songs;playing rock guitar,Rock music;Guitar music,CS
-Jimmy Cagney,starring in Hollywood movies;playing tough guys,Hollywood;Acting;Comedy,CS+DS
-Jimmy Carter,building houses for poor people;promoting world peace;campaigning for world peace,the Left;the Democrats;American politics,CS
+Jimmy Cagney,starring in Hollywood movies;playing tough guys,Hollywood;Acting;Comedy,CS
+Jimmy Carter,building houses for poor people;promoting world peace;campaigning for world peace,the Left;the Democrats;American politics,CS+DS
 Jimmy Stewart,starring in Hollywood movies;playing everyman characters,Hollywood;Acting,CS
 Joan Rivers,insulting celebrities;doing stand-up,Comedy,CS+DS
 Joaquin Phoenix,starring in action movies;starring in indy movies,Hollywood;Acting;Serious Acting,CS
 Joe Biden,plagiarizing political speeches,the Left;the Democrats;American politics,CS+DS
-Joe Louis,winning heavyweight titles;knocking out opponents;winning boxing matches,Boxing,CS+DS
-Johann Sebastian Bach,composing classical music;playing the organ,Classical music;Baroque music;Religious music,CS+DS
-John Belushi,starring in madcap comedies,Comedy;Movies;Hollywood,CS
+Joe Louis,winning heavyweight titles;knocking out opponents;winning boxing matches,Boxing,CS
+Johann Sebastian Bach,composing classical music;playing the organ,Classical music;Baroque music;Religious music,CS
+John Belushi,starring in madcap comedies,Comedy;Movies;Hollywood,CS+DS
 John Dillinger,robbing banks;eluding the FBI,the American Depression;Bank robbing,CS
-J. Edgar Hoover,running the FBI;ordering wire-taps;cross-dressing in women's clothes,the Law;the FBI,CS
-John Grisham,writing legal fiction,Legal fiction;Legal drama;Courtroom dramas,CS+DS
-John Keats,writing romantic poetry,Romantic poetry,CS
-John Lennon,writing pop songs;singing pop songs;campaigning for world peace,The Beatles;Pop music,CS
+J. Edgar Hoover,running the FBI;ordering wire-taps;cross-dressing in women's clothes,the Law;the FBI,CS+DS
+John Grisham,writing legal fiction,Legal fiction;Legal drama;Courtroom dramas,CS
+John Keats,writing romantic poetry,Romantic poetry,CS+DS
+John Lennon,writing pop songs;singing pop songs;campaigning for world peace,The Beatles;Pop music,CS+DS
 John Maynard Keynes,promoting monetarism;studying economics,Keynesian economics;Monetarist economics,CS
-John McCain,running for the senate;campaigning for the presidency;making maverick choices,the Right;the Republicans;American politics,CS+DS
+John McCain,running for the senate;campaigning for the presidency;making maverick choices,the Right;the Republicans;American politics,CS
 John McEnroe,whining at umpires;delivering forehand slams;winning tennis tournaments,Tennis,CS
-John Travolta,dancing to disco music;playing camp villains;starring in Hollywood movies,Hollywood;Acting;Dancing;Scientology,CS
-John Wayne,starring in cowboy movies;starring in war movies;walking like a man,Hollywood;Acting;Westerns;War movies,CS
+John Travolta,dancing to disco music;playing camp villains;starring in Hollywood movies,Hollywood;Acting;Dancing;Scientology,CS+DS
+John Wayne,starring in cowboy movies;starring in war movies;walking like a man,Hollywood;Acting;Westerns;War movies,CS+DS
 Johnny Cash,singing country music,Country music,CS
 Jon Stewart,hosting a late night chat show,Comedy Central;Comedy;Late-night TV;the News,CS+DS
-Jonathan Swift,writing political satires,Satire;the Irish Famine,CS+DS
+Jonathan Swift,writing political satires,Satire;the Irish Famine,CS
 Joseph Goebbels,running a propaganda machine;promoting totalitarianism,the Nazi Party;National Socialism;the Third Reich,CS+DS
 Joseph Stalin,running a communist country;eliminating political rivals,the Soviet Union;the Cold War,CS+DS
 Judas Iscariot,betraying friends;stabbing in the back;selling out,the New Testament;the Bible;the 12 Apostles;Betrayal,CS+DS
-Judge Judy Sheindlin,judging legal cases;rooting out facts;delivering judgments,Reality TV;Afternoon TV,CS+DS
+Judge Judy Sheindlin,judging legal cases;rooting out facts;delivering judgments,Reality TV;Afternoon TV,CS
 Julia Child,cooking dinners;writing cook books,Cooking;the Kitchen,CS
-Julia Roberts,starring in Hollywood movies,Hollywood;Acting,CS+DS
+Julia Roberts,starring in Hollywood movies,Hollywood;Acting,CS
 Justin Bieber,entertaining teenagers;singing to teenagers,Pop music;Tweeny music,CS+DS
-Justin Timberlake,entertaining teenagers;singing to teenagers,Pop music;Tweeny music;Acting,CS
-Kim Kardashian,starring in reality TV shows;flaunting buttocks,Reality TV,CS+DS
-Kanye West,singing Hipbop songs,Rap music;Hip-Hop,CS+DS
+Justin Timberlake,entertaining teenagers;singing to teenagers,Pop music;Tweeny music;Acting,CS+DS
+Kim Kardashian,starring in reality TV shows;flaunting buttocks,Reality TV,CS
+Kanye West,singing Hipbop songs,Rap music;Hip-Hop,CS
 Karen Carpenter,singing pop songs;writing pop songs;playing drums;losing weight,Pop music;Anorexia,CS+DS
 Karl Lagerfeld,designing clothes;pushing haute couture,Fashion;the Rag Trade;the Fashion industry,CS
 Karl Marx,promoting communism;fighting for worker's rights;arguing against capitalism,Das Capital;Communism,CS+DS
-Karl Rove,promoting conservative values;ranting about liberals,the Right;the Republicans;American politics;Fox News,CS+DS
+Karl Rove,promoting conservative values;ranting about liberals,the Right;the Republicans;American politics;Fox News,CS
 Kate Moss,modeling clothes;selling cosmetics,Fashion;the Rag Trade;the Fashion industry,CS
-Keith Moon,playing drums;raising cain;throwing TVs out of the windows,Rock music,CS
-Keith Richards,playing rock music;playing rock guitar,Rock music,CS+DS
-Kevin Smith,making mediocre movies;selling comic books;podcasting about movies,Hollywood;Indie Movies,CS
+Keith Moon,playing drums;raising cain;throwing TVs out of the windows,Rock music,CS+DS
+Keith Richards,playing rock music;playing rock guitar,Rock music,CS
+Kevin Smith,making mediocre movies;selling comic books;podcasting about movies,Hollywood;Indie Movies,CS+DS
 Kim Philby,betraying friends;stabbing in the back;selling out;changing sides;leaking information,Espionage;Betrayal,CS+DS
 King Lear,going senile,Shakespeare,DS
-Kobe Bryant,playing basketball;making dunk shots,Basketball,CS
+Kobe Bryant,playing basketball;making dunk shots,Basketball,CS+DS
 Kurt Cobain,playing grungy music;moaning about life,Grunge music,CS
-Kurt Vonnegut,writing science fiction,American literature;Dystopian fiction,CS
+Kurt Vonnegut,writing science fiction,American literature;Dystopian fiction,CS+DS
 Lance Armstrong,taking anabolic steroids;pedalling furiously;riding a bicycle,Cycling;Cheating,CS
 Lara Croft,looking for hidden treasures;unearthing ancient tombs;digging for antiquities,Tomb Raider,DS
-Larry David,writing TV comedies;doing stand-up,Curb Your Enthusiasm;Comedy,CS+DS
+Larry David,writing TV comedies;doing stand-up,Curb Your Enthusiasm;Comedy,CS
 Larry Flynt,publishing soft pornography;running gentleman's clubs,Hustler Magazine;Soft pornography,CS
 Larry King,interviewing celebrities;interviewing politicians,Chat Shows;the News,CS
 Lee Harvey Oswald,assassinating presidents,the JFK assassination;American history,CS+DS
 Gordon Gekko,promoting greed;promoting capitalism;making money;launching hostile takeovers,Wall Street,DS
-Lee Marvin,starring in Hollywood movies;playing tough guys,Hollywood;Acting;War movies,CS+DS
+Lee Marvin,starring in Hollywood movies;playing tough guys,Hollywood;Acting;War movies,CS
 Leni Riefenstahl,promoting totalitarianism;making propagandistic movies,the Third Reich;Documentaries,CS
-Lenny Bruce,doing stand-up;commenting on social issues,Stand-Up Comedy,CS+DS
+Lenny Bruce,doing stand-up;commenting on social issues,Stand-Up Comedy,CS
 Leo Tolstoy,writing Russian novels,Russian literature;War And Peace,CS
 Lex Luthor,promoting greed;promoting capitalism;making money;launching hostile takeovers;striving for world domination;collecting green Kryponite,DC Comics;Metropolis;Big business,DS
 Lindsay Lohan,driving under the influence;starring in Hollywood movies,Hollywood;Acting,CS
-Linus Torvalds,developing open-source software;promoting open-source software;developing operating systems,Linux;Operating Systems,CS
+Linus Torvalds,developing open-source software;promoting open-source software;developing operating systems,Linux;Operating Systems,CS+DS
 Lisa Simpson,playing the saxophone;over-achieving at school,The Simpsons;Springfield,DS
 Lois Lane,reporting for The Daily Planet,DC Comics;Metropolis;The Daily Planet,DS
-Lord Byron,writing romantic poetry;womanizing;seducing women;scandalizing polite society,English poetry;Romantic poetry,CS
+Lord Byron,writing romantic poetry;womanizing;seducing women;scandalizing polite society,English poetry;Romantic poetry,CS+DS
 Lou Reed,playing rock music;playing rock guitar,The Velvet Revolution;Rock music,CS+DS
 Louis Armstrong,playing jazz trumpet;playing the trumpet;singing jazz songs,Jazz,CS+DS
-Luciano Pavarotti,singing opera arias,Opera,CS+DS
-Ludwig Van Beethoven,composing classical music;playing the piano,Classical music,CS+DS
-Luis Suarez,biting opponents,Soccer,CS+DS
+Luciano Pavarotti,singing opera arias,Opera,CS
+Ludwig Van Beethoven,composing classical music;playing the piano,Classical music,CS
+Luis Suarez,biting opponents,Soccer,CS
 Luke Skywalker,fighting for the rebel alliance;rescuing damsels in distress,Star Wars,DS
-Niccolò Machiavelli,currying favour;developing cunning plans;wielding political power,Florence;the Renaissance,CS+DS
+Niccolò Machiavelli,currying favour;developing cunning plans;wielding political power,Florence;the Renaissance,CS
 Madonna,singing pop songs;writing pop songs;promoting Kaballah,Pop music,CS
-Mae West,starring in Hollywood movies;making lewd remarks;trading innuendo,Hollywood;Acting,CS+DS
-Mahatma Gandhi,promoting racial harmony;fighting for democracy;promoting pacifism;promoting vegetarianism,Eastern philosophy;Indian independence,CS
+Mae West,starring in Hollywood movies;making lewd remarks;trading innuendo,Hollywood;Acting,CS
+Mahatma Gandhi,promoting racial harmony;fighting for democracy;promoting pacifism;promoting vegetarianism,Eastern philosophy;Indian independence,CS+DS
 Norma Desmond,clinging to past dreams;seducing toy boys;dreaming of yesteryear,Sunset Boulevard;Hollywood,DS
 Mao Tse-tung,wielding political power;promoting communism;launching cultural revolutions,China;Communism,CS
-Marcel Duchamp,making subversive art;reusing readymades;puncturing artistic sensibilities;challenging artistic norms,Dadaism;Modern art,CS
+Marcel Duchamp,making subversive art;reusing readymades;puncturing artistic sensibilities;challenging artistic norms,Dadaism;Modern art,CS+DS
 Marco Pierre White,cooking dinners;running restaurants;selling stock cubes,Cooking;the Kitchen,CS+DS
-Marco Polo,opening new markets;exploring foreign countries,the Age of Discovery,CS+DS
+Marco Polo,opening new markets;exploring foreign countries,the Age of Discovery,CS
 Margaret Thatcher,promoting conservative values;ranting about liberals,the Right;the British Right;the Conservative Party,CS+DS
 Marge Simpson,raising a family,The Simpsons;Springfield,DS
 Mariah Carey,singing Hipbop songs,Pop music,CS
-Marilyn Monroe,starring in Hollywood movies,Hollywood;Acting,CS
+Marilyn Monroe,starring in Hollywood movies,Hollywood;Acting,CS+DS
 Mark Twain,writing folksy fiction,American literature,CS
 Marlene Dietrich,starring in Hollywood movies,Hollywood;Acting,CS+DS
 Marlon Brando,starring in Hollywood movies;campaigning for social causes,Hollywood;Acting,CS+DS
 Martha Stewart,cooking dinners;writing cook books;running a media empire,Cooking;the Kitchen;Arts and Crafts;Housekeeping,CS+DS
 Martin Luther King,promoting racial harmony;fighting for democracy;promoting pacifism;fighting for civil rights,Black liberation;the American Civil Rights movement,CS+DS
-Mata Hari,spying for the enemy;seducing miltary officers;selling military secrets,World War I,CS+DS
-Matt Drudge,promoting conservative values;ranting about liberals;spreading political gossip,the Right;the Republicans;American politics,CS+DS
+Mata Hari,spying for the enemy;seducing miltary officers;selling military secrets,World War I,CS
+Matt Drudge,promoting conservative values;ranting about liberals;spreading political gossip,the Right;the Republicans;American politics,CS
 Megan Fox,starring in Hollywood movies,Hollywood;Acting,CS+DS
 Mel Brooks,directing comedies;writing funny movies,Hollywood;Comedy,CS
 Mel Gibson,making antisemitic remarks;driving under the influence;directing action movies,Hollywood;Acting;Action movies,CS+DS
@@ -375,56 +375,56 @@ Meryl Streep,speaking with funny accents;performing serious acting;winning Oscar
 Mad Max Rockatansky,avenging loved ones;surviving in a post-apocalyptic world;defending the weak,the Post-Apocalypse;Action movies,DS
 Michael Bay,directing action movies;entertaining teenagers;directing robot movies,Hollywood;Special Effects;Action movies,CS+DS
 Michael Corleone,running a crime family;running an empire,The Godfather;the Mafia,DS
-Michael Jackson,playing pop music;singing pop songs;writing pop songs;performing moon walks,Pop music,CS+DS
+Michael Jackson,playing pop music;singing pop songs;writing pop songs;performing moon walks,Pop music,CS
 Michael Jordan,playing basketball;making dunk shots,Basketball,CS+DS
-Michael Moore,making provocative documentaries;complaining about capitalism,Documentaries;the Left,CS+DS
-Michael O'Leary,selling cheap airline seats;running a budget airline;promoting air travel,the Aviation industry,CS+DS
-Michael Phelps,winning gold medals;winning swimming competitions,Swimming,CS
+Michael Moore,making provocative documentaries;complaining about capitalism,Documentaries;the Left,CS
+Michael O'Leary,selling cheap airline seats;running a budget airline;promoting air travel,the Aviation industry,CS
+Michael Phelps,winning gold medals;winning swimming competitions,Swimming,CS+DS
 Michelangelo,painting church ceilings;carving magnificent statues,Renaissance art;Sculpture;Painting,CS
-Michelle Obama,promoting feminism,the Left;the Democrats;American politics,CS+DS
-Mick Jagger,singing rock songs;writing rock songs;gyrating hips,Pop music;Rock music,CS+DS
+Michelle Obama,promoting feminism,the Left;the Democrats;American politics,CS
+Mick Jagger,singing rock songs;writing rock songs;gyrating hips,Pop music;Rock music,CS
 Mickey Mouse,promoting movie violence;starring in animated movies,Walt Disney animation,DS
-Mike Tyson,winning heavyweight titles;knocking out opponents;winning boxing matches,Boxing,CS+DS
+Mike Tyson,winning heavyweight titles;knocking out opponents;winning boxing matches,Boxing,CS
 Miles Davis,playing jazz saxophone,Cool Jazz;Jazz,CS+DS
 Miss Jane Marple,solving mysteries;solving crimes,Detective fiction;Drawing room mysteries,DS
 Moses,leading an exodus,the Bible;the Old Testament;Judaism,CS
-Mother Teresa,feeding the poor;promoting Catholic values;giving to the poor,Calcutta;India;Christianity,CS+DS
+Mother Teresa,feeding the poor;promoting Catholic values;giving to the poor,Calcutta;India;Christianity,CS
 Muhammad Ali,winning heavyweight titles;knocking out opponents;winning boxing matches,Boxing,CS+DS
-Benito Mussolini,promoting Fascism;making trains run on time,Italian Fascism;World War II;Fascism;War,CS+DS
+Benito Mussolini,promoting Fascism;making trains run on time,Italian Fascism;World War II;Fascism;War,CS
 Adolf Hitler,organizing a putsch;running a reich;launching a war;opening a new front;creating an axis of evil,German Fascism;World War II;Fascism;War,CS+DS
 Napoleon Bonaparte,running an empire;developing military strategies;leading armies into battle;winning battles,France;War,CS+DS
 Ned Flanders,promoting conservative values;being a good neighbor,The Simpsons;Springfield,DS
-Neil Armstrong,commanding a spaceship;collecting rock samples;going for a spacewalk;staring at the moon,NASA;Space flight;the Moon,CS+DS
-Nelson Mandela,promoting racial harmony;fighting for democracy,South Africa;Apartheid;Black liberation,CS+DS
+Neil Armstrong,commanding a spaceship;collecting rock samples;going for a spacewalk;staring at the moon,NASA;Space flight;the Moon,CS
+Nelson Mandela,promoting racial harmony;fighting for democracy,South Africa;Apartheid;Black liberation,CS
 Neville Chamberlain,appeasing belligerent dictators,World War II,CS+DS
 Newt Gingrich,promoting conservative values;ranting about liberals;running for the presidency,the Right;the Republicans;American politics;Fox News,CS
-Nigella Lawson,cooking dinners;writing cook books,Cooking;the Kitchen,CS
-Nikola Tesla,pioneering new technologies;inventing electrical marvels,Physics;Electricity,CS
-Noah,building a wooden ark;surviving large-scale floods;managing large development projects,the Bible;the Old Testament;Judaism,CS
-Noam Chomsky,promoting political causes;promoting democracy;studying linguistics;arguing with political opponents,Linguistics;the Left;the American Left,CS
-Noël Coward,writing plays;singing parody songs;coining sparkling witticisms,British theatre;Comedy,CS+DS
-Norman Rockwell,painting folksy pictures;painting magazine covers,American art;Traditional art,CS
+Nigella Lawson,cooking dinners;writing cook books,Cooking;the Kitchen,CS+DS
+Nikola Tesla,pioneering new technologies;inventing electrical marvels,Physics;Electricity,CS+DS
+Noah,building a wooden ark;surviving large-scale floods;managing large development projects,the Bible;the Old Testament;Judaism,CS+DS
+Noam Chomsky,promoting political causes;promoting democracy;studying linguistics;arguing with political opponents,Linguistics;the Left;the American Left,CS+DS
+Noël Coward,writing plays;singing parody songs;coining sparkling witticisms,British theatre;Comedy,CS
+Norman Rockwell,painting folksy pictures;painting magazine covers,American art;Traditional art,CS+DS
 Nostradamus,making vague predictions;predicting the future,Clairvoyance;Forecasting,CS+DS
 Obi-wan Kenobi,fighting for the resistance;rescuing damsels in distress;promoting mysticism;duelling acrobatically,Star Wars,DS
 Mr. Miyagi,teaching martial arts;teaching the next generation,The Karate Kid;Martial Arts,DS
 Oprah Winfrey,interviewing celebrities;interviewing politicians;running a media empire,Chat Shows;Afternoon TV,CS+DS
-Orson Welles,directing Hollywood movies;writing Hollywood movies;starring in Hollywood movies;directing indy movies,Hollywood;Acting;Serious Acting,CS
-Wilbur Wright,developing new technologies;testing new technologies;promoting new technologies,the Aviation industry;Aviation,CS+DS
+Orson Welles,directing Hollywood movies;writing Hollywood movies;starring in Hollywood movies;directing indy movies,Hollywood;Acting;Serious Acting,CS+DS
+Wilbur Wright,developing new technologies;testing new technologies;promoting new technologies,the Aviation industry;Aviation,CS
 Orville Wright,developing new technologies;testing new technologies;promoting new technologies,the Aviation industry;Aviation,CS
 Oscar Wilde,writing plays;writing short stories;coining sparkling witticisms;coining epigrams;scandalizing polite society,Comedy;British theatre;Victorian literature,CS
-Ozzy Osbourne,singing rock songs;writing rock songs,Heavy Metal,CS
+Ozzy Osbourne,singing rock songs;writing rock songs,Heavy Metal,CS+DS
 P. T. Barnum,promoting circus attractions;selling tickets;piquing public interest,the Circus;Showmanship,CS
 Pablo Picasso,painting abstract pictures,Modern art;Cubism,CS+DS
 Pac Man,eating power pellets;eluding electronic ghosts;chasing electronic ghosts,Video games,DS
-Niccolò Paganini,playing the violin,Violin music;Classical music,CS
+Niccolò Paganini,playing the violin,Violin music;Classical music,CS+DS
 Pamela Anderson,monetizing physical assets;making unauthorized sex tapes,Baywatch,CS
 Paris Hilton,monetizing celebrity status;making unauthorized sex tapes,Reality TV,CS+DS
-Patch Adams,treating the sick with jokes;making sick people laugh,Modern medicine,CS+DS
-Paul McCartney,singing pop songs;writing pop songs,The Beatles;Pop music,CS+DS
+Patch Adams,treating the sick with jokes;making sick people laugh,Modern medicine,CS
+Paul McCartney,singing pop songs;writing pop songs,The Beatles;Pop music,CS
 Perry Mason,solving mysteries;solving crimes;defending the innocent,Detective fiction;Courtroom dramas,DS
-Pete Sampras,winning tennis matches;winning tennis grand slams,Tennis,CS+DS
+Pete Sampras,winning tennis matches;winning tennis grand slams,Tennis,CS
 Peter Griffin,making silly decisions,Family Guy,DS
-Peter Jackson,making fantasy movies,The Lord of the Rings;The Hobbit,CS+DS
+Peter Jackson,making fantasy movies,The Lord of the Rings;The Hobbit,CS
 Brian Griffin,promoting liberal values;ranting about conservatives,Family Guy,DS
 Peter Pan,avoiding growing old,Victorian literature,DS
 Spider-Man,maintaining a secret identity;solving crimes;pursuing criminals;tricking criminals,Marvel Comics,DS
@@ -434,78 +434,78 @@ Matt "Daredevil" Murdock,maintaining a secret identity;solving crimes;pursuing c
 Wilson "Kingpin" Fisk,running a crime family;grabbing power;amassing wealth;devising evil schemes,Marvel Comics,DS
 Plato,teaching philosophy;teaching the next generation,Ancient philosophy;Greek philosophy;the Ancient world;Ancient Greece,CS+DS
 Adrian Monk,obsessively washing hands;solving crimes;solving mysteries;tricking criminals;finding clues,Detective fiction,DS
-Pontius Pilate,obsessively washing hands;avoiding responsibility,the New Testament;the Bible;Ancient Rome,CS+DS
+Pontius Pilate,obsessively washing hands;avoiding responsibility,the New Testament;the Bible;Ancient Rome,CS
 Pope Benedict XVI,promoting Catholic values;promoting conservative values;ranting about liberals,Catholicism,CS+DS
 Pope Francis,promoting Catholic values,Catholicism,CS
-Quentin Tarantino,making violent movies;promoting movie violence;directing violent movies,Hollywood;Indie Movies,CS+DS
-Ralph Nader,campaigning for consumer rights,the American Left;the Left;Consumer Advocacy,CS+DS
-Grigori Rasputin,manipulating political pawns;climbing social ladders;wielding political power,Russian politics,CS
+Quentin Tarantino,making violent movies;promoting movie violence;directing violent movies,Hollywood;Indie Movies,CS
+Ralph Nader,campaigning for consumer rights,the American Left;the Left;Consumer Advocacy,CS
+Grigori Rasputin,manipulating political pawns;climbing social ladders;wielding political power,Russian politics,CS+DS
 Ray Kroc,running a multinational corporation;selling franchises;selling fast food;running a fast-food business,McDonalds;the Hamburger industry,CS
-Raymond Chandler,writing mystery stories;writing detective fiction,Detective fiction,CS
-Richard Branson,running a multinational corporation;selling airline seats,the Aviation industry,CS+DS
-Richard Dawkins,explaining evolution;promoting Darwinism;explaining natural selection;promoting atheism;ranting about religion;promoting science,Evolution;Humanism,CS+DS
+Raymond Chandler,writing mystery stories;writing detective fiction,Detective fiction,CS+DS
+Richard Branson,running a multinational corporation;selling airline seats,the Aviation industry,CS
+Richard Dawkins,explaining evolution;promoting Darwinism;explaining natural selection;promoting atheism;ranting about religion;promoting science,Evolution;Humanism,CS
 Richard Nixon,promoting conservative values;ranting about liberals;bugging political rivals;pulling dirty political tricks,the Right;the Republicans;American politics,CS+DS
 Richie Rich,squandering money;enjoying money,Harvey Comics,DS
 Ricky Martin,enjoying salsa dancing;singing pop songs;gyrating hips,Latin music,CS+DS
-Ridley Scott,making fantasy movies;directing science fiction movies;making science fiction movies,Hollywood;Special Effects,CS+DS
+Ridley Scott,making fantasy movies;directing science fiction movies;making science fiction movies,Hollywood;Special Effects,CS
 Ringo Starr,singing pop songs;writing pop songs;playing drums,The Beatles;Pop music,CS
-Robbie Williams,singing pop songs;writing pop songs,Pop music;Take That,CS+DS
+Robbie Williams,singing pop songs;writing pop songs,Pop music;Take That,CS
 Robert De Niro,starring in Hollywood movies,Hollywood;Acting;Serious Acting,CS+DS
-Robert Redford,starring in Hollywood movies;running film festivals,Hollywood;Acting;Serious Acting,CS
+Robert Redford,starring in Hollywood movies;running film festivals,Hollywood;Acting;Serious Acting,CS+DS
 Robin Hood,robbing from the rich;giving to the poor,British legend;British history;Sherwood Forest,DS
 Robin Williams,telling zany jokes;making madcap comedies,Comedy;Hollywood;Stand-Up Comedy,CS
 Robinson Crusoe,making home-made clothes;milking coconuts;surviving a shipwreck,English literature;Desert Islands,DS
 Rocky Balboa,winning heavyweight titles;knocking out opponents;winning boxing matches,Boxing,DS
 Roger Federer,winning tennis matches;winning tennis grand slams,Tennis,CS+DS
 Ron Weasley,performing magic tricks;studying magic,Hogwarts;Teen fiction,DS
-Rudy Giuliani,running a large metropolitan city,New York City;American politics;the Right;the American Right,CS+DS
-Rupert Murdoch,running a media empire;publishing newspapers;telling politicians what to do,the Newspaper industry;Fox News,CS+DS
-Rush Limbaugh,promoting conservative values;ranting about liberals;spreading political gossip,the Right;the Republicans;American politics;Fox News,CS
-Russell Crowe,starring in Hollywood movies;throwing temper tantrums,Hollywood;Acting;Serious Acting,CS+DS
-Salman Rushdie,hiding from extremists;surviving fatwas;writing modern fiction,Modern literature;British literature,CS
+Rudy Giuliani,running a large metropolitan city,New York City;American politics;the Right;the American Right,CS
+Rupert Murdoch,running a media empire;publishing newspapers;telling politicians what to do,the Newspaper industry;Fox News,CS
+Rush Limbaugh,promoting conservative values;ranting about liberals;spreading political gossip,the Right;the Republicans;American politics;Fox News,CS+DS
+Russell Crowe,starring in Hollywood movies;throwing temper tantrums,Hollywood;Acting;Serious Acting,CS
+Salman Rushdie,hiding from extremists;surviving fatwas;writing modern fiction,Modern literature;British literature,CS+DS
 Salvador Dali,painting surreal pictures;creating optical illusions,Surrealism;Modern art,CS
 Sam Spade,solving mysteries;solving crimes,Detective fiction,DS
 Philip Marlowe,solving mysteries;solving crimes,Detective fiction,DS
-Samson,smiting Philistines;letting one's hair down,the Bible;the Old Testament;Judaism,CS
+Samson,smiting Philistines;letting one's hair down,the Bible;the Old Testament;Judaism,CS+DS
 Samuel Johnson,creating dictionaries;defining words,the Dictionary;the English language,CS+DS
 Samuel Pepys,keeping a diary,the Restoration period;the Diary,CS+DS
 Santa Claus,delivering presents;climbing down chimneys,the North Pole;Christmas,DS
 Sarah Palin,making political gaffes;promoting conservative values;ranting about liberals,the Right;the Republicans;American politics,CS
-Savonarola,promoting conservative values;ranting about liberals,Florence;the Renaissance,CS
-Scipio Africanus,fighting Carthaginians;fighting barbarian hordes;winning battles;developing military strategies,Roman politics;Ancient Rome,CS+DS
+Savonarola,promoting conservative values;ranting about liberals,Florence;the Renaissance,CS+DS
+Scipio Africanus,fighting Carthaginians;fighting barbarian hordes;winning battles;developing military strategies,Roman politics;Ancient Rome,CS
 Sean Connery,starring in Hollywood movies;playing James Bond,Hollywood;Acting;Serious Acting,CS+DS
-Seth MacFarlane,making vulgar jokes;making vulgar cartoons,Family Guy,CS
+Seth MacFarlane,making vulgar jokes;making vulgar cartoons,Family Guy,CS+DS
 Matt Groening,writing comedy;writing TV comedies;making cartoons;drawing whimsical cartoons,The Simpsons;Springfield,CS
 Sherlock Holmes,solving mysteries;solving crimes;finding clues;interpreting evidence,Detective fiction;Victorian literature,DS
-Shirley Temple,starring in Hollywood movies,Hollywood;Acting,CS+DS
-Sid Vicious,singing punk rock songs;scandalizing polite society,Punk rock music,CS+DS
-Sigmund Freud,probing the mind;analyzing the sub-conscious,Psychiatry;Psychoanalysis,CS
-Simon Cowell,promoting pop music;starring in reality TV shows;running a media empire;manipulating ingenues,Reality TV;the Music industry,CS+DS
+Shirley Temple,starring in Hollywood movies,Hollywood;Acting,CS
+Sid Vicious,singing punk rock songs;scandalizing polite society,Punk rock music,CS
+Sigmund Freud,probing the mind;analyzing the sub-conscious,Psychiatry;Psychoanalysis,CS+DS
+Simon Cowell,promoting pop music;starring in reality TV shows;running a media empire;manipulating ingenues,Reality TV;the Music industry,CS
 Sheldon Cooper,studying science;collecting comic books;creating annoying rules;promoting science,The Big Bang Theory,DS
 Leonard Hofstadter,studying science;collecting comic books;obeying annoying rules;promoting science,The Big Bang Theory,DS
 Spongebob Squarepants,flipping hamburgers;frying crabby patties;chasing jellyfish;blowing bubbles,Nickelodeon;Bikini Bottom,DS
-Stan Lee,writing comic books;inventing superheroes,Marvel Comics,CS
-Stephen Colbert,promoting conservative values;ranting about liberals,Comedy Central;Comedy,CS+DS
-Stephen Hawking,promoting science;studying science;transcending physical limits,Physics;Modern science;the Cosmos,CS
+Stan Lee,writing comic books;inventing superheroes,Marvel Comics,CS+DS
+Stephen Colbert,promoting conservative values;ranting about liberals,Comedy Central;Comedy,CS
+Stephen Hawking,promoting science;studying science;transcending physical limits,Physics;Modern science;the Cosmos,CS+DS
 Mr. Krabs,running a fast-food business;selling fast food;pinching pennies,Nickelodeon;Bikini Bottom,DS
 Steve Ballmer,running a software company;running a technology company,Microsoft;the Software business;Technology,CS
-Steve Jobs,running a software company;running a technology company;running a hardware company;pioneering new technologies;terrorizing employees;developing new technologies,Apple Computer;Technology;Software;the Software business,CS
-Steve Martin,performing stand-up;playing the banjo;starring in comedies,Comedy;Hollywood;Stand-Up Comedy,CS
-Steven Spielberg,directing Hollywood movies;producing Hollywood movies,Hollywood;Special Effects,CS+DS
+Steve Jobs,running a software company;running a technology company;running a hardware company;pioneering new technologies;terrorizing employees;developing new technologies,Apple Computer;Technology;Software;the Software business,CS+DS
+Steve Martin,performing stand-up;playing the banjo;starring in comedies,Comedy;Hollywood;Stand-Up Comedy,CS+DS
+Steven Spielberg,directing Hollywood movies;producing Hollywood movies,Hollywood;Special Effects,CS
 Stewie Griffin,plotting against family members;pioneering new technologies;inventing time machines;developing new technologies,Family Guy,DS
 Sun Tzu,developing military strategies,The Art of War;Ancient military history,CS
 Svengali,manipulating ingenues,the Music industry,DS
 Sylvester Stallone,making action movies;starring in action movies,Hollywood;Acting;Action movies,CS
 John Rambo,fighting guerilla wars;eluding authorities;rescuing prisoners of war,Vietnam War,DS
 Tarzan,swinging from tree to tree;communicating with animals;living amongst apes,the Jungle,DS
-Theodore Roosevelt,campaigning for environmental causes;pushing anti-trust legislation,American politics;the Environment,CS+DS
+Theodore Roosevelt,campaigning for environmental causes;pushing anti-trust legislation,American politics;the Environment,CS
 Thomas Edison,pioneering new technologies;developing new technologies;patenting new technologies,Physics;Electricity,CS+DS
 Thomas Pynchon,writing modern fiction,American literature;Modern literature,CS+DS
 Tiger Woods,playing golf;winning golf tournaments,Golf,CS+DS
 Tina Turner,singing rock songs;writing rock songs;gyrating hips,Pop music,CS+DS
 Tom Cruise,starring in Hollywood movies;promoting Scientology;jumping on couches,Hollywood;Acting;Scientology,CS
 Tom Hanks,starring in Hollywood movies;playing everyman characters,Hollywood;Acting;Serious Acting,CS
-Tom Jones,singing pop songs;recording pop songs;crooning love songs,Pop music,CS
+Tom Jones,singing pop songs;recording pop songs;crooning love songs,Pop music,CS+DS
 Tom Sawyer,playing pranks;solving mysteries,American literature;the American South,DS
 Tom Waits,singing blues songs;writing blues songs,Jazz;Blues music,CS+DS
 Tony Blair,promoting liberal values;cozying up to conservatives,British politics;the British Left;the Labour Party,CS
@@ -513,27 +513,27 @@ Huckleberry Finn,growing up poor,American literature;the American South,DS
 Tony Robbins,selling self-help books;giving self-help lectures,Neuro-Linguistic Programming;Self-Help;Self-Improvement,CS
 Tony Soprano,running a crime family;running an empire,the New Jersey Mob;New Jersey;the Mafia,DS
 Tony Stark,running a multinational corporation;running a hardware company;running a software company;pioneering new technologies;developing new technologies,Marvel Comics;Technology,DS
-Tomás de Torquemada,extracting confessions;promoting conservative values;promoting Catholic values,Catholicism;the Inquisition,CS+DS
-Leon Trotsky,spreading revolution;promoting communism,the Russian revolution,CS+DS
+Tomás de Torquemada,extracting confessions;promoting conservative values;promoting Catholic values,Catholicism;the Inquisition,CS
+Leon Trotsky,spreading revolution;promoting communism,the Russian revolution,CS
 Tony Montana,running a crime family;running an empire,the Miami crime world,DS
 Victor Meldrew,complaining about everything,Modern Britain,DS
-Vincent Van Gogh,painting colorful pictures;going slowly mad,Modern art;Post-Impressionism,CS+DS
+Vincent Van Gogh,painting colorful pictures;going slowly mad,Modern art;Post-Impressionism,CS
 Virginia Woolf,writing modern fiction,Modern literature;British literature,CS
-Vladimir Lenin,promoting communism;fighting for worker's rights;arguing against capitalism,the Russian revolution,CS
-Vladimir Putin,running an empire;bullying neighboring countries,Modern Russia,CS
+Vladimir Lenin,promoting communism;fighting for worker's rights;arguing against capitalism,the Russian revolution,CS+DS
+Vladimir Putin,running an empire;bullying neighboring countries,Modern Russia,CS+DS
 Voltaire,promoting liberal values;writing novels;promoting enlightenment,the Enlightenment,CS
-Carl Von Clausewitz,developing military strategies,Modern military history,CS
-Walt Disney,running a media empire;directing animated films;making cartoons;running theme parks,Hollywood;Animation,CS
+Carl Von Clausewitz,developing military strategies,Modern military history,CS+DS
+Walt Disney,running a media empire;directing animated films;making cartoons;running theme parks,Hollywood;Animation,CS+DS
 Walt Whitman,writing modern poetry,American poetry,CS+DS
 Walter White,cooking chrystal meth;running a criminal empire,Chrystal Meth;Chemistry;Cooking,DS
 Warren Buffett,running a business empire;giving investment advice;investing money,Big business;Modern finance,CS+DS
-Wayne Gretzky,playing ice hockey,Ice Hockey,CS+DS
+Wayne Gretzky,playing ice hockey,Ice Hockey,CS
 Wayne Rooney,playing soccer,Soccer;English soccer,CS+DS
-Weird Al Yankovic,singing parody songs;parodying songs,Musical Comedy;Parody,CS+DS
-Will Smith,starring in Hollywood movies,Hollywood;Acting,CS+DS
+Weird Al Yankovic,singing parody songs;parodying songs,Musical Comedy;Parody,CS
+Will Smith,starring in Hollywood movies,Hollywood;Acting,CS
 William Randolph Hearst,running a media empire;publishing newspapers;telling politicians what to do,the Newspaper industry,CS
-William Shakespeare,writing plays;writing sonnets,English literature;Elizabethan theatre,CS
-William Shatner,starring in science fiction movies;starring in TV shows;constructing an ironic public image,Star Trek;TJ Hooker;Priceline,CS
+William Shakespeare,writing plays;writing sonnets,English literature;Elizabethan theatre,CS+DS
+William Shatner,starring in science fiction movies;starring in TV shows;constructing an ironic public image,Star Trek;TJ Hooker;Priceline,CS+DS
 Willy Wonka,running a business empire;making chocolate;selling confectionary;inventing new confectionary;pioneering new technologies,the Confectionary business;the Chocolate industry,DS
 Winston Churchill,fighting against totalitarianism;fighting for democracy;promoting democracy;coining sparkling witticisms,World War II;British history;British politics;the British Right the Conservative Party,CS
 Wolfgang Amadeus Mozart,composing classical music;playing the piano,Classical music,CS+DS
@@ -541,8 +541,8 @@ Kenny G,playing the saxophone,Easy Listening;Light Jazz;Saxophone music,CS+DS
 Woody Allen,directing Hollywood movies;writing Hollywood movies;starring in Hollywood movies;directing comedies;starring in comedies;worrying about health;playing the clarinet,New York City;Hollywood;Acting;Comedy,CS
 Woody Guthrie,campaigning for environmental causes;campaigning for social causes;singing protest songs,Folk music,CS+DS
 Wyatt Earp,arresting criminals;running a frontier town;preventing crime;punishing crime,The Old West;Westerns,CS
-Yogi Berra,playing baseball;mangling idioms,Baseball,CS
-Zsa Zsa Gabor,divorcing husbands;collecting alimony,Hollywood;Fashion,CS+DS
+Yogi Berra,playing baseball;mangling idioms,Baseball,CS+DS
+Zsa Zsa Gabor,divorcing husbands;collecting alimony,Hollywood;Fashion,CS
 Pinocchio,lying badly;playing poker badly;wanting to be a real person,Children's tales,DS
 Yoda,fighting for the resistance;promoting mysticism;duelling acrobatically;teaching the next generation,Star Wars,DS
 Saul Goodman,protecting criminals;representing criminals;bending the law;offering legal advice,Breaking Bad,DS
@@ -596,7 +596,7 @@ Baldrick,developing cunning plans;providing comic relief,the English class syste
 Lord Percy Percy,flaunting foppish fashions;providing comic relief,the English class system,DS
 Lt. George Colthurst St Barleigh,providing comic relief,the English class system,DS
 The Scarlet Pimpernel,rescuing aristocrats;eluding Republicans,the French Revolution,DS
-Leonardo Da Vinci,pioneering new technologies;developing new technologies;painting realistic pictures,the Renaissance;Renaissance art;Florence,CS
+Leonardo Da Vinci,pioneering new technologies;developing new technologies;painting realistic pictures,the Renaissance;Renaissance art;Florence,CS+DS
 Hamlet,avenging loved ones,Denmark;Elsinore;Hamlet: Prince of Denmark,DS
 Polonius,coining sententious maxims;offering bad advice,Denmark;Elsinore;Hamlet: Prince of Denmark,DS
 Ophelia,talking in riddles;singing bawdy songs;handing out flowers,Denmark;Elsinore;Hamlet: Prince of Denmark,DS
@@ -621,7 +621,7 @@ Professor Charles Xavier,teaching young mutants;teaching the next generation;pro
 Rocket Raccoon,guarding the galaxy,Marvel Comics;The Guardians of the Galaxy,DS
 Groot,guarding the galaxy,Marvel Comics;The Guardians of the Galaxy,DS
 Bugs Bunny,eluding hunters;wisecracking;eating carrots;pulling pranks,Looney Tunes;Warner Bros animation,DS
-Shrek,defending the weak;wallowing in mud,the Marx Brothers,CS
+Shrek,defending the weak;wallowing in mud,the Marx Brothers,CS+DS
 Yosemite Sam,losing control,Looney Tunes;Warner Bros animation,DS
 Wile E. Coyote,testing new technologies,Looney Tunes;Warner Bros animation,DS
 George Smiley,rooting out spies;running a clandestine spy organization;rooting out moles;analyzing intelligence data,Mi6;Whitehall,DS
@@ -638,7 +638,7 @@ Olive Oyl,doing the Charleston,Thimble Theatre,DS
 Popeye,foiling the schemes of evil villains;defending the weak;promoting healthy eating,Thimble Theatre,DS
 Pepé Le Pew,seducing women;womanizing;chasing cats,Looney Tunes;Warner Bros animation,DS
 Sideshow Bob,developing cunning plans;providing comic relief,The Simpsons;Springfield,DS
-John Merrick,hiding from the public;working in a freak show;eluding the public gaze,Victorian England,CS
+John Merrick,hiding from the public;working in a freak show;eluding the public gaze,Victorian England,CS+DS
 Ed Wood,making bad movies;writing bad movies;directing bad movies;directing science fiction movies,Bad Movies;B Movies,CS
 Maximus Decimus Meridius,commanding Roman legions;fighting in gladiator arenas;killing rival gladiators;fighting with swords,Gladiator;Roman epics,DS
 Gore Vidal,writing modern fiction;writing historical fiction;coining sparkling witticisms,American literature;Modern literature,CS+DS
@@ -654,9 +654,9 @@ Scott Evil,squabbling on television,Bond spoofs;Spy spoofs,DS
 Bane,breaking heads;breaking bones;devising evil schemes,DC Comics;Gotham City,DS
 Naomi Campbell,peacocking in fancy clothes,Fashion;the Rag Trade;the Fashion industry,CS+DS
 Sarah Jessica Parker,shopping for shoes,Sex and the City;Manhattan,CS+DS
-Kevin Bacon,forming new social connections,Footloose;A Few Good Men,CS+DS
+Kevin Bacon,forming new social connections,Footloose;A Few Good Men,CS
 Hans Gruber,organizing armed robberies,Die Hard;the Nakatomi building,DS
-Antonio Salieri,composing classical music;burning with envy,18th-Century Vienna;Classical music;Opera,CS+DS
+Antonio Salieri,composing classical music;burning with envy,18th-Century Vienna;Classical music;Opera,CS
 Saruman the White,plotting with the enemy;devising evil schemes;building an army;preparing for war,Lord of the Rings;Middle Earth,DS
 Gandalf the Grey,performing magic tricks;studying magic;blowing smoke rings;smoking herb,Lord of the Rings;Middle Earth,DS
 Sauron,devising evil schemes;building an army;preparing for war,Lord of the Rings;Middle Earth;Mordor,DS
@@ -671,7 +671,7 @@ Sylvester the Cat,prowling for dinner,Merrie Melodies;Warner Bros animation,DS
 Ronald McDonald,flipping hamburgers,McDonalds;the Hamburger industry,DS
 The HamBurglar,stealing hamburgers,McDonalds;the Hamburger industry,DS
 Osama Bin Laden,plotting terrorist outrages;recruiting disaffected youths,Islamic Terrorism;the War on Terror,CS
-Saddam Hussein,suppressing minorities;attacking neighbors;amassing weapons,Islamic Terrorism;the War on Terror,CS+DS
+Saddam Hussein,suppressing minorities;attacking neighbors;amassing weapons,Islamic Terrorism;the War on Terror,CS
 Ayatollah Khomeini,issuing fatwas,Islamic Terrorism,CS+DS
 Leonardo DiCaprio,starring in Hollywood movies;dating supermodels,Hollywood;Acting;Serious Acting,CS+DS
 Jay Gatsby,throwing lavish parties,The Great Gatsby,DS
@@ -681,21 +681,21 @@ Clarice Starling,hunting serial killers,Silence of the Lambs,DS
 Scarlett O'Hara,attending cotillion balls,Gone With The Wind;The American Civil War,DS
 Modesty Blaise,pulling capers,Espionage;International Crime,DS
 Sarah Connor,amassing weapons;preparing for the apocalypse,The Terminator;the Post-Apocalypse,DS
-Condoleezza Rice,advising on foreign affairs,American politics;the War on Terror,CS
-Donald Rumsfeld,promoting new wars;writing hawkish memos;blanketing staff with memos;holding evasive press conferences;offering gnostic advice,American politics;the War on Terror,CS+DS
+Condoleezza Rice,advising on foreign affairs,American politics;the War on Terror,CS+DS
+Donald Rumsfeld,promoting new wars;writing hawkish memos;blanketing staff with memos;holding evasive press conferences;offering gnostic advice,American politics;the War on Terror,CS
 Lisbeth Salander,hacking into corporate mainframes,The Girl With The Dragon Tattoo;Scandinavian crime fiction,DS
 Princess Leia Organa,leading the rebel alliance;smuggling military plans,Star Wars,DS
 Hermione Granger,concocting magic potions;casting magic spells,Hogwarts;Teen fiction,DS
 Sydney Bristow,kicking ass;spying for the CIA,Espionage;International Crime,DS
 Dana Scully,explaining away the unexplained;investigating alien abductions,The X-Files,DS
-Marie Curie,extracting Radium from pitchblend,Physics;Modern science;Chemistry,CS
+Marie Curie,extracting Radium from pitchblend,Physics;Modern science;Chemistry,CS+DS
 Tim Burton,making bizarre movies,Hollywood;Animation;Horror,CS
-Coco Chanel,designing haute couture;selling perfumes,Fashion;the Rag Trade;the Fashion industry,CS+DS
+Coco Chanel,designing haute couture;selling perfumes,Fashion;the Rag Trade;the Fashion industry,CS
 Fox Mulder,postulating bizarre theories;investigating alien abductions,The X-Files,DS
 Bruce Willis,making action movies;starring in action movies,Hollywood;Acting;Action movies,CS
-Robert Downey Jr.,making movies;making Superhero movies,Hollywood;Acting;Action movies,CS
-Michael Schumacher,driving fast cars;racing fast cars,Formula One;Car Racing,CS+DS
-Oscar Pistorius,running races;competing in the Olympics,Olympics;Racing;Running,CS+DS
+Robert Downey Jr.,making movies;making Superhero movies,Hollywood;Acting;Action movies,CS+DS
+Michael Schumacher,driving fast cars;racing fast cars,Formula One;Car Racing,CS
+Oscar Pistorius,running races;competing in the Olympics,Olympics;Racing;Running,CS
 Bernard Madoff,cheating clients;running Ponzi schemes;running pyramid schemes,Investment Funds;Investments;Finance,CS+DS
 Julian Assange,leaking state secrets;leaking classified documents;hacking into computers;promoting openness;decrying secrecy,Espionage;Politics;Wikileaks,CS+DS
 Tom Ripley,forging art;planning confidence tricks;cashing checks;climbing social ladders,Social Climbing;High Society,DS
@@ -706,35 +706,35 @@ Simon Pegg,dressing up in cosplay costumes;promoting nerd culture,Nerd culture;C
 Anne Boleyn,climbing social ladders;seducing kings,Politics;British royalty;British history,CS+DS
 King Henry VIII,trading in wives,Politics;British royalty;British history,CS
 Angela Merkel,plotting election strategies,Politics;European politics;Germany,CS+DS
-Silvio Berlusconi,throwing Bunga Bunga parties;avoiding taxes;throwing sex parties,Politics;European politics;Italy,CS+DS
+Silvio Berlusconi,throwing Bunga Bunga parties;avoiding taxes;throwing sex parties,Politics;European politics;Italy,CS
 Princess Fiona,waiting for a hero,Fairy Tales,DS
 Victor Frankenstein,creating monsters;playing God,Horror;Literature;Halloween,DS
 Count Dracula,sucking blood;chasing virgins,Horror;Literature;Halloween,DS
-Jim Carrey,gurning for the camera;pulling faces,Hollywood;Comedy,CS
+Jim Carrey,gurning for the camera;pulling faces,Hollywood;Comedy,CS+DS
 General George Patton,slapping soldiers;planning tank battles,War;World War II,CS
 John F. Kennedy,chasing starlets,American politics,CS+DS
 Nicolas Sarkozy,partying on yachts,French politics,CS
 Dominique Strauss-Kahn,throwing sex parties;planning orgies,French politics,CS+DS
 Alexander the Great,building empires,War;the Ancient world,CS+DS
-Pocahontas,bridging cultures,American history;the New world,CS
-Amelia Earhart,flying airplanes;breaking records,Aviation;American history,CS
+Pocahontas,bridging cultures,American history;the New world,CS+DS
+Amelia Earhart,flying airplanes;breaking records,Aviation;American history,CS+DS
 Charles Lindbergh,flying airplanes;breaking records,Aviation;American history;American politics,CS+DS
-Frida Kahlo,painting colorful pictures;painting self-portraits,Mexican art;Art,CS
-Judy Garland,singing torch songs,Music;Musicals,CS+DS
+Frida Kahlo,painting colorful pictures;painting self-portraits,Mexican art;Art,CS+DS
+Judy Garland,singing torch songs,Music;Musicals,CS
 Ella Fitzgerald,singing torch songs;singing the blues,Music;Jazz;Blues music,CS+DS
-Sylvia Plath,writing poetry,Modern poetry;Suicide,CS
+Sylvia Plath,writing poetry,Modern poetry;Suicide,CS+DS
 Nicolas Cage,over-acting,Hollywood;Acting;Action movies,CS
-Malcolm X,fighting for civil rights,American politics;Race Relations;Black liberation;the American Civil Rights movement,CS+DS
-Rosa Parks,fighting for civil rights,American politics;Race Relations;Black liberation;the American Civil Rights movement,CS
-Sean Penn,starring in Hollywood movies;promoting social causes,Hollywood;Acting;Action movies,CS+DS
+Malcolm X,fighting for civil rights,American politics;Race Relations;Black liberation;the American Civil Rights movement,CS
+Rosa Parks,fighting for civil rights,American politics;Race Relations;Black liberation;the American Civil Rights movement,CS+DS
+Sean Penn,starring in Hollywood movies;promoting social causes,Hollywood;Acting;Action movies,CS
 Mickey Rourke,getting plastic surgery,Hollywood;Acting;Action movies;Plastic Surgery,CS
 Elton John,shopping for shoes;peacocking in fancy clothes,Music;Pop music;Love songs,CS+DS
-Bradley Manning,leaking state secrets;leaking classified documents,Espionage;Politics;Wikileaks,CS+DS
+Bradley Manning,leaking state secrets;leaking classified documents,Espionage;Politics;Wikileaks,CS
 Chelsea Manning,leaking state secrets;leaking classified documents,Espionage;Politics;Wikileaks,CS
 Tim Berners-Lee,promoting the Web,The World Wide Web;The Internet;Computers,CS
-Edward Snowden,leaking state secrets;leaking classified documents,Espionage;Politics;The World Wide Web;The Internet;Computers,CS
+Edward Snowden,leaking state secrets;leaking classified documents,Espionage;Politics;The World Wide Web;The Internet;Computers,CS+DS
 Sergey Brin,running a tech giant;building a search engine;performing Web searches,The World Wide Web;The Internet;Computers,CS
-Larry Page,running a tech giant;building a search engine;performing Web searches,The World Wide Web;The Internet;Computers,CS+DS
+Larry Page,running a tech giant;building a search engine;performing Web searches,The World Wide Web;The Internet;Computers,CS
 Montgomery Burns,releasing the hounds;counting money;amassing wealth,Nuclear Power;The Simpsons;Springfield,DS
 Waylon Smithers,fawning on the boss;currying favour,Nuclear Power;The Simpsons;Springfield,DS
 Mayor Joe Quimby,embezzling tax money;taking bribes from organized crime;paying kickbacks to the police chief,The Simpsons;Springfield,DS
@@ -758,18 +758,18 @@ Glenn Quagmire,chasing women;exploiting women;looking for sex,Family Guy,DS
 Uri Geller,bending spoons,Magic;Mentalism;Show Business,CS
 Jeffrey Lebowski,going bowling;drinking White Russians,Bowling,DS
 Iggy Pop,doing raunchy stage acts,Music;Jazz;Blues music;Rock music;Punk rock music,CS
-Mark Zuckerberg,hanging out on Facebook;changing privacy settings,Facebook;Technology;Software;the Software business,CS
+Mark Zuckerberg,hanging out on Facebook;changing privacy settings,Facebook;Technology;Software;the Software business,CS+DS
 Roy Batty,looking for immortality;avoiding retirement,Blade Runner;Science Fiction,DS
 Rick Deckard,retiring replicants,Blade Runner;Science Fiction,DS
 Dr. Eldon Tyrell,designing replicants;building replicants,Blade Runner;Science Fiction,DS
 Thor Odinson,starting thunderstorms;smiting frost giants,Norse mythology;Marvel Comics;The Avengers,DS
 Loki Laufeyson,plotting against family members;devising evil schemes,Norse mythology;Mythology;Marvel Comics,DS
 Richard B. Riddick,evading mercenaries,The Chronicles of Riddick;Science Fiction,DS
-Alan Turing,cracking enemy codes;designing computer systems;studying computability,Mathematics;Computers;Crypography;Artificial Intelligence,CS+DS
+Alan Turing,cracking enemy codes;designing computer systems;studying computability,Mathematics;Computers;Crypography;Artificial Intelligence,CS
 Conan the Barbarian,stealing jewels;fighting barbarian hordes;defending the weak;foiling the schemes of evil villains,Mythology;Marvel Comics;The Hyborian Age;Movies,DS
 Red Sonja,defending the weak;foiling the schemes of evil villains,Mythology;Marvel Comics;The Hyborian Age;Movies,DS
 Jeff "Comic Book Guy" Albertson,selling comic books;spouting movie trivia;being condescending to customers,The Simpsons;Springfield,DS
-King Richard III,grabbing power;amassing wealth;devising evil schemes,British politics;British royalty;Shakespeare,CS+DS
+King Richard III,grabbing power;amassing wealth;devising evil schemes,British politics;British royalty;Shakespeare,CS
 Queen Elizabeth I,ruling over subjects;running a kingdom,British politics;British royalty,CS
 Dr. Henry Jekyll,suppressing violent urges,Horror;Literature;Victorian literature,DS
 Mr. Edward Hyde,expressing violent urges,Horror;Literature;Victorian literature,DS
@@ -792,8 +792,8 @@ The Artful Dodger,picking pockets,Oliver Twist;Victorian literature;Dickensian f
 Uriah Heap,making patronising comments;practicing insincerity;cooking the books,David Copperfield;Victorian literature;Dickensian fiction,DS
 Bob Cratchit,keeping accounts;writing in ledgers;performing office chores,A Christmas Carol;Victorian literature;Dickensian fiction,DS
 Tiny Tim Cratchit,offering blessings;saying grace,A Christmas Carol;Victorian literature;Dickensian fiction,DS
-Jean-Paul Sartre,popping amphetamines;smoking Boyard cigarettes;chain-smoking Gauloises Bleues,Continental philosophy;Modern philosophy;French philosophy,CS+DS
-Simone de Beauvoir,promoting feminism;moaning about men,Continental philosophy;Modern philosophy;French philosophy,CS
+Jean-Paul Sartre,popping amphetamines;smoking Boyard cigarettes;chain-smoking Gauloises Bleues,Continental philosophy;Modern philosophy;French philosophy,CS
+Simone de Beauvoir,promoting feminism;moaning about men,Continental philosophy;Modern philosophy;French philosophy,CS+DS
 Monica Lewinsky,conducting illicit affairs;causing political scandals;doing diet commercials,American politics;the Clinton Era,CS
 Colonel Kurtz,waging a secret war;instilling fear in the enemy,American politics;Vietnam War;the Jungle,DS
 Jor El,inventing new technologies;making escape plans,DC Comics;Krypton;Alien Science;Science Fiction,DS
@@ -822,18 +822,18 @@ Wolverine,foiling the schemes of evil villains;slashing victims;punishing crimin
 Deadpool,foiling the schemes of evil villains;punishing criminals;undermining authority;making vulgar jokes,Marvel Comics;The X-Men,DS
 Green Lantern,foiling the schemes of evil villains;guarding the galaxy,DC Comics;Alien Science;Science Fiction,DS
 Superman,reporting the news;foiling the schemes of evil villains;fighting for justice;defending the weak,DC Comics;Metropolis;The Daily Planet;Science Fiction,DS
-Ryan Reynolds,starring in Hollywood movies;making dumb comedies,Hollywood;Comedy,CS
+Ryan Reynolds,starring in Hollywood movies;making dumb comedies,Hollywood;Comedy,CS+DS
 Coriolanus Snow,running a bureaucracy;running an empire;crushing dissent,Science Fiction;The Hunger Games,DS
 Don Quixote,tilting at windmills;going on romantic quests,Spanish literature,DS
 Baron Munchausen,telling tall tales;inventing lies,German literature,DS
-Hunter S. Thompson,writing about manly pursuits,American politics,CS+DS
+Hunter S. Thompson,writing about manly pursuits,American politics,CS
 Lando Calrissian,running a criminal enterprise;fighting for the rebel alliance,Star Wars,DS
-Bob Woodward,reporting the news;following the money,American politics;the News;the Newspaper industry,CS+DS
-Carl Bernstein,reporting the news;following the money,American politics;the News;the Newspaper industry,CS
+Bob Woodward,reporting the news;following the money,American politics;the News;the Newspaper industry,CS
+Carl Bernstein,reporting the news;following the money,American politics;the News;the Newspaper industry,CS+DS
 G. Gordon Liddy,promoting conservative values;ranting about liberals;bugging political rivals;pulling dirty political tricks,American politics,CS+DS
-Anthony Scaramucci,making political gaffes;promoting conservative values;ranting about liberals;managing hedge funds,American politics,CS+DS
-Melania Trump,posing for photographs,American politics,CS+DS
-Christiane Amanpour,reporting the news;interviewing celebrities;interviewing politicians,American politics;the News,CS
+Anthony Scaramucci,making political gaffes;promoting conservative values;ranting about liberals;managing hedge funds,American politics,CS
+Melania Trump,posing for photographs,American politics,CS
+Christiane Amanpour,reporting the news;interviewing celebrities;interviewing politicians,American politics;the News,CS+DS
 Bobby Kennedy,campaigning for social causes,the Law;American politics,CS
 James Comey,running a bureaucracy;chasing criminals;running the FBI;ordering wire-taps;blanketing staff with memos,the Law;American politics,CS
 Robert Mueller,chasing criminals;interpreting evidence;interviewing politicians;foiling the schemes of evil villains,the Law;American politics,CS+DS
@@ -842,147 +842,147 @@ Kellyanne Conway,offering advice,the Right;the Republicans;American politics,CS
 Harvey Weinstein,chasing after women;seducing women;making movies,Hollywood,CS
 Kevin Spacey,starring in Hollywood movies,Hollywood,CS+DS
 Stormy Daniels,starring in pornographic movies,Pornography;Porn movies,CS
-Deep Throat,talking in riddles;offering advice,Watergate;American politics,CS+DS
-Gianni Versace,flaunting foppish fashions;designing clothes;pushing haute couture,Fashion;the Rag Trade;the Fashion industry,CS+DS
-Reince Priebus,promoting conservative values,the Right;the Republicans;American politics,CS
-Mike  Pence,promoting conservative values,the Right;the Republicans;American politics,CS+DS
+Deep Throat,talking in riddles;offering advice,Watergate;American politics,CS
+Gianni Versace,flaunting foppish fashions;designing clothes;pushing haute couture,Fashion;the Rag Trade;the Fashion industry,CS
+Reince Priebus,promoting conservative values,the Right;the Republicans;American politics,CS+DS
+Mike  Pence,promoting conservative values,the Right;the Republicans;American politics,CS
 Tom Wolfe,writing about social problems;writing serialized stories;writing modern fiction,Politics;the News,CS
-Steve Bannon,promoting conservative values,the Right;the Republicans;American politics,CS+DS
-Jared Kushner,running a business empire,the Right;the Republicans;American politics,CS
+Steve Bannon,promoting conservative values,the Right;the Republicans;American politics,CS
+Jared Kushner,running a business empire,the Right;the Republicans;American politics,CS+DS
 Ivanka Trump,running a business empire,the Right;the Republicans;American politics,CS+DS
-Jeff Sessions,promoting conservative values,the Right;the Republicans;American politics,CS+DS
-Ted Cruz,promoting conservative values,the Right;the Republicans;American politics,CS
+Jeff Sessions,promoting conservative values,the Right;the Republicans;American politics,CS
+Ted Cruz,promoting conservative values,the Right;the Republicans;American politics,CS+DS
 Thanos,devising evil schemes;striving for world domination,Marvel Comics,DS
-Emmanuel Macron,campaigning for the presidency;giving speeches,French politics,CS
-Nigel Farage,promoting conservative values,British politics;Brexit,CS
-Elon Musk,pioneering new technologies;developing new technologies,Technology;Space flight;the Motor industry;the Car industry,CS+DS
+Emmanuel Macron,campaigning for the presidency;giving speeches,French politics,CS+DS
+Nigel Farage,promoting conservative values,British politics;Brexit,CS+DS
+Elon Musk,pioneering new technologies;developing new technologies,Technology;Space flight;the Motor industry;the Car industry,CS
 Jeff Bezos,selling consumer goods;running a business empire,Amazon;Technology,CS
 Lars von Trier,making new wave movies,Dogme,CS+DS
 Bjork,writing pop songs;singing pop songs,,CS+DS
-El Chappo,running a criminal enterprise;running a crime family;running a smuggling business,International Crime,CS
-Pablo Escobar,running a criminal enterprise;running a crime family;running a smuggling business,International Crime,CS+DS
-King David,ruling over subjects;running a kingdom,the Old Testament;the Bible,CS
-King Solomon,ruling over subjects;running a kingdom,the Old Testament;the Bible,CS+DS
+El Chappo,running a criminal enterprise;running a crime family;running a smuggling business,International Crime,CS+DS
+Pablo Escobar,running a criminal enterprise;running a crime family;running a smuggling business,International Crime,CS
+King David,ruling over subjects;running a kingdom,the Old Testament;the Bible,CS+DS
+King Solomon,ruling over subjects;running a kingdom,the Old Testament;the Bible,CS
 Rick Sanchez,pioneering new technologies;inventing electrical marvels,Rick and Morty,DS
 Morty Smith,standing up to bullies;spying on girls,Rick and Morty,DS
 Barbie,promoting hair products,the Toy Industry,DS
 Johnny Carson,hosting a late night chat show,Comedy;Late-night TV,CS+DS
-Billie Holiday,singing jazz songs;singing torch songs,Jazz;Blues music,CS+DS
+Billie Holiday,singing jazz songs;singing torch songs,Jazz;Blues music,CS
 James Brown,singing blues songs;writing blues songs,Soul music,CS+DS
-Stevie Wonder,singing pop songs;writing pop songs,Pop music,CS+DS
+Stevie Wonder,singing pop songs;writing pop songs,Pop music,CS
 Boy George,singing pop songs;writing pop songs,Pop music,CS
-Buddy Holly,singing pop songs;writing pop songs,Pop music,CS+DS
+Buddy Holly,singing pop songs;writing pop songs,Pop music,CS
 Cher,singing pop songs;writing pop songs,Pop music,CS+DS
-Amy Schumer,making vulgar jokes;starring in comedies;doing stand-up,Comedy,CS
-Lucille Ball,starring in sit-coms;starring in madcap comedies,Comedy,CS
+Amy Schumer,making vulgar jokes;starring in comedies;doing stand-up,Comedy,CS+DS
+Lucille Ball,starring in sit-coms;starring in madcap comedies,Comedy,CS+DS
 Jerry Maguire,promoting greed,American sports;American football,DS
 Joe DiMaggio,playing baseball,American sports;Baseball,CS
-Katharine Hepburn,starring in Hollywood movies,Hollywood;Serious Acting,CS
+Katharine Hepburn,starring in Hollywood movies,Hollywood;Serious Acting,CS+DS
 Janet Jackson,singing pop songs;writing pop songs,Pop music,CS
-Jayne Mansfield,starring in Hollywood movies,Hollywood;Acting,CS+DS
+Jayne Mansfield,starring in Hollywood movies,Hollywood;Acting,CS
 RuPaul,cross-dressing in women's clothes,,CS+DS
-Sammy Davis Jr.,singing pop songs;writing pop songs,Easy Listening;the Rat Pack,CS+DS
+Sammy Davis Jr.,singing pop songs;writing pop songs,Easy Listening;the Rat Pack,CS
 Ray Charles,singing pop songs;writing pop songs;singing the blues;singing country music,Pop Music,CS+DS
 Lady Gaga,singing pop songs;writing pop songs,Pop Music,CS+DS
 Whitney Houston,singing pop songs;writing pop songs,Pop Music,CS+DS
 Rihanna,singing pop songs;writing pop songs,Pop Music,CS
-Rafael Nadal,delivering forehand slams;winning tennis tournaments,Tennis,CS
+Rafael Nadal,delivering forehand slams;winning tennis tournaments,Tennis,CS+DS
 Amy Winehouse,singing jazz songs;singing torch songs,Pop Music,CS
 Serena Williams,delivering forehand slams;winning tennis tournaments,Tennis,CS
-Tupac Shakur,writing rap songs;producing Hipbop records;singing Hipbop songs,Rap music;Hip-Hop,CS+DS
+Tupac Shakur,writing rap songs;producing Hipbop records;singing Hipbop songs,Rap music;Hip-Hop,CS
 Christina Aguilera,singing pop songs;writing pop songs,Pop Music,CS+DS
 Dr. Dre,writing rap songs;producing Hipbop records;singing Hipbop songs,Rap music;Hip-Hop,CS+DS
 Princess Diana,posing for photographs,Politics;British royalty;British history,CS+DS
 Ellen DeGeneres,interviewing celebrities,Comedy,CS+DS
 Katy Perry,singing pop songs;writing pop songs,Pop Music,CS
 Selena Gomez,singing pop songs;writing pop songs,Pop Music,CS+DS
-Johnny Depp,starring in Hollywood movies,Hollywood;Acting,CS
+Johnny Depp,starring in Hollywood movies,Hollywood;Acting,CS+DS
 Cristiano Ronaldo,playing soccer,Soccer,CS+DS
-Pope Francis,promoting Catholic values,Catholicism,CS
-Tom Brady,signing sports memorabilia,American football;American sports,CS+DS
+Pope Francis,promoting Catholic values,Catholicism,CS+DS
+Tom Brady,signing sports memorabilia,American football;American sports,CS
 Tyra Banks,modeling clothes;selling cosmetics,Fashion;the Rag Trade;the Fashion industry,CS+DS
 Zac Efron,starring in Hollywood movies;making insipid musicals,Hollywood;Acting,CS+DS
 Novak Djokovic,delivering forehand slams;winning tennis tournaments,Tennis,CS
 Usain Bolt,running races;competing in the Olympics,Olympics;Racing;Running,CS
-Ashton Kutcher,starring in sit-coms,Comedy,CS
-Ariana Grande,singing pop songs;writing pop songs,Pop music,CS
+Ashton Kutcher,starring in sit-coms,Comedy,CS+DS
+Ariana Grande,singing pop songs;writing pop songs,Pop music,CS+DS
 Winona Ryder,starring in Hollywood movies,Hollywood;Acting,CS
-Conchita Wurst,singing pop songs;cross-dressing in women's clothes,,CS
-Scarlett Johansson,cross-dressing in women's clothes,Hollywood;Acting,CS
-Caitlyn Jenner,campaigning for social causes,,CS+DS
-Marc Jacobs,designing clothes,Fashion;the Rag Trade;the Fashion industry,CS
-LeBron James,playing basketball;making dunk shots,Basketball,CS+DS
-Barbra Streisand,singing torch songs;over-acting,Pop music;Acting;Hollywood,CS+DS
+Conchita Wurst,singing pop songs;cross-dressing in women's clothes,,CS+DS
+Scarlett Johansson,cross-dressing in women's clothes,Hollywood;Acting,CS+DS
+Caitlyn Jenner,campaigning for social causes,,CS
+Marc Jacobs,designing clothes,Fashion;the Rag Trade;the Fashion industry,CS+DS
+LeBron James,playing basketball;making dunk shots,Basketball,CS
+Barbra Streisand,singing torch songs;over-acting,Pop music;Acting;Hollywood,CS
 Grace Jones,singing pop songs;writing pop songs,Pop music,CS+DS
 Diana Ross,singing pop songs;writing pop songs,Pop music,CS+DS
 Liza Minnelli,singing torch songs;over-acting,Pop music;Acting;Hollywood,CS
-Joan Crawford,starring in Hollywood movies,Acting;Hollywood,CS+DS
-Bette Davis,starring in Hollywood movies,Acting;Hollywood,CS+DS
+Joan Crawford,starring in Hollywood movies,Acting;Hollywood,CS
+Bette Davis,starring in Hollywood movies,Acting;Hollywood,CS
 Kylie Minogue,singing pop songs;writing pop songs,Pop music,CS
-Bette Midler,singing torch songs;over-acting,Acting;Hollywood,CS
-George Michael,singing pop songs;writing pop songs,Pop music,CS
+Bette Midler,singing torch songs;over-acting,Acting;Hollywood,CS+DS
+George Michael,singing pop songs;writing pop songs,Pop music,CS+DS
 Harvey Milk,campaigning for social causes,American politics,CS+DS
 Freddie Mercury,singing pop songs;writing pop songs;cross-dressing in women's clothes,Pop music,CS+DS
-Morrissey,singing pop songs;writing pop songs,Pop music,CS+DS
-Chris Rock,cross-dressing in women's clothes,Comedy,CS+DS
+Morrissey,singing pop songs;writing pop songs,Pop music,CS
+Chris Rock,cross-dressing in women's clothes,Comedy,CS
 Kylo Ren,promoting the Dark Side;working for the forces of darkness;fighting the forces of good;duelling acrobatically,Star Wars,DS
-Taylor Swift,singing pop songs;writing pop songs,Pop music,CS
-Meghan Markle,racking up marriages,British royalty,CS
+Taylor Swift,singing pop songs;writing pop songs,Pop music,CS+DS
+Meghan Markle,racking up marriages,British royalty,CS+DS
 Martin Luther,recruiting dissidents;raging against the machine,German history;Lutheranism,CS+DS
-Isaac Newton,studying mathematics;proving math theorems,Physics;Astronomy;the Cosmos,CS+DS
+Isaac Newton,studying mathematics;proving math theorems,Physics;Astronomy;the Cosmos,CS
 Ronald Reagan,promoting conservative values,the Right;the Republicans;American politics,CS+DS
-Friedrich Nietzsche,promoting humanism;teaching philosophy;spreading philosophy,Continental philosophy;Modern philosophy;German philosophy,CS
+Friedrich Nietzsche,promoting humanism;teaching philosophy;spreading philosophy,Continental philosophy;Modern philosophy;German philosophy,CS+DS
 Galileo Galilei,promoting Heliocentrism,Physics;Astronomy;the Cosmos,CS+DS
-Oliver Cromwell,fighting with swords;spreading revolution;instigating rebellion;leading revolts,British history;British royalty,CS+DS
-Edgar Allan Poe,writing mystery stories,American literature,CS
+Oliver Cromwell,fighting with swords;spreading revolution;instigating rebellion;leading revolts,British history;British royalty,CS
+Edgar Allan Poe,writing mystery stories,American literature,CS+DS
 Joseph Smith,searching for the messiah;recruiting dissidents;racking up marriages,Mormonism,CS
 Richard Wagner,making antisemitic remarks;composing classical music,Classical music;Piano music,CS+DS
-Pyotr Ilyich Tchaikovsky,composing classical music,Classical music;Piano music,CS+DS
-Socrates,writing on wax tablets;teaching philosophy to future leaders;teaching the next generation,Ancient philosophy;Greek philosophy;the Ancient world;Ancient Greece,CS+DS
-Robert E. Lee,winning battles;developing military strategies;leading armies into battle,American history;American politics,CS
+Pyotr Ilyich Tchaikovsky,composing classical music,Classical music;Piano music,CS
+Socrates,writing on wax tablets;teaching philosophy to future leaders;teaching the next generation,Ancient philosophy;Greek philosophy;the Ancient world;Ancient Greece,CS
+Robert E. Lee,winning battles;developing military strategies;leading armies into battle,American history;American politics,CS+DS
 King Arthur,fighting with swords;leading armies into battle;ruling over subjects;running a kingdom,British royalty;British history,CS
 Sir Lancelot,fighting with swords,British history,DS
 Merlin,performing magic tricks;studying magic tricks;teaching magic;brewing magican potions;casting magic spells,British history,DS
 Morgana Le Fay,performing magic tricks;studying magic tricks;teaching magic;brewing magican potions;casting magic spells,British history,DS
-Johann von Goethe,writing poetry;writing about social problems,German literature;Romantic poetry,CS
+Johann von Goethe,writing poetry;writing about social problems,German literature;Romantic poetry,CS+DS
 Thomas Aquinas,teaching philosophy;spreading philosophy,Religious Iconology,CS
-René Descartes,teaching philosophy;spreading philosophy,Continental philosophy;Modern philosophy;French philosophy,CS
+René Descartes,teaching philosophy;spreading philosophy,Continental philosophy;Modern philosophy;French philosophy,CS+DS
 Harry S. Truman,campaigning for the presidency;wielding political power,American politics,CS
 Leon Trotsky,wielding political power;promoting communism;launching cultural revolutions,Russian politics,CS+DS
 Joan of Arc,fighting with swords;leading armies into battle,French politics;French history,CS+DS
 John Calvin,promoting conservative values,Religious Iconology,CS
 William the Conqueror,fighting with swords;leading armies into battle;ruling over subjects;running a kingdom,British history,CS
 Saint Peter,promoting conservative values,Religious Iconology,CS+DS
-Saint Paul,promoting conservative values,Religious Iconology,CS
-James Cook,opening new markets;exploring foreign countries,British history,CS
-Queen Victoria,ruling over subjects;running a kingdom,British history;British royalty,CS+DS
-Thomas Jefferson,campaigning for democracy;fighting for democracy;wielding political power,American history;American politics,CS+DS
+Saint Paul,promoting conservative values,Religious Iconology,CS+DS
+James Cook,opening new markets;exploring foreign countries,British history,CS+DS
+Queen Victoria,ruling over subjects;running a kingdom,British history;British royalty,CS
+Thomas Jefferson,campaigning for democracy;fighting for democracy;wielding political power,American history;American politics,CS
 Johannes Gutenberg,pioneering new technologies,Printing,CS+DS
 Pythagoras,studying mathematics;proving math theorems,Mathematics;Ancient Greece,CS+DS
 Archimedes,studying mathematics;proving math theorems,Mathematics;Ancient Greece;Science,CS
-Louis Pasteur,studying science,Science;Chemistry,CS+DS
-Anne Frank,keeping a diary,World War II,CS+DS
+Louis Pasteur,studying science,Science;Chemistry,CS
+Anne Frank,keeping a diary,World War II,CS
 J.R.R. Tolkein,making fantasy movies,English literature,CS
 Otto von Bismarck,wielding political power,German history;German politics,CS
 Sophocles,writing plays,the Ancient world;Ancient Greece,CS
 Oedipus Rex,solving riddles,the Ancient world;Ancient Greece,DS
-Gregor Mendel,tending the garden,Science;Genetics,CS
-Sitting Bull,spreading revolution;instigating rebellion;leading revolts,American history,CS+DS
-George Armstrong Custer,developing military strategies;leading armies into battle,American history,CS+DS
+Gregor Mendel,tending the garden,Science;Genetics,CS+DS
+Sitting Bull,spreading revolution;instigating rebellion;leading revolts,American history,CS
+George Armstrong Custer,developing military strategies;leading armies into battle,American history,CS
 Alexander Fleming,studying science,Science;Biology,CS+DS
-Wernher von Braun,building rocket ships,NASA;Space flight;the Moon,CS+DS
+Wernher von Braun,building rocket ships,NASA;Space flight;the Moon,CS
 Alfred Nobel,promoting pacifism,Chemistry,CS+DS
 Rembrandt,painting colorful pictures;painting self-portraits,Painting,CS
 Ferdinand Magellan,searching for a new world;exploring the new world,,CS
 Grace Hopper,pioneering new technologies,Computer Science;Software;Technology,CS
-Margaret Mead,bridging cultures,Anthropology,CS
+Margaret Mead,bridging cultures,Anthropology,CS+DS
 Sappho,writing poetry,Romantic poetry,CS+DS
-Harriet Tubman,fighting for civil rights,American history,CS+DS
-Catherine The Great,ruling over subjects;running a kingdom,Russian politics;Russian history,CS+DS
+Harriet Tubman,fighting for civil rights,American history,CS
+Catherine The Great,ruling over subjects;running a kingdom,Russian politics;Russian history,CS
 Annie Oakley,promoting circus attractions;selling tickets;piquing public interest,American history,CS
 Eleanor Roosevelt,campaigning for social causes,American history;American politics,CS
 Jane Goodall,living amongst apes,Anthropology,CS
-Madeleine Albright,fighting for democracy,American politics,CS
+Madeleine Albright,fighting for democracy,American politics,CS+DS
 Emmeline Pankhurst ,fighting for democracy;campaigning for social causes;promoting feminism,British history;British politics,CS+DS
 Boudicca,spreading revolution;instigating rebellion;leading revolts,British history,CS+DS
 Natasha Romanova,spying for the enemy;seducing miltary officers;kicking ass;foiling the schemes of evil villains,Marvel Comics. Espionage,DS
@@ -1012,14 +1012,14 @@ Father Ted,preaching tolerance;spreading Christianity,Comedy,DS
 Saga Norén,solving mysteries;solving crimes;finding clues;interpreting evidence,Scandinavian crime fiction,DS
 Winnie the Pooh,cooking for friends,Children's tales,DS
 Willie Nelson,singing country music,Country music,CS+DS
-Sinead O'Connor,singing pop songs;writing pop songs,Pop music,CS+DS
-Beatrix Potter,drawing whimsical cartoons,English literature,CS
+Sinead O'Connor,singing pop songs;writing pop songs,Pop music,CS
+Beatrix Potter,drawing whimsical cartoons,English literature,CS+DS
 Sterling Archer,going on commando missions;kicking ass;performing kung-fu moves,Comedy;Animation;Espionage,DS
 Bob Belcher,flipping hamburgers,Comedy;Animation,DS
 Walt Longmire,solving mysteries;solving crimes;finding clues;interpreting evidence,Crime fiction;Detective fiction,CS+DS
 Eleanor Rigby,performing household chores,The Beatles;Pop music,CS+DS
 Mister Magoo,causing mayhem,Comedy;Animation,DS
-Joseph McCarthy,fighting for democracy;promoting democracy,American history;American politics,CS+DS
+Joseph McCarthy,fighting for democracy;promoting democracy,American history;American politics,CS
 Offred,performing household chores,Science Fiction;The Handmaid's Tale,CS+DS
 Hedda Hopper,promoting conservative values;ranting about liberals;spreading political gossip,Hollywood;the Newspaper industry,CS+DS
 Roseanne Barr,promoting conservative values;ranting about liberals;making vulgar jokes,Televison;Comedy,CS+DS

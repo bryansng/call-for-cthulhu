@@ -23,6 +23,7 @@ public class Parser {
 	public HashMap<String, StaffMember> allStaffMembers = new HashMap<String, StaffMember>();
 	public ArrayList<Project> someStaffsProjects = new ArrayList<Project>();
 	public ArrayList<String> allNames = new ArrayList<String>();
+	public ArrayList<Student> allStudents = new ArrayList<Student>();
 	public int numberOfStudents;
 
 	public double numDSStudents = 0.0;
@@ -104,7 +105,7 @@ public class Parser {
 
 	public ArrayList<Student> generateStudents() throws IOException {
 		HashSet<Integer> usedStudentIDs = new HashSet<Integer>();
-		ArrayList<Student> students = new ArrayList<Student>();
+		allStudents = new ArrayList<Student>();
 
 		for (int i = 0; i < numberOfStudents; i++) {
 			Integer randomInt = new Random().nextInt(allNames.size());
@@ -121,9 +122,14 @@ public class Parser {
 			}
 			String stream = generateStudentStream();
 			usedStudentIDs.add(randomId);
-			students.add(new Student(firstName, lastName, randomId, stream, 0.0, generatePreferenceList(stream, randomId)));
+			allStudents
+					.add(new Student(firstName, lastName, randomId, stream, 0.0, generatePreferenceList(stream, randomId)));
 		}
-		return students;
+
+		if (isUnevenStudentStreamAllocation()) {
+			return generateStudents();
+		}
+		return allStudents;
 	}
 
 	private Integer generateStudentId() {
@@ -243,6 +249,17 @@ public class Parser {
 			}
 		}
 		double percentDS = numDS * 1.0 / someStaffsProjects.size();
+		return percentDS >= 47.5 && percentDS <= 52.5;
+	}
+
+	private Boolean isUnevenStudentStreamAllocation() {
+		int numDS = 0;
+		for (Student student : allStudents) {
+			if (student.getStream().equals("DS")) {
+				numDS += 1;
+			}
+		}
+		double percentDS = numDS * 1.0 / allStudents.size();
 		return percentDS >= 47.5 && percentDS <= 52.5;
 	}
 }
