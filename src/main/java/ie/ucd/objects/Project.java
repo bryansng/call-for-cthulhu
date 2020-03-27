@@ -111,4 +111,11 @@ public class Project implements ProjectInterface {
 	public void setIsGivenAs1stPreference(Boolean isGivenAs1stPreference) {
 		this.isGivenAs1stPreference = isGivenAs1stPreference;
 	}
+
+	public void resetCounters() {
+		numAsPreference = 0;
+		numAs1stPreference = 0;
+		numStudentsAssigned = 0;
+		isGivenAs1stPreference = false;
+	}
 }

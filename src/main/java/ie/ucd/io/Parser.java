@@ -53,7 +53,7 @@ public class Parser {
 			someStaffsProjects.add(allStaffsProjects.get(randInt).getProject());
 		}
 
-		if (isUnevenProjectStreamAllocation()) {
+		if (!isEvenProjectStreamAllocation()) {
 			return generateStaffProjects();
 		}
 		return someStaffsProjects;
@@ -106,6 +106,9 @@ public class Parser {
 	public ArrayList<Student> generateStudents() throws IOException {
 		HashSet<Integer> usedStudentIDs = new HashSet<Integer>();
 		allStudents = new ArrayList<Student>();
+		numDSStudents = 0.0;
+		numCSStudents = 0.0;
+		totalProjectsAssigned = 0.0;
 
 		for (int i = 0; i < numberOfStudents; i++) {
 			Integer randomInt = new Random().nextInt(allNames.size());
@@ -126,7 +129,7 @@ public class Parser {
 					.add(new Student(firstName, lastName, randomId, stream, 0.0, generatePreferenceList(stream, randomId)));
 		}
 
-		if (isUnevenStudentStreamAllocation()) {
+		if (!isEvenStudentStreamAllocation()) {
 			return generateStudents();
 		}
 		return allStudents;
@@ -171,6 +174,7 @@ public class Parser {
 	private ArrayList<Project> generatePreferenceList(String stream, Integer randomId) {
 		ArrayList<Project> list = new ArrayList<Project>();
 		HashSet<Integer> usedIndex = new HashSet<Integer>();
+		resetProjectsCounters();
 
 		// assuming impossible to run out of projects to give as 1st preference since someStaffsProjects.size() always > numOfStudents.
 		for (int i = 0; i < 10;) {
@@ -193,6 +197,12 @@ public class Parser {
 		}
 
 		return list;
+	}
+
+	private void resetProjectsCounters() {
+		for (Project project : someStaffsProjects) {
+			project.resetCounters();
+		}
 	}
 
 	private String generateStudentStream() {
@@ -241,25 +251,21 @@ public class Parser {
 		return String.format("%.2f%%", percentage);
 	}
 
-	private Boolean isUnevenProjectStreamAllocation() {
+	private Boolean isEvenProjectStreamAllocation() {
 		int numDS = 0;
 		for (Project project : someStaffsProjects) {
 			if (project.getStream().equals("DS")) {
 				numDS += 1;
 			}
 		}
-		double percentDS = numDS * 1.0 / someStaffsProjects.size();
-		return percentDS >= 47.5 && percentDS <= 52.5;
+		double percentDS = numDS * 1.0 / someStaffsProjects.size() * 100;
+		// System.out.println("Project percent: " + percentDS);
+		return percentDS >= 40 && percentDS <= 60; // 50 +- 10
 	}
 
-	private Boolean isUnevenStudentStreamAllocation() {
-		int numDS = 0;
-		for (Student student : allStudents) {
-			if (student.getStream().equals("DS")) {
-				numDS += 1;
-			}
-		}
-		double percentDS = numDS * 1.0 / allStudents.size();
-		return percentDS >= 47.5 && percentDS <= 52.5;
+	private Boolean isEvenStudentStreamAllocation() {
+		double percentDS = numDSStudents * 1.0 / allStudents.size() * 100;
+		// System.out.println("Student percent: " + percentDS);
+		return percentDS >= 35 && percentDS <= 45; // 40 +- 5
 	}
 }
