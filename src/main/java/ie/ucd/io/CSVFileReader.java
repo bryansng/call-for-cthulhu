@@ -78,6 +78,9 @@ public class CSVFileReader {
                     }
                 }
             }
+            assert thisStudentsProjects.size() != 10 : "Preference list size must be equal to 10, but is "
+                    + thisStudentsProjects.size()
+                    + ", check if readStudents() is given the correct ArrayList projects tailored for these students.";
             // System.out.println(thisStudentsProjects.size() < 10);
             students.add(new Student(line[0], line[1], Integer.parseInt(line[2]), line[3], 0.0, thisStudentsProjects));
             // System.out.println(aIndex + " " + students.get(students.size() - 1));
