@@ -16,7 +16,7 @@ public class CSVFileWriter {
         final String[] columns = { "Staff Name", "Research Activity", "Stream", "Preferred Probability" };
         try {
             //create file
-            File file = new File("ProjectsCSV" + numOfStudents + ".csv");
+            File file = new File("src/main/resources/CSVs/ProjectsCSV" + numOfStudents + ".csv");
             file.createNewFile();
             //create writer
             FileWriter fileWriter = new FileWriter(file);
@@ -42,7 +42,7 @@ public class CSVFileWriter {
                 "Preference 9", "Preference 10" };
         String line = "";
         try {
-            File file = new File("StudentsCSV" + students.size() + ".csv");
+            File file = new File("src/main/resources/CSVs/StudentsCSV" + students.size() + ".csv");
             file.createNewFile();
             //create writer
             FileWriter fileWriter = new FileWriter(file);
@@ -72,7 +72,7 @@ public class CSVFileWriter {
                 }
                 fileWriter.write(line);
                 rowNum++;
-                if (rowNum == students.size())
+                if (rowNum == students.size() + 1)
                     break;
             }
             //close writer
@@ -88,7 +88,7 @@ public class CSVFileWriter {
         String line = "";
         try {
             //create file
-            File file = new File("AnalysisCSV" + parser.numberOfStudents + ".csv");
+            File file = new File("src/main/resources/CSVs/AnalysisCSV" + parser.numberOfStudents + ".csv");
             file.createNewFile();
             //create writer
             FileWriter fileWriter = new FileWriter(file);
@@ -116,7 +116,7 @@ public class CSVFileWriter {
         String line = "";
         try {
             //create file
-            File file = new File("StaffMembersCSV.csv");
+            File file = new File("src/main/resources/CSVs/StaffMembersCSV.csv");
             file.createNewFile();
             //create writer
             FileWriter fileWriter = new FileWriter(file);

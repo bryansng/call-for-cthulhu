@@ -142,33 +142,33 @@ public class Generator {
 		System.out.println("Reading generated files...");
 
 		// reads all Project CSV files
-		ArrayList<Project> projects_60 = reader.readProject("ProjectsCSV60.csv", parser.allStaffMembers);
+		ArrayList<Project> projects_60 = reader.readProject("CSVs/ProjectsCSV60.csv", parser.allStaffMembers);
 		System.out.println("Done: ProjectsCSV60.csv");
-		ArrayList<Project> projects_120 = reader.readProject("ProjectsCSV120.csv", parser.allStaffMembers);
+		ArrayList<Project> projects_120 = reader.readProject("CSVs/ProjectsCSV120.csv", parser.allStaffMembers);
 		System.out.println("Done: ProjectsCSV120.csv");
-		ArrayList<Project> projects_240 = reader.readProject("ProjectsCSV240.csv", parser.allStaffMembers);
+		ArrayList<Project> projects_240 = reader.readProject("CSVs/ProjectsCSV240.csv", parser.allStaffMembers);
 		System.out.println("Done: ProjectsCSV240.csv");
-		ArrayList<Project> projects_500 = reader.readProject("ProjectsCSV500.csv", parser.allStaffMembers);
+		ArrayList<Project> projects_500 = reader.readProject("CSVs/ProjectsCSV500.csv", parser.allStaffMembers);
 		System.out.println("Done: ProjectsCSV500.csv");
 
 		// for (Project project : projects_500)
 		// 	System.out.println(project.toString());
 
 		// reads Students from CSV files
-		ArrayList<Student> students_60 = reader.readStudents("StudentsCSV60.csv", projects_60);
+		ArrayList<Student> students_60 = reader.readStudents("CSVs/StudentsCSV60.csv", projects_60);
 		System.out.println("Done: StudentsCSV60.csv");
-		ArrayList<Student> students_120 = reader.readStudents("StudentsCSV120.csv", projects_120);
+		ArrayList<Student> students_120 = reader.readStudents("CSVs/StudentsCSV120.csv", projects_120);
 		System.out.println("Done: StudentsCSV120.csv");
-		ArrayList<Student> students_240 = reader.readStudents("StudentsCSV240.csv", projects_240);
+		ArrayList<Student> students_240 = reader.readStudents("CSVs/StudentsCSV240.csv", projects_240);
 		System.out.println("Done: StudentsCSV240.csv");
-		ArrayList<Student> students_500 = reader.readStudents("StudentsCSV500.csv", projects_500);
+		ArrayList<Student> students_500 = reader.readStudents("CSVs/StudentsCSV500.csv", projects_500);
 		System.out.println("Done: StudentsCSV500.csv");
 
 		// for (Student student : students_500)
 		// 	System.out.println(student.toString());
 
 		// read staffMembers from CSV file
-		ArrayList<StaffMember> staffMembers = reader.readStaffMembers("StaffMembersCSV.csv");
+		ArrayList<StaffMember> staffMembers = reader.readStaffMembers("CSVs/StaffMembersCSV.csv");
 
 		// for (StaffMember staffMember : staffMembers)
 		// 	System.out.println(staffMember.toString());

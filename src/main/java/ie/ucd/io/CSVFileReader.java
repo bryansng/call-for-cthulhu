@@ -6,6 +6,8 @@ import ie.ucd.objects.StaffMember;
 import ie.ucd.objects.Student;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -28,8 +30,10 @@ public class CSVFileReader {
         CSVReader csvReader = null;
         ArrayList<Project> projects = new ArrayList<Project>();
         String[] line;
+        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
         try {
-            csvReader = new CSVReader(new FileReader(filename));
+            csvReader = new CSVReader(new InputStreamReader(is));
+            // csvReader = new CSVReader(new FileReader(filename));
         } catch (Exception e) {
             System.out.println("error creating reader for input file: " + filename);
         }
@@ -50,8 +54,9 @@ public class CSVFileReader {
         CSVReader csvReader = null;
         ArrayList<Student> students = new ArrayList<Student>();
         String[] line;
+        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
         try {
-            csvReader = new CSVReader(new FileReader(filename));
+            csvReader = new CSVReader(new InputStreamReader(is));
         } catch (Exception e) {
             System.out.println("error creating CSVReader object for input file: " + filename);
         }
@@ -79,8 +84,9 @@ public class CSVFileReader {
         CSVReader csvReader = null;
         ArrayList<StaffMember> staffMembers = new ArrayList<StaffMember>();
         String[] line;
+        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
         try {
-            csvReader = new CSVReader(new FileReader(filename));
+            csvReader = new CSVReader(new InputStreamReader(is));
         } catch (Exception e) {
             System.out.println("error creating reader for input file: " + filename);
         }

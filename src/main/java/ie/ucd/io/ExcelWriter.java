@@ -64,7 +64,7 @@ public class ExcelWriter {
 		}
 
 		// Write the output to a file
-		FileOutputStream fileOut = new FileOutputStream("StaffProject" + numOfStudents + ".xlsx");
+		FileOutputStream fileOut = new FileOutputStream("src/main/resources/Excel/StaffProject" + numOfStudents + ".xlsx");
 		workbook.write(fileOut);
 		fileOut.close();
 
@@ -125,7 +125,8 @@ public class ExcelWriter {
 		}
 
 		// Write the output to a file
-		FileOutputStream fileOut = new FileOutputStream("StudentPreference" + students.size() + ".xlsx");
+		FileOutputStream fileOut = new FileOutputStream(
+				"src/main/resources/Excel/StudentPreference" + students.size() + ".xlsx");
 		workbook.write(fileOut);
 		fileOut.close();
 
@@ -180,7 +181,8 @@ public class ExcelWriter {
 		}
 
 		// Write the output to a file
-		FileOutputStream fileOut = new FileOutputStream("Analysis" + parser.numberOfStudents + ".xlsx");
+		FileOutputStream fileOut = new FileOutputStream(
+				"src/main/resources/Excel/Analysis" + parser.numberOfStudents + ".xlsx");
 		workbook.write(fileOut);
 		fileOut.close();
 
