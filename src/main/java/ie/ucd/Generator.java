@@ -15,19 +15,6 @@ import ie.ucd.objects.Project;
 public class Generator {
 	public static void main(String[] args) throws IOException, InvalidFormatException, Exception {
 		System.out.println("Running application...\n");
-		System.out.println("Generating and storing for 500 students...");
-		Parser parser = new Parser(500);
-		parser.generateStaffProjects();
-		ArrayList<Student> students = parser.generateStudents();
-		System.out.println("Done generating.\n");
-
-		System.out.println("Printing students from range 0 to 9.");
-		for (int i = 0; i < 10; i++) {
-			Student student = students.get(i);
-			System.out.println(student);
-		}
-		System.out.println("All done");
-
 		// generateExcelFiles();
 		// generateCSVFiles();
 		// readCSVFiles();
