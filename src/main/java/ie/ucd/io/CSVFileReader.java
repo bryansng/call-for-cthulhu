@@ -78,7 +78,7 @@ public class CSVFileReader {
                     }
                 }
             }
-            assert thisStudentsProjects.size() != 10 : "Preference list size must be equal to 10, but is "
+            assert thisStudentsProjects.size() == 10 : "Preference list size must be equal to 10, but is "
                     + thisStudentsProjects.size()
                     + ", check if readStudents() is given the correct ArrayList projects tailored for these students.";
             // System.out.println(thisStudentsProjects.size() < 10);
