@@ -55,8 +55,16 @@ public class Project implements ProjectInterface {
 		numAs1stPreference += 1.0;
 	}
 
+	public void decrementAs1stPreference() {
+		numAs1stPreference -= 1.0;
+	}
+
 	public void incrementStudentsAssigned() {
 		numStudentsAssigned += 1.0;
+	}
+
+	public void decrementStudentsAssigned() {
+		numStudentsAssigned -= 1.0;
 	}
 
 	public String toString() {

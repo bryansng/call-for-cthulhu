@@ -10,22 +10,35 @@ import ie.ucd.objects.Student;
 public class SimulatedAnnealing {
 	double storedSatisfaction;
 
+	double temperature;
+	double startTemperature;
+	double minTemperature;
+	double coolingRate;
+	double maxIteration;
+
+	public SimulatedAnnealing() {
+		// this(500, 0.000001, 1, 7000000);
+		this(500, 0.000001, 1, 1000000);
+	}
+
+	public SimulatedAnnealing(double temperature, double coolingRate, double minTemperature, double maxIteration) {
+		this.temperature = temperature;
+		this.coolingRate = temperature;
+		startTemperature = temperature;
+		this.minTemperature = minTemperature;
+		this.maxIteration = maxIteration;
+	}
+
 	public ArrayList<Student> run(ArrayList<Project> projects, ArrayList<Student> students) {
-		double temperature;
-		double coolingRate;
 		if (students.size() <= 180) {
 			temperature = 100.0;
 			coolingRate = 0.03;
 		} else {
 			temperature = 500.0;
-			coolingRate = 0.003;
+			coolingRate = 0.000001;
 		}
-		double minTemperature = 0.1;
-		int maxIteration = Common.SHOW_SA_DEBUG ? 999 : 9999999; // 999
-		// int maxIteration = projects.size();
 
 		// keep track of students.
-		// is that what we are changing?
 		ArrayList<Student> currStudents = students;
 		ArrayList<Student> nextStudents;
 		ArrayList<Student> bestStudents = currStudents;
@@ -34,9 +47,13 @@ public class SimulatedAnnealing {
 		double currEnergy = calculateEnergy(currStudents, projects);
 		double nextEnergy;
 		double bestEnergy = currEnergy;
+
 		System.out.println("Running Simulated Annealing (" + maxIteration + " Loops):\n");
 		System.out.println("Starting energy: " + currEnergy);
-		for (int i = 0; i < maxIteration && temperature > minTemperature; i++) {
+		int totalRejected = 0;
+		int totalStraightAccept = 0;
+		int i = 0;
+		for (i = 0; i < maxIteration && temperature > minTemperature; i++) {
 			if (Common.SHOW_SA_DEBUG)
 				System.out.println("\nLoop " + i + " (temperature: " + temperature + ", bestEnergy: " + bestEnergy + "):");
 			// random move to students to get new students.
@@ -72,6 +89,11 @@ public class SimulatedAnnealing {
 				currEnergy = nextEnergy;
 				if (Common.SHOW_SA_DEBUG)
 					System.out.println("New candidate solution accepted.");
+			} else {
+				totalRejected += 1;
+			}
+			if (acceptanceProbability == 1.0) {
+				totalStraightAccept += 1;
 			}
 
 			// keep track of the best solution found, i.e. next lowest energy.
@@ -85,9 +107,13 @@ public class SimulatedAnnealing {
 				System.out.println("nextEnergy: " + nextEnergy + "\n");
 			}
 
-			// cool system.
-			temperature *= 1 - coolingRate;
+			// cool system. (not much difference between the below two configurations)
+			temperature *= 1 - coolingRate; // exponential decrease.
+			// temperature = startTemperature * ((maxIteration - i + 1.0) / maxIteration); // linear decrease;
 		}
+		System.out.println("\nExited at loop " + i + " , temperature " + temperature);
+		System.out.println("totalRejected: " + totalRejected);
+		System.out.println("totalStraightAccept: " + totalStraightAccept);
 		System.out.println("currEnergy: " + currEnergy);
 		System.out.println("currSatisfaction: " + calculateGlobalSatisfaction(currStudents, projects));
 		System.out.println("bestEnergy: " + bestEnergy);
@@ -111,8 +137,31 @@ public class SimulatedAnnealing {
 			return Math.exp((currEnergy - nextEnergy) / temperature);
 	}
 
-	// change project assigned between two students.
+	// between two students, between their preference list, a student is assigned a project in that other student's list, and the other student with the same concept as well
 	private ArrayList<Student> makeRandomMove(ArrayList<Student> students) {
+		ArrayList<Student> newStudents = clone(students);
+
+		// get random two students.
+		Random rand = new Random();
+		int s1Index = rand.nextInt(newStudents.size());
+		int s2Index = rand.nextInt(newStudents.size());
+		while (s1Index == s2Index) {
+			s2Index = rand.nextInt(newStudents.size());
+		}
+
+		Student student1 = newStudents.get(s1Index);
+		Student student2 = newStudents.get(s2Index);
+
+		int p1Index = rand.nextInt(student1.getPreferenceList().size());
+		int p2Index = rand.nextInt(student2.getPreferenceList().size());
+		student1.setProjectAssigned(student2.getPreferenceList().get(p2Index), 0);
+		student2.setProjectAssigned(student2.getPreferenceList().get(p1Index), 0);
+
+		return newStudents;
+	}
+
+	// change project assigned between two students.
+	private ArrayList<Student> makeRandomMoveV1(ArrayList<Student> students) {
 		ArrayList<Student> newStudents = clone(students);
 
 		// get random two students.

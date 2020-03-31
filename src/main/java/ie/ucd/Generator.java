@@ -19,7 +19,7 @@ public class Generator {
 		// generateCSVFiles();
 		// readCSVFiles();
 		// readTest();
-		// applySimulatedAnnealing();
+		applySimulatedAnnealing();
 
 		// playingNormalDistribution();
 	}

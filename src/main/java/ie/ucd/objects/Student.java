@@ -138,6 +138,10 @@ public class Student implements StudentInterface {
 	}
 
 	public Student setProjectAssigned(Project project, Integer index) {
+		this.projects.get(0).decrementStudentsAssigned();
+		this.projects.get(0).decrementAs1stPreference();
+		project.incrementAs1stPreference();
+		project.incrementStudentsAssigned();
 		this.projects.set(index, project);
 		return this;
 	}
