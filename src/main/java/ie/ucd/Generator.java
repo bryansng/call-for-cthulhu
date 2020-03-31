@@ -16,8 +16,8 @@ public class Generator {
 	public static void main(String[] args) throws IOException, InvalidFormatException, Exception {
 		System.out.println("Running application...\n");
 		// generateExcelFiles();
-		generateCSVFiles();
-		readCSVFiles();
+		// generateCSVFiles();
+		// readCSVFiles();
 		// readTest();
 		// applySimulatedAnnealing();
 
