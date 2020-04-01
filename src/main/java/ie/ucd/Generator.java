@@ -10,6 +10,7 @@ import ie.ucd.io.CSVFileReader;
 import ie.ucd.io.CSVFileWriter;
 import ie.ucd.io.ExcelWriter;
 import ie.ucd.io.Parser;
+import ie.ucd.objects.CandidateSolution;
 import ie.ucd.objects.Project;
 
 public class Generator {
@@ -25,110 +26,52 @@ public class Generator {
 	}
 
 	public static void applySimulatedAnnealing() throws IOException, InvalidFormatException {
-		Parser parser;
-		ArrayList<Project> projects;
-		ArrayList<Student> students;
-
 		System.out.println("Generating for 500 students...");
-		parser = new Parser(500);
-		projects = parser.generateStaffProjects();
-		students = parser.generateStudents();
-		System.out.println(parser.CSDSPercentage());
-		students = new SimulatedAnnealing().run(projects, students);
+
+		Parser parser = new Parser();
+		CandidateSolution solution = new CandidateSolution(500, parser.allStaffsProjects, parser.allNames, null, null);
+		solution.generateStaffProjects();
+		solution.generateStudents();
+		System.out.println(solution.CSDSPercentage());
+
+		CandidateSolution bestSolution = new SimulatedAnnealing().run(solution);
+
 		System.out.println("All done");
 	}
 
 	public static void generateExcelFiles() throws IOException, InvalidFormatException {
-		Parser parser;
+		Parser parser = new Parser();
 		ExcelWriter writer = new ExcelWriter();
 		ArrayList<Project> projects;
 		ArrayList<Student> students;
 
-		System.out.println("Generating for 60 students...");
-		parser = new Parser(60);
-		projects = parser.generateStaffProjects();
-		students = parser.generateStudents();
-		writer.writeProjects(projects, 60);
-		writer.writeStudents(students);
-		writer.writeAnalysis(parser);
-		System.out.println(parser.CSDSPercentage());
-		// System.out.println(parser.ProjectDistributionPercentage());
-		// System.out.println(parser.Project1stPreferencePercentage());
-
-		System.out.println("Generating for 120 students...");
-		parser = new Parser(120);
-		projects = parser.generateStaffProjects();
-		students = parser.generateStudents();
-		writer.writeProjects(projects, 120);
-		writer.writeStudents(students);
-		writer.writeAnalysis(parser);
-		System.out.println(parser.CSDSPercentage());
-		// System.out.println(parser.ProjectDistributionPercentage());
-
-		System.out.println("Generating for 240 students...");
-		parser = new Parser(240);
-		projects = parser.generateStaffProjects();
-		students = parser.generateStudents();
-		writer.writeProjects(projects, 240);
-		writer.writeStudents(students);
-		writer.writeAnalysis(parser);
-		System.out.println(parser.CSDSPercentage());
-		// System.out.println(parser.ProjectDistributionPercentage());
-
 		System.out.println("Generating for 500 students...");
-		parser = new Parser(500);
-		projects = parser.generateStaffProjects();
-		students = parser.generateStudents();
+		CandidateSolution solution = new CandidateSolution(500, parser.allStaffsProjects, parser.allNames, null, null);
+		projects = solution.generateStaffProjects();
+		students = solution.generateStudents();
 		writer.writeProjects(projects, 500);
 		writer.writeStudents(students);
-		writer.writeAnalysis(parser);
-		System.out.println(parser.CSDSPercentage());
+		writer.writeAnalysis(solution);
+		System.out.println(solution.CSDSPercentage());
 		// System.out.println(parser.ProjectDistributionPercentage());
 
 		System.out.println("All done\n");
 	}
 
 	public static void generateCSVFiles() throws IOException, InvalidFormatException {
-		Parser parser;
+		Parser parser = new Parser();
 		CSVFileWriter csvFileWriter = new CSVFileWriter();
 		ArrayList<Project> projects;
 		ArrayList<Student> students;
 
-		System.out.println("Generating for 60 students...");
-		parser = new Parser(60);
-		projects = parser.generateStaffProjects();
-		students = parser.generateStudents();
-		System.out.println(parser.CSDSPercentage());
-		csvFileWriter.writeProjects(projects, 60);
-		csvFileWriter.writeStudents(students);
-		// csvFileWriter.writeAnalysis(parser);
-
-		System.out.println("Generating for 120 students...");
-		parser = new Parser(120);
-		projects = parser.generateStaffProjects();
-		students = parser.generateStudents();
-		System.out.println(parser.CSDSPercentage());
-		csvFileWriter.writeProjects(projects, 120);
-		csvFileWriter.writeStudents(students);
-		// csvFileWriter.writeAnalysis(parser);
-
-		System.out.println("Generating for 240 students...");
-		parser = new Parser(240);
-		projects = parser.generateStaffProjects();
-		students = parser.generateStudents();
-		System.out.println(parser.CSDSPercentage());
-		csvFileWriter.writeProjects(projects, 240);
-		csvFileWriter.writeStudents(students);
-		// csvFileWriter.writeAnalysis(parser);
-
 		System.out.println("Generating for 500 students...");
-		parser = new Parser(500);
-		projects = parser.generateStaffProjects();
-		students = parser.generateStudents();
-		System.out.println(parser.CSDSPercentage());
+		CandidateSolution solution = new CandidateSolution(500, parser.allStaffsProjects, parser.allNames, null, null);
+		projects = solution.generateStaffProjects();
+		students = solution.generateStudents();
+		System.out.println(solution.CSDSPercentage());
 		csvFileWriter.writeProjects(projects, 500);
 		csvFileWriter.writeStudents(students);
-		// csvFileWriter.writeAnalysis(parser);
+		// csvFileWriter.writeAnalysis(solution);
 
 		// generate staffMembers
 		System.out.println("Generating StaffMembers.csv");

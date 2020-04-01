@@ -1,9 +1,8 @@
 package ie.ucd.solvers;
 
-import java.util.ArrayList;
 import java.util.Random;
-
 import ie.ucd.Common;
+import ie.ucd.objects.CandidateSolution;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.Student;
 
@@ -29,8 +28,8 @@ public class SimulatedAnnealing {
 		this.maxIteration = maxIteration;
 	}
 
-	public ArrayList<Student> run(ArrayList<Project> projects, ArrayList<Student> students) {
-		if (students.size() <= 180) {
+	public CandidateSolution run(CandidateSolution solution) {
+		if (solution.students.size() <= 180) {
 			temperature = 100.0;
 			coolingRate = 0.03;
 		} else {
@@ -39,12 +38,12 @@ public class SimulatedAnnealing {
 		}
 
 		// keep track of students.
-		ArrayList<Student> currStudents = students;
-		ArrayList<Student> nextStudents;
-		ArrayList<Student> bestStudents = currStudents;
+		CandidateSolution currSolution = solution;
+		CandidateSolution nextSolution;
+		CandidateSolution bestSolution = currSolution;
 
 		// minimizing negative fitness == maximizing positive fitness?
-		double currEnergy = calculateEnergy(currStudents, projects);
+		double currEnergy = calculateEnergy(currSolution);
 		double nextEnergy;
 		double bestEnergy = currEnergy;
 
@@ -60,10 +59,10 @@ public class SimulatedAnnealing {
 			// depending on temperature,
 			// if higher, make more risky random moves.
 			// else, make more conservative moves.
-			nextStudents = makeRandomMove(currStudents);
+			nextSolution = makeRandomMove(currSolution);
 
 			// compute new energy.
-			nextEnergy = calculateEnergy(nextStudents, projects);
+			nextEnergy = calculateEnergy(nextSolution);
 
 			// decide if accept this new solution.
 			double randomProbability = new Random().nextDouble();
@@ -85,7 +84,7 @@ public class SimulatedAnnealing {
 				System.out
 						.println("randomProbability <= acceptanceProbability: " + (randomProbability <= acceptanceProbability));
 			if (randomProbability <= acceptanceProbability) {
-				currStudents = nextStudents;
+				currSolution = nextSolution;
 				currEnergy = nextEnergy;
 				if (Common.SHOW_SA_DEBUG)
 					System.out.println("New candidate solution accepted.");
@@ -98,11 +97,11 @@ public class SimulatedAnnealing {
 
 			// keep track of the best solution found, i.e. next lowest energy.
 			if (nextEnergy < bestEnergy) {
-				bestStudents = nextStudents;
+				bestSolution = nextSolution;
 				bestEnergy = nextEnergy;
 				System.out.println("\nNew best solution found.");
 				System.out.println("Satisfaction: " + storedSatisfaction);
-				System.out.println("1.0 / Satisfaction * 100000: " + calculateEnergy(nextStudents, projects));
+				System.out.println("1.0 / Satisfaction * 100000: " + calculateEnergy(nextSolution));
 				System.out.println("currEnergy: " + currEnergy);
 				System.out.println("nextEnergy: " + nextEnergy + "\n");
 			}
@@ -115,19 +114,11 @@ public class SimulatedAnnealing {
 		System.out.println("totalRejected: " + totalRejected);
 		System.out.println("totalStraightAccept: " + totalStraightAccept);
 		System.out.println("currEnergy: " + currEnergy);
-		System.out.println("currSatisfaction: " + calculateGlobalSatisfaction(currStudents, projects));
+		System.out.println("currSatisfaction: " + currSolution.calculateGlobalSatisfaction());
 		System.out.println("bestEnergy: " + bestEnergy);
-		System.out.println("bestSatisfaction: " + calculateGlobalSatisfaction(bestStudents, projects));
-		// System.out.println(toStringStudents(bestStudents));
-		return bestStudents;
-	}
-
-	private String toStringStudents(ArrayList<Student> students) {
-		String res = "";
-		for (Student student : students) {
-			res += student + "\n";
-		}
-		return res;
+		System.out.println("bestSatisfaction: " + bestSolution.calculateGlobalSatisfaction());
+		// System.out.println(toStringStudents(bestSolution.students));
+		return bestSolution;
 	}
 
 	private Double calculateAcceptanceProbability(double currEnergy, double nextEnergy, double temperature) {
@@ -138,85 +129,50 @@ public class SimulatedAnnealing {
 	}
 
 	// between two students, between their preference list, a student is assigned a project in that other student's list, and the other student with the same concept as well
-	private ArrayList<Student> makeRandomMove(ArrayList<Student> students) {
-		ArrayList<Student> newStudents = clone(students);
+	private CandidateSolution makeRandomMove(CandidateSolution currSolution) {
+		CandidateSolution newSolution = new CandidateSolution(currSolution);
 
 		// get random two students.
 		Random rand = new Random();
-		int s1Index = rand.nextInt(newStudents.size());
-		int s2Index = rand.nextInt(newStudents.size());
+		int s1Index = rand.nextInt(newSolution.students.size());
+		int s2Index = rand.nextInt(newSolution.students.size());
 		while (s1Index == s2Index) {
-			s2Index = rand.nextInt(newStudents.size());
+			s2Index = rand.nextInt(newSolution.students.size());
 		}
 
-		Student student1 = newStudents.get(s1Index);
-		Student student2 = newStudents.get(s2Index);
+		Student student1 = newSolution.students.get(s1Index);
+		Student student2 = newSolution.students.get(s2Index);
 
 		int p1Index = rand.nextInt(student1.getPreferenceList().size());
 		int p2Index = rand.nextInt(student2.getPreferenceList().size());
 		student1.setProjectAssigned(student2.getPreferenceList().get(p2Index), 0);
 		student2.setProjectAssigned(student2.getPreferenceList().get(p1Index), 0);
 
-		return newStudents;
+		return newSolution;
 	}
 
 	// change project assigned between two students.
-	private ArrayList<Student> makeRandomMoveV1(ArrayList<Student> students) {
-		ArrayList<Student> newStudents = clone(students);
+	private CandidateSolution makeRandomMoveV1(CandidateSolution currSolution) {
+		CandidateSolution newSolution = new CandidateSolution(currSolution);
 
 		// get random two students.
 		Random rand = new Random();
-		int s1 = rand.nextInt(newStudents.size());
-		int s2 = rand.nextInt(newStudents.size());
+		int s1 = rand.nextInt(newSolution.students.size());
+		int s2 = rand.nextInt(newSolution.students.size());
 		while (s1 == s2) {
-			s2 = rand.nextInt(newStudents.size());
+			s2 = rand.nextInt(newSolution.students.size());
 		}
 
 		// swap student assigned projects.
-		Project p1 = newStudents.get(s1).getProjectAssigned(0);
-		newStudents.get(s1).setProjectAssigned(newStudents.get(s2).getProjectAssigned(0), 0);
-		newStudents.get(s2).setProjectAssigned(p1, 0);
+		Project p1 = newSolution.students.get(s1).getProjectAssigned(0);
+		newSolution.students.get(s1).setProjectAssigned(newSolution.students.get(s2).getProjectAssigned(0), 0);
+		newSolution.students.get(s2).setProjectAssigned(p1, 0);
 
-		// if (newStudents.get(s1).getStream().equals(newStudents.get(s2).getStream())) {
-		// 	System.out.println("Students have incompatible stream.");
-		// }
-
-		return newStudents;
+		return newSolution;
 	}
 
-	private ArrayList<Student> clone(ArrayList<Student> students) {
-		ArrayList<Student> newStudents = new ArrayList<Student>();
-		for (Student student : students) {
-			newStudents.add(student.getCopy());
-		}
-		return newStudents;
+	private Double calculateEnergy(CandidateSolution solution) {
+		storedSatisfaction = solution.calculateGlobalSatisfaction();
+		return (1.0 / storedSatisfaction) * 100000;
 	}
-
-	private Double calculateEnergy(ArrayList<Student> students, ArrayList<Project> projects) {
-		return 1.0 / calculateGlobalSatisfaction(students, projects) * 100000;
-	}
-
-	private Double calculateGlobalSatisfaction(ArrayList<Student> students, ArrayList<Project> projects) {
-		Double satisfaction = 0.0;
-		for (Student student : students) {
-			satisfaction += student.calculateSatisfaction();
-		}
-		for (Project project : projects) {
-			satisfaction += project.calculateSatisfaction();
-		}
-
-		// if less than or equal to 1, complement of satisfaction (i.e. 1 / satisfaction) would be an opposite effect, so we limit satisfaction minimum limit to 2.0.
-		if (satisfaction <= 1) {
-			satisfaction = 2.0;
-		}
-
-		storedSatisfaction = satisfaction;
-		return satisfaction;
-	}
-
-	// method check if projects equally distributed across supervisors.
-	// if no, has cost.
-
-	// method check if higher GPA means a greater chance of getting one's preferred projects.
-	// add in student class?
 }

@@ -1,6 +1,8 @@
 package ie.ucd.io;
 
 import java.io.*;
+
+import ie.ucd.objects.CandidateSolution;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.StaffMember;
 import ie.ucd.objects.Student;
@@ -83,12 +85,12 @@ public class CSVFileWriter {
         }
     }
 
-    public void writeAnalysis(Parser parser) throws IOException {
+    public void writeAnalysis(CandidateSolution solution) throws IOException {
         String[] columns = { "Research Activity", "Stream", "Preferred Percentage", "Percentage Distribution" };
         String line = "";
         try {
             //create file
-            File file = new File("src/main/resources/CSVs/AnalysisCSV" + parser.numberOfStudents + ".csv");
+            File file = new File("src/main/resources/CSVs/AnalysisCSV" + solution.numberOfStudents + ".csv");
             file.createNewFile();
             //create writer
             FileWriter fileWriter = new FileWriter(file);
@@ -96,9 +98,9 @@ public class CSVFileWriter {
             fileWriter.write(
                     columns[0] + separator + columns[1] + separator + columns[2] + separator + columns[3] + newLine);
             //write the details
-            for (Project project : parser.someStaffsProjects) {
-                String analysis = parser
-                        .formatPercentage(project.getNumStudentsAssigned() / parser.totalProjectsAssigned * 100);
+            for (Project project : solution.projects) {
+                String analysis = solution
+                        .formatPercentage(project.getNumStudentsAssigned() / solution.totalProjectsAssigned * 100);
                 line = project.getResearchActivity() + separator + project.getStream() + separator
                         + project.getPreferredProbability() + separator + analysis + newLine;
                 fileWriter.write(line);

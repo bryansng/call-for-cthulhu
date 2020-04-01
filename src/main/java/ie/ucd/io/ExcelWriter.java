@@ -13,6 +13,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import ie.ucd.objects.Student;
+import ie.ucd.objects.CandidateSolution;
 import ie.ucd.objects.Project;
 
 public class ExcelWriter {
@@ -134,7 +135,7 @@ public class ExcelWriter {
 		workbook.close();
 	}
 
-	public void writeAnalysis(Parser parser) throws IOException, InvalidFormatException {
+	public void writeAnalysis(CandidateSolution solution) throws IOException, InvalidFormatException {
 		String[] columns = { "Research Activity", "Stream", "PDF", "Percentage Distribution" };
 
 		// Create a Workbook
@@ -165,14 +166,14 @@ public class ExcelWriter {
 
 		// Create Other rows and cells with employees data
 		int rowNum = 1;
-		for (Project project : parser.someStaffsProjects) {
+		for (Project project : solution.projects) {
 			Row row = sheet.createRow(rowNum++);
 
 			row.createCell(0).setCellValue(project.getResearchActivity());
 			row.createCell(1).setCellValue(project.getStream());
 			row.createCell(2).setCellValue(project.getPreferredProbability());
 			row.createCell(3)
-					.setCellValue(parser.formatPercentage(project.getNumAsPreference() / parser.totalProjectsAssigned * 100));
+					.setCellValue(solution.formatPercentage(project.getNumAsPreference() / solution.totalProjectsAssigned * 100));
 		}
 
 		// Resize all columns to fit the content size
@@ -182,7 +183,7 @@ public class ExcelWriter {
 
 		// Write the output to a file
 		FileOutputStream fileOut = new FileOutputStream(
-				"src/main/resources/Excel/Analysis" + parser.numberOfStudents + ".xlsx");
+				"src/main/resources/Excel/Analysis" + solution.numberOfStudents + ".xlsx");
 		workbook.write(fileOut);
 		fileOut.close();
 
