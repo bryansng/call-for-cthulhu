@@ -15,6 +15,11 @@ import ie.ucd.objects.Project;
 public class Generator {
 	public static void main(String[] args) throws IOException, InvalidFormatException, Exception {
 		System.out.println("Running application...\n");
+
+		Parser parser = new Parser(200);
+		ArrayList<Project> projects = parser.generateStaffProjects();
+		ArrayList<Student> students = parser.generateStudents();
+
 		// generateExcelFiles();
 		// generateCSVFiles();
 		// readCSVFiles();
