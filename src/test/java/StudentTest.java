@@ -39,7 +39,7 @@ public class StudentTest {
 	}
 
 	protected ArrayList<Project> setupPreferenceList() {
-		ArrayList<Project> preferenceList = new ArrayList<>();
+		ArrayList<Project> preferenceList = new ArrayList<Project>();
 		dummyProjectAssigned = new Project(new StaffMember("Wolfgang Amadeus Mozart",
 				"composing classical music, playing the piano", "Classical music", "CS"), "playing the piano", "CS",
 				Common.getProbability());
