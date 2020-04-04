@@ -6,8 +6,12 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 
 public class Common {
-	// SA debug verbosity.
-	public static final boolean SHOW_SA_DEBUG = false;
+	public static enum SARandomMoveType {
+		FROM_STUDENT_PREFERENCE_LIST, SWAP_FROM_TWO_STUDENTS_PREFERENCE_LIST, SWAP_FROM_TWO_STUDENTS_ASSIGNED_PROJECTS
+	}
+
+	public static final boolean SHOW_SA_DEBUG = false; // SA debug verbosity.
+	public static SARandomMoveType SA_RANDOM_MOVE_TYPE = SARandomMoveType.SWAP_FROM_TWO_STUDENTS_PREFERENCE_LIST; // SA debug verbosity.
 
 	// the below are used during calculating of global/local satisfaction.
 	public static final double COST_NOT_ASSIGNED_PREFERENCE_PROJECTS = -5.0;

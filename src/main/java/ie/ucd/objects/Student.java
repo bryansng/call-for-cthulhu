@@ -153,5 +153,6 @@ public class Student implements StudentInterface {
 
 	public Student getCopy() {
 		return new Student(firstName, lastName, id, stream, gpa, projects.get(0), preferenceList);
+		// return new Student(firstName, lastName, id, stream, gpa, projects.get(0), new ArrayList<Project>(preferenceList)); // preferenceList made a copy.
 	}
 }

@@ -18,19 +18,39 @@ public class CandidateSolution {
 	public double totalProjectsAssigned = 0.0;
 
 	public CandidateSolution(CandidateSolution other) {
-		this(other.numberOfStudents, other.allStaffsProjects, other.allNames, other.projects, other.students);
+		this(other.numberOfStudents, other.allStaffsProjects, other.allNames, other.projects, other.students, false);
+	}
+
+	public CandidateSolution(CandidateSolution other, Boolean randomizeStudents) {
+		this(other.numberOfStudents, other.allStaffsProjects, other.allNames, other.projects, other.students,
+				randomizeStudents);
 	}
 
 	public CandidateSolution(int numberOfStudents, ArrayList<StaffMember> allStaffsProjects, ArrayList<String> allNames,
 			ArrayList<Project> projects, ArrayList<Student> students) {
+		this(numberOfStudents, allStaffsProjects, allNames, projects, students, false);
+	}
+
+	public CandidateSolution(int numberOfStudents, ArrayList<StaffMember> allStaffsProjects, ArrayList<String> allNames,
+			ArrayList<Project> projects, ArrayList<Student> students, Boolean randomizeStudents) {
 		this.numberOfStudents = numberOfStudents;
 		this.allStaffsProjects = allStaffsProjects;
 		this.allNames = allNames;
 		this.projects = projects;
-		this.students = clone(students);
+
+		if (randomizeStudents) {
+			this.students = randomizeState(students);
+		} else {
+			this.students = cloneStudents(students);
+		}
 	}
 
-	public ArrayList<Student> clone(ArrayList<Student> students) {
+	public ArrayList<Student> randomizeState(ArrayList<Student> students) {
+		// TODO
+		return students;
+	}
+
+	public ArrayList<Student> cloneStudents(ArrayList<Student> students) {
 		if (students == null)
 			return null;
 
@@ -41,12 +61,30 @@ public class CandidateSolution {
 		return newStudents;
 	}
 
+	// public ArrayList<Project> cloneProjects(ArrayList<Project> projects) {
+	// 	if (projects == null)
+	// 		return null;
+
+	// 	ArrayList<Project> newProjects = new ArrayList<Project>();
+	// 	for (Project project : projects) {
+	// 		newProjects.add(project.getCopy());
+	// 	}
+	// 	return newProjects;
+	// }
+
 	public Double calculateGlobalSatisfaction() {
 		Double satisfaction = 0.0;
 		for (Student student : students) {
 			satisfaction += student.calculateSatisfaction();
+
+			// update student projects here.
+			// reset project stats, then update it accordingly.
+
+			// if project index not in hashset, add to hashset.
 		}
 		for (Project project : projects) {
+			// if project index not in hashset, reset project stats.
+
 			satisfaction += project.calculateSatisfaction();
 		}
 
@@ -69,6 +107,11 @@ public class CandidateSolution {
 			res += student + "\n";
 		}
 		return res;
+	}
+
+	private CandidateSolution updateProjectStats() {
+		// TODO
+		return this;
 	}
 
 	public ArrayList<Project> generateStaffProjects() {
