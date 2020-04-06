@@ -1,24 +1,29 @@
 package ie.ucd.solvers;
 
 import java.util.ArrayList;
+
+import ie.ucd.interfaces.Solver;
 import ie.ucd.objects.CandidateSolution;
 
-public class GeneticAlgorithm {
+public class GeneticAlgorithm implements Solver {
+	private CandidateSolution startingSolution;
 	private int numOfGenerations;
 	private int populationSize;
 	private double mutationProbability;
 
-	public GeneticAlgorithm() {
-		this(100, 100, 0.3);
+	public GeneticAlgorithm(CandidateSolution startingSolution) {
+		this(100, 100, 0.3, startingSolution);
 	}
 
-	public GeneticAlgorithm(int numOfGenerations, int populationSize, double mutationProbability) {
+	public GeneticAlgorithm(int numOfGenerations, int populationSize, double mutationProbability,
+			CandidateSolution startingSolution) {
 		this.numOfGenerations = numOfGenerations;
 		this.populationSize = populationSize;
 		this.mutationProbability = mutationProbability;
+		this.startingSolution = startingSolution;
 	}
 
-	public CandidateSolution run(CandidateSolution solution) {
+	public CandidateSolution run() {
 		int i;
 		for (i = 0; i < numOfGenerations; i++) {
 
@@ -33,11 +38,11 @@ public class GeneticAlgorithm {
 	// generate bit codes.
 
 	// generate population.
-	private ArrayList<CandidateSolution> generatePopulation(CandidateSolution solution) {
+	private ArrayList<CandidateSolution> generatePopulation() {
 		ArrayList<CandidateSolution> population = new ArrayList<CandidateSolution>();
-		population.add(solution);
+		population.add(startingSolution);
 		for (int i = 1; i < populationSize; i++) {
-			population.add(generateChromosome(solution));
+			population.add(generateChromosome(startingSolution));
 		}
 		return population;
 	}

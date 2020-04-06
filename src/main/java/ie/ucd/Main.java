@@ -2,10 +2,14 @@ package ie.ucd;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 import ie.ucd.objects.StaffMember;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import ie.ucd.objects.Student;
 import ie.ucd.solvers.SimulatedAnnealing;
+import ie.ucd.ui.interfaces.VisualizerInterface;
+import ie.ucd.ui.sa.SAPane;
+import ie.ucd.interfaces.Solver;
 import ie.ucd.io.CSVFileReader;
 import ie.ucd.io.CSVFileWriter;
 import ie.ucd.io.ExcelWriter;
@@ -14,11 +18,11 @@ import ie.ucd.objects.CandidateSolution;
 import ie.ucd.objects.Project;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+	public SAPane saPane;
+
 	public static void main(String[] args) throws IOException, InvalidFormatException, Exception {
 		System.out.println("Running application...\n");
 		// generateExcelFiles();
@@ -28,17 +32,33 @@ public class Main extends Application {
 		// applySimulatedAnnealing();
 		// applyGeneticAlgorithm();
 		launch();
-
-		// playingNormalDistribution();
 	}
 
-	public void start(Stage stage) {
-		String javaVersion = System.getProperty("java.version");
-		String javafxVersion = System.getProperty("javafx.version");
-		Label l = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
-		Scene scene = new Scene(new StackPane(l), 640, 480);
+	@Override
+	public void start(Stage stage) throws IOException, InvalidFormatException, InterruptedException {
+		System.out.println("Generating for 500 students...");
+
+		Parser parser = new Parser();
+		CandidateSolution solution = new CandidateSolution(500, parser.allStaffsProjects, parser.allNames, null, null);
+		solution.generateStaffProjects();
+		solution.generateStudents();
+		System.out.println(solution.CSDSPercentage());
+		saPane = new SAPane();
+		Solver solver = new SimulatedAnnealing(solution, saPane.getVisualizer());
+		saPane.setSolver(solver);
+
+		Scene scene = new Scene(saPane, 1280, 960);
 		stage.setScene(scene);
 		stage.show();
+
+		// solver.run(solution);
+		System.out.println("All done");
+	}
+
+	@Override
+	public void stop() throws Exception {
+		super.stop();
+		saPane.stopVisualizerScheduler();
 	}
 
 	public static void applySimulatedAnnealing() throws IOException, InvalidFormatException {
@@ -50,7 +70,7 @@ public class Main extends Application {
 		solution.generateStudents();
 		System.out.println(solution.CSDSPercentage());
 
-		CandidateSolution bestSolution = new SimulatedAnnealing().run(solution);
+		CandidateSolution bestSolution = new SimulatedAnnealing(solution, null).run();
 
 		System.out.println("All done");
 	}

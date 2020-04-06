@@ -3,38 +3,50 @@ package ie.ucd.solvers;
 import java.util.ArrayList;
 import java.util.Random;
 import ie.ucd.Common;
+import ie.ucd.interfaces.Solver;
 import ie.ucd.objects.CandidateSolution;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.Student;
+import ie.ucd.ui.interfaces.VisualizerInterface;
 
-public class SimulatedAnnealing {
+public class SimulatedAnnealing implements Solver {
 	double storedSatisfaction;
 
+	CandidateSolution startingSolution;
 	double temperature;
 	double startTemperature;
 	double minTemperature;
 	double coolingRate;
 	double maxIteration;
+	VisualizerInterface visualizer;
 
 	ArrayList<String> energies = new ArrayList<String>();
 
-	public SimulatedAnnealing() {
-		// this(500, 0.000001, 1, 7000000);
-		this(500, 0.000001, 1, 1000000);
+	public SimulatedAnnealing(CandidateSolution startingSolution) {
+		this(startingSolution, null);
 	}
 
-	public SimulatedAnnealing(double temperature, double coolingRate, double minTemperature, double maxIteration) {
+	public SimulatedAnnealing(CandidateSolution startingSolution, VisualizerInterface visualizer) {
+		// this(500, 0.000001, 1, 1000000, visualizer);
+		this(500, 0.000001, 1, 10000, startingSolution, visualizer);
+	}
+
+	public SimulatedAnnealing(double temperature, double coolingRate, double minTemperature, double maxIteration,
+			CandidateSolution startingSolution, VisualizerInterface visualizer) {
 		this.temperature = temperature;
 		this.coolingRate = temperature;
 		startTemperature = temperature;
 		this.minTemperature = minTemperature;
 		this.maxIteration = maxIteration;
+		this.startingSolution = startingSolution;
+		this.visualizer = visualizer;
 	}
 
-	public CandidateSolution run(CandidateSolution solution) {
-		energies.add("currEnergy\t\tcurrSatisfaction\t\tbestEnergy");
+	public CandidateSolution run() {
+		if (Common.DEBUG_SHOW_ENERGIES)
+			energies.add("currEnergy\t\tcurrSatisfaction\t\tbestEnergy");
 
-		if (solution.students.size() <= 180) {
+		if (startingSolution.students.size() <= 180) {
 			temperature = 100.0;
 			coolingRate = 0.03;
 		} else {
@@ -43,7 +55,7 @@ public class SimulatedAnnealing {
 		}
 
 		// keep track of solutions.
-		CandidateSolution currSolution = solution;
+		CandidateSolution currSolution = startingSolution;
 		CandidateSolution nextSolution;
 		CandidateSolution bestSolution = currSolution;
 
@@ -57,8 +69,10 @@ public class SimulatedAnnealing {
 		int totalRejected = 0;
 		int totalStraightAccept = 0;
 		int i = 0;
+		if (visualizer != null)
+			visualizer.newSeries();
 		for (i = 0; i < maxIteration && temperature > minTemperature; i++) {
-			if (Common.SHOW_SA_DEBUG)
+			if (Common.DEBUG_SHOW_SA)
 				System.out.println("\nLoop " + i + " (temperature: " + temperature + ", bestEnergy: " + bestEnergy + "):");
 			// random move to students to get new students.
 			// depending on temperature,
@@ -84,25 +98,25 @@ public class SimulatedAnnealing {
 			double randomProbability = new Random().nextDouble();
 			double energyDifference = nextEnergy - currEnergy;
 			double acceptanceProbability = calculateAcceptanceProbability(currEnergy, nextEnergy, temperature);
-			if (Common.SHOW_SA_DEBUG)
+			if (Common.DEBUG_SHOW_SA)
 				System.out.println("currEnergy: " + currEnergy);
-			if (Common.SHOW_SA_DEBUG)
+			if (Common.DEBUG_SHOW_SA)
 				System.out.println("nextEnergy: " + nextEnergy);
-			if (Common.SHOW_SA_DEBUG)
+			if (Common.DEBUG_SHOW_SA)
 				System.out.println("energyDifference: " + energyDifference);
-			if (Common.SHOW_SA_DEBUG)
+			if (Common.DEBUG_SHOW_SA)
 				System.out.println("energyDifference / temperature: " + energyDifference / temperature);
-			if (Common.SHOW_SA_DEBUG)
+			if (Common.DEBUG_SHOW_SA)
 				System.out.println("Acceptance Probability: " + acceptanceProbability);
-			if (Common.SHOW_SA_DEBUG)
+			if (Common.DEBUG_SHOW_SA)
 				System.out.println("Random Probability: " + randomProbability);
-			if (Common.SHOW_SA_DEBUG)
+			if (Common.DEBUG_SHOW_SA)
 				System.out
 						.println("randomProbability <= acceptanceProbability: " + (randomProbability <= acceptanceProbability));
 			if (randomProbability <= acceptanceProbability) {
 				currSolution = nextSolution;
 				currEnergy = nextEnergy;
-				if (Common.SHOW_SA_DEBUG)
+				if (Common.DEBUG_SHOW_SA)
 					System.out.println("New candidate solution accepted.");
 			} else {
 				totalRejected += 1;
@@ -126,9 +140,16 @@ public class SimulatedAnnealing {
 			temperature *= 1 - coolingRate; // exponential decrease.
 			// temperature = startTemperature * ((maxIteration - i + 1.0) / maxIteration); // linear decrease;
 
-			energies.add(String.format("%f\t\t%f\t\t%f", currEnergy, storedSatisfaction, bestEnergy));
+			if (Common.DEBUG_SHOW_ENERGIES)
+				energies.add(String.format("%f\t\t%f\t\t%f", currEnergy, storedSatisfaction, bestEnergy));
+
+			if (visualizer != null)
+				visualizer.addToSeries(currEnergy, bestEnergy, i);
 		}
-		printEnergySatisfaction();
+		// if (visualizer != null)
+		// 	visualizer.stopAddToGraphScheduler();
+		if (Common.DEBUG_SHOW_ENERGIES)
+			printEnergySatisfaction();
 		System.out.println("\nExited at loop " + i + " , temperature " + temperature);
 		System.out.println("totalRejected: " + totalRejected);
 		System.out.println("totalStraightAccept: " + totalStraightAccept);
