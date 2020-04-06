@@ -1,0 +1,37 @@
+.chart-vertical-grid-lines,
+.chart-horizontal-grid-lines {
+	-fx-stroke: transparent;
+}
+
+
+.chart-legend {
+	/* -fx-background-color: transparent; */
+	/* -fx-padding: 20px; */
+	-fx-translate-x: -145;
+	-fx-translate-y: -325;
+}
+
+/* .chart-legend-item-symbol {
+	-fx-background-radius: 0;
+}
+
+.chart-legend-item {
+	-fx-text-fill: #191970;
+} */
+
+.chart-series-line {
+	-fx-stroke-width: 1px;
+	-fx-effect: null;
+}
+
+.default-color0.chart-series-line {
+	-fx-stroke: #e9967a;
+}
+
+.default-color1.chart-series-line {
+	-fx-stroke: #f0e68c;
+}
+
+.default-color2.chart-series-line {
+	-fx-stroke: #dda0dd;
+}

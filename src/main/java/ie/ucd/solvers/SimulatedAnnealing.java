@@ -28,7 +28,7 @@ public class SimulatedAnnealing implements Solver {
 
 	public SimulatedAnnealing(CandidateSolution startingSolution, VisualizerInterface visualizer) {
 		// this(500, 0.000001, 1, 1000000, visualizer);
-		this(500, 0.000001, 1, 10000, startingSolution, visualizer);
+		this(500, 0.000001, 0.001, 200000, startingSolution, visualizer);
 	}
 
 	public SimulatedAnnealing(double temperature, double coolingRate, double minTemperature, double maxIteration,
@@ -50,8 +50,8 @@ public class SimulatedAnnealing implements Solver {
 			temperature = 100.0;
 			coolingRate = 0.03;
 		} else {
-			temperature = 500.0;
-			coolingRate = 0.000001;
+			temperature = 100.0;
+			coolingRate = 0.00001;
 		}
 
 		// keep track of solutions.

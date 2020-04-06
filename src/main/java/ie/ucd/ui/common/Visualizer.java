@@ -10,13 +10,14 @@ import java.util.concurrent.TimeUnit;
 import ie.ucd.objects.Coordinate;
 import ie.ucd.ui.interfaces.VisualizerInterface;
 import javafx.application.Platform;
+import javafx.geometry.Side;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.GridPane;
 
 public class Visualizer extends GridPane implements VisualizerInterface {
-	// private final int WINDOW_SIZE = 2000;
+	// private final int WINDOW_SIZE = 10000;
 	private int emptyCount;
 	private final int VISUALIZER_DEQUE_EMPTY_LIMIT = 5000; //  time_to_wait_before_stop_scheduler_in_sec / scheduler_wait_in_sec, i.e. 5/0.001
 
@@ -56,9 +57,7 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 		lineChart.setCreateSymbols(false);
 		lineChart.setPrefWidth(1024);
 		lineChart.setPrefHeight(768);
-		// lineChart.getStylesheets().add("-fx-stroke-width: 1px; -fx-effect: null;");
-		// lineChart.getStyleClass().add("-fx-stroke-width: 1px; -fx-effect: null;");
-		// lineChart.setStyle("-fx-stroke-width: 10; -fx-stroke: #808080; -fx-stroke-dash-array: 2 12 12 2;");
+		lineChart.setLegendSide(Side.RIGHT);
 
 		// defining a series, initial series has no data.
 		currSeries = new XYChart.Series<Number, Number>();
@@ -88,11 +87,10 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 	@Override
 	public void newSeries() {
 		startDateTime = LocalDateTime.now();
+		emptyCount = 0;
 		resetSeries();
-		// addToGraph.play();
 
 		// put data onto graph every 0.005 second.
-		emptyCount = 0;
 		scheduledExecutorService.scheduleAtFixedRate(() -> {
 			// update the chart.
 			Platform.runLater(() -> {

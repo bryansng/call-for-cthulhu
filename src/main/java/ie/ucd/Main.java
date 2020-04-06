@@ -48,6 +48,8 @@ public class Main extends Application {
 		saPane.setSolver(solver);
 
 		Scene scene = new Scene(saPane, 1280, 960);
+		scene.getStylesheets().add("ui/sa/solver.css");
+
 		stage.setScene(scene);
 		stage.show();
 
