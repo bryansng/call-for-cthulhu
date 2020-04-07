@@ -27,14 +27,13 @@ public class SimulatedAnnealing implements Solver {
 	}
 
 	public SimulatedAnnealing(CandidateSolution startingSolution, VisualizerInterface visualizer) {
-		// this(500, 0.000001, 1, 1000000, visualizer);
-		this(500, 0.000001, 0.001, 200000, startingSolution, visualizer);
+		this(100.0, 0.00001, 0.01, 100000, startingSolution, visualizer);
 	}
 
 	public SimulatedAnnealing(double temperature, double coolingRate, double minTemperature, double maxIteration,
 			CandidateSolution startingSolution, VisualizerInterface visualizer) {
 		this.temperature = temperature;
-		this.coolingRate = temperature;
+		this.coolingRate = coolingRate;
 		startTemperature = temperature;
 		this.minTemperature = minTemperature;
 		this.maxIteration = maxIteration;
@@ -45,14 +44,6 @@ public class SimulatedAnnealing implements Solver {
 	public CandidateSolution run() {
 		if (Common.DEBUG_SHOW_ENERGIES)
 			energies.add("currEnergy\t\tcurrSatisfaction\t\tbestEnergy");
-
-		if (startingSolution.students.size() <= 180) {
-			temperature = 100.0;
-			coolingRate = 0.03;
-		} else {
-			temperature = 100.0;
-			coolingRate = 0.00001;
-		}
 
 		// keep track of solutions.
 		CandidateSolution currSolution = startingSolution;

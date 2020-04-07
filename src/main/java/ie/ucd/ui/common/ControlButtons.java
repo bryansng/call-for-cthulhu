@@ -9,26 +9,53 @@ public class ControlButtons extends HBox {
 	private Visualizer visualizer;
 	private Sheet sheet;
 
+	private boolean isRunning;
+	private boolean isPaused;
+
 	private Button play;
 	private Button pause;
 	private Button clearAndReset;
 	private Button step;
 
+	private volatile Thread thread;
+
 	public ControlButtons(Visualizer visualizer, Sheet sheet) {
 		super();
 		this.visualizer = visualizer;
 		this.sheet = sheet;
+		resetStates();
 		initLayout();
 	}
 
 	private void initLayout() {
 		play = new Button("Play");
 		play.setOnAction((event) -> {
-			solver.run();
+			if (isPaused && isRunning) {
+				isPaused = false;
+				// visualizer.resumeAddToGraphScheduler();
+			} else if (!isRunning) {
+				isRunning = true;
+				startThread();
+			}
 		});
 
 		pause = new Button("Pause");
+		pause.setOnAction((event) -> {
+			if (isRunning && !isPaused) {
+				isPaused = true;
+				// visualizer.pauseAddToGraphScheduler();
+			}
+		});
+
 		clearAndReset = new Button("Clear and Reset");
+		clearAndReset.setOnAction((event) -> {
+			if (isRunning) {
+				visualizer.stopAddToGraphScheduler();
+				isRunning = false;
+				stopThread();
+			}
+		});
+
 		step = new Button("Step");
 
 		getChildren().add(play);
@@ -39,5 +66,26 @@ public class ControlButtons extends HBox {
 
 	public void setSolver(Solver solver) {
 		this.solver = solver;
+	}
+
+	private void resetStates() {
+		isRunning = false;
+		isPaused = false;
+	}
+
+	private void stopThread() {
+		thread = null;
+	}
+
+	private void startThread() {
+		thread = new Thread(() -> {
+			solver.run();
+		});
+		thread.setDaemon(true);
+		thread.start();
+	}
+
+	private void pauseThread() {
+
 	}
 }

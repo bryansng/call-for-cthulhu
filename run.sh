@@ -1,12 +1,8 @@
 #!/bin/bash
 
-find . -name "desktop.ini" -type f -delete		# remove all desktop.ini files.
-
-# mvn package
-# java -cp target/Generator-1.jar Generator-1
+find . -name "desktop.ini" -type f -delete		# remove all desktop.ini files. (Google Backup and Sync files)
 
 mvn clean
 mvn package
 
-# mvn exec:java
-java -jar target/Generator.jar
+java -jar target/CallForCthulu.jar

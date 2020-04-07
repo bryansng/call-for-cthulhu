@@ -6,6 +6,8 @@ import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 
 public class Common {
+	public static final boolean CHART_ENABLE_TRUNCATE = true;
+
 	public static enum SARandomMoveType {
 		FROM_STUDENT_PREFERENCE_LIST, SWAP_FROM_TWO_STUDENTS_PREFERENCE_LIST, SWAP_FROM_TWO_STUDENTS_ASSIGNED_PROJECTS
 	}

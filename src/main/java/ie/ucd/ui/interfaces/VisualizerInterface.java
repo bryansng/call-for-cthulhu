@@ -1,7 +1,7 @@
 package ie.ucd.ui.interfaces;
 
 public interface VisualizerInterface {
-	public void addToSeries(double y1Value, double y2Value, int loopNumber);
+	public void addToSeries(double currEnergy, double bestEnergy, int loopNumber);
 
 	public void newSeries();
 
