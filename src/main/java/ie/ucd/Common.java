@@ -26,7 +26,6 @@ public class Common {
 	public static final double COST_UNSUITED_STREAM = -5.0;
 	public static final double COST_NONE_OR_MULTIPLE_PROJECTS = -2.0;
 	public static final double COST_UNEQUAL_PROJECT_DISTRIBUTION_TO_SUPERVISOR = -5.0;
-	public static final double UNEQUAL_PROJECT_DISTRIBUTION_TO_SUPERVISOR_LIMIT = 3;
 
 	// the below are used during generation of our random candidate solution.
 	public static Random rand = new Random();

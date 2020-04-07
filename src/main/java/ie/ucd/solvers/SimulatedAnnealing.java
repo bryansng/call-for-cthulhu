@@ -24,7 +24,7 @@ public class SimulatedAnnealing extends Solver {
 	}
 
 	public SimulatedAnnealing(CandidateSolution startingSolution, VisualizerInterface visualizer) {
-		this(100.0, 0.00001, 0.01, 100000, startingSolution, visualizer);
+		this(100.0, 0.001, 0.01, 10000, startingSolution, visualizer);
 	}
 
 	public SimulatedAnnealing(double temperature, double coolingRate, double minTemperature, double maxIteration,
@@ -144,7 +144,7 @@ public class SimulatedAnnealing extends Solver {
 	}
 
 	// pick another project in a student's preference list.
-	private CandidateSolution makeRandomMoveV3(CandidateSolution currSolution) {
+	public CandidateSolution makeRandomMoveV3(CandidateSolution currSolution) {
 		CandidateSolution newSolution = new CandidateSolution(currSolution);
 
 		// get a random student.
@@ -159,7 +159,7 @@ public class SimulatedAnnealing extends Solver {
 	}
 
 	// between two students, between their preference list, a student is assigned a project in that other student's list, and the other student with the same concept as well
-	private CandidateSolution makeRandomMoveV2(CandidateSolution currSolution) {
+	public CandidateSolution makeRandomMoveV2(CandidateSolution currSolution) {
 		CandidateSolution newSolution = new CandidateSolution(currSolution);
 
 		// get random two students.
@@ -182,7 +182,7 @@ public class SimulatedAnnealing extends Solver {
 	}
 
 	// change project assigned between two students.
-	private CandidateSolution makeRandomMoveV1(CandidateSolution currSolution) {
+	public CandidateSolution makeRandomMoveV1(CandidateSolution currSolution) {
 		CandidateSolution newSolution = new CandidateSolution(currSolution);
 
 		// get random two students.

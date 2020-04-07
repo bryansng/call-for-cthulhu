@@ -87,7 +87,7 @@ public class CandidateSolution {
 
 			satisfaction += project.calculateSatisfaction();
 		}
-		satisfaction += distributionToSupervisorsSatisfaction();
+		satisfaction += projectDistributionToSupervisorsSatisfaction();
 
 		// if less than or equal to 1, complement of satisfaction (i.e. 1 / satisfaction) would be an opposite effect, so we limit satisfaction minimum limit to 2.0.
 		if (satisfaction <= 1) {
@@ -98,10 +98,13 @@ public class CandidateSolution {
 
 	// method check if projects equally distributed across supervisors.
 	// if no, has cost per supervisor violation.
-	private Double distributionToSupervisorsSatisfaction() {
+	//
+	// soft: projects are more-or-less equally distributed across supervisors.
+	// ! dont have to calculate every time)
+	private Double projectDistributionToSupervisorsSatisfaction() {
 		double numViolations = 0.0;
 		for (StaffMember staff : allStaffsProjects) {
-			if (staff.getNumberActivitiesUsed() > Common.UNEQUAL_PROJECT_DISTRIBUTION_TO_SUPERVISOR_LIMIT) {
+			if (staff.getNumberActivitiesUsed() <= Common.numAvgProjectsProposed + 2) {
 				numViolations += 1.0;
 			}
 		}
@@ -305,6 +308,7 @@ public class CandidateSolution {
 		return percentDS >= 35 && percentDS <= 45; // 40 +- 5
 	}
 
+	// taken from SA.
 	public void makeRandomChange() {
 		// get random two students.
 		Random rand = new Random();
@@ -323,6 +327,7 @@ public class CandidateSolution {
 		student2.setProjectAssigned(student1.getPreferenceList().get(p1Index), 0);
 	}
 
+	// taken from SA.
 	public Double calculateEnergy() {
 		return (1.0 / calculateGlobalSatisfaction()) * 100000;
 	}

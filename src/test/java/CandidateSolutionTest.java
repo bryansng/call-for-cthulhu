@@ -60,6 +60,7 @@ public class CandidateSolutionTest {
 
 		double currSatisfaction = dummyCandidateSolution.calculateGlobalSatisfaction();
 		double currEnergy = dummyCandidateSolution.calculateEnergy();
+
 		dummyCandidateSolution.makeRandomChange();
 		double nextSatisfaction = dummyCandidateSolution.calculateGlobalSatisfaction();
 		double nextEnergy = dummyCandidateSolution.calculateEnergy();
