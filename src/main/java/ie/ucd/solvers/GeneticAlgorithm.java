@@ -1,11 +1,8 @@
 package ie.ucd.solvers;
 
 import ie.ucd.Common;
-import ie.ucd.interfaces.*;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.Student;
-
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class GeneticAlgorithm {
@@ -39,18 +36,73 @@ public class GeneticAlgorithm {
         ArrayList<Student> studentSolution = new ArrayList<Student>();
         //generate bit codes to represent chromosomes
         ArrayList<String> allBitCodes = generateAllBitCodes(students.size());
-        //generate initial population
+        //generate initial population for generation 0
         ArrayList<String> population = generateInitialPopulation(allBitCodes);
         ArrayList<String> nextPopulation = new ArrayList<String>();
 
-        for (int i = 0; i < numberOfGenerations; i++) {
-            ArrayList<Double> globalSatisfactionSet = new ArrayList<Double>();
+        boolean isLastGeneration = false;
+        for (int i = 1; i <= numberOfGenerations; i++) {
+            if (i == numberOfGenerations)
+                isLastGeneration = true;
+            if (Common.SHOW_GA_DEBUG)
+                System.out.println("Generation: " + i);
+
+            //store satisfaction for each solution in a population
+            ArrayList<Double> globalSatisfactionList = new ArrayList<Double>();
             for (String aSolution : population) {
-                ArrayList<Student> assignedStudents = assignProjectsFromSolution(students, projects, aSolution);
-                double satisfaction = calculateGlobalSatisfaction(assignedStudents, projects);
-                globalSatisfactionSet.add(satisfaction);
+                studentSolution = assignProjectsFromSolution(students, projects, aSolution);
+                double globalSatisfaction = calculateGlobalSatisfaction(studentSolution, projects);
+                if (Common.SHOW_GA_DEBUG)
+                    System.out.println("globalSatisfaction: " + globalSatisfaction);
+                globalSatisfactionList.add(globalSatisfaction);
             }
+
+            //get fittest solution from population
+            String fittestSolution = population.get(getFittestSolutionIndex(globalSatisfactionList));
+            fittestStudentSolution = assignProjectsFromSolution(students, projects, fittestSolution);
+
+            if (!isLastGeneration) {
+                //generate population for next generation
+                while (nextPopulation.size() <= sizeOfPopulation) {
+                    int[] parentIndices = chooseParents(population, globalSatisfactionList);
+                    String offspring = crossover(population.get(parentIndices[0]), population.get(parentIndices[1]));
+                    if (!offspring.equals("")) {
+                        offspring = mutate(offspring);
+                        nextPopulation.add(offspring);
+                    }
+                }
+            } else if (isLastGeneration && Common.SHOW_GA_DEBUG)
+                System.out.println("GA complete.");
+
+            population.clear();
+            population = new ArrayList<String>(nextPopulation);
         }
+    }
+
+    private int getFittestSolutionIndex(ArrayList<Double> globalSatisfactionList) {
+        double max = 0.0;
+        int maxIndex = 0;
+        int index = 0;
+        for (double globalSatisfaction : globalSatisfactionList) {
+            if (globalSatisfaction > max) {
+                max = globalSatisfaction;
+                maxIndex = index;
+            }
+            index++;
+        }
+        return maxIndex;
+    }
+
+
+    private int[] chooseParents(ArrayList<String> population, ArrayList<Double> globalSatisfactionList) {
+        //consider how to choose parents based on satisfaction list
+        int[] returnIndices = new int[2];
+        returnIndices[0] = random.nextInt(population.size() * 10) / 10;
+        returnIndices[1] = random.nextInt(population.size() * 10) / 10;
+        while (returnIndices[0] == returnIndices[1]) {
+            returnIndices[0] = random.nextInt(population.size() * 10) / 10;
+        }
+        return returnIndices;
     }
 
     private Double calculateGlobalSatisfaction(ArrayList<Student> students, ArrayList<Project> projects) {
