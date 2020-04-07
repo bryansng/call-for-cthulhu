@@ -59,8 +59,13 @@ public class GeneticAlgorithm {
             }
 
             //get fittest solution from population
-            String fittestSolution = population.get(getFittestSolutionIndex(globalSatisfactionList));
+            int fittestSolutionIndex = getFittestSolutionIndex(globalSatisfactionList);
+            String fittestSolution = population.get(fittestSolutionIndex);
             fittestStudentSolution = assignProjectsFromSolution(students, projects, fittestSolution);
+
+            if (Common.SHOW_GA_DEBUG) {
+                System.out.println("Fittest solution strength : " + globalSatisfactionList.get(fittestSolutionIndex));
+            }
 
             if (!isLastGeneration) {
                 //generate population for next generation
@@ -113,12 +118,6 @@ public class GeneticAlgorithm {
         for (Project project : projects) {
             satisfaction += project.calculateSatisfaction();
         }
-
-        // if less than or equal to 1, complement of satisfaction (i.e. 1 / satisfaction) would be an opposite effect, so we limit satisfaction minimum limit to 2.0.
-        if (satisfaction <= 1) {
-            satisfaction = 2.0;
-        }
-
         return satisfaction;
     }
 
