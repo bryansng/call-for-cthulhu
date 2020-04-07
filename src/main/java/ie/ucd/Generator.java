@@ -2,7 +2,9 @@ package ie.ucd;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 import ie.ucd.objects.StaffMember;
+import ie.ucd.solvers.GeneticAlgorithm;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import ie.ucd.objects.Student;
 import ie.ucd.solvers.SimulatedAnnealing;
@@ -20,6 +22,14 @@ public class Generator {
 		ArrayList<Project> projects = parser.generateStaffProjects();
 		ArrayList<Student> students = parser.generateStudents();
 
+		GeneticAlgorithm GA = new GeneticAlgorithm();
+		GA.run(students, projects);
+		students = GA.getFittestStudentSolution();
+		int count = 1;
+		for (Student student : students) {
+			System.out.println(count + " : " + student.getId() + " : " + student.getProjectAssigned(0).getResearchActivity());
+			count++;
+		}
 		// generateExcelFiles();
 		// generateCSVFiles();
 		// readCSVFiles();

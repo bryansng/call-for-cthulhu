@@ -3,6 +3,7 @@ package ie.ucd.solvers;
 import ie.ucd.Common;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.Student;
+
 import java.util.*;
 
 public class GeneticAlgorithm {
@@ -73,7 +74,6 @@ public class GeneticAlgorithm {
                 }
             } else if (isLastGeneration && Common.SHOW_GA_DEBUG)
                 System.out.println("GA complete.");
-
             population.clear();
             population = new ArrayList<String>(nextPopulation);
         }
@@ -254,7 +254,6 @@ public class GeneticAlgorithm {
         int[] studentRankings = getRanking(aSolution, students.size());
         ArrayList<Student> assignedStudents = new ArrayList<Student>();
         ArrayList<Student> unassignedStudents = new ArrayList<Student>();
-        HashSet<Project> usedProjects = new HashSet<Project>();
 
         for (int rank = 1; rank <= students.size(); rank++) {
             for (int j = 0; j < studentRankings.length; j++) {
@@ -263,11 +262,10 @@ public class GeneticAlgorithm {
                     ArrayList<Project> currentPrefList = currentStudent.getPreferenceList();
                     boolean isAssigned = false;
                     for (Project project : currentPrefList) {
-                        if (usedProjects.contains(project)) {
+                        if (project.getNumStudentsAssigned() > 0)
                             continue;
-                        }
+                        project.incrementStudentsAssigned();
                         currentStudent.setProjectAssigned(project, 0);
-                        usedProjects.add(project);
                         isAssigned = true;
                     }
                     if (isAssigned)
@@ -280,19 +278,17 @@ public class GeneticAlgorithm {
 
         for (Student student : unassignedStudents) {
             Project randomProject = projects.get(random.nextInt(projects.size()));
-            while (usedProjects.contains(randomProject)) {
+            while (randomProject.getNumStudentsAssigned() > 0) {
                 randomProject = projects.get(random.nextInt(projects.size()));
             }
             student.setProjectAssigned(randomProject, 0);
             assignedStudents.add(student);
-            unassignedStudents.remove(student);
         }
-
         return assignedStudents;
     }
 
     public int[] getRanking(String aSolution, int numberOfBitCodes) {
-        int low = 0, high = 10, offset = 10;
+        int low = 0, high = 10, offset = high - low;
         int[] solutionInDecimal = new int[numberOfBitCodes];
 
         for (int i = 0; i < numberOfBitCodes; i++) {
