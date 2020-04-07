@@ -1,26 +1,23 @@
 package ie.ucd.solvers;
 
-import java.util.ArrayList;
 import java.util.Random;
 import ie.ucd.Common;
-import ie.ucd.interfaces.Solver;
 import ie.ucd.objects.CandidateSolution;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.Student;
 import ie.ucd.ui.interfaces.VisualizerInterface;
 
-public class SimulatedAnnealing implements Solver {
-	double storedSatisfaction;
+public class SimulatedAnnealing extends Solver {
+	private double storedSatisfaction;
+	private CandidateSolution bestSolution;
 
-	CandidateSolution startingSolution;
-	double temperature;
-	double startTemperature;
-	double minTemperature;
-	double coolingRate;
-	double maxIteration;
-	VisualizerInterface visualizer;
-
-	ArrayList<String> energies = new ArrayList<String>();
+	private CandidateSolution startingSolution;
+	private double temperature;
+	private double startTemperature;
+	private double minTemperature;
+	private double coolingRate;
+	private double maxIteration;
+	private VisualizerInterface visualizer;
 
 	public SimulatedAnnealing(CandidateSolution startingSolution) {
 		this(startingSolution, null);
@@ -34,17 +31,18 @@ public class SimulatedAnnealing implements Solver {
 			CandidateSolution startingSolution, VisualizerInterface visualizer) {
 		this.temperature = temperature;
 		this.coolingRate = coolingRate;
-		startTemperature = temperature;
+		this.startTemperature = temperature;
 		this.minTemperature = minTemperature;
 		this.maxIteration = maxIteration;
 		this.startingSolution = startingSolution;
 		this.visualizer = visualizer;
 	}
 
-	public CandidateSolution run() {
-		if (Common.DEBUG_SHOW_ENERGIES)
-			energies.add("currEnergy\t\tcurrSatisfaction\t\tbestEnergy");
+	public CandidateSolution getBestSolution() {
+		return bestSolution;
+	}
 
+	public void run() {
 		// keep track of solutions.
 		CandidateSolution currSolution = startingSolution;
 		CandidateSolution nextSolution;
@@ -62,85 +60,72 @@ public class SimulatedAnnealing implements Solver {
 		int i = 0;
 		if (visualizer != null)
 			visualizer.newSeries();
-		for (i = 0; i < maxIteration && temperature > minTemperature; i++) {
-			if (Common.DEBUG_SHOW_SA)
-				System.out.println("\nLoop " + i + " (temperature: " + temperature + ", bestEnergy: " + bestEnergy + "):");
-			// random move to students to get new students.
-			// depending on temperature,
-			// if higher, make more risky random moves.
-			// else, make more conservative moves.
-			switch (Common.SA_RANDOM_MOVE_TYPE) {
-				case FROM_STUDENT_PREFERENCE_LIST:
-					nextSolution = makeRandomMoveV3(currSolution);
-					break;
-				case SWAP_FROM_TWO_STUDENTS_ASSIGNED_PROJECTS:
-					nextSolution = makeRandomMoveV1(currSolution);
-					break;
-				case SWAP_FROM_TWO_STUDENTS_PREFERENCE_LIST:
-				default:
-					nextSolution = makeRandomMoveV2(currSolution);
-					break;
+		for (i = 0; i < maxIteration && temperature > minTemperature && !this.isStopped; i++) {
+			try {
+				// random move to students to get new students.
+				// depending on temperature,
+				// if higher, make more risky random moves.
+				// else, make more conservative moves.
+				switch (Common.SA_RANDOM_MOVE_TYPE) {
+					case FROM_STUDENT_PREFERENCE_LIST:
+						nextSolution = makeRandomMoveV3(currSolution);
+						break;
+					case SWAP_FROM_TWO_STUDENTS_ASSIGNED_PROJECTS:
+						nextSolution = makeRandomMoveV1(currSolution);
+						break;
+					case SWAP_FROM_TWO_STUDENTS_PREFERENCE_LIST:
+					default:
+						nextSolution = makeRandomMoveV2(currSolution);
+						break;
+				}
+
+				// compute new energy.
+				nextEnergy = calculateEnergy(nextSolution);
+
+				// decide if accept this new solution.
+				double randomProbability = new Random().nextDouble();
+				double acceptanceProbability = calculateAcceptanceProbability(currEnergy, nextEnergy, temperature);
+				if (randomProbability <= acceptanceProbability) {
+					currSolution = nextSolution;
+					currEnergy = nextEnergy;
+				} else {
+					totalRejected += 1;
+				}
+				if (acceptanceProbability == 1.0) {
+					totalStraightAccept += 1;
+				}
+
+				// keep track of the best solution found, i.e. next lowest energy.
+				if (nextEnergy < bestEnergy) {
+					bestSolution = nextSolution;
+					bestEnergy = nextEnergy;
+					System.out.println("\nNew best solution found.");
+					System.out.println("Satisfaction: " + storedSatisfaction);
+					System.out.println("1.0 / Satisfaction * 100000: " + calculateEnergy(nextSolution));
+					System.out.println("currEnergy: " + currEnergy);
+					System.out.println("nextEnergy: " + nextEnergy + "\n");
+				}
+
+				// cool system. (not much difference between the below two configurations)
+				temperature *= 1 - coolingRate; // exponential decrease.
+				// temperature = startTemperature * ((maxIteration - i + 1.0) / maxIteration); // linear decrease;
+
+				if (visualizer != null)
+					visualizer.addToSeries(currEnergy, bestEnergy, i);
+
+				if (this.isOneStep) {
+					this.oneStepDone();
+				}
+				if (this.isSuspended) {
+					synchronized (this) {
+						while (this.isSuspended) {
+							wait();
+						}
+					}
+				}
+			} catch (InterruptedException e) {
 			}
-
-			// compute new energy.
-			nextEnergy = calculateEnergy(nextSolution);
-
-			// decide if accept this new solution.
-			double randomProbability = new Random().nextDouble();
-			double energyDifference = nextEnergy - currEnergy;
-			double acceptanceProbability = calculateAcceptanceProbability(currEnergy, nextEnergy, temperature);
-			if (Common.DEBUG_SHOW_SA)
-				System.out.println("currEnergy: " + currEnergy);
-			if (Common.DEBUG_SHOW_SA)
-				System.out.println("nextEnergy: " + nextEnergy);
-			if (Common.DEBUG_SHOW_SA)
-				System.out.println("energyDifference: " + energyDifference);
-			if (Common.DEBUG_SHOW_SA)
-				System.out.println("energyDifference / temperature: " + energyDifference / temperature);
-			if (Common.DEBUG_SHOW_SA)
-				System.out.println("Acceptance Probability: " + acceptanceProbability);
-			if (Common.DEBUG_SHOW_SA)
-				System.out.println("Random Probability: " + randomProbability);
-			if (Common.DEBUG_SHOW_SA)
-				System.out
-						.println("randomProbability <= acceptanceProbability: " + (randomProbability <= acceptanceProbability));
-			if (randomProbability <= acceptanceProbability) {
-				currSolution = nextSolution;
-				currEnergy = nextEnergy;
-				if (Common.DEBUG_SHOW_SA)
-					System.out.println("New candidate solution accepted.");
-			} else {
-				totalRejected += 1;
-			}
-			if (acceptanceProbability == 1.0) {
-				totalStraightAccept += 1;
-			}
-
-			// keep track of the best solution found, i.e. next lowest energy.
-			if (nextEnergy < bestEnergy) {
-				bestSolution = nextSolution;
-				bestEnergy = nextEnergy;
-				System.out.println("\nNew best solution found.");
-				System.out.println("Satisfaction: " + storedSatisfaction);
-				System.out.println("1.0 / Satisfaction * 100000: " + calculateEnergy(nextSolution));
-				System.out.println("currEnergy: " + currEnergy);
-				System.out.println("nextEnergy: " + nextEnergy + "\n");
-			}
-
-			// cool system. (not much difference between the below two configurations)
-			temperature *= 1 - coolingRate; // exponential decrease.
-			// temperature = startTemperature * ((maxIteration - i + 1.0) / maxIteration); // linear decrease;
-
-			if (Common.DEBUG_SHOW_ENERGIES)
-				energies.add(String.format("%f\t\t%f\t\t%f", currEnergy, storedSatisfaction, bestEnergy));
-
-			if (visualizer != null)
-				visualizer.addToSeries(currEnergy, bestEnergy, i);
 		}
-		// if (visualizer != null)
-		// 	visualizer.stopAddToGraphScheduler();
-		if (Common.DEBUG_SHOW_ENERGIES)
-			printEnergySatisfaction();
 		System.out.println("\nExited at loop " + i + " , temperature " + temperature);
 		System.out.println("totalRejected: " + totalRejected);
 		System.out.println("totalStraightAccept: " + totalStraightAccept);
@@ -148,14 +133,7 @@ public class SimulatedAnnealing implements Solver {
 		System.out.println("currSatisfaction: " + currSolution.calculateGlobalSatisfaction());
 		System.out.println("bestEnergy: " + bestEnergy);
 		System.out.println("bestSatisfaction: " + bestSolution.calculateGlobalSatisfaction());
-		// System.out.println(toStringStudents(bestSolution.students));
-		return bestSolution;
-	}
-
-	public void printEnergySatisfaction() {
-		for (String s : energies) {
-			System.out.println(s);
-		}
+		this.bestSolution = bestSolution;
 	}
 
 	private Double calculateAcceptanceProbability(double currEnergy, double nextEnergy, double temperature) {

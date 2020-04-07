@@ -1,11 +1,9 @@
 package ie.ucd.solvers;
 
 import java.util.ArrayList;
-
-import ie.ucd.interfaces.Solver;
 import ie.ucd.objects.CandidateSolution;
 
-public class GeneticAlgorithm implements Solver {
+public class GeneticAlgorithm extends Solver {
 	private CandidateSolution startingSolution;
 	private int numOfGenerations;
 	private int populationSize;
@@ -23,12 +21,11 @@ public class GeneticAlgorithm implements Solver {
 		this.startingSolution = startingSolution;
 	}
 
-	public CandidateSolution run() {
+	public void run() {
 		int i;
 		for (i = 0; i < numOfGenerations; i++) {
 
 		}
-		return null;
 	}
 
 	// handle crossover
@@ -50,5 +47,11 @@ public class GeneticAlgorithm implements Solver {
 	// generate chromosomes
 	private CandidateSolution generateChromosome(CandidateSolution solution) {
 		return new CandidateSolution(solution);
+	}
+
+	@Override
+	public CandidateSolution getBestSolution() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

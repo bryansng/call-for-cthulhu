@@ -9,7 +9,7 @@ import ie.ucd.objects.Student;
 import ie.ucd.solvers.SimulatedAnnealing;
 import ie.ucd.ui.interfaces.VisualizerInterface;
 import ie.ucd.ui.sa.SAPane;
-import ie.ucd.interfaces.Solver;
+import ie.ucd.solvers.Solver;
 import ie.ucd.io.CSVFileReader;
 import ie.ucd.io.CSVFileWriter;
 import ie.ucd.io.ExcelWriter;
@@ -72,7 +72,9 @@ public class Main extends Application {
 		solution.generateStudents();
 		System.out.println(solution.CSDSPercentage());
 
-		CandidateSolution bestSolution = new SimulatedAnnealing(solution, null).run();
+		Solver solver = new SimulatedAnnealing(solution, null);
+		solver.run();
+		CandidateSolution bestSolution = solver.getBestSolution();
 
 		System.out.println("All done");
 	}

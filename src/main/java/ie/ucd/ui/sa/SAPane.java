@@ -1,6 +1,6 @@
 package ie.ucd.ui.sa;
 
-import ie.ucd.interfaces.Solver;
+import ie.ucd.solvers.Solver;
 import ie.ucd.ui.common.ControlButtons;
 import ie.ucd.ui.common.Sheet;
 import ie.ucd.ui.common.Visualizer;
