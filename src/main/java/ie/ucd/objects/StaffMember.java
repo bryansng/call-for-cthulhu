@@ -37,6 +37,16 @@ public class StaffMember implements StaffMemberInterface {
 		return new Project(this, getRandomUnusedResearchActivity(), stream, Common.getProbability());
 	}
 
+	public Double getNumberActivitiesUsed() {
+		double num = 0.0;
+		for (boolean bool : researchActivitiesUsed) {
+			if (bool == true) {
+				num += 1.0;
+			}
+		}
+		return num;
+	}
+
 	// need check if isAllActivitiesUsed, if not, this will loop indefinitely.
 	private String getRandomUnusedResearchActivity() {
 		int randInt = new Random().nextInt(researchActivities.length);

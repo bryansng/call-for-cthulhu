@@ -40,7 +40,7 @@ public class Main extends Application {
 
 		Parser parser = new Parser();
 		CandidateSolution solution = new CandidateSolution(500, parser.allStaffsProjects, parser.allNames, null, null);
-		solution.generateStaffProjects();
+		solution.generateProjects();
 		solution.generateStudents();
 		System.out.println(solution.CSDSPercentage());
 		saPane = new SAPane();
@@ -68,7 +68,7 @@ public class Main extends Application {
 
 		Parser parser = new Parser();
 		CandidateSolution solution = new CandidateSolution(500, parser.allStaffsProjects, parser.allNames, null, null);
-		solution.generateStaffProjects();
+		solution.generateProjects();
 		solution.generateStudents();
 		System.out.println(solution.CSDSPercentage());
 
@@ -87,7 +87,7 @@ public class Main extends Application {
 
 		System.out.println("Generating for 500 students...");
 		CandidateSolution solution = new CandidateSolution(500, parser.allStaffsProjects, parser.allNames, null, null);
-		projects = solution.generateStaffProjects();
+		projects = solution.generateProjects();
 		students = solution.generateStudents();
 		writer.writeProjects(projects, 500);
 		writer.writeStudents(students);
@@ -106,7 +106,7 @@ public class Main extends Application {
 
 		System.out.println("Generating for 500 students...");
 		CandidateSolution solution = new CandidateSolution(500, parser.allStaffsProjects, parser.allNames, null, null);
-		projects = solution.generateStaffProjects();
+		projects = solution.generateProjects();
 		students = solution.generateStudents();
 		System.out.println(solution.CSDSPercentage());
 		csvFileWriter.writeProjects(projects, 500);

@@ -24,8 +24,8 @@ public class ProjectTest {
 
 	@Test
 	@DisplayName("Test initialization")
-	public void testInitiailization() {
-		System.out.println("Running: testInitiailization");
+	public void testInitialization() {
+		System.out.println("Running: testInitialization");
 		Assert.assertEquals(dummyStaffMember, dummyProject.getStaffMember());
 		Assert.assertEquals("playing the piano", dummyProject.getResearchActivity());
 		Assert.assertEquals("CS+DS", dummyProject.getStream());

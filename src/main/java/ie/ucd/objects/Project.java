@@ -24,12 +24,17 @@ public class Project implements ProjectInterface {
 		return assignmentSatisfaction();
 	}
 
+	// hard: project assigned to at most one student.
 	private Double assignmentSatisfaction() {
 		if (numStudentsAssigned == 1.0) {
 			return -Common.COST_NONE_OR_MULTIPLE_PROJECTS;
 		}
 		return Common.COST_NONE_OR_MULTIPLE_PROJECTS * numStudentsAssigned;
 	}
+
+	// soft: projects are more-or-less equally distributed across supervisors.
+	// equally = maximum projects per supervisor within 3-5?
+	// candidateSolution implement this (dont have to calculate every time).
 
 	public Boolean hasCompatibleStream(String studentStream) {
 		// CS == CS or DS == DS

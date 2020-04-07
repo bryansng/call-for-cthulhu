@@ -21,8 +21,8 @@ public class StudentTest {
 
 	@Test
 	@DisplayName("Test Initialization")
-	public void testInitiailization() {
-		System.out.println("Running: testInitiailization");
+	public void testInitialization() {
+		System.out.println("Running: testInitialization");
 		Assert.assertEquals(10, dummyStudent.getPreferenceList().size());
 		Assert.assertEquals("James", dummyStudent.getFirstName());
 		Assert.assertEquals("Bond", dummyStudent.getLastName());

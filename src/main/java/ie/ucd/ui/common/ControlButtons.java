@@ -18,7 +18,6 @@ public class ControlButtons extends HBox {
 	private Button step;
 
 	private volatile Thread thread;
-	private volatile boolean isThreadSuspended;
 
 	public ControlButtons(Visualizer visualizer, Sheet sheet) {
 		super();
@@ -85,7 +84,6 @@ public class ControlButtons extends HBox {
 	private void resetStates() {
 		isRunning = false;
 		isPaused = false;
-		isThreadSuspended = false;
 	}
 
 	private void startThread() {
@@ -93,51 +91,5 @@ public class ControlButtons extends HBox {
 		thread = new Thread(solver);
 		thread.setDaemon(true);
 		thread.start();
-	}
-
-	private synchronized void stopThread() {
-		System.out.println("Stopping thread");
-		thread = null;
-	}
-
-	private void runThread() {
-		System.out.println("Running thread");
-		// Thread thisThread = Thread.currentThread();
-		// while (thread == thisThread) {
-		// 	try {
-		// 		System.out.println("sleeping");
-
-		// 		synchronized (this) {
-		// 			while (isThreadSuspended && thread == thisThread)
-		// 				thread.wait();
-		// 		}
-		// 	} catch (InterruptedException e) {
-		// 	}
-		// }
-		while (true) {
-			try {
-				System.out.println("sleeping");
-
-				if (isThreadSuspended) {
-					synchronized (this) {
-						while (isThreadSuspended) {
-							thread.wait();
-							System.out.println("processing thread waiting");
-						}
-					}
-				}
-			} catch (InterruptedException e) {
-			}
-		}
-	}
-
-	private synchronized void checkIfSuspendedThenNotify() {
-		System.out.println("Checking if suspended, then notify thread");
-		isThreadSuspended = !isThreadSuspended;
-
-		if (!isThreadSuspended) {
-			notify();
-			System.out.println("UI thread notifying");
-		}
 	}
 }

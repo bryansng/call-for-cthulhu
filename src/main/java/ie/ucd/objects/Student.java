@@ -1,7 +1,6 @@
 package ie.ucd.objects;
 
 import java.util.ArrayList;
-
 import ie.ucd.Common;
 import ie.ucd.interfaces.StudentInterface;
 
@@ -31,14 +30,27 @@ public class Student implements StudentInterface {
 	}
 
 	public Double calculateSatisfaction() {
-		return preferenceSatisfaction() + streamSatisfaction() + assignmentSatisfaction();
+		return preferenceSatisfaction() + gpaSatisfaction() + streamSatisfaction() + assignmentSatisfaction();
 	}
 
+	// hard: student assigned exactly one of their preferred projects.
 	private Double preferenceSatisfaction() {
 		int position = preferenceList.indexOf(projects.get(0));
-		return position == -1 ? Common.COST_NOT_ASSIGNED_PREFERENCE_PROJECTS : 10.0 - position;
+		return position == -1 ? Common.COST_NOT_ASSIGNED_PREFERENCE_PROJECTS
+				: (Common.PROFIT_PROJECT_IN_PREFERENCE_LIST
+						- (Common.COST_PER_LOWER_POSITION_PROJECT_IN_PREFERENCE_LIST * position));
 	}
 
+	// soft: higher gpa means a greater chance of getting one's preferred projects.
+	// soft: students with higher GPAs should tend to get higher preferences than those with lower GPAs
+	private Double gpaSatisfaction() {
+		int position = preferenceList.indexOf(projects.get(0));
+		return position == -1 ? 0.0
+				: (gpa / Common.MAX_GPA) * Common.IMPORTANCE_OF_GPA * (preferenceList.size() - position)
+						* Common.PROFIT_GPA_MULTIPLIER;
+	}
+
+	// hard: student assigned project of the same stream.
 	private Double streamSatisfaction() {
 		if (projects.get(0).hasCompatibleStream(stream)) {
 			return -Common.COST_UNSUITED_STREAM;
@@ -46,6 +58,7 @@ public class Student implements StudentInterface {
 		return Common.COST_UNSUITED_STREAM;
 	}
 
+	// hard: student assigned exactly one project.
 	private Double assignmentSatisfaction() {
 		if (projects.size() == 1.0) {
 			return -Common.COST_NONE_OR_MULTIPLE_PROJECTS;

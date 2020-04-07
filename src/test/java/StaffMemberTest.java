@@ -18,12 +18,12 @@ public class StaffMemberTest {
 
 	@Test
 	@DisplayName("Test initialization")
-	public void testInitiailization() {
+	public void testInitialization() {
+		System.out.println("Running: testInitialization");
 		HashSet<String> possibleStreams = new HashSet<String>();
 		possibleStreams.add("CS");
 		possibleStreams.add("CS+DS");
 
-		System.out.println("Running: testInitiailization");
 		Assert.assertEquals("Wolfgang Amadeus Mozart", dummyStaffMember.getProposedBy());
 		Assert.assertEquals(2, dummyStaffMember.getResearchActivities().length);
 		Assert.assertTrue(possibleStreams.contains(dummyStaffMember.getStream()));

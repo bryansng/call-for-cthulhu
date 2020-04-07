@@ -87,6 +87,7 @@ public class CandidateSolution {
 
 			satisfaction += project.calculateSatisfaction();
 		}
+		satisfaction += distributionToSupervisorsSatisfaction();
 
 		// if less than or equal to 1, complement of satisfaction (i.e. 1 / satisfaction) would be an opposite effect, so we limit satisfaction minimum limit to 2.0.
 		if (satisfaction <= 1) {
@@ -96,10 +97,16 @@ public class CandidateSolution {
 	}
 
 	// method check if projects equally distributed across supervisors.
-	// if no, has cost.
-
-	// method check if higher GPA means a greater chance of getting one's preferred projects.
-	// add in student class?
+	// if no, has cost per supervisor violation.
+	private Double distributionToSupervisorsSatisfaction() {
+		double numViolations = 0.0;
+		for (StaffMember staff : allStaffsProjects) {
+			if (staff.getNumberActivitiesUsed() > Common.UNEQUAL_PROJECT_DISTRIBUTION_TO_SUPERVISOR_LIMIT) {
+				numViolations += 1.0;
+			}
+		}
+		return numViolations * Common.COST_UNEQUAL_PROJECT_DISTRIBUTION_TO_SUPERVISOR;
+	}
 
 	public String toStringStudents() {
 		String res = "";
@@ -114,11 +121,11 @@ public class CandidateSolution {
 		return this;
 	}
 
-	public ArrayList<Project> generateStaffProjects() {
+	public ArrayList<Project> generateProjects() {
 		projects = new ArrayList<Project>();
 
-		int numStaffMembers = numberOfStudents / 2;
-		for (int i = 0; i < Common.numAvgProjectsProposed * numStaffMembers; i++) {
+		int numProjects = numberOfStudents / 2;
+		for (int i = 0; i < Common.numAvgProjectsProposed * numProjects; i++) {
 			int randInt = new Random().nextInt(allStaffsProjects.size());
 			while (allStaffsProjects.get(randInt).isAllActivitiesUsed()) {
 				randInt = new Random().nextInt(allStaffsProjects.size());
@@ -128,7 +135,7 @@ public class CandidateSolution {
 		}
 
 		if (!isEvenProjectStreamAllocation()) {
-			return generateStaffProjects();
+			return generateProjects();
 		}
 		return projects;
 	}
@@ -296,5 +303,27 @@ public class CandidateSolution {
 		double percentDS = numDSStudents * 1.0 / students.size() * 100;
 		// System.out.println("Student percent: " + percentDS);
 		return percentDS >= 35 && percentDS <= 45; // 40 +- 5
+	}
+
+	public void makeRandomChange() {
+		// get random two students.
+		Random rand = new Random();
+		int s1Index = rand.nextInt(students.size());
+		int s2Index = rand.nextInt(students.size());
+		while (s1Index == s2Index) {
+			s2Index = rand.nextInt(students.size());
+		}
+
+		Student student1 = students.get(s1Index);
+		Student student2 = students.get(s2Index);
+
+		int p1Index = rand.nextInt(student1.getPreferenceList().size());
+		int p2Index = rand.nextInt(student2.getPreferenceList().size());
+		student1.setProjectAssigned(student2.getPreferenceList().get(p2Index), 0);
+		student2.setProjectAssigned(student1.getPreferenceList().get(p1Index), 0);
+	}
+
+	public Double calculateEnergy() {
+		return (1.0 / calculateGlobalSatisfaction()) * 100000;
 	}
 }
