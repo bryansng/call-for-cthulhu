@@ -8,8 +8,9 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import ie.ucd.objects.Student;
 import ie.ucd.solvers.SimulatedAnnealing;
 import ie.ucd.ui.interfaces.VisualizerInterface;
-import ie.ucd.ui.sa.SAPane;
+import ie.ucd.ui.solver.SolverPane;
 import ie.ucd.solvers.Solver;
+import ie.ucd.Common.SolverType;
 import ie.ucd.io.CSVFileReader;
 import ie.ucd.io.CSVFileWriter;
 import ie.ucd.io.ExcelWriter;
@@ -21,7 +22,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-	public SAPane saPane;
+	public SolverPane solverPane;
 
 	public static void main(String[] args) throws IOException, InvalidFormatException, Exception {
 		System.out.println("Running application...\n");
@@ -38,16 +39,8 @@ public class Main extends Application {
 	public void start(Stage stage) throws IOException, InvalidFormatException, InterruptedException {
 		System.out.println("Generating for 500 students...");
 
-		Parser parser = new Parser();
-		CandidateSolution solution = new CandidateSolution(500, parser.allStaffsProjects, parser.allNames, null, null);
-		solution.generateProjects();
-		solution.generateStudents();
-		System.out.println(solution.CSDSPercentage());
-		saPane = new SAPane();
-		Solver solver = new SimulatedAnnealing(solution, saPane.getVisualizer());
-		saPane.setSolver(solver);
-
-		Scene scene = new Scene(saPane, 1280, 960);
+		solverPane = new SolverPane(SolverType.SimulatedAnnealing);
+		Scene scene = new Scene(solverPane, 1280, 960);
 		scene.getStylesheets().add("ui/sa/solver.css");
 
 		stage.setScene(scene);
@@ -60,7 +53,7 @@ public class Main extends Application {
 	@Override
 	public void stop() throws Exception {
 		super.stop();
-		saPane.stopVisualizerScheduler();
+		solverPane.stopVisualizerScheduler();
 	}
 
 	public static void applySimulatedAnnealing() throws IOException, InvalidFormatException {

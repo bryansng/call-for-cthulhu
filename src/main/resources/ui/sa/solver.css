@@ -6,6 +6,7 @@
 .chart-legend {
 	-fx-translate-x: -145;
 	-fx-translate-y: -325;
+	-fx-font-family: 'consolas', 'monospaced';
 }
 
 .chart-series-line {

@@ -1,4 +1,4 @@
-package ie.ucd.ui.common;
+package ie.ucd.ui.solver;
 
 import java.time.LocalDateTime;
 import java.util.Deque;
@@ -8,8 +8,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
 import ie.ucd.Common;
+import ie.ucd.Common.SolverType;
 import ie.ucd.objects.Coordinate;
 import ie.ucd.ui.interfaces.VisualizerInterface;
 import javafx.application.Platform;
@@ -23,9 +23,10 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 	private final int WINDOW_SIZE = 10000; // 13000
 	private final int VISUALIZER_DEQUE_EMPTY_LIMIT = 5000; //  time_to_wait_before_stop_scheduler_in_sec / scheduler_wait_in_sec, i.e. 5/0.001
 
-	private boolean isRunning;
+	private boolean isPaused;
 
 	private int emptyCount;
+	private String yAxisName;
 	private LineChart<Number, Number> lineChart;
 	private Deque<Coordinate> coordinateDeque;
 	private XYChart.Series<Number, Number> currSeries;
@@ -35,8 +36,16 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 	private ScheduledExecutorService scheduledExecutorService;
 	private Future<?> future;
 
-	public Visualizer() {
+	public Visualizer(SolverType solverType) {
 		super();
+		switch (solverType) {
+			case GeneticAlgorithm:
+				yAxisName = "Fitness";
+			case SimulatedAnnealing:
+			default:
+				yAxisName = "Energy";
+				break;
+		}
 		resetStates();
 		initLayout();
 
@@ -55,12 +64,12 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 		xAxis.setLabel("Loop Number");
 		xAxis.setAutoRanging(true);
 		xAxis.setForceZeroInRange(false);
-		yAxis.setLabel("Energy");
+		yAxis.setLabel(yAxisName);
 		yAxis.setAutoRanging(true);
 
 		// creating the chart.
 		lineChart = new LineChart<Number, Number>(xAxis, yAxis);
-		lineChart.setTitle("Energy over Time / Loop Number");
+		lineChart.setTitle(yAxisName + " over Time / Loop Number");
 		lineChart.setAnimated(false);
 		lineChart.setCreateSymbols(false);
 		lineChart.setPrefWidth(1024);
@@ -69,9 +78,8 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 
 		// defining a series, initial series has no data.
 		currSeries = new XYChart.Series<Number, Number>();
-		currSeries.setName("Current Energy");
 		bestSeries = new XYChart.Series<Number, Number>();
-		bestSeries.setName("Best Energy");
+		setSeriesName(null, null);
 
 		// initialize coordinate deque.
 		coordinateDeque = new LinkedList<Coordinate>();
@@ -89,26 +97,29 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 		LocalDateTime now = LocalDateTime.now();
 		long timeElapsed = java.time.Duration.between(startDateTime, now).getNano();
 
-		Coordinate coord = new Coordinate(currEnergy, bestEnergy, timeElapsed, loopNumber);
-		coordinateDeque.add(coord);
+		Platform.runLater(() -> {
+			currSeries.getData().add(new XYChart.Data<Number, Number>(loopNumber, currEnergy));
+			bestSeries.getData().add(new XYChart.Data<Number, Number>(loopNumber, bestEnergy));
+		});
+
+		// Coordinate coord = new Coordinate(currEnergy, bestEnergy, timeElapsed, loopNumber);
+		// coordinateDeque.add(coord);
 	}
 
 	@Override
 	public void newSeries() {
 		resetStates();
-		if (!isRunning) {
-			isRunning = true;
-			startDateTime = LocalDateTime.now();
-			emptyCount = 0;
-			resetSeries();
-			initScheduler();
-		}
+		startDateTime = LocalDateTime.now();
+		emptyCount = 0;
+		// resetSeries();
+		// initScheduler();
 	}
 
 	@Override
 	public void resetSeries() {
 		currSeries.getData().clear();
 		bestSeries.getData().clear();
+		// setSeriesName(0.0, 0.0);
 		coordinateDeque.clear();
 	}
 
@@ -118,11 +129,19 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 
 	// https://stackoverflow.com/questions/4205327/scheduledexecutorservice-start-stop-several-times
 	public void pauseAddToGraphScheduler() {
-		future.cancel(true);
+		if (!isPaused) {
+			if (future.cancel(true)) {
+				System.out.println("scheduler cancelled successfully.");
+				isPaused = true;
+			} else {
+				System.out.println("scheduler failed to cancel");
+			}
+		}
 	}
 
 	public void resumeAddToGraphScheduler() {
 		initScheduler();
+		isPaused = false;
 	}
 
 	private void initScheduler() {
@@ -134,9 +153,10 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 	}
 
 	public void initOneShotScheduler() {
-		scheduledExecutorService.schedule(() -> {
-			addDataToChart();
-		}, 0, TimeUnit.MILLISECONDS);
+		addDataToChart();
+		// scheduledExecutorService.schedule(() -> {
+		// 	addDataToChart();
+		// }, 0, TimeUnit.MILLISECONDS);
 	}
 
 	public boolean isDequeEmpty() {
@@ -146,29 +166,48 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 	private void addDataToChart() {
 		// update the chart.
 		Platform.runLater(() -> {
-			try {
-				// get data from deque.
-				Coordinate coord = coordinateDeque.removeFirst();
+			if (!isPaused) {
+				try {
+					// get data from deque.
+					Coordinate coord = coordinateDeque.removeFirst();
 
-				// put y value with current time.
-				currSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getCurrEnergy()));
-				bestSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getBestEnergy()));
+					// put y value with current time.
+					currSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getCurrEnergy()));
+					bestSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getBestEnergy()));
+					// setSeriesName(coord.getCurrEnergy(), coord.getBestEnergy());
 
-				if (currSeries.getData().size() > WINDOW_SIZE && Common.CHART_ENABLE_TRUNCATE)
-					currSeries.getData().remove(0);
-				if (bestSeries.getData().size() > WINDOW_SIZE && Common.CHART_ENABLE_TRUNCATE)
-					bestSeries.getData().remove(0);
-				emptyCount = 0;
-			} catch (NoSuchElementException e) {
-				emptyCount++;
+					if (currSeries.getData().size() > WINDOW_SIZE && Common.CHART_ENABLE_TRUNCATE)
+						currSeries.getData().remove(0);
+					if (bestSeries.getData().size() > WINDOW_SIZE && Common.CHART_ENABLE_TRUNCATE)
+						bestSeries.getData().remove(0);
+					emptyCount = 0;
+				} catch (NoSuchElementException e) {
+					emptyCount++;
 
-				if (emptyCount > VISUALIZER_DEQUE_EMPTY_LIMIT)
-					stopAddToGraphScheduler();
+					if (emptyCount > VISUALIZER_DEQUE_EMPTY_LIMIT) {
+						System.out.println("DEQUE IS EMPTY. Pausing scheduler.");
+						pauseAddToGraphScheduler();
+						isPaused = true;
+					}
+				}
 			}
 		});
 	}
 
+	private void setSeriesName(Double currEnergy, Double bestEnergy) {
+		String currSeriesName = "Current " + yAxisName;
+		String bestSeriesName = "Best " + yAxisName;
+		int padding = Math.max(currSeriesName.length(), bestSeriesName.length());
+		if (currEnergy == null || bestEnergy == null) {
+			currSeries.setName(currSeriesName);
+			bestSeries.setName(bestSeriesName);
+		} else {
+			currSeries.setName(String.format("%-" + padding + "s %10.4f", currSeriesName, currEnergy));
+			bestSeries.setName(String.format("%-" + padding + "s %10.4f", bestSeriesName, bestEnergy));
+		}
+	}
+
 	private void resetStates() {
-		isRunning = false;
+		isPaused = false;
 	}
 }

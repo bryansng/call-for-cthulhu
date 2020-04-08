@@ -64,7 +64,7 @@ public class CandidateSolutionTest {
 		dummyCandidateSolution.makeRandomChange();
 		double nextSatisfaction = dummyCandidateSolution.calculateGlobalSatisfaction();
 		double nextEnergy = dummyCandidateSolution.calculateEnergy();
-		System.out.println(currEnergy + " " + nextEnergy + " " + currSatisfaction + " " + nextSatisfaction);
+		// System.out.println(currEnergy + " " + nextEnergy + " " + currSatisfaction + " " + nextSatisfaction);
 
 		Assert.assertTrue((currEnergy > nextEnergy && currSatisfaction < nextSatisfaction)
 				|| (currEnergy < nextEnergy && currSatisfaction > nextSatisfaction));

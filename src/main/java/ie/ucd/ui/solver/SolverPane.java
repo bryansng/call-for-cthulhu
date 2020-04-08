@@ -1,25 +1,22 @@
-package ie.ucd.ui.sa;
+package ie.ucd.ui.solver;
 
-import ie.ucd.solvers.Solver;
-import ie.ucd.ui.common.ControlButtons;
+import ie.ucd.Common.SolverType;
 import ie.ucd.ui.common.Sheet;
-import ie.ucd.ui.common.Visualizer;
-import ie.ucd.ui.interfaces.VisualizerInterface;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-public class SAPane extends VBox {
+public class SolverPane extends VBox {
 	private Visualizer visualizer;
 	private ControlButtons controlButtons;
 	private Sheet sheet;
 	private Button saveToFileButton;
 
-	public SAPane() {
+	public SolverPane(SolverType solverType) {
 		super();
-		visualizer = new Visualizer();
+		visualizer = new Visualizer(solverType);
 		sheet = new Sheet();
-		controlButtons = new ControlButtons(visualizer, sheet);
+		controlButtons = new ControlButtons(visualizer, sheet, solverType);
 		saveToFileButton = new Button("Save to file");
 		initLayout();
 	}
@@ -32,15 +29,7 @@ public class SAPane extends VBox {
 		getChildren().add(saveToFileButton);
 	}
 
-	public VisualizerInterface getVisualizer() {
-		return visualizer;
-	}
-
 	public void stopVisualizerScheduler() {
 		visualizer.stopAddToGraphScheduler();
-	}
-
-	public void setSolver(Solver solver) {
-		controlButtons.setSolver(solver);
 	}
 }

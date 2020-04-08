@@ -31,6 +31,7 @@ public abstract class Solver implements Runnable {
 
 	protected synchronized void oneStepDone() {
 		this.isSuspended = true;
+		notify();
 	}
 
 	public void restart() {
