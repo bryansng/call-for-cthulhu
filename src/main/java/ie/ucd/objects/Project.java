@@ -48,6 +48,12 @@ public class Project implements ProjectInterface {
 		return false;
 	}
 
+	public boolean matchSearchTerm(String searchTerm) {
+		searchTerm = searchTerm.toLowerCase();
+		return staffMember.getProposedBy().toLowerCase().contains(searchTerm)
+				|| researchActivity.toLowerCase().contains(searchTerm) || stream.toLowerCase().equals(searchTerm);
+	}
+
 	public void incrementAsPreference() {
 		numAsPreference += 1.0;
 	}

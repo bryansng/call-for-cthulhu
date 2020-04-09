@@ -14,14 +14,15 @@ public class SolverPane extends VBox {
 
 	public SolverPane(SolverType solverType) {
 		super();
+		initLayout(solverType);
+	}
+
+	private void initLayout(SolverType solverType) {
 		visualizer = new Visualizer(solverType);
 		sheet = new StudentSheet();
 		controlButtons = new ControlButtons(visualizer, sheet, solverType);
 		saveToFileButton = new Button("Save to file");
-		initLayout();
-	}
 
-	private void initLayout() {
 		getChildren().add(new Label("Visualization"));
 		getChildren().add(visualizer);
 		getChildren().add(controlButtons);

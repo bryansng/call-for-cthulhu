@@ -90,6 +90,13 @@ public class Student implements StudentInterface {
 
 	public boolean matchSearchTerm(String searchTerm) {
 		searchTerm = searchTerm.toLowerCase();
+		return firstName.toLowerCase().contains(searchTerm) || lastName.toLowerCase().contains(searchTerm)
+				|| getProject().getResearchActivity().toLowerCase().contains(searchTerm)
+				|| stream.toLowerCase().equals(searchTerm) || gpa.toString().equals(searchTerm)
+				|| Integer.toString(id).contains(searchTerm);
+	}
+
+	private boolean isInPreferenceList(String searchTerm) {
 		boolean isInPreferenceList = false;
 		for (Project p : preferenceList) {
 			if (p.getResearchActivity().toLowerCase().contains(searchTerm)) {
@@ -97,10 +104,7 @@ public class Student implements StudentInterface {
 				break;
 			}
 		}
-		return firstName.toLowerCase().contains(searchTerm) || lastName.toLowerCase().contains(searchTerm)
-				|| getProject().getResearchActivity().toLowerCase().contains(searchTerm)
-				|| stream.toLowerCase().equals(searchTerm) || gpa.toString().equals(searchTerm)
-				|| Integer.toString(id).contains(searchTerm) || isInPreferenceList;
+		return isInPreferenceList;
 	}
 
 	public String getFirstName() {

@@ -9,14 +9,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
 
-public class StudentSheet extends VBox {
+public class StudentSheet extends Sheet {
 	private TableView<Student> tableView;
+	private SearchBox searchBox;
 
 	public StudentSheet() {
-		initTableView();
-		initLayout();
+		super();
 	}
 
 	public boolean add(Student student) {
@@ -35,13 +34,16 @@ public class StudentSheet extends VBox {
 		});
 	}
 
-	private void initLayout() {
+	protected void initLayout() {
+		searchBox = new SearchBox("Search by ID / First name / Last name / Stream / GPA / Project Assigned", this);
+
+		getChildren().add(searchBox);
 		getChildren().add(tableView);
 	}
 
-	private void initTableView() {
+	protected void initTableView() {
 		tableView = new TableView<Student>();
-		tableView.setPlaceholder(new Label("No rows to display."));
+		tableView.setPlaceholder(new Label("No students to display."));
 
 		TableColumn<Student, Integer> columnId = new TableColumn<Student, Integer>("ID");
 		columnId.setCellValueFactory(new PropertyValueFactory<>("id"));

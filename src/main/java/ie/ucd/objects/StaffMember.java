@@ -59,6 +59,10 @@ public class StaffMember implements StaffMemberInterface {
 	}
 
 	public String toString() {
+		return proposedBy;
+	}
+
+	public String toStringVerbose() {
 		String buf = " - ";
 		String string = proposedBy + buf;
 		for (String researchActivity : researchActivities)
