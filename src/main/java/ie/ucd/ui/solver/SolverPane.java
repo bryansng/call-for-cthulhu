@@ -1,7 +1,7 @@
 package ie.ucd.ui.solver;
 
 import ie.ucd.Common.SolverType;
-import ie.ucd.ui.common.Sheet;
+import ie.ucd.ui.common.StudentSheet;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -9,13 +9,13 @@ import javafx.scene.layout.VBox;
 public class SolverPane extends VBox {
 	private Visualizer visualizer;
 	private ControlButtons controlButtons;
-	private Sheet sheet;
+	private StudentSheet sheet;
 	private Button saveToFileButton;
 
 	public SolverPane(SolverType solverType) {
 		super();
 		visualizer = new Visualizer(solverType);
-		sheet = new Sheet();
+		sheet = new StudentSheet();
 		controlButtons = new ControlButtons(visualizer, sheet, solverType);
 		saveToFileButton = new Button("Save to file");
 		initLayout();

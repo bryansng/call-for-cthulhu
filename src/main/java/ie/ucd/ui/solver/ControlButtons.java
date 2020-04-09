@@ -8,7 +8,7 @@ import ie.ucd.objects.CandidateSolution;
 import ie.ucd.solvers.GeneticAlgorithm;
 import ie.ucd.solvers.SimulatedAnnealing;
 import ie.ucd.solvers.Solver;
-import ie.ucd.ui.common.Sheet;
+import ie.ucd.ui.common.StudentSheet;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
@@ -16,7 +16,7 @@ public class ControlButtons extends HBox {
 	private SolverType solverType;
 	private Solver solver;
 	private Visualizer visualizer;
-	private Sheet sheet;
+	private StudentSheet sheet;
 
 	private boolean isRunning;
 	private boolean isPaused;
@@ -28,13 +28,14 @@ public class ControlButtons extends HBox {
 
 	private volatile Thread thread;
 
-	public ControlButtons(Visualizer visualizer, Sheet sheet, SolverType solverType) {
+	public ControlButtons(Visualizer visualizer, StudentSheet sheet, SolverType solverType) {
 		super();
 		this.visualizer = visualizer;
 		this.sheet = sheet;
 		this.solverType = solverType;
 		resetStates();
 		initLayout();
+		addToSheet();
 	}
 
 	private void initLayout() {
@@ -104,10 +105,6 @@ public class ControlButtons extends HBox {
 		// getChildren().add(step);
 	}
 
-	public void setSolver(Solver solver) {
-		this.solver = solver;
-	}
-
 	private void resetStates() {
 		isRunning = false;
 		isPaused = false;
@@ -120,8 +117,22 @@ public class ControlButtons extends HBox {
 		thread.start();
 	}
 
+	// testing purposes: remove during production.
+	private void addToSheet() {
+		try {
+			Parser parser = new Parser();
+			CandidateSolution solution = new CandidateSolution(500, parser.allStaffsProjects, parser.allNames, null, null);
+			solution.generateProjects();
+			sheet.clearThenAddAll(solution.generateStudents());
+			sheet.search("army");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private Solver createNewSolver() {
 		try {
+			//! should take in projects and students from setup pane.
 			Solver solver;
 			Parser parser = new Parser();
 			CandidateSolution solution = new CandidateSolution(500, parser.allStaffsProjects, parser.allNames, null, null);
@@ -136,6 +147,7 @@ public class ControlButtons extends HBox {
 					solver = new SimulatedAnnealing(solution, visualizer);
 					break;
 			}
+			sheet.clearThenAddAll(solution.students);
 			this.solver = solver;
 			return solver;
 		} catch (IOException e) {

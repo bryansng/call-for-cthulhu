@@ -69,6 +69,10 @@ public class Project implements ProjectInterface {
 	}
 
 	public String toString() {
+		return researchActivity;
+	}
+
+	public String toStringVerbose() {
 		String buf = "\t";
 		return staffMember.getProposedBy() + buf + researchActivity + buf + stream + buf + preferredProbability;
 	}

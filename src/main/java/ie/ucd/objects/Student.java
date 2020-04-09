@@ -88,6 +88,21 @@ public class Student implements StudentInterface {
 		return firstName + " " + lastName + buf + id + buf + this.projects.get(0) + buf + stream + buf + projects;
 	}
 
+	public boolean matchSearchTerm(String searchTerm) {
+		searchTerm = searchTerm.toLowerCase();
+		boolean isInPreferenceList = false;
+		for (Project p : preferenceList) {
+			if (p.getResearchActivity().toLowerCase().contains(searchTerm)) {
+				isInPreferenceList = true;
+				break;
+			}
+		}
+		return firstName.toLowerCase().contains(searchTerm) || lastName.toLowerCase().contains(searchTerm)
+				|| getProject().getResearchActivity().toLowerCase().contains(searchTerm)
+				|| stream.toLowerCase().equals(searchTerm) || gpa.toString().equals(searchTerm)
+				|| Integer.toString(id).contains(searchTerm) || isInPreferenceList;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -104,8 +119,12 @@ public class Student implements StudentInterface {
 		return stream;
 	}
 
-	public Double getGPA() {
+	public Double getGpa() {
 		return gpa;
+	}
+
+	public Project getProject() {
+		return getProjectAssigned(0);
 	}
 
 	public ArrayList<Project> getProjectAssigned() {

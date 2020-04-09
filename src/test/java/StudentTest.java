@@ -27,7 +27,7 @@ public class StudentTest {
 		Assert.assertEquals("James", dummyStudent.getFirstName());
 		Assert.assertEquals("Bond", dummyStudent.getLastName());
 		Assert.assertEquals("CS", dummyStudent.getStream());
-		Assert.assertEquals(Double.valueOf("0.0"), dummyStudent.getGPA());
+		Assert.assertEquals(Double.valueOf("0.0"), dummyStudent.getGpa());
 		Assert.assertEquals(dummyProjectAssigned, dummyStudent.getProjectAssigned().get(0));
 	}
 

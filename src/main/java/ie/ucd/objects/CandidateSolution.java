@@ -135,37 +135,6 @@ public class CandidateSolution {
 		return new Random().nextInt(90000000) + 10000000; // 1000 0000 - 9999 9999.
 	}
 
-	// does not check for 1st preferences.
-	private ArrayList<Project> generatePreferenceListNo1stPref(String stream, Integer randomId) {
-		ArrayList<Project> list = new ArrayList<Project>();
-		HashSet<Integer> usedIndex = new HashSet<Integer>();
-
-		// assuming impossible to run out of projects to give as 1st preference since projects.size() always > numOfStudents.
-		for (int i = 0; i < 10;) {
-			int randomIndex = new Random().nextInt(projects.size());
-			Project project = projects.get(randomIndex);
-			if (!usedIndex.contains(randomIndex) && project.hasCompatibleStream(stream)
-					&& project.doesStudentPreferProject()) {
-				project.incrementAsPreference();
-				if (i == 0) {
-					project.incrementAs1stPreference();
-					project.incrementStudentsAssigned();
-					project.setIsGivenAs1stPreference(true);
-				}
-				if (project.getNumAs1stPreference() > 1) {
-					System.out.println(project + " - " + project.getNumAs1stPreference());
-				}
-
-				usedIndex.add(randomIndex);
-				list.add(project);
-				i++;
-				totalProjectsAssigned++;
-			}
-		}
-
-		return list;
-	}
-
 	// checks for 1st preferences.
 	private ArrayList<Project> generatePreferenceList(String stream, Integer randomId) {
 		ArrayList<Project> list = new ArrayList<Project>();

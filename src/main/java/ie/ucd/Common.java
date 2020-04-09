@@ -12,6 +12,10 @@ public class Common {
 		SimulatedAnnealing, GeneticAlgorithm
 	}
 
+	public static enum SheetType {
+		Student, Project
+	}
+
 	public static enum SARandomMoveType {
 		FROM_STUDENT_PREFERENCE_LIST, SWAP_FROM_TWO_STUDENTS_PREFERENCE_LIST, SWAP_FROM_TWO_STUDENTS_ASSIGNED_PROJECTS
 	}
