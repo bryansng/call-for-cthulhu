@@ -78,14 +78,9 @@ public class CSVFileReader {
             System.out.println("error creating CSVReader object for input file: " + filename);
         }
 
-        int flag = 0;
         // int aIndex = 0;
         assert csvReader != null;
         while ((line = csvReader.readNext()) != null) {
-            if (flag == 0) {
-                flag = 1;
-                continue;
-            }
             ArrayList<Project> thisStudentsProjects = new ArrayList<Project>();
             for (int i = 4; i < 14; i++) {
                 for (Project project : projects) {
@@ -121,13 +116,8 @@ public class CSVFileReader {
             System.out.println("error creating reader for input file: " + filename);
         }
 
-        int flag = 0;
         assert csvReader != null;
         while ((line = csvReader.readNext()) != null) {
-            if (flag == 0) {
-                flag = 1;
-                continue;
-            }
             String researchActivities = line[1].replaceAll(inFieldSeparator, ",");
             String researchAreas = line[2].replaceAll(inFieldSeparator, ",");
             staffMembers.add(new StaffMember(line[0], researchActivities, researchAreas, line[3]));

@@ -70,8 +70,8 @@ public class GeneticAlgorithm {
             if (!isLastGeneration) {
                 //generate population for next generation
                 while (nextPopulation.size() <= sizeOfPopulation) {
-                    int[] parentIndices = chooseParents(population, globalSatisfactionList);
-                    String offspring = crossover(population.get(parentIndices[0]), population.get(parentIndices[1]));
+                    String[] parents = chooseParents(population, globalSatisfactionList);
+                    String offspring = crossover(parents[0], parents[1]);
                     if (!offspring.equals("")) {
                         offspring = mutate(offspring);
                         nextPopulation.add(offspring);
@@ -99,15 +99,60 @@ public class GeneticAlgorithm {
     }
 
 
-    private int[] chooseParents(ArrayList<String> population, ArrayList<Double> globalSatisfactionList) {
-        //consider how to choose parents based on satisfaction list
-        int[] returnIndices = new int[2];
-        returnIndices[0] = random.nextInt(population.size() * 10) / 10;
-        returnIndices[1] = random.nextInt(population.size() * 10) / 10;
-        while (returnIndices[0] == returnIndices[1]) {
-            returnIndices[0] = random.nextInt(population.size() * 10) / 10;
+    private String[] chooseParents(ArrayList<String> population, ArrayList<Double> globalSatisfactionList) {
+        String[] parents = {population.get(0), population.get(1)};
+        double max = globalSatisfactionList.get(0), secondMax = globalSatisfactionList.get(1);
+        //convert to array to make process easier
+        String[] populationArray = populationToArray(population);
+        double[] satisfactionArray = satisfactionToArray(globalSatisfactionList);
+        //get two fittest parents
+        for (int i = 0; i < satisfactionArray.length; i++) {
+            if (satisfactionArray[i] > max) {
+                secondMax = max;
+                parents[1] = parents[0];
+                max = satisfactionArray[i];
+                parents[0] = populationArray[i];
+            } else if (satisfactionArray[i] > secondMax && satisfactionArray[i] < max) {
+                secondMax = satisfactionArray[i];
+                parents[1] = populationArray[i];
+            }
         }
-        return returnIndices;
+        if (Common.SHOW_GA_DEBUG) {
+            System.out.println("Parent's strength: ");
+        }
+        return parents;
+
+//        int randomIndex1 = random.nextInt(population.size() * 10) / 10;
+//        parents[0] = population.get(randomIndex1);
+//        int randomIndex2 = random.nextInt(population.size() * 10) / 10;
+//        while (randomIndex1 == randomIndex2) {
+//            randomIndex2 = random.nextInt(population.size() * 10) / 10;
+//        }
+//        parents[1] = population.get(randomIndex2);
+    }
+
+    private String[] populationToArray(ArrayList<String> population) {
+        Object[] populationTemp = population.toArray();
+        String[] populationArray = new String[Common.MAX_ARRAY_SIZE];
+        int i = 0;
+        for (Object object : populationTemp) {
+            populationArray[i] = (String) object;
+            i++;
+        }
+        return populationArray;
+    }
+
+    private double[] satisfactionToArray(ArrayList<Double> globalSatisfactionList) {
+        Object[] globalSatisfactionTemp = globalSatisfactionList.toArray();
+        double[] satisfactionArray = new double[Common.MAX_ARRAY_SIZE];
+        int i = 0;
+        for (Object object : globalSatisfactionList) {
+            satisfactionArray[i] = (double) object;
+            if (Common.SHOW_GA_DEBUG)
+                System.out.println("satisfaction-- " + satisfactionArray[i]);
+            i++;
+        }
+        return satisfactionArray;
     }
 
     private Double calculateGlobalSatisfaction(ArrayList<Student> students, ArrayList<Project> projects) {

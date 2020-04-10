@@ -21,6 +21,9 @@ public class Common {
 	public static AbstractRealDistribution distr = new NormalDistribution();
 	private static double gaussianLimit = 2.5;
 
+	//used in Genetic Algorithm
+	public static final int MAX_ARRAY_SIZE = 1500;
+
 	// https://www.javamex.com/tutorials/random_numbers/gaussian_distribution_2.shtml
 	public static double getProbability() {
 		double aDouble = rand.nextGaussian();
