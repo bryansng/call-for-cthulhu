@@ -92,10 +92,10 @@ public class ControlButtons extends HBox {
 				// else, just take the data from queue. (because processing is faster than visualizer can animate)
 				if (visualizer.isDequeEmpty()) {
 					solver.oneStep();
-					System.out.println("visualizer deque empty");
+					// System.out.println("visualizer deque empty");
 				}
 				visualizer.initOneShotScheduler();
-				System.out.println("one shot stepping");
+				// System.out.println("one shot stepping");
 			}
 		});
 
@@ -111,7 +111,7 @@ public class ControlButtons extends HBox {
 	}
 
 	private void startThread() {
-		System.out.println("Starting thread");
+		// System.out.println("Starting thread");
 		thread = new Thread(createNewSolver());
 		thread.setDaemon(true);
 		thread.start();
@@ -121,7 +121,7 @@ public class ControlButtons extends HBox {
 	private void addToSheet() {
 		try {
 			Parser parser = new Parser();
-			CandidateSolution solution = new CandidateSolution(500, parser.allStaffsProjects, parser.allNames, null, null);
+			CandidateSolution solution = new CandidateSolution(500, parser.getStaffMembers(), parser.getNames(), null, null);
 			solution.generateProjects();
 			sheet.setAll(solution.generateStudents());
 		} catch (IOException e) {
@@ -134,7 +134,7 @@ public class ControlButtons extends HBox {
 			//! should take in projects and students from setup pane.
 			Solver solver;
 			Parser parser = new Parser();
-			CandidateSolution solution = new CandidateSolution(500, parser.allStaffsProjects, parser.allNames, null, null);
+			CandidateSolution solution = new CandidateSolution(500, parser.getStaffMembers(), parser.getNames(), null, null);
 			solution.generateProjects();
 			solution.generateStudents();
 			switch (solverType) {

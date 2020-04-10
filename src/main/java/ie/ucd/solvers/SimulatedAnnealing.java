@@ -204,7 +204,7 @@ public class SimulatedAnnealing extends Solver {
 		return newSolution;
 	}
 
-	private Double calculateEnergy(CandidateSolution solution) {
+	public Double calculateEnergy(CandidateSolution solution) {
 		storedSatisfaction = solution.calculateGlobalSatisfaction();
 		return (1.0 / storedSatisfaction) * 100000;
 	}

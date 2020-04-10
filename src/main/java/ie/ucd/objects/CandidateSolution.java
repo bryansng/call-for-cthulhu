@@ -83,7 +83,7 @@ public class CandidateSolution {
 		return satisfaction;
 	}
 
-	// method check if projects equally distributed across supervisors.
+	// method checks if projects equally distributed across supervisors.
 	// if no, has cost per supervisor violation.
 	//
 	// soft: projects are more-or-less equally distributed across supervisors.
@@ -257,29 +257,5 @@ public class CandidateSolution {
 		double percentDS = numDSStudents * 1.0 / students.size() * 100;
 		// System.out.println("Student percent: " + percentDS);
 		return percentDS >= 35 && percentDS <= 45; // 40 +- 5
-	}
-
-	// taken from SA.
-	public void makeRandomChange() {
-		// get random two students.
-		Random rand = new Random();
-		int s1Index = rand.nextInt(students.size());
-		int s2Index = rand.nextInt(students.size());
-		while (s1Index == s2Index) {
-			s2Index = rand.nextInt(students.size());
-		}
-
-		Student student1 = students.get(s1Index);
-		Student student2 = students.get(s2Index);
-
-		int p1Index = rand.nextInt(student1.getPreferenceList().size());
-		int p2Index = rand.nextInt(student2.getPreferenceList().size());
-		student1.setProjectAssigned(student2.getPreferenceList().get(p2Index), 0);
-		student2.setProjectAssigned(student1.getPreferenceList().get(p1Index), 0);
-	}
-
-	// taken from SA.
-	public Double calculateEnergy() {
-		return (1.0 / calculateGlobalSatisfaction()) * 100000;
 	}
 }

@@ -58,7 +58,7 @@ public class Main extends Application {
 		System.out.println("Generating for 500 students...");
 
 		Parser parser = new Parser();
-		CandidateSolution solution = new CandidateSolution(500, parser.allStaffsProjects, parser.allNames, null, null);
+		CandidateSolution solution = new CandidateSolution(500, parser.getStaffMembers(), parser.getNames(), null, null);
 		solution.generateProjects();
 		solution.generateStudents();
 		System.out.println(solution.CSDSPercentage());
@@ -77,7 +77,7 @@ public class Main extends Application {
 		ArrayList<Student> students;
 
 		System.out.println("Generating for 500 students...");
-		CandidateSolution solution = new CandidateSolution(500, parser.allStaffsProjects, parser.allNames, null, null);
+		CandidateSolution solution = new CandidateSolution(500, parser.getStaffMembers(), parser.getNames(), null, null);
 		projects = solution.generateProjects();
 		students = solution.generateStudents();
 		writer.writeProjects(projects, 500);
@@ -96,7 +96,7 @@ public class Main extends Application {
 		ArrayList<Student> students;
 
 		System.out.println("Generating for 500 students...");
-		CandidateSolution solution = new CandidateSolution(500, parser.allStaffsProjects, parser.allNames, null, null);
+		CandidateSolution solution = new CandidateSolution(500, parser.getStaffMembers(), parser.getNames(), null, null);
 		projects = solution.generateProjects();
 		students = solution.generateStudents();
 		System.out.println(solution.CSDSPercentage());
@@ -106,7 +106,7 @@ public class Main extends Application {
 
 		// generate staffMembers
 		System.out.println("Generating StaffMembers.csv");
-		ArrayList<StaffMember> staffMembers = parser.allStaffsProjects;
+		ArrayList<StaffMember> staffMembers = parser.getStaffMembers();
 		csvFileWriter.writeStaffMembers(staffMembers);
 		System.out.println("All done\n");
 	}
@@ -114,7 +114,7 @@ public class Main extends Application {
 	public static void readTest() throws Exception {
 		Parser parser = new Parser();
 		CSVFileReader reader = new CSVFileReader();
-		ArrayList<Project> projects = reader.readProject("CSVs/ProjectsCSV100.csv", parser.allStaffMembers);
+		ArrayList<Project> projects = reader.readProject("CSVs/ProjectsCSV100.csv", parser.getStaffMembersMap());
 		ArrayList<Student> students = reader.readStudents("CSVs/StudentsCSV100.csv", projects);
 		for (Student s : students) {
 			System.out.println(s);
@@ -128,13 +128,13 @@ public class Main extends Application {
 		System.out.println("Reading generated files...");
 
 		// reads all Project CSV files
-		ArrayList<Project> projects_60 = reader.readProject("CSVs/ProjectsCSV60.csv", parser.allStaffMembers);
+		ArrayList<Project> projects_60 = reader.readProject("CSVs/ProjectsCSV60.csv", parser.getStaffMembersMap());
 		System.out.println("Done: ProjectsCSV60.csv");
-		ArrayList<Project> projects_120 = reader.readProject("CSVs/ProjectsCSV120.csv", parser.allStaffMembers);
+		ArrayList<Project> projects_120 = reader.readProject("CSVs/ProjectsCSV120.csv", parser.getStaffMembersMap());
 		System.out.println("Done: ProjectsCSV120.csv");
-		ArrayList<Project> projects_240 = reader.readProject("CSVs/ProjectsCSV240.csv", parser.allStaffMembers);
+		ArrayList<Project> projects_240 = reader.readProject("CSVs/ProjectsCSV240.csv", parser.getStaffMembersMap());
 		System.out.println("Done: ProjectsCSV240.csv");
-		ArrayList<Project> projects_500 = reader.readProject("CSVs/ProjectsCSV500.csv", parser.allStaffMembers);
+		ArrayList<Project> projects_500 = reader.readProject("CSVs/ProjectsCSV500.csv", parser.getStaffMembersMap());
 		System.out.println("Done: ProjectsCSV500.csv");
 
 		// for (Project project : projects_500)

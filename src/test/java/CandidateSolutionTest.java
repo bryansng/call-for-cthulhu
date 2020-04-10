@@ -1,14 +1,11 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-
 import ie.ucd.Common;
 import ie.ucd.io.Parser;
 import ie.ucd.objects.CandidateSolution;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
-
 import org.junit.Assert;
 
 public class CandidateSolutionTest {
@@ -21,16 +18,16 @@ public class CandidateSolutionTest {
 		System.out.println("Setting CandidateSolutionTest up!");
 		dummyNumStudents = 500;
 		dummyParser = new Parser();
-		dummyCandidateSolution = new CandidateSolution(dummyNumStudents, dummyParser.allStaffsProjects,
-				dummyParser.allNames, null, null);
+		dummyCandidateSolution = new CandidateSolution(dummyNumStudents, dummyParser.getStaffMembers(),
+				dummyParser.getNames(), null, null);
 	}
 
 	@Test
 	@DisplayName("Test initialization")
 	public void testInitialization() {
 		System.out.println("Running: testInitialization");
-		Assert.assertEquals(dummyParser.allStaffsProjects, dummyCandidateSolution.getStaffMembers());
-		Assert.assertEquals(dummyParser.allNames, dummyCandidateSolution.getNames());
+		Assert.assertEquals(dummyParser.getStaffMembers(), dummyCandidateSolution.getStaffMembers());
+		Assert.assertEquals(dummyParser.getNames(), dummyCandidateSolution.getNames());
 		Assert.assertEquals(null, dummyCandidateSolution.getProjects());
 		Assert.assertEquals(null, dummyCandidateSolution.getStudents());
 	}
@@ -49,25 +46,6 @@ public class CandidateSolutionTest {
 		System.out.println("Running: testGenerateStudents");
 		dummyCandidateSolution.generateProjects();
 		Assert.assertEquals(dummyNumStudents, dummyCandidateSolution.generateStudents().size());
-	}
-
-	@Test
-	@DisplayName("Test calculateGlobalSatisfaction and calculateEnergy")
-	public void testCalculateGlobalSatisfactionAndCalculateEnergy() throws IOException {
-		System.out.println("Running: testCalculateGlobalSatisfactionAndCalculateEnergy");
-		dummyCandidateSolution.generateProjects();
-		dummyCandidateSolution.generateStudents();
-
-		double currSatisfaction = dummyCandidateSolution.calculateGlobalSatisfaction();
-		double currEnergy = dummyCandidateSolution.calculateEnergy();
-
-		dummyCandidateSolution.makeRandomChange();
-		double nextSatisfaction = dummyCandidateSolution.calculateGlobalSatisfaction();
-		double nextEnergy = dummyCandidateSolution.calculateEnergy();
-		// System.out.println(currEnergy + " " + nextEnergy + " " + currSatisfaction + " " + nextSatisfaction);
-
-		Assert.assertTrue((currEnergy > nextEnergy && currSatisfaction < nextSatisfaction)
-				|| (currEnergy < nextEnergy && currSatisfaction > nextSatisfaction));
 	}
 
 	@AfterEach

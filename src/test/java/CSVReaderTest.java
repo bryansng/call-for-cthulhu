@@ -27,7 +27,7 @@ public class CSVReaderTest {
 
 		ArrayList<Project> dummyProjects = null;
 		try {
-			dummyProjects = dummyReader.readProject("testCSVs/testCorrectProject.csv", parser.allStaffMembers);
+			dummyProjects = dummyReader.readProject("testCSVs/testCorrectProject.csv", parser.getStaffMembersMap());
 		} catch (Exception e) {
 		}
 		Assert.assertNotNull("Projects null, expected successful read.", dummyProjects);
@@ -41,7 +41,8 @@ public class CSVReaderTest {
 
 		ArrayList<Project> dummyProjects = null;
 		try {
-			dummyProjects = dummyReader.readProject("testCSVs/testWrongProject-illegalSeparator.csv", parser.allStaffMembers);
+			dummyProjects = dummyReader.readProject("testCSVs/testWrongProject-illegalSeparator.csv",
+					parser.getStaffMembersMap());
 		} catch (Exception e) {
 		}
 		Assert.assertNull("Projects not null, expected unsuccessful read.", dummyProjects);
@@ -54,7 +55,7 @@ public class CSVReaderTest {
 
 		ArrayList<Project> dummyProjects = null;
 		try {
-			dummyProjects = dummyReader.readProject("testCSVs/testWrongProject-wrongLayout.csv", parser.allStaffMembers);
+			dummyProjects = dummyReader.readProject("testCSVs/testWrongProject-wrongLayout.csv", parser.getStaffMembersMap());
 		} catch (Exception e) {
 		}
 		Assert.assertNull("Projects not null, expected unsuccessful read.", dummyProjects);
@@ -67,7 +68,8 @@ public class CSVReaderTest {
 
 		ArrayList<Project> dummyProjects = null;
 		try {
-			dummyProjects = dummyReader.readProject("testCSVs/testWrongProject-wrongDataType.csv", parser.allStaffMembers);
+			dummyProjects = dummyReader.readProject("testCSVs/testWrongProject-wrongDataType.csv",
+					parser.getStaffMembersMap());
 		} catch (Exception e) {
 		}
 		Assert.assertNull("Projects not null, expected unsuccessful read.", dummyProjects);
@@ -80,7 +82,8 @@ public class CSVReaderTest {
 
 		ArrayList<Project> dummyProjects = null;
 		try {
-			dummyProjects = dummyReader.readProject("testCSVs/testWrongProject-missingFields.csv", parser.allStaffMembers);
+			dummyProjects = dummyReader.readProject("testCSVs/testWrongProject-missingFields.csv",
+					parser.getStaffMembersMap());
 		} catch (Exception e) {
 		}
 		Assert.assertNull("Projects not null, expected unsuccessful read.", dummyProjects);
@@ -94,7 +97,7 @@ public class CSVReaderTest {
 		ArrayList<Project> dummyProjects = null;
 		ArrayList<Student> dummyStudents = null;
 		try {
-			dummyProjects = dummyReader.readProject("testCSVs/testCorrectProject.csv", parser.allStaffMembers);
+			dummyProjects = dummyReader.readProject("testCSVs/testCorrectProject.csv", parser.getStaffMembersMap());
 			dummyStudents = dummyReader.readStudents("testCSVs/testCorrectStudent.csv", dummyProjects);
 		} catch (Exception e) {
 		}
@@ -110,7 +113,7 @@ public class CSVReaderTest {
 		ArrayList<Project> dummyProjects = null;
 		ArrayList<Student> dummyStudents = null;
 		try {
-			dummyProjects = dummyReader.readProject("testCSVs/testWrongStudent-projects.csv", parser.allStaffMembers);
+			dummyProjects = dummyReader.readProject("testCSVs/testWrongStudent-projects.csv", parser.getStaffMembersMap());
 			dummyStudents = dummyReader.readStudents("testCSVs/testWrongStudent-illegalSeparator.csv", dummyProjects);
 		} catch (Exception e) {
 		}
@@ -125,7 +128,7 @@ public class CSVReaderTest {
 		ArrayList<Project> dummyProjects = null;
 		ArrayList<Student> dummyStudents = null;
 		try {
-			dummyProjects = dummyReader.readProject("testCSVs/testWrongStudent-projects.csv", parser.allStaffMembers);
+			dummyProjects = dummyReader.readProject("testCSVs/testWrongStudent-projects.csv", parser.getStaffMembersMap());
 			dummyStudents = dummyReader.readStudents("testCSVs/testWrongStudent-wrongLayout.csv", dummyProjects);
 		} catch (Exception e) {
 		}
@@ -140,7 +143,7 @@ public class CSVReaderTest {
 		ArrayList<Project> dummyProjects = null;
 		ArrayList<Student> dummyStudents = null;
 		try {
-			dummyProjects = dummyReader.readProject("testCSVs/testWrongStudent-projects.csv", parser.allStaffMembers);
+			dummyProjects = dummyReader.readProject("testCSVs/testWrongStudent-projects.csv", parser.getStaffMembersMap());
 			dummyStudents = dummyReader.readStudents("testCSVs/testWrongStudent-wrongDataType.csv", dummyProjects);
 		} catch (Exception e) {
 		}
@@ -155,7 +158,7 @@ public class CSVReaderTest {
 		ArrayList<Project> dummyProjects = null;
 		ArrayList<Student> dummyStudents = null;
 		try {
-			dummyProjects = dummyReader.readProject("testCSVs/testWrongStudent-projects.csv", parser.allStaffMembers);
+			dummyProjects = dummyReader.readProject("testCSVs/testWrongStudent-projects.csv", parser.getStaffMembersMap());
 			dummyStudents = dummyReader.readStudents("testCSVs/testWrongStudent-missingFields.csv", dummyProjects);
 		} catch (Exception e) {
 		}

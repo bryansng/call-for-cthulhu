@@ -14,13 +14,25 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import ie.ucd.objects.StaffMember;
 
 public class Parser {
-	public ArrayList<StaffMember> allStaffsProjects = new ArrayList<StaffMember>();
-	public HashMap<String, StaffMember> allStaffMembers = new HashMap<String, StaffMember>();
-	public ArrayList<String> allNames = new ArrayList<String>();
+	public ArrayList<StaffMember> staffMembers = new ArrayList<StaffMember>();
+	public HashMap<String, StaffMember> staffMembersMap = new HashMap<String, StaffMember>();
+	public ArrayList<String> names = new ArrayList<String>();
 
 	public Parser() throws IOException {
 		parseExcelFile();
 		parseNamesFile();
+	}
+
+	public ArrayList<StaffMember> getStaffMembers() {
+		return staffMembers;
+	}
+
+	public HashMap<String, StaffMember> getStaffMembersMap() {
+		return staffMembersMap;
+	}
+
+	public ArrayList<String> getNames() {
+		return names;
 	}
 
 	// 30, 60, 120, 250 staffs.
@@ -44,13 +56,13 @@ public class Parser {
 
 			if (!researchActivity.equals("")) {
 				StaffMember staffMember = new StaffMember(proposedBy, researchActivity, researchAreas, specialFocus);
-				allStaffsProjects.add(staffMember);
-				allStaffMembers.put(proposedBy, staffMember);
+				staffMembers.add(staffMember);
+				staffMembersMap.put(proposedBy, staffMember);
 			}
 		}
 		is.close();
 		workbook.close();
-		return allStaffsProjects;
+		return staffMembers;
 	}
 
 	private ArrayList<String> parseNamesFile() throws IOException {
@@ -61,9 +73,9 @@ public class Parser {
 
 		while (reader.ready()) {
 			String line = reader.readLine();
-			allNames.add(line);
+			names.add(line);
 		}
 		reader.close();
-		return allNames;
+		return names;
 	}
 }
