@@ -126,7 +126,7 @@ public class SimulatedAnnealing extends Solver {
 			} catch (InterruptedException e) {
 			}
 		}
-		System.out.println("\nExited at loop " + i + " , temperature " + temperature);
+		System.out.println("\nExited at loop " + i + ", temperature " + temperature);
 		System.out.println("totalRejected: " + totalRejected);
 		System.out.println("totalStraightAccepted (i.e. prob = 1.0): " + totalStraightAccept);
 		System.out.println("currEnergy: " + currEnergy);
@@ -149,8 +149,8 @@ public class SimulatedAnnealing extends Solver {
 
 		// get a random student.
 		Random rand = new Random();
-		int index = rand.nextInt(newSolution.students.size());
-		Student student = newSolution.students.get(index);
+		int index = rand.nextInt(newSolution.getStudents().size());
+		Student student = newSolution.getStudents().get(index);
 
 		// replace student's assigned project with another in preference list.
 		student.setProjectAssigned(student.getPreferenceList().get(rand.nextInt(student.getPreferenceList().size())), 0);
@@ -164,14 +164,14 @@ public class SimulatedAnnealing extends Solver {
 
 		// get random two students.
 		Random rand = new Random();
-		int s1Index = rand.nextInt(newSolution.students.size());
-		int s2Index = rand.nextInt(newSolution.students.size());
+		int s1Index = rand.nextInt(newSolution.getStudents().size());
+		int s2Index = rand.nextInt(newSolution.getStudents().size());
 		while (s1Index == s2Index) {
-			s2Index = rand.nextInt(newSolution.students.size());
+			s2Index = rand.nextInt(newSolution.getStudents().size());
 		}
 
-		Student student1 = newSolution.students.get(s1Index);
-		Student student2 = newSolution.students.get(s2Index);
+		Student student1 = newSolution.getStudents().get(s1Index);
+		Student student2 = newSolution.getStudents().get(s2Index);
 
 		int p1Index = rand.nextInt(student1.getPreferenceList().size());
 		int p2Index = rand.nextInt(student2.getPreferenceList().size());
@@ -187,14 +187,14 @@ public class SimulatedAnnealing extends Solver {
 
 		// get random two students.
 		Random rand = new Random();
-		int s1Index = rand.nextInt(newSolution.students.size());
-		int s2Index = rand.nextInt(newSolution.students.size());
+		int s1Index = rand.nextInt(newSolution.getStudents().size());
+		int s2Index = rand.nextInt(newSolution.getStudents().size());
 		while (s1Index == s2Index) {
-			s2Index = rand.nextInt(newSolution.students.size());
+			s2Index = rand.nextInt(newSolution.getStudents().size());
 		}
 
-		Student student1 = newSolution.students.get(s1Index);
-		Student student2 = newSolution.students.get(s2Index);
+		Student student1 = newSolution.getStudents().get(s1Index);
+		Student student2 = newSolution.getStudents().get(s2Index);
 
 		// swap student assigned projects.
 		Project p1 = student1.getProjectAssigned(0);

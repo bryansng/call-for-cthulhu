@@ -29,10 +29,10 @@ public class CandidateSolutionTest {
 	@DisplayName("Test initialization")
 	public void testInitialization() {
 		System.out.println("Running: testInitialization");
-		Assert.assertEquals(dummyParser.allStaffsProjects, dummyCandidateSolution.allStaffsProjects);
-		Assert.assertEquals(dummyParser.allNames, dummyCandidateSolution.allNames);
-		Assert.assertEquals(null, dummyCandidateSolution.projects);
-		Assert.assertEquals(null, dummyCandidateSolution.students);
+		Assert.assertEquals(dummyParser.allStaffsProjects, dummyCandidateSolution.getStaffMembers());
+		Assert.assertEquals(dummyParser.allNames, dummyCandidateSolution.getNames());
+		Assert.assertEquals(null, dummyCandidateSolution.getProjects());
+		Assert.assertEquals(null, dummyCandidateSolution.getStudents());
 	}
 
 	@Test

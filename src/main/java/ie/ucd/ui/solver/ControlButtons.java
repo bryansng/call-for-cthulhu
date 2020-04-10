@@ -146,7 +146,7 @@ public class ControlButtons extends HBox {
 					solver = new SimulatedAnnealing(solution, visualizer);
 					break;
 			}
-			sheet.setAll(solution.students);
+			sheet.setAll(solution.getStudents());
 			this.solver = solver;
 			return solver;
 		} catch (IOException e) {

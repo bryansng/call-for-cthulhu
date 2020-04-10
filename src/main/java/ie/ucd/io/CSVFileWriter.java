@@ -113,7 +113,7 @@ public class CSVFileWriter {
         String line = "";
         try {
             //create file
-            File file = new File("src/main/resources/CSVs/AnalysisCSV" + solution.numberOfStudents + ".csv");
+            File file = new File("src/main/resources/CSVs/AnalysisCSV" + solution.getNumberOfStudents() + ".csv");
             file.createNewFile();
             //create writer
             FileWriter fileWriter = new FileWriter(file);
@@ -121,9 +121,9 @@ public class CSVFileWriter {
             fileWriter.write(
                     columns[0] + separator + columns[1] + separator + columns[2] + separator + columns[3] + newLine);
             //write the details
-            for (Project project : solution.projects) {
+            for (Project project : solution.getProjects()) {
                 String analysis = solution
-                        .formatPercentage(project.getNumStudentsAssigned() / solution.totalProjectsAssigned * 100);
+                        .formatPercentage(project.getNumStudentsAssigned() / solution.getTotalProjectsAssigned() * 100);
                 line = project.getResearchActivity() + separator + project.getStream() + separator
                         + project.getPreferredProbability() + separator + analysis + newLine;
                 fileWriter.write(line);

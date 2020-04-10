@@ -7,27 +7,52 @@ import java.util.Random;
 import ie.ucd.Common;
 
 public class CandidateSolution {
-	public ArrayList<StaffMember> allStaffsProjects;
-	public ArrayList<String> allNames;
-	public ArrayList<Project> projects;
-	public ArrayList<Student> students;
-	public int numberOfStudents;
+	private ArrayList<StaffMember> staffMembers;
+	private ArrayList<String> names;
+	private ArrayList<Project> projects;
+	private ArrayList<Student> students;
+	private int numberOfStudents;
 
-	public double numDSStudents = 0.0;
-	public double numCSStudents = 0.0;
-	public double totalProjectsAssigned = 0.0;
+	private double numDSStudents = 0.0;
+	private double numCSStudents = 0.0;
+	private double totalProjectsAssigned = 0.0;
 
 	public CandidateSolution(CandidateSolution other) {
-		this(other.numberOfStudents, other.allStaffsProjects, other.allNames, other.projects, other.students);
+		this(other.getNumberOfStudents(), other.getStaffMembers(), other.getNames(), other.getProjects(),
+				other.getStudents());
 	}
 
-	public CandidateSolution(int numberOfStudents, ArrayList<StaffMember> allStaffsProjects, ArrayList<String> allNames,
+	public CandidateSolution(int numberOfStudents, ArrayList<StaffMember> staffMembers, ArrayList<String> names,
 			ArrayList<Project> projects, ArrayList<Student> students) {
 		this.numberOfStudents = numberOfStudents;
-		this.allStaffsProjects = allStaffsProjects;
-		this.allNames = allNames;
+		this.staffMembers = staffMembers;
+		this.names = names;
 		this.projects = projects;
 		this.students = cloneStudents(students);
+	}
+
+	public ArrayList<StaffMember> getStaffMembers() {
+		return staffMembers;
+	}
+
+	public ArrayList<String> getNames() {
+		return names;
+	}
+
+	public ArrayList<Project> getProjects() {
+		return projects;
+	}
+
+	public ArrayList<Student> getStudents() {
+		return students;
+	}
+
+	public int getNumberOfStudents() {
+		return numberOfStudents;
+	}
+
+	public double getTotalProjectsAssigned() {
+		return totalProjectsAssigned;
 	}
 
 	public ArrayList<Student> cloneStudents(ArrayList<Student> students) {
@@ -65,7 +90,7 @@ public class CandidateSolution {
 	// ! dont have to calculate every time
 	private Double projectDistributionToSupervisorsSatisfaction() {
 		double numViolations = 0.0;
-		for (StaffMember staff : allStaffsProjects) {
+		for (StaffMember staff : staffMembers) {
 			if (staff.getNumberActivitiesUsed() <= Common.numAvgProjectsProposed + 2) {
 				numViolations += 1.0;
 			}
@@ -86,12 +111,12 @@ public class CandidateSolution {
 
 		int numProjects = numberOfStudents / 2;
 		for (int i = 0; i < Common.numAvgProjectsProposed * numProjects; i++) {
-			int randInt = new Random().nextInt(allStaffsProjects.size());
-			while (allStaffsProjects.get(randInt).isAllActivitiesUsed()) {
-				randInt = new Random().nextInt(allStaffsProjects.size());
+			int randInt = new Random().nextInt(staffMembers.size());
+			while (staffMembers.get(randInt).isAllActivitiesUsed()) {
+				randInt = new Random().nextInt(staffMembers.size());
 			}
 
-			projects.add(allStaffsProjects.get(randInt).getProject());
+			projects.add(staffMembers.get(randInt).getProject());
 		}
 
 		if (!isEvenProjectStreamAllocation()) {
@@ -108,8 +133,8 @@ public class CandidateSolution {
 		totalProjectsAssigned = 0.0;
 
 		for (int i = 0; i < numberOfStudents; i++) {
-			Integer randomInt = new Random().nextInt(allNames.size());
-			String[] name = allNames.get(randomInt).split(",")[1].split(" ");
+			Integer randomInt = new Random().nextInt(names.size());
+			String[] name = names.get(randomInt).split(",")[1].split(" ");
 			String firstName = name[0];
 			String lastName = "";
 			if (name.length > 1) {

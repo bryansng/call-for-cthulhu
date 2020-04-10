@@ -57,7 +57,6 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 			} else {
 				emptyCount++;
 				if (emptyCount > VISUALIZER_DEQUE_EMPTY_LIMIT) {
-					System.out.println("DEQUE IS EMPTY. Pausing scheduler.");
 					pause();
 				}
 			}

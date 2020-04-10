@@ -166,14 +166,14 @@ public class ExcelWriter {
 
 		// Create Other rows and cells with employees data
 		int rowNum = 1;
-		for (Project project : solution.projects) {
+		for (Project project : solution.getProjects()) {
 			Row row = sheet.createRow(rowNum++);
 
 			row.createCell(0).setCellValue(project.getResearchActivity());
 			row.createCell(1).setCellValue(project.getStream());
 			row.createCell(2).setCellValue(project.getPreferredProbability());
-			row.createCell(3)
-					.setCellValue(solution.formatPercentage(project.getNumAsPreference() / solution.totalProjectsAssigned * 100));
+			row.createCell(3).setCellValue(
+					solution.formatPercentage(project.getNumAsPreference() / solution.getTotalProjectsAssigned() * 100));
 		}
 
 		// Resize all columns to fit the content size
@@ -183,7 +183,7 @@ public class ExcelWriter {
 
 		// Write the output to a file
 		FileOutputStream fileOut = new FileOutputStream(
-				"src/main/resources/Excel/Analysis" + solution.numberOfStudents + ".xlsx");
+				"src/main/resources/Excel/Analysis" + solution.getNumberOfStudents() + ".xlsx");
 		workbook.write(fileOut);
 		fileOut.close();
 
