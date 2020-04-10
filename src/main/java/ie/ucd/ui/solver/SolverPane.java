@@ -27,6 +27,6 @@ public class SolverPane extends VBox {
 	}
 
 	public void stopVisualizerScheduler() {
-		visualizer.stopAddToGraphScheduler();
+		visualizer.stop();
 	}
 }

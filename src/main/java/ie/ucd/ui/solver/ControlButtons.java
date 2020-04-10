@@ -44,13 +44,13 @@ public class ControlButtons extends HBox {
 			if (isPaused && isRunning) {
 				isPaused = false;
 				solver.resume();
-				// visualizer.resumeAddToGraphScheduler();
+				visualizer.resume();
 				pause.setDisable(false);
 				play.setDisable(true);
 				step.setDisable(true);
 			} else if (!isRunning) {
 				isRunning = true;
-				// visualizer.resumeAddToGraphScheduler();
+				visualizer.resume();
 				startThread();
 				clearAndReset.setDisable(false);
 				pause.setDisable(false);
@@ -63,7 +63,7 @@ public class ControlButtons extends HBox {
 		pause.setOnAction((event) -> {
 			if (isRunning && !isPaused) {
 				isPaused = true;
-				// visualizer.pauseAddToGraphScheduler();
+				visualizer.pause();
 				solver.suspend();
 				pause.setDisable(true);
 				play.setDisable(false);
@@ -75,8 +75,8 @@ public class ControlButtons extends HBox {
 		clearAndReset.setOnAction((event) -> {
 			if (isRunning) {
 				resetStates();
-				// visualizer.pauseAddToGraphScheduler();
-				// visualizer.resetSeries();
+				visualizer.pause();
+				visualizer.resetSeries();
 				solver.stop();
 				clearAndReset.setDisable(true);
 				pause.setDisable(true);
@@ -102,7 +102,7 @@ public class ControlButtons extends HBox {
 		getChildren().add(play);
 		getChildren().add(pause);
 		getChildren().add(clearAndReset);
-		// getChildren().add(step);
+		getChildren().add(step);
 	}
 
 	private void resetStates() {
@@ -124,7 +124,6 @@ public class ControlButtons extends HBox {
 			CandidateSolution solution = new CandidateSolution(500, parser.allStaffsProjects, parser.allNames, null, null);
 			solution.generateProjects();
 			sheet.setAll(solution.generateStudents());
-			sheet.search("army");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

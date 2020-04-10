@@ -111,7 +111,7 @@ public class SimulatedAnnealing extends Solver {
 				// temperature = startTemperature * ((maxIteration - i + 1.0) / maxIteration); // linear decrease;
 
 				if (visualizer != null)
-					visualizer.addToSeries(currEnergy, bestEnergy, i);
+					visualizer.addToQueue(currEnergy, bestEnergy, i);
 
 				if (this.isOneStep) {
 					this.oneStepDone();
@@ -128,7 +128,7 @@ public class SimulatedAnnealing extends Solver {
 		}
 		System.out.println("\nExited at loop " + i + " , temperature " + temperature);
 		System.out.println("totalRejected: " + totalRejected);
-		System.out.println("totalStraightAccept: " + totalStraightAccept);
+		System.out.println("totalStraightAccepted (i.e. prob = 1.0): " + totalStraightAccept);
 		System.out.println("currEnergy: " + currEnergy);
 		System.out.println("currSatisfaction: " + currSolution.calculateGlobalSatisfaction());
 		System.out.println("bestEnergy: " + bestEnergy);

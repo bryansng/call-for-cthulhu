@@ -4,26 +4,24 @@ import java.time.LocalDateTime;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import ie.ucd.Common;
 import ie.ucd.Common.SolverType;
 import ie.ucd.objects.Coordinate;
 import ie.ucd.ui.interfaces.VisualizerInterface;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Side;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 
 public class Visualizer extends GridPane implements VisualizerInterface {
 	private final int WINDOW_SIZE = 10000; // 13000
-	private final int VISUALIZER_DEQUE_EMPTY_LIMIT = 5000; //  time_to_wait_before_stop_scheduler_in_sec / scheduler_wait_in_sec, i.e. 5/0.001
-
-	private boolean isPaused;
+	private final int VISUALIZER_DEQUE_EMPTY_LIMIT = 2000; //  time_to_wait_before_stop_scheduler_in_sec / scheduler_wait_in_sec, i.e. 2/0.001
 
 	private int emptyCount;
 	private String yAxisName;
@@ -33,8 +31,7 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 	private XYChart.Series<Number, Number> bestSeries;
 	private LocalDateTime startDateTime;
 
-	private ScheduledExecutorService scheduledExecutorService;
-	private Future<?> future;
+	private Timeline addToGraph;
 
 	public Visualizer(SolverType solverType) {
 		super();
@@ -46,11 +43,26 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 				yAxisName = "Energy";
 				break;
 		}
-		resetStates();
 		initLayout();
 
 		// setup a scheduled executor to periodically put data into the chart.
-		scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+		initAddToGraphScheduler();
+	}
+
+	private void initAddToGraphScheduler() {
+		addToGraph = new Timeline(new KeyFrame(Duration.millis(1), ev -> {
+			if (!coordinateDeque.isEmpty()) {
+				addDataToChart();
+				emptyCount = 0;
+			} else {
+				emptyCount++;
+				if (emptyCount > VISUALIZER_DEQUE_EMPTY_LIMIT) {
+					System.out.println("DEQUE IS EMPTY. Pausing scheduler.");
+					pause();
+				}
+			}
+		}));
+		addToGraph.setCycleCount(Animation.INDEFINITE);
 	}
 
 	private void initLayout() {
@@ -92,71 +104,47 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 	}
 
 	@Override
-	public void addToSeries(double currEnergy, double bestEnergy, int loopNumber) {
+	public void addToQueue(double currEnergy, double bestEnergy, int loopNumber) {
 		// populating the deque with data, the data in deque will be added to the series at regular intervals.
 		LocalDateTime now = LocalDateTime.now();
 		long timeElapsed = java.time.Duration.between(startDateTime, now).getNano();
 
-		Platform.runLater(() -> {
-			currSeries.getData().add(new XYChart.Data<Number, Number>(loopNumber, currEnergy));
-			bestSeries.getData().add(new XYChart.Data<Number, Number>(loopNumber, bestEnergy));
-		});
-
-		// Coordinate coord = new Coordinate(currEnergy, bestEnergy, timeElapsed, loopNumber);
-		// coordinateDeque.add(coord);
+		Coordinate coord = new Coordinate(currEnergy, bestEnergy, timeElapsed, loopNumber);
+		coordinateDeque.add(coord);
 	}
 
 	@Override
 	public void newSeries() {
-		resetStates();
 		startDateTime = LocalDateTime.now();
 		emptyCount = 0;
-		// resetSeries();
-		// initScheduler();
+		resetSeries();
 	}
 
 	@Override
 	public void resetSeries() {
 		currSeries.getData().clear();
 		bestSeries.getData().clear();
-		// setSeriesName(0.0, 0.0);
 		coordinateDeque.clear();
+
+		Platform.runLater(() -> {
+			setSeriesName(0.0, 0.0);
+		});
 	}
 
-	public void stopAddToGraphScheduler() {
-		scheduledExecutorService.shutdownNow();
+	public void stop() {
+		addToGraph.stop();
 	}
 
-	// https://stackoverflow.com/questions/4205327/scheduledexecutorservice-start-stop-several-times
-	public void pauseAddToGraphScheduler() {
-		if (!isPaused) {
-			if (future.cancel(true)) {
-				System.out.println("scheduler cancelled successfully.");
-				isPaused = true;
-			} else {
-				System.out.println("scheduler failed to cancel");
-			}
-		}
+	public void pause() {
+		addToGraph.pause();
 	}
 
-	public void resumeAddToGraphScheduler() {
-		initScheduler();
-		isPaused = false;
-	}
-
-	private void initScheduler() {
-		// put data onto graph every.
-		future = scheduledExecutorService.scheduleAtFixedRate(() -> {
-			addDataToChart();
-		}, 0, 1, TimeUnit.MILLISECONDS); // 0.001 second
-		// }, 0, 500, TimeUnit.MICROSECONDS);	// 0.000 5 second
+	public void resume() {
+		addToGraph.play();
 	}
 
 	public void initOneShotScheduler() {
 		addDataToChart();
-		// scheduledExecutorService.schedule(() -> {
-		// 	addDataToChart();
-		// }, 0, TimeUnit.MILLISECONDS);
 	}
 
 	public boolean isDequeEmpty() {
@@ -166,30 +154,20 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 	private void addDataToChart() {
 		// update the chart.
 		Platform.runLater(() -> {
-			if (!isPaused) {
-				try {
-					// get data from deque.
-					Coordinate coord = coordinateDeque.removeFirst();
+			try {
+				// get data from deque.
+				Coordinate coord = coordinateDeque.removeFirst();
 
-					// put y value with current time.
-					currSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getCurrEnergy()));
-					bestSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getBestEnergy()));
-					// setSeriesName(coord.getCurrEnergy(), coord.getBestEnergy());
+				// put y value with current time.
+				currSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getCurrEnergy()));
+				bestSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getBestEnergy()));
+				setSeriesName(coord.getCurrEnergy(), coord.getBestEnergy());
 
-					if (currSeries.getData().size() > WINDOW_SIZE && Common.CHART_ENABLE_TRUNCATE)
-						currSeries.getData().remove(0);
-					if (bestSeries.getData().size() > WINDOW_SIZE && Common.CHART_ENABLE_TRUNCATE)
-						bestSeries.getData().remove(0);
-					emptyCount = 0;
-				} catch (NoSuchElementException e) {
-					emptyCount++;
-
-					if (emptyCount > VISUALIZER_DEQUE_EMPTY_LIMIT) {
-						System.out.println("DEQUE IS EMPTY. Pausing scheduler.");
-						pauseAddToGraphScheduler();
-						isPaused = true;
-					}
-				}
+				if (currSeries.getData().size() > WINDOW_SIZE && Common.CHART_ENABLE_TRUNCATE)
+					currSeries.getData().remove(0);
+				if (bestSeries.getData().size() > WINDOW_SIZE && Common.CHART_ENABLE_TRUNCATE)
+					bestSeries.getData().remove(0);
+			} catch (NoSuchElementException e) {
 			}
 		});
 	}
@@ -205,9 +183,5 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 			currSeries.setName(String.format("%-" + padding + "s %10.4f", currSeriesName, currEnergy));
 			bestSeries.setName(String.format("%-" + padding + "s %10.4f", bestSeriesName, bestEnergy));
 		}
-	}
-
-	private void resetStates() {
-		isPaused = false;
 	}
 }
