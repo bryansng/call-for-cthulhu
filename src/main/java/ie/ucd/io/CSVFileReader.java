@@ -1,5 +1,7 @@
 package ie.ucd.io;
 
+import com.opencsv.CSVParser;
+import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.StaffMember;
@@ -13,13 +15,19 @@ import java.util.HashMap;
 
 public class CSVFileReader {
     private String separator;
+    private boolean ignoreQuotations;
+    private String inFieldSeparator;
 
     public CSVFileReader() {
         this.separator = ",";
+        this.ignoreQuotations = false;
+        this.inFieldSeparator = ";";
     }
 
-    public CSVFileReader(String separator) {
-        if (separator.equals("\t") || separator.equals(",") || separator.equals(" "))
+    public CSVFileReader(String separator, boolean ignoreQuotations, String inFieldSeparator) {
+        this.ignoreQuotations = ignoreQuotations;
+        this.inFieldSeparator = inFieldSeparator;
+        if (separator.equals("\t") || separator.equals(",") || separator.equals(" ") || separator.equals("/"))
             this.separator = separator;
         else
             System.out.println("Invalid separator. Default separator (comma) selected.");
@@ -107,10 +115,18 @@ public class CSVFileReader {
                 flag = 1;
                 continue;
             }
-            String researchActivities = line[1].replaceAll(";", ",");
-            String researchAreas = line[2].replaceAll(";", ",");
+            String researchActivities = line[1].replaceAll(inFieldSeparator, ",");
+            String researchAreas = line[2].replaceAll(inFieldSeparator, ",");
             staffMembers.add(new StaffMember(line[0], researchActivities, researchAreas, line[3]));
         }
         return staffMembers;
+    }
+
+    private CSVParser getParser() {
+        return new CSVParserBuilder()
+                .withSeparator(separator.charAt(0))
+                .withIgnoreQuotations(ignoreQuotations)
+                .build();
+
     }
 }
