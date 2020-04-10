@@ -1,21 +1,50 @@
 package ie.ucd.ui.common;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
+import ie.ucd.io.CSVFileWriter;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.Student;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class StudentSheet extends Sheet {
 	private TableView<Student> tableView;
+	private ObservableList<Student> actualList;
+	private FilteredList<Student> filteredList;
 	private SearchBox searchBox;
+	private Button saveButton;
 
-	public StudentSheet() {
+	public StudentSheet(Stage stage) {
+		this(stage, false);
+	}
+
+	public StudentSheet(Stage stage, boolean includeSaveToFileButton) {
 		super();
+		if (includeSaveToFileButton) {
+			initSaveButton(stage);
+		}
+	}
+
+	private void saveStudentsToFile(File file) {
+		CSVFileWriter writer = new CSVFileWriter();
+		ArrayList<Student> students = new ArrayList<Student>(tableView.getItems());
+		try {
+			writer.writeStudents(students, file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public boolean add(Student student) {
@@ -23,15 +52,25 @@ public class StudentSheet extends Sheet {
 	}
 
 	public boolean clearThenAddAll(ArrayList<Student> students) {
-		tableView.getItems().clear();
-		return tableView.getItems().addAll(students);
+		return actualList.setAll(students);
 	}
 
 	public void search(String searchTerm) {
-		tableView.getItems().stream().filter(item -> item.matchSearchTerm(searchTerm)).findAny().ifPresent(item -> {
-			tableView.getSelectionModel().select(item);
-			tableView.scrollTo(item);
-		});
+		if (searchTerm.equals("")) {
+			tableView.setItems(actualList);
+		} else {
+			filteredList = new FilteredList<Student>(actualList);
+			tableView.setItems(filteredList);
+			filteredList.setPredicate(new Predicate<Student>() {
+				public boolean test(Student student) {
+					return student.matchSearchTerm(searchTerm);
+				}
+			});
+		}
+		// tableView.getItems().stream().filter(item -> item.matchSearchTerm(searchTerm)).findAny().ifPresent(item -> {
+		// 	tableView.getSelectionModel().select(item);
+		// 	tableView.scrollTo(item);
+		// });
 	}
 
 	protected void initLayout() {
@@ -41,8 +80,28 @@ public class StudentSheet extends Sheet {
 		getChildren().add(tableView);
 	}
 
+	private void initSaveButton(Stage stage) {
+		saveButton = new Button("Save to File");
+		saveButton.setOnAction(e -> {
+			FileChooser fileChooser = new FileChooser();
+
+			// Set extension filter for text files.
+			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+			fileChooser.getExtensionFilters().add(extFilter);
+
+			// Show save file dialog.
+			File file = fileChooser.showSaveDialog(stage);
+
+			if (file != null) {
+				saveStudentsToFile(file);
+			}
+		});
+		getChildren().add(saveButton);
+	}
+
 	protected void initTableView() {
 		tableView = new TableView<Student>();
+		actualList = tableView.getItems();
 		tableView.setPlaceholder(new Label("No students to display."));
 
 		TableColumn<Student, Integer> columnId = new TableColumn<Student, Integer>("ID");

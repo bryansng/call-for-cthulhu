@@ -39,17 +39,27 @@ public class CSVFileWriter {
     }
 
     public void writeStudents(ArrayList<Student> students) throws IOException {
+        writeStudents(students, null);
+    }
+
+    public void writeStudents(ArrayList<Student> students, File toFile) throws IOException {
         final String[] columns = { "First Name", "Last Name", "ID", "Stream", "Preference 1", "Preference 2",
                 "Preference 3", "Preference 4", "Preference 5", "Preference 6", "Preference 7", "Preference 8",
                 "Preference 9", "Preference 10" };
         String line = "";
         try {
-            File file = new File("src/main/resources/CSVs/StudentsCSV" + students.size() + ".csv");
-            file.createNewFile();
-            //create writer
+            File file;
+            if (toFile == null) {
+                file = new File("src/main/resources/CSVs/StudentsCSV" + students.size() + ".csv");
+                file.createNewFile();
+            } else {
+                file = toFile;
+            }
+
+            // create writer
             FileWriter fileWriter = new FileWriter(file);
 
-            //write header
+            // write header
             for (int i = 0; i < columns.length; i++) {
                 line = line.concat(columns[i]);
                 if (i == columns.length - 1)
@@ -59,7 +69,7 @@ public class CSVFileWriter {
             }
             fileWriter.write(line);
 
-            //write the details
+            // write the details
             int rowNum = 1;
             for (Student student : students) {
                 line = "";

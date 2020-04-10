@@ -39,7 +39,7 @@ public class Main extends Application {
 	public void start(Stage stage) throws IOException, InvalidFormatException, InterruptedException {
 		System.out.println("Generating for 500 students...");
 
-		solverPane = new SolverPane(SolverType.SimulatedAnnealing);
+		solverPane = new SolverPane(stage, SolverType.SimulatedAnnealing);
 		Scene scene = new Scene(solverPane, 1280, 960);
 		scene.getStylesheets().add("ui/sa/solver.css");
 
