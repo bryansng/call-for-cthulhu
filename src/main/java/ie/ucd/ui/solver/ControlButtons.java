@@ -123,7 +123,7 @@ public class ControlButtons extends HBox {
 			Parser parser = new Parser();
 			CandidateSolution solution = new CandidateSolution(500, parser.allStaffsProjects, parser.allNames, null, null);
 			solution.generateProjects();
-			sheet.clearThenAddAll(solution.generateStudents());
+			sheet.setAll(solution.generateStudents());
 			sheet.search("army");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -147,7 +147,7 @@ public class ControlButtons extends HBox {
 					solver = new SimulatedAnnealing(solution, visualizer);
 					break;
 			}
-			sheet.clearThenAddAll(solution.students);
+			sheet.setAll(solution.students);
 			this.solver = solver;
 			return solver;
 		} catch (IOException e) {

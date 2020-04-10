@@ -2,12 +2,10 @@ package ie.ucd;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 import ie.ucd.objects.StaffMember;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import ie.ucd.objects.Student;
 import ie.ucd.solvers.SimulatedAnnealing;
-import ie.ucd.ui.interfaces.VisualizerInterface;
 import ie.ucd.ui.solver.SolverPane;
 import ie.ucd.solvers.Solver;
 import ie.ucd.Common.SolverType;
@@ -102,7 +100,7 @@ public class Main extends Application {
 		projects = solution.generateProjects();
 		students = solution.generateStudents();
 		System.out.println(solution.CSDSPercentage());
-		csvFileWriter.writeProjects(projects, 500);
+		csvFileWriter.writeProjects(projects);
 		csvFileWriter.writeStudents(students);
 		// csvFileWriter.writeAnalysis(solution);
 

@@ -14,23 +14,36 @@ public class CSVFileWriter {
     private String separator = ",";
     private String newLine = "\n";
 
-    public void writeProjects(ArrayList<Project> projects, int numOfStudents) throws IOException {
+    public void writeProjects(ArrayList<Project> projects) throws IOException {
+        writeProjects(projects, null);
+    }
+
+    public void writeProjects(ArrayList<Project> projects, File toFile) throws IOException {
         final String[] columns = { "Staff Name", "Research Activity", "Stream", "Preferred Probability" };
         try {
-            //create file
-            File file = new File("src/main/resources/CSVs/ProjectsCSV" + numOfStudents + ".csv");
-            file.createNewFile();
-            //create writer
+            int numOfStudents = projects.size() / 3 * 2;
+
+            // create file.
+            File file;
+            if (toFile == null) {
+                file = new File("src/main/resources/CSVs/ProjectsCSV" + numOfStudents + ".csv");
+                file.createNewFile();
+            } else {
+                file = toFile;
+            }
+
+            // create writer
             FileWriter fileWriter = new FileWriter(file);
-            //write header
+
+            // write header
             fileWriter.write(
                     columns[0] + separator + columns[1] + separator + columns[2] + separator + columns[3] + newLine);
-            //write the details
+            // write the details
             for (Project project : projects) {
                 fileWriter.write(project.getStaffMember().getProposedBy() + separator + project.getResearchActivity()
                         + separator + project.getStream() + separator + project.getPreferredProbability() + newLine);
             }
-            //close writer
+            // close writer
             fileWriter.flush();
             fileWriter.close();
         } catch (Exception e) {

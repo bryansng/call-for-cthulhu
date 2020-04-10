@@ -2,8 +2,9 @@ package ie.ucd.objects;
 
 import ie.ucd.Common;
 import ie.ucd.interfaces.ProjectInterface;
+import ie.ucd.interfaces.SearchMatchable;
 
-public class Project implements ProjectInterface {
+public class Project implements ProjectInterface, SearchMatchable {
 	private StaffMember staffMember;
 	private String researchActivity;
 	private String stream;

@@ -1,46 +1,25 @@
 package ie.ucd.ui.common;
 
-import java.util.ArrayList;
-
+import ie.ucd.Common.SheetType;
 import ie.ucd.objects.Project;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
-public class ProjectSheet extends Sheet {
-	private TableView<Project> tableView;
-	private SearchBox searchBox;
-
-	public ProjectSheet() {
-		super();
+public class ProjectSheet extends Sheet<Project> {
+	public ProjectSheet(Stage stage) {
+		this(stage, false);
 	}
 
-	public boolean add(Project student) {
-		return tableView.getItems().add(student);
-	}
-
-	public boolean clearThenAddAll(ArrayList<Project> students) {
-		tableView.getItems().clear();
-		return tableView.getItems().addAll(students);
-	}
-
-	public void search(String searchTerm) {
-		tableView.getItems().stream().filter(item -> item.matchSearchTerm(searchTerm)).findAny().ifPresent(item -> {
-			tableView.getSelectionModel().select(item);
-			tableView.scrollTo(item);
-		});
-	}
-
-	protected void initLayout() {
-		searchBox = new SearchBox("Search by Staff Member name / Project Name / Stream", this);
-
-		getChildren().add(searchBox);
-		getChildren().add(tableView);
+	public ProjectSheet(Stage stage, boolean includeSaveToFileButton) {
+		super(stage, includeSaveToFileButton, SheetType.Project);
 	}
 
 	protected void initTableView() {
 		tableView = new TableView<Project>();
+		actualList = tableView.getItems();
 		tableView.setPlaceholder(new Label("No projects to display."));
 
 		TableColumn<Project, Integer> columnStaffMember = new TableColumn<Project, Integer>("Staff Member");

@@ -2,9 +2,10 @@ package ie.ucd.objects;
 
 import java.util.ArrayList;
 import ie.ucd.Common;
+import ie.ucd.interfaces.SearchMatchable;
 import ie.ucd.interfaces.StudentInterface;
 
-public class Student implements StudentInterface {
+public class Student implements StudentInterface, SearchMatchable {
 	private String firstName;
 	private String lastName;
 	private Integer id;
