@@ -3,6 +3,7 @@ package ie.ucd.io;
 import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.StaffMember;
 import ie.ucd.objects.Student;
@@ -35,12 +36,16 @@ public class CSVFileReader {
 
     public ArrayList<Project> readProject(String filename, HashMap<String, StaffMember> allStaffMembers)
             throws Exception {
+        CSVParser csvParser = getParser();
         CSVReader csvReader = null;
         ArrayList<Project> projects = new ArrayList<Project>();
         String[] line;
         InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
         try {
-            csvReader = new CSVReader(new InputStreamReader(is));
+            csvReader = new CSVReaderBuilder(new InputStreamReader(is))
+                    .withSkipLines(1)
+                    .withCSVParser(csvParser)
+                    .build();
             // csvReader = new CSVReader(new FileReader(filename));
         } catch (Exception e) {
             System.out.println("error creating reader for input file: " + filename);
@@ -60,11 +65,15 @@ public class CSVFileReader {
 
     public ArrayList<Student> readStudents(String filename, ArrayList<Project> projects) throws IOException {
         CSVReader csvReader = null;
+        CSVParser csvParser = getParser();
         ArrayList<Student> students = new ArrayList<Student>();
         String[] line;
         InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
         try {
-            csvReader = new CSVReader(new InputStreamReader(is));
+            csvReader = new CSVReaderBuilder(new InputStreamReader(is))
+                    .withSkipLines(1)
+                    .withCSVParser(csvParser)
+                    .build();
         } catch (Exception e) {
             System.out.println("error creating CSVReader object for input file: " + filename);
         }
@@ -98,12 +107,16 @@ public class CSVFileReader {
     }
 
     public ArrayList<StaffMember> readStaffMembers(String filename) throws IOException {
+        CSVParser csvParser = getParser();
         CSVReader csvReader = null;
         ArrayList<StaffMember> staffMembers = new ArrayList<StaffMember>();
         String[] line;
         InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
         try {
-            csvReader = new CSVReader(new InputStreamReader(is));
+            csvReader = new CSVReaderBuilder(new InputStreamReader(is))
+                    .withSkipLines(1)
+                    .withCSVParser(csvParser)
+                    .build();
         } catch (Exception e) {
             System.out.println("error creating reader for input file: " + filename);
         }
