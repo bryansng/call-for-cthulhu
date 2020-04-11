@@ -11,6 +11,7 @@ public class GeneticAlgorithm implements GeneticAlgorithmInterface {
     private double mutationChance;
     private double crossoverChance;
     private double pickFittestParentsChance;
+    private final double fittestParentsIncrementFactor;
     private int numberOfGenerations;
     private int sizeOfPopulation;
     private ArrayList<Student> finalSolution = new ArrayList<Student>();
@@ -22,8 +23,12 @@ public class GeneticAlgorithm implements GeneticAlgorithmInterface {
         this.mutationChance = 0.05;
         this.crossoverChance = 0.4;
         this.numberOfGenerations = 125;
-        this.sizeOfPopulation = 50;
-        this.pickFittestParentsChance = 0.85;
+        this.sizeOfPopulation = 70;
+        this.pickFittestParentsChance = 0.800;
+        this.fittestParentsIncrementFactor = (double) Math.round(((1 - pickFittestParentsChance) * 1.500 / numberOfGenerations) * 1000d) / 1000d;
+        if (Common.SHOW_GA_DEBUG) {
+            System.out.println("Calculated increment factor = " + fittestParentsIncrementFactor);
+        }
     }
 
     public double getMutationChance() {
@@ -64,6 +69,12 @@ public class GeneticAlgorithm implements GeneticAlgorithmInterface {
 
     public double getFinalSolutionFitness() {
         return finalSolutionFitness;
+    }
+
+    private void incrementPickFittestParentsChance() {
+        pickFittestParentsChance += fittestParentsIncrementFactor;
+        if (pickFittestParentsChance > 1.0)
+            pickFittestParentsChance = 1.0; //limit probability
     }
 
     public void run(ArrayList<Project> projects, ArrayList<Student> students) {
@@ -119,6 +130,7 @@ public class GeneticAlgorithm implements GeneticAlgorithmInterface {
             population.clear();
             population = new ArrayList<String>(nextPopulation);
             nextPopulation.clear();
+            incrementPickFittestParentsChance();
         }
     }
 
@@ -420,8 +432,7 @@ public class GeneticAlgorithm implements GeneticAlgorithmInterface {
     }
 
     private ArrayList<Project> updateProjects(ArrayList<Project> projects, int numberOfProjectsAssigned) {
-        /* this function was introduced with abstraction in mind
-        / essentially, to calculate fitness, we do not need to know which project
+        /* essentially, to calculate fitness, we do not need to know which project
         / was given to whom it only matters how many projects were or were not assigned
         / ArrayList of Student objects returned by run() already contains the
         / assigned Project object */

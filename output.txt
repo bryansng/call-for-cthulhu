@@ -9,8 +9,8 @@
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
 [[1;34mINFO[m] [1;32mBUILD SUCCESS[m
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;34mINFO[m] Total time:  0.364 s
-[[1;34mINFO[m] Finished at: 2020-04-11T12:06:49+01:00
+[[1;34mINFO[m] Total time:  0.398 s
+[[1;34mINFO[m] Finished at: 2020-04-11T15:35:53+01:00
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
 [[1;34mINFO[m] Scanning for projects...
 [[1;34mINFO[m] 
@@ -25,7 +25,7 @@
 [[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.8.1:compile[m [1m(default-compile)[m @ [36mGenerator[0;1m ---[m
 [[1;34mINFO[m] Changes detected - recompiling the module!
 [[1;33mWARNING[m] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
-[[1;34mINFO[m] Compiling 14 source files to /home/ankish/Documents/call-for-cthulu/target/classes
+[[1;34mINFO[m] Compiling 15 source files to /home/ankish/Documents/call-for-cthulu/target/classes
 [[1;34mINFO[m] 
 [[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.6:testResources[m [1m(default-testResources)[m @ [36mGenerator[0;1m ---[m
 [[1;33mWARNING[m] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
@@ -45,12 +45,12 @@
 Setting StaffMemberTest up!
 Running: testInitiailization
 Running: tearDown
-[[1;34mINFO[m] [1;32mTests run: [0;1;32m1[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.061 s - in [1mStaffMemberTest[m
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m1[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.04 s - in [1mStaffMemberTest[m
 [[1;34mINFO[m] Running [1mStudentTest[m
 Setting StudentTest up!
 Running: testInitiailization
 Running: tearDown
-[[1;34mINFO[m] [1;32mTests run: [0;1;32m1[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s - in [1mStudentTest[m
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m1[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.041 s - in [1mStudentTest[m
 [[1;34mINFO[m] Running [1mProjectTest[m
 Setting ProjectTest up!
 Running: testInitiailization
@@ -58,7 +58,7 @@ Running: tearDown
 Setting ProjectTest up!
 Running: testHasCompatibleStream
 Running: tearDown
-[[1;34mINFO[m] [1;32mTests run: [0;1;32m2[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 s - in [1mProjectTest[m
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m2[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 s - in [1mProjectTest[m
 [[1;34mINFO[m] 
 [[1;34mINFO[m] Results:
 [[1;34mINFO[m] 
@@ -137,8 +137,8 @@ Running: tearDown
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
 [[1;34mINFO[m] [1;32mBUILD SUCCESS[m
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
-[[1;34mINFO[m] Total time:  12.392 s
-[[1;34mINFO[m] Finished at: 2020-04-11T12:07:04+01:00
+[[1;34mINFO[m] Total time:  12.631 s
+[[1;34mINFO[m] Finished at: 2020-04-11T15:36:07+01:00
 [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
 Running application...
 
@@ -269,204 +269,204 @@ Creating Generation #123
 Creating Generation #124
 Creating Generation #125
 Genetic Algorithm simulation complete.
-1 : 27116785 : Stephan Jenkins : starring in romantic comedies
-2 : 55453971 : James Thurber : ranting about liberals
-3 : 90814465 : Jack White : drinking White Russians
-4 : 90058987 : Adolf Hitler : spying for the CIA
-5 : 67789958 : Bill Clinton : Research Activity
-6 : 45893268 : Johnny Gruelle : punishing criminals
-7 : 16539995 : Napoleon Bonepart : promoting hair products
-8 : 77590096 : Lindsey Buckingham : pushing dodgy operating systems
-9 : 93307957 : Harvey Firestone : teaching the next generation
-10 : 19190307 : John Bonham : inventing time machines
-11 : 16168608 : Robert Jr : singing to teenagers
-12 : 82262751 : Joseph Wapner : running a large metropolitan city
-13 : 87044387 : Dick Smothers : shopping for shoes
-14 : 75841494 : Rutger Hauer : devising evil schemes
-15 : 26881187 : Rick Warren : leading the rebel alliance
-16 : 17706332 : Smokey Robinson : running an empire
-17 : 91577922 : Delta Burke : evading mercenaries
-18 : 69688638 : Dominique  : promoting racial harmony
-19 : 35201293 : Jimmy Carter : creating dictionaries
-20 : 36672626 : Mason Betha : unearthing ancient tombs
-21 : 19647611 : Itzhak Perlman : telling dry jokes
-22 : 62133126 : Eugene Ionesco : interviewing celebrities
-23 : 77255081 : Spiro Agnew : hitting home runs
-24 : 84857166 : Paul Ford : doing slapstick comedy
-25 : 51999079 : Dan Castellaneta : guarding the galaxy
-26 : 56363218 : Sally Raphael : enjoying salsa dancing
-27 : 85079264 : Keefe Brasselle : planning assassinations
-28 : 84475989 : Robert Urich : performing street magic
-29 : 11600444 : Wassily Kandinsky : promoting conservative values
-30 : 82061701 : Bishop Tutu : telling affable jokes
-31 : 66615638 : Dwight Eisenhower : providing comic relief
-32 : 67298442 : Eddie Fisher : developing new technologies
-33 : 38031507 : Jane Froman : building rocket ships
-34 : 52033548 : Montel Williams : writing pop songs
-35 : 99104144 : Swain  : punching out Nazis
-36 : 44275104 : George Gershwin : promoting nerd culture
-37 : 85978332 : William Wellman : preventing crime
-38 : 85575322 : Don Bendell : developing military strategies
-39 : 10801065 : Ron Wood : representing criminals
-40 : 26630755 : Bob Uecker : finding clues
-41 : 96337187 : Erik Schrody : singing torch songs
-42 : 80824140 : Schim Schimmel : killing murderers
-43 : 56608309 : Leon Trotsky : singing country music
-44 : 27920642 : Eddie Guerrero : starring in Hollywood movies
-45 : 86415843 : Mickey Gilley : currying favour
-46 : 13008637 : Rainn Wilson : painting self-portraits
-47 : 67978906 : Sam Walton : chasing rabbits
-48 : 84478730 : Howard Hughes : telling epic tales
-49 : 44549523 : Simon Wiesenthal : studying science
-50 : 65925222 : Cole Porter : betraying friends
-51 : 57261142 : Charles Addams : convicting criminals
-52 : 78192075 : Joe Montana : avoiding growing old
-53 : 72416890 : James Brooks : running an empire
-54 : 74694277 : Melissa Hart : writing legal fiction
-55 : 59307166 : Sri Aurobindo : promoting conservative values
-56 : 86893807 : Horatio Alger : performing household chores
-57 : 40639258 : John Katz : promoting science
-58 : 23499983 : Pat Morita : writing modern fiction
-59 : 54934836 : Calvin Coolidge : causing mayhem
-60 : 88379740 : Dan Jansen : seducing emperors
-61 : 20481595 : Sarah Gellar : painting over photographs
-62 : 10019012 : Bob Woodward : writing pop songs
-63 : 34056154 : Patti LaBelle : playing basketball
-64 : 75310556 : Mike Ditka : brokering peace deals
-65 : 35939334 : Dick Cheney : studying mathematics
-66 : 30337440 : Lindsey Buckingham : seeking revenge
-67 : 15542463 : Dimebag Abbott : flaunting buttocks
-68 : 24374397 : James Doohan : campaigning for social causes
-69 : 42221675 : Jon Lee : going slowly mad
-70 : 30893470 : Ian McKellen : terrorizing citizens
-71 : 73019913 : William Wellman : getting run over by cars
-72 : 27278356 : Bruce Catton : running an empire
-73 : 94379501 : Norah Jones : ranting about liberals
-74 : 88710364 : Abigail Breslin : avoiding responsibility
-75 : 56623365 : David Sarnoff : playing pranks
-76 : 65979794 : Deepak Chopra : enjoying ball-room dancing
-77 : 98734755 : Peter OToole : wielding political power
-78 : 39089664 : Julia Dreyfus : writing pop songs
-79 : 35606326 : Cary Grant : looking after mother
-80 : 41375181 : Natalie Portman : promoting feminism
-81 : 88192190 : Vic Morrow : killing people in ingenious ways
-82 : 71611622 : Ravi Shankar : spying on girls
-83 : 51199910 : Al Unser : mass-producing cars
-84 : 37348054 : Dewey Bunnell : wielding political power
-85 : 79531933 : Ryan ONeal : reporting for The Daily Planet
-86 : 20295354 : Bonnie Franklin : smiting frost giants
-87 : 47898376 : Cole Sprouse : singing pop songs
-88 : 81628469 : Jeff Goldblum : writing pop songs
-89 : 88317641 : Rosanne Cash : writing experimental songs
-90 : 61353451 : Manny Pacquiao : singing melancholy songs
-91 : 25325479 : Louis Pasteur : singing country music
-92 : 78684712 : Bj�rn Ulvaeus : singing melancholy songs
-93 : 85976002 : Bianca Jagger : singing country music
-94 : 29408731 : Gummo Marx : fighting for the rebel alliance
-95 : 39071045 : Madonna  : fighting for the rebel alliance
-96 : 57592931 : Georges Bizet : singing melancholy songs
-97 : 12682172 : Coolio  : starting thunderstorms
-98 : 51488683 : Deion Sanders : preparing for war
-99 : 10733566 : Jane Fonda : climbing social ladders
-100 : 30850459 : Mel Ferrer : preparing for war
-101 : 55530664 : Jackie Gleason : escaping from reality
-102 : 41051986 : Ted Turner : writing pop songs
-103 : 16558257 : Norman Jewison : escaping from reality
-104 : 98211285 : Lady Gaga : deep-frying chicken
-105 : 85294048 : Greg Morris : fighting for the rebel alliance
-106 : 83581661 : Harry Morgan : studying economics
-107 : 54992591 : Jakob Dylan : fighting for the rebel alliance
-108 : 38418894 : Fay Wray : foiling the schemes of evil villains
-109 : 29903504 : Brigitte Bardot : writing experimental songs
-110 : 94495062 : Tom Smothers : writing pop songs
-111 : 21842731 : Gwen Stefani : starting thunderstorms
-112 : 64744365 : Michael Burger : writing pop songs
-113 : 53320998 : Jack LaLanne : foiling the schemes of evil villains
-114 : 66107622 : Neve Campbell : singing country music
-115 : 54857667 : Wink Martindale : fighting for the rebel alliance
-116 : 70481350 : Tom Jones : escaping from reality
-117 : 82099751 : Dave Ramsey : singing melancholy songs
-118 : 17532371 : Emmett Kelly : fighting for the rebel alliance
-119 : 89968670 : Landon Donovan : escaping from reality
-120 : 81127573 : Charles Koop : singing pop songs
-121 : 54691486 : John Steinbeck : fighting for the rebel alliance
-122 : 86375369 : William Gilbert : escaping from reality
-123 : 37202244 : Craig Nelson : fighting for the rebel alliance
-124 : 64825430 : Fred Astaire : singing pop songs
-125 : 31557344 : Ron Palillo : singing country music
-126 : 65992652 : Claire Bloom : building empires
-127 : 26380520 : Wink Martindale : deep-frying chicken
-128 : 46731657 : Christopher Walken : fighting for the rebel alliance
-129 : 86388021 : Chris Cooper : escaping from reality
-130 : 82601421 : George Dolenz : building empires
-131 : 42102821 : Lon Chaney : fighting for the rebel alliance
-132 : 76067230 : Ray Price : singing country music
-133 : 36546503 : Carmen Miranda : escaping from reality
-134 : 78372794 : Jimi Hendrix : making racist jibes
-135 : 31156542 : Matthew Henson : singing country music
-136 : 66260643 : Edmund Gwenn : making racist jibes
-137 : 84970334 : Dylan Sprouse : building empires
-138 : 20542697 : Mike Dirnt : singing pop songs
-139 : 13446589 : Deng Xiaoping : singing country music
-140 : 72251190 : Robert Ripley : climbing social ladders
-141 : 47646239 : Perry Como : preparing for war
-142 : 66473264 : Tom Poston : singing pop songs
-143 : 36257161 : Tug McGraw : writing pop songs
-144 : 18192313 : Thurgood Marshall : singing country music
-145 : 83939283 : Tom Dreesen : writing experimental songs
-146 : 43549836 : Al Gore : climbing social ladders
-147 : 17276803 : Erma Bombeck : singing melancholy songs
-148 : 12500044 : Archie Moore : preparing for war
-149 : 65784348 : Howard Stern : fighting for the rebel alliance
-150 : 21317810 : Jill Eikenberry : singing country music
-151 : 24934495 : Paul Henreid : writing experimental songs
-152 : 52989216 : Edward Steichen : writing experimental songs
-153 : 74520155 : Sade  : starting thunderstorms
-154 : 77778003 : Ben Affleck : preparing for war
-155 : 57531628 : Randy Quaid : studying economics
-156 : 76519633 : Snoop Dogg : writing pop songs
-157 : 15053357 : Percy Shelley : foiling the schemes of evil villains
-158 : 41727472 : Julia Dreyfus : climbing social ladders
-159 : 12512315 : Karen Black : starting thunderstorms
-160 : 45680648 : Steve Yzerman : fighting for the rebel alliance
-161 : 49776135 : Andy Griffith : starting thunderstorms
-162 : 60980198 : Clyde Tombaugh : escaping from reality
-163 : 44410210 : Thomas Jefferson : singing pop songs
-164 : 17739077 : Donna Reed : writing pop songs
-165 : 97589798 : Eric Burdon : singing pop songs
-166 : 81655435 : Henry Aaron : making racist jibes
-167 : 38104963 : Don Everly : preparing for war
-168 : 74256762 : George Marshall : writing pop songs
-169 : 65864341 : Carol Kane : studying economics
-170 : 16540542 : Jean Marsh : climbing social ladders
-171 : 76367519 : Arthur Sullivan : climbing social ladders
-172 : 99847274 : Jacqueline Susann : climbing social ladders
-173 : 65860017 : Aisha Tyler : fighting for the rebel alliance
-174 : 28518483 : Dale Carnegie : singing melancholy songs
-175 : 89808002 : Harold Pinter : singing pop songs
-176 : 30762912 : Lawrence Welk : climbing social ladders
-177 : 94460266 : Harry Carrey : writing pop songs
-178 : 20373681 : Brad Dourif : singing country music
-179 : 86386434 : Carl Switzer : escaping from reality
-180 : 66234298 : Martin Lawrence : building empires
-181 : 81047185 : Jo Stafford : building empires
-182 : 10099128 : Stevie Nicks : fighting for the rebel alliance
-183 : 71696878 : Elijah Muhammad : singing pop songs
-184 : 99271768 : Rod  : singing country music
-185 : 92425959 : Danny Aiello : writing pop songs
-186 : 88951028 : Peter Falk : making racist jibes
-187 : 74515916 : Bix Beiderbecke : deep-frying chicken
-188 : 88160451 : Jerry Springer : fighting for the rebel alliance
-189 : 78288090 : Deion Sanders : building empires
-190 : 44534064 : MoNique  : escaping from reality
-191 : 37261977 : Lady Johnson : singing pop songs
-192 : 81049524 : Bob Weir : singing melancholy songs
-193 : 97828172 : Dave Evans : singing melancholy songs
-194 : 65654192 : Catherine Deneuve : studying economics
-195 : 98777403 : Anita ODay : foiling the schemes of evil villains
-196 : 86201598 : Menachem Begin : climbing social ladders
-197 : 60851017 : Lorin Maazel : writing pop songs
-198 : 37175561 : Vanessa Minnillo : climbing social ladders
-199 : 30356389 : Amy Poehler : foiling the schemes of evil villains
-200 : 16255921 : George Romero : preparing for war
-FITNESS OF FINAL SOLUTION: 391.0
+1 : 22515733 : Ron Wood : writing short stories
+2 : 73339398 : Raymond Chandler : inventing electrical marvels
+3 : 11214913 : Pat Paulsen : running an empire
+4 : 29605406 : Maria Muldaur : solving crimes
+5 : 94140704 : Cathy Crosby : promoting racial harmony
+6 : 29841481 : Bill Moyers : running a multinational corporation
+7 : 90418231 : Marilu Henner : writing scripts
+8 : 63471543 : Zsa Gabor : developing new technologies
+9 : 33452010 : Lana Turner : writing rap songs
+10 : 10853715 : David Pierce : duelling acrobatically
+11 : 69240372 : Paul Petersen : amassing wealth
+12 : 77960144 : Howard Carter : leaking classified documents
+13 : 70964579 : Alice Cooper : running a media empire
+14 : 50451225 : Robert Downey : making chocolate
+15 : 17042917 : Ronald Colman : singing pop songs
+16 : 22790558 : J.D. Salinger : pinching pennies
+17 : 45216117 : Rumer Willis : studying computability
+18 : 79479869 : Emmylou Harris : throwing Bunga Bunga parties
+19 : 23021545 : Fred Astaire : singing parody songs
+20 : 92604341 : Casey Stengel : foiling the schemes of evil villains
+21 : 12019426 : Ray Bradbury : running a crime family
+22 : 59333880 : Tay Zonday : manipulating ingenues
+23 : 37882401 : Della Reese : punishing terrorists
+24 : 89197393 : Dick Clark : waxing a surfboard
+25 : 43323299 : Ray Walston : treating the sick
+26 : 83305440 : Ron Moody : eluding authorities
+27 : 38969071 : William Safire : reporting the news
+28 : 56855952 : Bach  : starring in indy movies
+29 : 81739423 : Olga Korbut : promoting new technologies
+30 : 27204270 : Eminem  : leaking classified documents
+31 : 67888943 : Patricia Neal : smiting Philistines
+32 : 12741825 : Redd Foxx : releasing the hounds
+33 : 42084593 : Sir Richard : bursting out of shirts
+34 : 62398665 : Konrad Adenauer : playing intense characters
+35 : 20771122 : Danny Aiello : turning it up to 11
+36 : 53079226 : Mario Lemieux : bullying schoolkids
+37 : 79971728 : Leonard Cohen : drinking one's life away
+38 : 27236161 : Thelonious Monk : spouting movie trivia
+39 : 50633898 : Beatrix Potter : chasing jellyfish
+40 : 51101889 : Ed Norton : shocking radio listeners
+41 : 49534663 : Barry White : writing hawkish memos
+42 : 99736240 : Joe Piscopo : keeping a diary
+43 : 69940476 : Claire Trevor : playing rock music
+44 : 25030420 : Edward Kennedy : interviewing celebrities
+45 : 27438399 : Sheldon Leonard : cooking dinners
+46 : 56607835 : Joey Fatone : condescending to customers
+47 : 69976222 : Merlin Olsen : interviewing celebrities
+48 : 79030828 : Patrick Swayze : winning tennis matches
+49 : 73288717 : Chief George : pioneering new technologies
+50 : 64721930 : Steve Winwood : solving riddles
+51 : 77082573 : Alger Hiss : shagging spies
+52 : 46064983 : Seth Rogen : writing about manly pursuits
+53 : 69570405 : Augustus Caesar : laughing at God
+54 : 93912459 : Arnold Palmer : wielding political power
+55 : 67464431 : Charlie Brown : doing stand-up
+56 : 33916987 : Mike Piazza : starring in comedies
+57 : 49008349 : Wilford Brimley : running a religious cult
+58 : 61536148 : Mike Modano : recording pop songs
+59 : 58983181 : Gene Paul : writing for the New Yorker
+60 : 34066817 : Richard Simmons : offering gnostic advice
+61 : 36985694 : Dracula  : insulting celebrities
+62 : 78385572 : Roland Macy : healing the sick
+63 : 50838274 : Roddy McDowall : paying kickbacks to the police chief
+64 : 19497971 : Harve Presnell : collecting Captain America trading cards
+65 : 56986497 : Gloria Estefan : starring in Hollywood movies
+66 : 99202316 : Katee Sackhoff : creating annoying rules
+67 : 18399671 : Moe Howard : stealing human fat
+68 : 64667213 : Warren Zevon : studying magic tricks
+69 : 34036635 : Salma Hayek : starring in Hollywood movies
+70 : 11091428 : Tom Hulce : reporting the news
+71 : 99475949 : Paula Deen : changing sides
+72 : 74365832 : Jack Webb : starring in Hollywood movies
+73 : 35562267 : Yves Laurent : solving crimes
+74 : 33964585 : Martha Raye : campaigning for social causes
+75 : 91472374 : Enrico Caruso : analyzing the sub-conscious
+76 : 78457252 : Ozzie Nelson : launching cultural revolutions
+77 : 94948563 : Jerry Garcia : promoting healthy eating
+78 : 11332925 : Susanna Hoffs : devising evil schemes
+79 : 44188863 : Neal Peart : piloting a spaceship
+80 : 79866280 : Benny Andersson : making antisemitic remarks
+81 : 78173721 : Marilu Henner : promoting communism
+82 : 28536502 : Chubby Checker : eating bacon cheeseburgers
+83 : 26035220 : Dale Robertson : solving crimes
+84 : 22804263 : Pete Rose : chasing terrorists
+85 : 19240936 : Woody Guthrie : punishing criminals
+86 : 28504009 : Barack Obama : reading minds
+87 : 40696388 : Chester Arthur : promoting greed
+88 : 22923474 : Warren Beatty : developing new technologies
+89 : 55874214 : Phil Donahue : smoking cigars
+90 : 74130874 : Ashley Simpson : fighting with swords
+91 : 69026054 : Charles Bukowski : running an empire
+92 : 36014794 : Ann Jillian : testing new technologies
+93 : 92469081 : Susan Sontag : hacking into computers
+94 : 53602307 : Dean Jones : playing pranks
+95 : 33661778 : Enrico Caruso : fomenting social revolution
+96 : 86630817 : Stephan Jenkins : writing serialized stories
+97 : 69643327 : Doris Roberts : building airplanes
+98 : 76938256 : Charles Lindbergh : making vague predictions
+99 : 51160179 : Ruth Buzzi : meddling in the dark arts
+100 : 93171686 : Elaine May : meddling in the dark arts
+101 : 33926123 : Lily Tomlin : causing mayhem
+102 : 72654138 : Peter Yarrow : defending the weak
+103 : 48361248 : Jennifer Beals : plotting mutinies
+104 : 77293370 : Wolfgang Mozart : causing mayhem
+105 : 52028857 : David Geffen : doing stand-up
+106 : 82754604 : Blaise Pascal : building airplanes
+107 : 64254541 : Richard Harris : plotting mutinies
+108 : 52209049 : Joyce Kilmer : performing magic tricks
+109 : 93473075 : Paul Gauguin : slashing victims
+110 : 65814693 : Brian Boitano : slashing victims
+111 : 85038813 : David Roth : making vague predictions
+112 : 70966414 : Kanye West : building airplanes
+113 : 59652868 : Kit Carson : defending the weak
+114 : 97602134 : Arthur Fiedler : performing magic tricks
+115 : 51055444 : Barbara Jordan : meddling in the dark arts
+116 : 32926970 : Charles Addams : making vague predictions
+117 : 69945248 : Pel�  : doing stand-up
+118 : 28909275 : Michael Richards : running a school for gifted teens
+119 : 77660445 : Billy Thornton : performing magic tricks
+120 : 75158707 : John Muir : causing mayhem
+121 : 35883367 : S.J. Perelman : causing mayhem
+122 : 95805407 : America Ferrera : doing stand-up
+123 : 17565355 : Grace Potter : spreading revolution
+124 : 81285087 : Joe Jonas : running a school for gifted teens
+125 : 13370446 : Harley Davidson : spreading revolution
+126 : 89706174 : Val Kilmer : making vague predictions
+127 : 92093783 : Leon Trotsky : striving for world domination
+128 : 95735338 : John Sandford : plotting mutinies
+129 : 13090418 : Eileen Brennan : running a school for gifted teens
+130 : 97821100 : Sam Shepard : causing mayhem
+131 : 59566621 : Marlee Matlin : plotting mutinies
+132 : 18159299 : Rod Taylor : making vague predictions
+133 : 31857981 : Dr. Seuss : defending the weak
+134 : 13627707 : Lee Iacocca : spreading revolution
+135 : 43523037 : Tony Romo : defending the weak
+136 : 84697377 : Buffalo Smith : making vague predictions
+137 : 23231224 : Rick Springfield : causing mayhem
+138 : 95166974 : Lindsay Wagner : building airplanes
+139 : 14608978 : Joe Cocker : striving for world domination
+140 : 50211989 : Don Novello : plotting mutinies
+141 : 66919423 : Karen Black : slashing victims
+142 : 50394361 : Harry Shearer : defending the weak
+143 : 88345623 : Timbaland  : writing serialized stories
+144 : 31286166 : Paul Harvey : causing mayhem
+145 : 26577768 : Paul Simon : plotting mutinies
+146 : 68105074 : Kim Il : striving for world domination
+147 : 16081215 : Carolyn Johnson : writing serialized stories
+148 : 70014773 : Lizzie Borden : slashing victims
+149 : 52280999 : George Peppard : making vague predictions
+150 : 58627618 : Pel�  : slashing victims
+151 : 49865968 : Tony Soprano : slashing victims
+152 : 73239277 : Barry Nelson : building airplanes
+153 : 16161315 : Scott Joplin : performing magic tricks
+154 : 81678430 : Marcus Allen : meddling in the dark arts
+155 : 83038289 : Hans Anderson : doing stand-up
+156 : 43051439 : David Duchovney : causing mayhem
+157 : 89959506 : Beyonce  : striving for world domination
+158 : 54216153 : Coretta King : striving for world domination
+159 : 65391218 : Sidney Sheldon : striving for world domination
+160 : 62063319 : Philip Ahn : meddling in the dark arts
+161 : 91997195 : Peter OToole : spreading revolution
+162 : 53040546 : Jennifer Lopez : building airplanes
+163 : 48649074 : Washington Irving : causing mayhem
+164 : 32101371 : Jonathan Winters : building airplanes
+165 : 37830759 : Buddy Hackett : slashing victims
+166 : 40777782 : M. Shyamalan : performing magic tricks
+167 : 69607411 : Sam Levenson : performing magic tricks
+168 : 72792960 : Galileo Galilei : running a school for gifted teens
+169 : 72068889 : Tara Reid : plotting mutinies
+170 : 36208837 : Bebe Neuwirth : meddling in the dark arts
+171 : 95516734 : Pernell Roberts : doing stand-up
+172 : 21656070 : Tom Scholz : doing stand-up
+173 : 85264465 : Susan Perabo : plotting mutinies
+174 : 36917816 : Julia Dreyfus : doing stand-up
+175 : 64131809 : John Travolta : building airplanes
+176 : 32146683 : James Garfield : doing stand-up
+177 : 28787698 : Jawaharlal Nehru : writing serialized stories
+178 : 57025943 : Steve Martin : spreading revolution
+179 : 27306459 : Estelle Getty : doing stand-up
+180 : 90327241 : Liv Ullmann : slashing victims
+181 : 13698517 : Andrew Webber : causing mayhem
+182 : 23926093 : Patty Andrews : building airplanes
+183 : 19329787 : Ryan ONeal : spreading revolution
+184 : 98853162 : Marion Barry : striving for world domination
+185 : 55462209 : Jennifer Hewitt : meddling in the dark arts
+186 : 77551987 : Michael York : performing magic tricks
+187 : 40739957 : Morrissey  : doing stand-up
+188 : 54642939 : John Mayall : writing serialized stories
+189 : 78281676 : Pat  : spreading revolution
+190 : 47227300 : George Jones : performing magic tricks
+191 : 92411465 : Monica Bellucci : causing mayhem
+192 : 57212445 : David Gilmour : making vague predictions
+193 : 49878469 : Joan Lunden : meddling in the dark arts
+194 : 71067128 : Tom Hall : spreading revolution
+195 : 95070104 : Willy DeVille : running a school for gifted teens
+196 : 14200846 : Pat Buttram : doing stand-up
+197 : 53210006 : Alfonso Ribeiro : defending the weak
+198 : 60061764 : Raoul Wallenberg : building airplanes
+199 : 48421648 : Fanny Brice : spreading revolution
+200 : 60309215 : Harry James : slashing victims
+FITNESS OF FINAL SOLUTION: 427.0
