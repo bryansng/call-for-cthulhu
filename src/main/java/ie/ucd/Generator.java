@@ -24,7 +24,7 @@ public class Generator {
 
 		GeneticAlgorithm GA = new GeneticAlgorithm(projects, students);
 		GA.run();
-		students = GA.getFittestStudentSolution();
+		students = GA.getFinalSolution();
 		int count = 1;
 		for (Student student : students) {
 			System.out.println(count + " : " + student.getId() + " : " + student.getProjectAssigned(0).getResearchActivity());
