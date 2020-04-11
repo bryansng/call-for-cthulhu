@@ -8,7 +8,7 @@ import org.apache.commons.math3.distribution.NormalDistribution;
 public class Common {
 	// debug verbosity.
 	public static final boolean SHOW_SA_DEBUG = false;
-	public static final boolean SHOW_GA_DEBUG = false;
+	public static final boolean SHOW_GA_DEBUG = true;
 
 	// the below are used during calculating of global/local satisfaction.
 	public static final double COST_NOT_ASSIGNED_PREFERENCE_PROJECTS = -5.0;
