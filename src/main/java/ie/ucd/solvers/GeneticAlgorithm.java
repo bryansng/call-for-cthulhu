@@ -12,13 +12,14 @@ public class GeneticAlgorithm {
     private int numberOfGenerations;
     private int sizeOfPopulation;
     private ArrayList<Student> finalSolution = new ArrayList<Student>();
+    private double finalSolutionFitness;
 
     private final Random random = new Random();
 
     public GeneticAlgorithm() {
         this.mutationChance = 0.05;
         this.crossoverChance = 0.4;
-        this.numberOfGenerations = 100;
+        this.numberOfGenerations = 125;
         this.sizeOfPopulation = 50;
     }
 
@@ -58,20 +59,23 @@ public class GeneticAlgorithm {
         return finalSolution;
     }
 
+    public double getFinalSolutionFitness() {
+        return finalSolutionFitness;
+    }
+
     public void run(ArrayList<Project> projects, ArrayList<Student> students) {
+        System.out.println("Running Genetic Algorithm...");
         //generate bit codes to represent chromosomes
         ArrayList<String> allBitCodes = generateAllBitCodes(students.size());
         //generate population for generation 0
         ArrayList<String> population = generateInitialPopulation(allBitCodes);
         ArrayList<String> nextPopulation = new ArrayList<String>();
-
         boolean isLastGeneration = false;
         for (int i = 1; i <= numberOfGenerations; i++) {
-            if (i == numberOfGenerations)
+            if (i == numberOfGenerations) {
                 isLastGeneration = true;
-            if (Common.SHOW_GA_DEBUG)
-                System.out.println("Generation: " + i);
-
+            }
+            System.out.println("Generation: " + i);
             //store satisfaction for each solution in a population
             ArrayList<Double> globalSatisfactionList = new ArrayList<Double>();
             for (String aSolution : population) {
@@ -85,13 +89,11 @@ public class GeneticAlgorithm {
 
             //get fittest solution from population
             int fittestSolutionIndex = getFittestSolutionIndex(globalSatisfactionList);
+            double fittestSolutionStrength = globalSatisfactionList.get(fittestSolutionIndex);
             String fittestSolution = population.get(fittestSolutionIndex);
-            finalSolution = assignProjectsFromSolution(fittestSolution, projects, students);
-
             if (Common.SHOW_GA_DEBUG) {
-                System.out.println("Fittest solution strength : " + globalSatisfactionList.get(fittestSolutionIndex));
+                System.out.println("Fittest solution strength: " + fittestSolutionStrength);
             }
-
             if (!isLastGeneration) {
                 //generate population for next generation
                 while (nextPopulation.size() <= sizeOfPopulation) {
@@ -102,10 +104,15 @@ public class GeneticAlgorithm {
                         nextPopulation.add(offspring);
                     }
                 }
-            } else
+            } else {
+                //get best solution from final generation
+                finalSolutionFitness = globalSatisfactionList.get(fittestSolutionIndex);
+                finalSolution = assignProjectsFromSolution(fittestSolution, projects, students);
                 System.out.println("Genetic Algorithm simulation complete.");
+            }
             population.clear();
             population = new ArrayList<String>(nextPopulation);
+            nextPopulation.clear();
         }
     }
 
@@ -145,13 +152,6 @@ public class GeneticAlgorithm {
         if (Common.SHOW_GA_DEBUG) {
             System.out.println("Parent's strength: " + max + " " + secondMax);
         }
-//        int randomIndex1 = random.nextInt(population.size() * 10) / 10;
-//        parents[0] = population.get(randomIndex1);
-//        int randomIndex2 = random.nextInt(population.size() * 10) / 10;
-//        while (randomIndex1 == randomIndex2) {
-//            randomIndex2 = random.nextInt(population.size() * 10) / 10;
-//        }
-//        parents[1] = population.get(randomIndex2);
         return parents;
     }
 
@@ -170,11 +170,6 @@ public class GeneticAlgorithm {
         String currentBitCode = get1stBitCode();
         ArrayList<String> allBitCodes = new ArrayList<String>();
         allBitCodes.add(currentBitCode);
-//
-//        if (Common.SHOW_GA_DEBUG) {
-//            System.out.println("1 : " + currentBitCode);
-//        }
-
         //generate remaining bit codes
         for (int i = 1; i < numberOfBitCodes; i++) {
             String nextBitCode = getNextBitCode(currentBitCode);
@@ -185,10 +180,6 @@ public class GeneticAlgorithm {
 
             allBitCodes.add(nextBitCode);
             currentBitCode = nextBitCode;
-
-//            if (Common.SHOW_GA_DEBUG) {
-//                System.out.println(i + 1 + " : " + currentBitCode);
-//            }
         }
         return allBitCodes;
     }
@@ -405,9 +396,11 @@ public class GeneticAlgorithm {
     }
 
     private ArrayList<Project> updateProjects(ArrayList<Project> projects, int numberOfProjectsAssigned) {
-        //this function was introduced with abstraction in mind
-        //essentially, to calculate fitness, we do not need to know which project
-        // was given to whom it only matters how many projects were or were not assigned
+        /* this function was introduced with abstraction in mind
+        / essentially, to calculate fitness, we do not need to know which project
+        / was given to whom it only matters how many projects were or were not assigned
+        / ArrayList of Student objects returned by run() already contains the
+        / assigned Project object */
         ArrayList<Project> updatedProjects = new ArrayList<Project>();
         int i;
         for (i = 0; i < numberOfProjectsAssigned; i++) {

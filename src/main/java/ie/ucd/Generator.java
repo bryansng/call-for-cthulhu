@@ -33,13 +33,16 @@ public class Generator {
 		ArrayList<Project> projects = parser.generateStaffProjects();
 		ArrayList<Student> students = parser.generateStudents();
 
-		GeneticAlgorithm GA = new GeneticAlgorithm();
-		GA.run(projects, students);
-		students = GA.getFinalSolution();
+		GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm();
+		geneticAlgorithm.run(projects, students);
+		students = geneticAlgorithm.getFinalSolution();
 		int count = 1;
 		for (Student student : students) {
-			System.out.println(count++ + " : " + student.getId() + " : " + student.getProjectAssigned(0).getResearchActivity());
+			System.out.println(count++ + " : " + student.getId() + " : " +
+					student.getFirstName() + " " + student.getLastName() + " : " +
+					student.getProjectAssigned(0).getResearchActivity());
 		}
+		System.out.println("FITNESS OF FINAL SOLUTION: " + geneticAlgorithm.getFinalSolutionFitness());
 	}
 
 	public static void applySimulatedAnnealing() throws IOException, InvalidFormatException {
