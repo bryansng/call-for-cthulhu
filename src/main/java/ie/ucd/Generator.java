@@ -18,6 +18,17 @@ public class Generator {
 	public static void main(String[] args) throws IOException, InvalidFormatException, Exception {
 		System.out.println("Running application...\n");
 
+
+		// generateExcelFiles();
+		// generateCSVFiles();
+		// readCSVFiles();
+		// readTest();
+		// applySimulatedAnnealing();
+		applyGeneticAlgorithm();
+		// playingNormalDistribution();
+	}
+
+	public static void applyGeneticAlgorithm() throws IOException {
 		Parser parser = new Parser(200);
 		ArrayList<Project> projects = parser.generateStaffProjects();
 		ArrayList<Student> students = parser.generateStudents();
@@ -27,16 +38,8 @@ public class Generator {
 		students = GA.getFinalSolution();
 		int count = 1;
 		for (Student student : students) {
-			System.out.println(count + " : " + student.getId() + " : " + student.getProjectAssigned(0).getResearchActivity());
-			count++;
+			System.out.println(count++ + " : " + student.getId() + " : " + student.getProjectAssigned(0).getResearchActivity());
 		}
-		// generateExcelFiles();
-		// generateCSVFiles();
-		// readCSVFiles();
-		// readTest();
-		// applySimulatedAnnealing();
-
-		// playingNormalDistribution();
 	}
 
 	public static void applySimulatedAnnealing() throws IOException, InvalidFormatException {

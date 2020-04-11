@@ -76,8 +76,8 @@ public class GeneticAlgorithm {
             ArrayList<Double> globalSatisfactionList = new ArrayList<Double>();
             for (String aSolution : population) {
                 students = assignProjectsFromSolution(aSolution, projects, students);
-
-                double globalSatisfaction = calculateGlobalSatisfaction(projects, students);
+                ArrayList<Project> updatedProjects = updateProjects(projects, students.size());
+                double globalSatisfaction = calculateGlobalSatisfaction(updatedProjects, students);
                 if (Common.SHOW_GA_DEBUG)
                     System.out.println("globalSatisfaction: " + globalSatisfaction);
                 globalSatisfactionList.add(globalSatisfaction);
@@ -103,7 +103,7 @@ public class GeneticAlgorithm {
                     }
                 }
             } else
-                System.out.println("GA complete.");
+                System.out.println("Genetic Algorithm simulation complete.");
             population.clear();
             population = new ArrayList<String>(nextPopulation);
         }
@@ -145,8 +145,6 @@ public class GeneticAlgorithm {
         if (Common.SHOW_GA_DEBUG) {
             System.out.println("Parent's strength: " + max + " " + secondMax);
         }
-
-
 //        int randomIndex1 = random.nextInt(population.size() * 10) / 10;
 //        parents[0] = population.get(randomIndex1);
 //        int randomIndex2 = random.nextInt(population.size() * 10) / 10;
@@ -155,30 +153,6 @@ public class GeneticAlgorithm {
 //        }
 //        parents[1] = population.get(randomIndex2);
         return parents;
-    }
-
-    private String[] populationToArray(ArrayList<String> population) {
-        Object[] populationTemp = population.toArray();
-        String[] populationArray = new String[Common.MAX_ARRAY_SIZE];
-        int i = 0;
-        for (Object object : populationTemp) {
-            populationArray[i] = (String) object;
-            i++;
-        }
-        return populationArray;
-    }
-
-    private double[] satisfactionToArray(ArrayList<Double> globalSatisfactionList) {
-        Object[] globalSatisfactionTemp = globalSatisfactionList.toArray();
-        double[] satisfactionArray = new double[Common.MAX_ARRAY_SIZE];
-        int i = 0;
-        for (Object object : globalSatisfactionTemp) {
-            satisfactionArray[i] = (double) object;
-            if (Common.SHOW_GA_DEBUG)
-                System.out.println("satisfactionFromArray-- " + satisfactionArray[i]);
-            i++;
-        }
-        return satisfactionArray;
     }
 
     private Double calculateGlobalSatisfaction(ArrayList<Project> projects, ArrayList<Student> students) {
@@ -336,80 +310,13 @@ public class GeneticAlgorithm {
         return orderOfBitCodes;
     }
 
-    private int[] toArray(HashSet<Integer> hashSet) {
-        int[] array = new int[hashSet.size()];
-        int i = 0;
-        for (Integer integer : hashSet) {
-            array[i] = integer;
-        }
-        return array;
-    }
-
-    private HashSet<Integer> copy(HashSet<Integer> oldHashSet) {
-        HashSet<Integer> newHashSet = new HashSet<Integer>();
-        for (int each : oldHashSet)
-            newHashSet.add(each);
-        return newHashSet;
-    }
-
     private int[] getNextOrderOfBitCodes(int[] previousOrderOfBitCodes) {
         int randomIndex = random.nextInt(previousOrderOfBitCodes.length - 1);
         //swap number at randomIndex with the next one
         int temp = previousOrderOfBitCodes[randomIndex];
         previousOrderOfBitCodes[randomIndex] = previousOrderOfBitCodes[randomIndex + 1];
         previousOrderOfBitCodes[randomIndex + 1] = temp;
-
-        //generate random indices to swap
-//        int swapIndex = random.nextInt(previousOrderOfBitCodes.size() - 1);
-//        Object[] tempArray = previousOrderOfBitCodes.toArray();
-//        int[] previousOrderArray = toArray(tempArray);
-//        if (Common.SHOW_GA_DEBUG) {
-//            System.out.println("previous order array");
-//            for (int number : previousOrderArray)
-//                System.out.println(number);
-//        }
-//        nextOrderOfBitCodes = swapOrderUsingIndices(previousOrderArray, swapIndex);
         return previousOrderOfBitCodes;
-    }
-
-
-    private HashSet<Integer> swapOrderUsingIndices(int[] orderOfBitCodes,
-                                                   int swapIndex) {
-        HashSet<Integer> nextOrderOfBitCodes = new HashSet<Integer>();
-        int atSwapIndex1 = orderOfBitCodes[swapIndex];
-        int atSwapIndex2 = orderOfBitCodes[swapIndex + 1];
-
-        for (int i = 0; i < orderOfBitCodes.length; i++) {
-            if (i == swapIndex) {
-                nextOrderOfBitCodes.add(atSwapIndex2);
-                nextOrderOfBitCodes.add(atSwapIndex1);
-            } else
-                nextOrderOfBitCodes.add(orderOfBitCodes[i]);
-        }
-
-        if (Common.SHOW_GA_DEBUG) {
-            System.out.println("Next order:");
-            for (int each : nextOrderOfBitCodes)
-                System.out.println(each);
-        }
-
-        return nextOrderOfBitCodes;
-    }
-
-    private int[] toArray(Object[] objects) {
-        int i = 0;
-        int[] integers = new int[objects.length];
-        for (Object object : objects) {
-            integers[i++] = (int) object;
-        }
-        return integers;
-    }
-
-    private HashSet<Integer> toHashSet(int[] array) {
-        HashSet<Integer> hashSet = new HashSet<Integer>();
-        for (int number : array)
-            hashSet.add(number);
-        return hashSet;
     }
 
     private ArrayList<Student> assignProjectsFromSolution(String aSolution, ArrayList<Project> projects, ArrayList<Student> students) {
@@ -471,5 +378,49 @@ public class GeneticAlgorithm {
             ranking[i] = count + 1;
         }
         return ranking;
+    }
+
+    private String[] populationToArray(ArrayList<String> population) {
+        Object[] populationTemp = population.toArray();
+        String[] populationArray = new String[Common.MAX_ARRAY_SIZE];
+        int i = 0;
+        for (Object object : populationTemp) {
+            populationArray[i] = (String) object;
+            i++;
+        }
+        return populationArray;
+    }
+
+    private double[] satisfactionToArray(ArrayList<Double> globalSatisfactionList) {
+        Object[] globalSatisfactionTemp = globalSatisfactionList.toArray();
+        double[] satisfactionArray = new double[Common.MAX_ARRAY_SIZE];
+        int i = 0;
+        for (Object object : globalSatisfactionTemp) {
+            satisfactionArray[i] = (double) object;
+            if (Common.SHOW_GA_DEBUG)
+                System.out.println("satisfactionFromArray-- " + satisfactionArray[i]);
+            i++;
+        }
+        return satisfactionArray;
+    }
+
+    private ArrayList<Project> updateProjects(ArrayList<Project> projects, int numberOfProjectsAssigned) {
+        //this function was introduced with abstraction in mind
+        //essentially, to calculate fitness, we do not need to know which project
+        // was given to whom it only matters how many projects were or were not assigned
+        ArrayList<Project> updatedProjects = new ArrayList<Project>();
+        int i;
+        for (i = 0; i < numberOfProjectsAssigned; i++) {
+            Project project = projects.get(i);
+            project.setNumStudentsAssigned(1);
+            updatedProjects.add(project);
+        }
+        while (i < projects.size()) {
+            Project project = projects.get(i);
+            project.setNumStudentsAssigned(0);
+            updatedProjects.add(project);
+            i++;
+        }
+        return updatedProjects;
     }
 }
