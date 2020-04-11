@@ -9,6 +9,7 @@ import java.util.*;
 public class GeneticAlgorithm {
     private double mutationChance;
     private double crossoverChance;
+    private double pickFittestParentsChance;
     private int numberOfGenerations;
     private int sizeOfPopulation;
     private ArrayList<Student> finalSolution = new ArrayList<Student>();
@@ -21,6 +22,7 @@ public class GeneticAlgorithm {
         this.crossoverChance = 0.4;
         this.numberOfGenerations = 125;
         this.sizeOfPopulation = 50;
+        this.pickFittestParentsChance = 0.85;
     }
 
     public double getMutationChance() {
@@ -75,7 +77,7 @@ public class GeneticAlgorithm {
             if (i == numberOfGenerations) {
                 isLastGeneration = true;
             }
-            System.out.println("Generation: " + i);
+            System.out.println("Creating Generation #" + i);
             //store satisfaction for each solution in a population
             ArrayList<Double> globalSatisfactionList = new ArrayList<Double>();
             for (String aSolution : population) {
@@ -94,6 +96,8 @@ public class GeneticAlgorithm {
             if (Common.SHOW_GA_DEBUG) {
                 System.out.println("Fittest solution strength: " + fittestSolutionStrength);
             }
+
+
             if (!isLastGeneration) {
                 //generate population for next generation
                 while (nextPopulation.size() <= sizeOfPopulation) {
@@ -105,7 +109,7 @@ public class GeneticAlgorithm {
                     }
                 }
             } else {
-                //get best solution from final generation
+                //get best final solution from final generation
                 finalSolutionFitness = globalSatisfactionList.get(fittestSolutionIndex);
                 finalSolution = assignProjectsFromSolution(fittestSolution, projects, students);
                 System.out.println("Genetic Algorithm simulation complete.");
@@ -114,6 +118,81 @@ public class GeneticAlgorithm {
             population = new ArrayList<String>(nextPopulation);
             nextPopulation.clear();
         }
+    }
+
+    private String[] chooseParents(ArrayList<String> population, ArrayList<Double> globalSatisfactionList) {
+        String[] parents = new String[2];
+        double max = 1.0, secondMax = 1.0; //arbitrary positive values
+        //convert to array to make process easier
+        String[] populationArray = populationToArray(population);
+        double[] satisfactionArray = satisfactionToArray(globalSatisfactionList);
+        int bound = (int) pickFittestParentsChance * 1000;
+        int probabilityIndex = random.nextInt(1000);
+
+        if (probabilityIndex < bound) {
+            //get two fittest parents
+            for (int i = 0; i < sizeOfPopulation; i++) {
+                if (satisfactionArray[i] > max) {
+                    secondMax = max;
+                    parents[1] = parents[0];
+                    max = satisfactionArray[i];
+                    parents[0] = populationArray[i];
+                } else if (satisfactionArray[i] > secondMax && satisfactionArray[i] < max) {
+                    secondMax = satisfactionArray[i];
+                    parents[1] = populationArray[i];
+                }
+            }
+        } else {
+            int index = 0;
+            //get the fittest and a random parent to encourage diversity
+            for (int i = 0; i < sizeOfPopulation; i++) {
+                if (satisfactionArray[i] > max) {
+                    max = satisfactionArray[i];
+                    parents[0] = populationArray[i];
+                    index = i;
+                }
+            }
+            int randomIndex = random.nextInt(sizeOfPopulation);
+            while (randomIndex == index) {
+                randomIndex = random.nextInt(sizeOfPopulation);
+            }
+            parents[1] = populationArray[randomIndex];
+        }
+        if (Common.SHOW_GA_DEBUG) {
+            System.out.println("Parent's strength: " + max + " " + secondMax);
+        }
+        return parents;
+    }
+
+    private String crossover(String parentA, String parentB) {
+        String offspring = "";
+        //use crossover probability
+        int bound = (int) (crossoverChance * 1000);
+        int probabilityIndex = random.nextInt(1000);
+
+        if (probabilityIndex < bound) {
+            int crossoverIndex = random.nextInt(parentA.length() * 10) / 10;
+            offspring = parentA.substring(0, crossoverIndex).concat(parentB.substring(crossoverIndex));
+        }
+        //if crossover didn't occur offspring will be a blank String
+        return offspring;
+    }
+
+    private String mutate(String aSolution) {
+        char[] solutionArray = aSolution.toCharArray();
+        //use mutation probability
+        int bound = (int) (mutationChance * 1000);
+        int probabilityIndex = random.nextInt(1000);
+
+        if (probabilityIndex < bound) {
+            int randomIndex = random.nextInt(aSolution.length() * 10) / 10;
+            if (solutionArray[randomIndex] == '0')
+                solutionArray[randomIndex] = '1';
+            else
+                solutionArray[randomIndex] = '0';
+        }
+
+        return String.valueOf(solutionArray);
     }
 
     private int getFittestSolutionIndex(ArrayList<Double> globalSatisfactionList) {
@@ -128,31 +207,6 @@ public class GeneticAlgorithm {
             index++;
         }
         return maxIndex;
-    }
-
-
-    private String[] chooseParents(ArrayList<String> population, ArrayList<Double> globalSatisfactionList) {
-        String[] parents = new String[2];
-        double max = 1.0, secondMax = 1.0; //arbitrary positive values
-        //convert to array to make process easier
-        String[] populationArray = populationToArray(population);
-        double[] satisfactionArray = satisfactionToArray(globalSatisfactionList);
-        //get two fittest parents
-        for (int i = 0; i < sizeOfPopulation; i++) {
-            if (satisfactionArray[i] > max) {
-                secondMax = max;
-                parents[1] = parents[0];
-                max = satisfactionArray[i];
-                parents[0] = populationArray[i];
-            } else if (satisfactionArray[i] > secondMax && satisfactionArray[i] < max) {
-                secondMax = satisfactionArray[i];
-                parents[1] = populationArray[i];
-            }
-        }
-        if (Common.SHOW_GA_DEBUG) {
-            System.out.println("Parent's strength: " + max + " " + secondMax);
-        }
-        return parents;
     }
 
     private Double calculateGlobalSatisfaction(ArrayList<Project> projects, ArrayList<Student> students) {
@@ -173,11 +227,9 @@ public class GeneticAlgorithm {
         //generate remaining bit codes
         for (int i = 1; i < numberOfBitCodes; i++) {
             String nextBitCode = getNextBitCode(currentBitCode);
-
             //ensure new bit code is not a duplicate of an older one
             while (allBitCodes.contains(nextBitCode))
                 nextBitCode = getNextBitCode(currentBitCode);
-
             allBitCodes.add(nextBitCode);
             currentBitCode = nextBitCode;
         }
@@ -210,37 +262,6 @@ public class GeneticAlgorithm {
 
     private int toDecimal(String bitCode) {
         return Integer.parseInt(bitCode, 2);
-    }
-
-    private String mutate(String aSolution) {
-        char[] solutionArray = aSolution.toCharArray();
-
-        //use mutation probability
-        int bound = (int) (mutationChance * 1000);
-        int probabilityIndex = random.nextInt(1000);
-
-        if (probabilityIndex < bound) {
-            int randomIndex = random.nextInt(aSolution.length() * 10) / 10;
-            if (solutionArray[randomIndex] == '0')
-                solutionArray[randomIndex] = '1';
-            else
-                solutionArray[randomIndex] = '0';
-        }
-
-        return String.valueOf(solutionArray);
-    }
-
-    private String crossover(String parentA, String parentB) {
-        String offspring = "";
-        //use crossover probability
-        int bound = (int) (crossoverChance * 1000);
-        int probabilityIndex = random.nextInt(1000);
-        if (probabilityIndex < bound) {
-            int crossoverIndex = random.nextInt(parentA.length() * 10) / 10;
-            offspring = parentA.substring(0, crossoverIndex).concat(parentB.substring(crossoverIndex));
-        }
-        //if crossover didn't occur offspring will be a blank String
-        return offspring;
     }
 
     private ArrayList<String> generateInitialPopulation(ArrayList<String> allBitCodes) {
