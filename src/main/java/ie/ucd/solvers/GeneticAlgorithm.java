@@ -1,12 +1,13 @@
 package ie.ucd.solvers;
 
 import ie.ucd.Common;
+import ie.ucd.interfaces.GeneticAlgorithmInterface;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.Student;
 
 import java.util.*;
 
-public class GeneticAlgorithm {
+public class GeneticAlgorithm implements GeneticAlgorithmInterface {
     private double mutationChance;
     private double crossoverChance;
     private double pickFittestParentsChance;
@@ -73,6 +74,7 @@ public class GeneticAlgorithm {
         ArrayList<String> population = generateInitialPopulation(allBitCodes);
         ArrayList<String> nextPopulation = new ArrayList<String>();
         boolean isLastGeneration = false;
+
         for (int i = 1; i <= numberOfGenerations; i++) {
             if (i == numberOfGenerations) {
                 isLastGeneration = true;
@@ -80,6 +82,7 @@ public class GeneticAlgorithm {
             System.out.println("Creating Generation #" + i);
             //store satisfaction for each solution in a population
             ArrayList<Double> globalSatisfactionList = new ArrayList<Double>();
+
             for (String aSolution : population) {
                 students = assignProjectsFromSolution(aSolution, projects, students);
                 ArrayList<Project> updatedProjects = updateProjects(projects, students.size());
@@ -96,7 +99,6 @@ public class GeneticAlgorithm {
             if (Common.SHOW_GA_DEBUG) {
                 System.out.println("Fittest solution strength: " + fittestSolutionStrength);
             }
-
 
             if (!isLastGeneration) {
                 //generate population for next generation
@@ -152,6 +154,7 @@ public class GeneticAlgorithm {
                     index = i;
                 }
             }
+
             int randomIndex = random.nextInt(sizeOfPopulation);
             while (randomIndex == index) {
                 randomIndex = random.nextInt(sizeOfPopulation);
