@@ -108,6 +108,10 @@ public class Project implements ProjectInterface {
 		this.stream = stream;
 	}
 
+	public void setNumStudentsAssigned(double numStudentsAssigned) {
+		this.numStudentsAssigned = numStudentsAssigned;
+	}
+
 	public void setIsGivenAs1stPreference(Boolean isGivenAs1stPreference) {
 		this.isGivenAs1stPreference = isGivenAs1stPreference;
 	}

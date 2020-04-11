@@ -22,8 +22,8 @@ public class Generator {
 		ArrayList<Project> projects = parser.generateStaffProjects();
 		ArrayList<Student> students = parser.generateStudents();
 
-		GeneticAlgorithm GA = new GeneticAlgorithm(projects, students);
-		GA.run();
+		GeneticAlgorithm GA = new GeneticAlgorithm();
+		GA.run(projects, students);
 		students = GA.getFinalSolution();
 		int count = 1;
 		for (Student student : students) {

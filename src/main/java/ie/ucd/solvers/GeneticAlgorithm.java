@@ -11,19 +11,15 @@ public class GeneticAlgorithm {
     private double crossoverChance;
     private int numberOfGenerations;
     private int sizeOfPopulation;
-    private final ArrayList<Project> projects;
-    private final ArrayList<Student> students;
     private ArrayList<Student> finalSolution = new ArrayList<Student>();
 
     private final Random random = new Random();
 
-    public GeneticAlgorithm(ArrayList<Project> projects, ArrayList<Student> students) {
+    public GeneticAlgorithm() {
         this.mutationChance = 0.08;
         this.crossoverChance = 0.4;
         this.numberOfGenerations = 125;
         this.sizeOfPopulation = 75;
-        this.projects = projects;
-        this.students = students;
     }
 
     public double getMutationChance() {
@@ -62,8 +58,7 @@ public class GeneticAlgorithm {
         return finalSolution;
     }
 
-    public void run() {
-        ArrayList<Student> studentSolution = new ArrayList<Student>();
+    public void run(ArrayList<Project> projects, ArrayList<Student> students) {
         //generate bit codes to represent chromosomes
         ArrayList<String> allBitCodes = generateAllBitCodes(students.size());
         //generate population for generation 0
@@ -80,8 +75,8 @@ public class GeneticAlgorithm {
             //store satisfaction for each solution in a population
             ArrayList<Double> globalSatisfactionList = new ArrayList<Double>();
             for (String aSolution : population) {
-                studentSolution = assignProjectsFromSolution(aSolution);
-                double globalSatisfaction = calculateGlobalSatisfaction(studentSolution);
+                students = assignProjectsFromSolution(aSolution, projects, students);
+                double globalSatisfaction = calculateGlobalSatisfaction(projects, students);
                 if (Common.SHOW_GA_DEBUG)
                     System.out.println("globalSatisfaction: " + globalSatisfaction);
                 globalSatisfactionList.add(globalSatisfaction);
@@ -90,7 +85,7 @@ public class GeneticAlgorithm {
             //get fittest solution from population
             int fittestSolutionIndex = getFittestSolutionIndex(globalSatisfactionList);
             String fittestSolution = population.get(fittestSolutionIndex);
-            finalSolution = assignProjectsFromSolution(fittestSolution);
+            finalSolution = assignProjectsFromSolution(fittestSolution, projects, students);
 
             if (Common.SHOW_GA_DEBUG) {
                 System.out.println("Fittest solution strength : " + globalSatisfactionList.get(fittestSolutionIndex));
@@ -129,7 +124,7 @@ public class GeneticAlgorithm {
 
 
     private String[] chooseParents(ArrayList<String> population, ArrayList<Double> globalSatisfactionList) {
-        String[] parents = {population.get(0), population.get(1)};
+        String[] parents = new String[2];
 //        double max = globalSatisfactionList.get(0), secondMax = globalSatisfactionList.get(1);
 //        //convert to array to make process easier
 //        String[] populationArray = populationToArray(population);
@@ -195,7 +190,7 @@ public class GeneticAlgorithm {
         return satisfactionArray;
     }
 
-    private Double calculateGlobalSatisfaction(ArrayList<Student> students) {
+    private Double calculateGlobalSatisfaction(ArrayList<Project> projects, ArrayList<Student> students) {
         Double satisfaction = 0.0;
         for (Student student : students) {
             satisfaction += student.calculateSatisfaction();
@@ -206,7 +201,7 @@ public class GeneticAlgorithm {
         return satisfaction;
     }
 
-    public ArrayList<String> generateAllBitCodes(int numberOfBitCodes) {
+    private ArrayList<String> generateAllBitCodes(int numberOfBitCodes) {
         String currentBitCode = get1stBitCode();
         ArrayList<String> allBitCodes = new ArrayList<String>();
         allBitCodes.add(currentBitCode);
@@ -226,18 +221,18 @@ public class GeneticAlgorithm {
             allBitCodes.add(nextBitCode);
             currentBitCode = nextBitCode;
 
-            if (Common.SHOW_GA_DEBUG) {
-                System.out.println(i + 1 + " : " + currentBitCode);
-            }
+//            if (Common.SHOW_GA_DEBUG) {
+//                System.out.println(i + 1 + " : " + currentBitCode);
+//            }
         }
         return allBitCodes;
     }
 
-    public String get1stBitCode() {
+    private String get1stBitCode() {
         return "0000000000";
     }
 
-    public String getNextBitCode(String previousBitCode) {
+    private String getNextBitCode(String previousBitCode) {
         //pick random bit 0-9 to flip
         int randomIndex = random.nextInt(100) / 10;
 
@@ -257,11 +252,11 @@ public class GeneticAlgorithm {
         return String.valueOf(nextBitCode);
     }
 
-    public int toDecimal(String bitCode) {
+    private int toDecimal(String bitCode) {
         return Integer.parseInt(bitCode, 2);
     }
 
-    public String mutate(String aSolution) {
+    private String mutate(String aSolution) {
         char[] solutionArray = aSolution.toCharArray();
 
         //use mutation probability
@@ -279,7 +274,7 @@ public class GeneticAlgorithm {
         return String.valueOf(solutionArray);
     }
 
-    public String crossover(String parentA, String parentB) {
+    private String crossover(String parentA, String parentB) {
         String offspring = "";
         //use crossover probability
         int bound = (int) (crossoverChance * 1000);
@@ -292,9 +287,9 @@ public class GeneticAlgorithm {
         return offspring;
     }
 
-    public ArrayList<String> generateInitialPopulation(ArrayList<String> allBitCodes) {
+    private ArrayList<String> generateInitialPopulation(ArrayList<String> allBitCodes) {
         //create the first solution which usually has very good strength
-        HashSet<Integer> orderOfBitCodes = generate1stOrderOfBitCodes(allBitCodes.size());
+        int[] orderOfBitCodes = get1stOrderOfBitCodes(allBitCodes.size());
         String aSolution = generateCandidateSolution(allBitCodes, orderOfBitCodes);
         aSolution = mutate(aSolution);
         //add first solution to population
@@ -305,8 +300,7 @@ public class GeneticAlgorithm {
         //each following solution builds on the previous one by swapping around
         //any two random positions in orderOfBitCodes
         for (int i = 1; i < sizeOfPopulation; i++) {
-            HashSet<Integer> previousOrder = new HashSet<>(orderOfBitCodes);
-            orderOfBitCodes.clear();
+            int[] previousOrder = orderOfBitCodes;
             orderOfBitCodes = getNextOrderOfBitCodes(previousOrder);
             aSolution = generateCandidateSolution(allBitCodes, orderOfBitCodes);
             aSolution = mutate(aSolution);
@@ -322,7 +316,7 @@ public class GeneticAlgorithm {
         return population;
     }
 
-    public String generateCandidateSolution(ArrayList<String> allBitCodes, HashSet<Integer> orderOfBitCodes) {
+    private String generateCandidateSolution(ArrayList<String> allBitCodes, int[] orderOfBitCodes) {
         String candidateSolution = "";
         for (int index : orderOfBitCodes) {
             candidateSolution = candidateSolution.concat(allBitCodes.get(index));
@@ -330,18 +324,20 @@ public class GeneticAlgorithm {
         return candidateSolution;
     }
 
-    public HashSet<Integer> generate1stOrderOfBitCodes(int numberOfBitCodes) {
+    private int[] get1stOrderOfBitCodes(int numberOfBitCodes) {
         int randomIndex;
         if (Common.SHOW_GA_DEBUG) {
-            System.out.println("GENERATING first order");
+            System.out.println("Generating first order");
         }
-        HashSet<Integer> orderOfBitCodes = new HashSet<Integer>();
+        int[] orderOfBitCodes = new int[numberOfBitCodes];
+        HashSet<Integer> usedNumbers = new HashSet<Integer>();
         //generate a random arrangement pattern for bit codes in a solution
         for (int i = 0; i < numberOfBitCodes; i++) {
             randomIndex = random.nextInt(numberOfBitCodes * 10) / 10;
-            while (orderOfBitCodes.contains(randomIndex))
+            while (usedNumbers.contains(randomIndex))
                 randomIndex = random.nextInt(numberOfBitCodes * 10) / 10;
-            orderOfBitCodes.add(randomIndex);
+            orderOfBitCodes[i] = randomIndex;
+            usedNumbers.add(randomIndex);
             if (Common.SHOW_GA_DEBUG) {
                 System.out.println(randomIndex);
             }
@@ -349,20 +345,42 @@ public class GeneticAlgorithm {
         return orderOfBitCodes;
     }
 
-    private HashSet<Integer> getNextOrderOfBitCodes(HashSet<Integer> previousOrderOfBitCodes) {
-        HashSet<Integer> nextOrderOfBitCodes = new HashSet<Integer>();
-        //generate random indices to swap
-        int swapIndex = random.nextInt(previousOrderOfBitCodes.size() - 1);
-        Object[] tempArray = previousOrderOfBitCodes.toArray();
-        int[] previousOrderArray = toArray(tempArray);
-        if (Common.SHOW_GA_DEBUG) {
-            System.out.println("previous order array");
-            for (int number : previousOrderArray)
-                System.out.println(number);
+    private int[] toArray(HashSet<Integer> hashSet) {
+        int[] array = new int[hashSet.size()];
+        int i = 0;
+        for (Integer integer : hashSet) {
+            array[i] = integer;
         }
-        nextOrderOfBitCodes = swapOrderUsingIndices(previousOrderArray, swapIndex);
-        return nextOrderOfBitCodes;
+        return array;
     }
+
+    private HashSet<Integer> copy(HashSet<Integer> oldHashSet) {
+        HashSet<Integer> newHashSet = new HashSet<Integer>();
+        for (int each : oldHashSet)
+            newHashSet.add(each);
+        return newHashSet;
+    }
+
+    private int[] getNextOrderOfBitCodes(int[] previousOrderOfBitCodes) {
+        int randomIndex = random.nextInt(previousOrderOfBitCodes.length - 1);
+        //swap number at randomIndex with the next one
+        int temp = previousOrderOfBitCodes[randomIndex];
+        previousOrderOfBitCodes[randomIndex] = previousOrderOfBitCodes[randomIndex + 1];
+        previousOrderOfBitCodes[randomIndex + 1] = temp;
+
+        //generate random indices to swap
+//        int swapIndex = random.nextInt(previousOrderOfBitCodes.size() - 1);
+//        Object[] tempArray = previousOrderOfBitCodes.toArray();
+//        int[] previousOrderArray = toArray(tempArray);
+//        if (Common.SHOW_GA_DEBUG) {
+//            System.out.println("previous order array");
+//            for (int number : previousOrderArray)
+//                System.out.println(number);
+//        }
+//        nextOrderOfBitCodes = swapOrderUsingIndices(previousOrderArray, swapIndex);
+        return previousOrderOfBitCodes;
+    }
+
 
     private HashSet<Integer> swapOrderUsingIndices(int[] orderOfBitCodes,
                                                    int swapIndex) {
@@ -403,10 +421,11 @@ public class GeneticAlgorithm {
         return hashSet;
     }
 
-    public ArrayList<Student> assignProjectsFromSolution(String aSolution) {
+    private ArrayList<Student> assignProjectsFromSolution(String aSolution, ArrayList<Project> projects, ArrayList<Student> students) {
         int[] studentRankings = getRanking(aSolution, students.size());
         ArrayList<Student> assignedStudents = new ArrayList<Student>();
         ArrayList<Student> unassignedStudents = new ArrayList<Student>();
+        HashSet<Project> usedProjects = new HashSet<Project>();
 
         for (int rank = 1; rank <= students.size(); rank++) {
             for (int j = 0; j < studentRankings.length; j++) {
@@ -415,10 +434,10 @@ public class GeneticAlgorithm {
                     ArrayList<Project> currentPrefList = currentStudent.getPreferenceList();
                     boolean isAssigned = false;
                     for (Project project : currentPrefList) {
-                        if (project.getNumStudentsAssigned() > 0)
+                        if (usedProjects.contains(project))
                             continue;
-                        project.incrementStudentsAssigned();
                         currentStudent.setProjectAssigned(project, 0);
+                        usedProjects.add(project);
                         isAssigned = true;
                     }
                     if (isAssigned)
@@ -431,7 +450,7 @@ public class GeneticAlgorithm {
 
         for (Student student : unassignedStudents) {
             Project randomProject = projects.get(random.nextInt(projects.size()));
-            while (randomProject.getNumStudentsAssigned() > 0) {
+            while (usedProjects.contains(randomProject)) {
                 randomProject = projects.get(random.nextInt(projects.size()));
             }
             student.setProjectAssigned(randomProject, 0);
@@ -440,7 +459,7 @@ public class GeneticAlgorithm {
         return assignedStudents;
     }
 
-    public int[] getRanking(String aSolution, int numberOfBitCodes) {
+    private int[] getRanking(String aSolution, int numberOfBitCodes) {
         int low = 0, high = 10, offset = high - low;
         int[] solutionInDecimal = new int[numberOfBitCodes];
 
