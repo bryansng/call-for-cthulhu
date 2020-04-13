@@ -15,7 +15,6 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -24,7 +23,7 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 	protected TableView<E> tableView;
 	protected ObservableList<E> actualList;
 	protected FilteredList<E> filteredList;
-	protected SearchBox searchBox;
+	protected SearchBox<E> searchBox;
 	protected Button saveButton;
 	protected SheetType sheetType;
 
@@ -95,10 +94,10 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 	protected void initSearchBox() {
 		switch (sheetType) {
 			case Student:
-				searchBox = new SearchBox("Search by ID / First name / Last name / Stream / GPA / Project Assigned", this);
+				searchBox = new SearchBox<E>("Search by ID / First name / Last name / Stream / GPA / Project Assigned", this);
 				break;
 			case Project:
-				searchBox = new SearchBox("Search by Staff Member name / Project Name / Stream", this);
+				searchBox = new SearchBox<E>("Search by Staff Member name / Project Name / Stream", this);
 			default:
 				break;
 		}

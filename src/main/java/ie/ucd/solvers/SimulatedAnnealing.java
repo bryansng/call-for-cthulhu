@@ -6,7 +6,7 @@ import ie.ucd.objects.CandidateSolution;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.Student;
 import ie.ucd.ui.common.sheets.Sheets;
-import ie.ucd.ui.interfaces.SheetInterface;
+import ie.ucd.ui.common.sheets.StudentSheet;
 import ie.ucd.ui.interfaces.VisualizerInterface;
 
 public class SimulatedAnnealing extends Solver {
@@ -20,8 +20,8 @@ public class SimulatedAnnealing extends Solver {
 	private double coolingRate;
 	private double maxIteration;
 	private VisualizerInterface visualizer;
-	private SheetInterface<Student> currSheet;
-	private SheetInterface<Student> bestSheet;
+	private StudentSheet currSheet;
+	private StudentSheet bestSheet;
 
 	public SimulatedAnnealing(CandidateSolution startingSolution) {
 		this(startingSolution, null, null);
@@ -55,10 +55,14 @@ public class SimulatedAnnealing extends Solver {
 		CandidateSolution currSolution = startingSolution;
 		CandidateSolution nextSolution;
 		CandidateSolution bestSolution = currSolution;
-		if (currSheet != null)
+		if (currSheet != null) {
 			currSheet.setAll(currSolution.getStudents());
-		if (bestSheet != null)
+			currSheet.updateStrengthAndConstraints(currSolution);
+		}
+		if (bestSheet != null) {
 			bestSheet.setAll(bestSolution.getStudents());
+			bestSheet.updateStrengthAndConstraints(currSolution);
+		}
 
 		// minimizing negative fitness == maximizing positive fitness?
 		double currEnergy = calculateEnergy(currSolution);
@@ -100,8 +104,10 @@ public class SimulatedAnnealing extends Solver {
 				if (randomProbability <= acceptanceProbability) {
 					currSolution = nextSolution;
 					currEnergy = nextEnergy;
-					if (currSheet != null)
+					if (currSheet != null) {
 						currSheet.setAll(currSolution.getStudents());
+						currSheet.updateStrengthAndConstraints(currSolution);
+					}
 				} else {
 					totalRejected += 1;
 				}
@@ -113,8 +119,10 @@ public class SimulatedAnnealing extends Solver {
 				if (nextEnergy < bestEnergy) {
 					bestSolution = nextSolution;
 					bestEnergy = nextEnergy;
-					if (bestSheet != null)
+					if (bestSheet != null) {
 						bestSheet.setAll(bestSolution.getStudents());
+						bestSheet.updateStrengthAndConstraints(currSolution);
+					}
 				}
 
 				// cool system. (not much difference between the below two configurations)

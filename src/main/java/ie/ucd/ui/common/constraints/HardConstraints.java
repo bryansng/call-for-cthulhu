@@ -53,4 +53,12 @@ public class HardConstraints extends VBox {
 		getChildren().addAll(new Label("Hard"), studentAssignedPreferredProject, sameStream, studentAssignedOneProject,
 				projectAssignedToOneStudent);
 	}
+
+	public void setSelected(boolean studentAssignedPreferredProjectValue, boolean sameStreamValue,
+			boolean studentAssignedOneProjectValue, boolean projectAssignedToOneStudentVale) {
+		studentAssignedPreferredProject.setSelected(studentAssignedPreferredProjectValue);
+		sameStream.setSelected(sameStreamValue);
+		studentAssignedOneProject.setSelected(studentAssignedOneProjectValue);
+		projectAssignedToOneStudent.setSelected(projectAssignedToOneStudentVale);
+	}
 }

@@ -14,6 +14,9 @@ public class Project implements ProjectInterface, SearchMatchable {
 	private double numAs1stPreference = 0.0;
 	private double numStudentsAssigned = 0.0;
 
+	// violations.
+	private boolean assignmentViolation;
+
 	public Project(StaffMember staffMember, String researchActivity, String stream, double preferredProbability) {
 		this.staffMember = staffMember;
 		this.researchActivity = researchActivity;
@@ -22,6 +25,7 @@ public class Project implements ProjectInterface, SearchMatchable {
 	}
 
 	public Double calculateSatisfaction() {
+		assignmentViolation = false;
 		return assignmentSatisfaction();
 	}
 
@@ -30,6 +34,7 @@ public class Project implements ProjectInterface, SearchMatchable {
 		if (numStudentsAssigned == 1.0) {
 			return -Common.COST_NONE_OR_MULTIPLE_PROJECTS;
 		}
+		assignmentViolation = true;
 		return Common.COST_NONE_OR_MULTIPLE_PROJECTS * numStudentsAssigned;
 	}
 
@@ -114,6 +119,10 @@ public class Project implements ProjectInterface, SearchMatchable {
 
 	public Double getNumStudentsAssigned() {
 		return numStudentsAssigned;
+	}
+
+	public boolean isAssignmentViolation() {
+		return assignmentViolation;
 	}
 
 	public void setStaffMember(StaffMember staffMember) {

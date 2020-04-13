@@ -23,4 +23,12 @@ public class Constraints extends VBox {
 		HBox hBox = new HBox(hard, soft);
 		getChildren().add(hBox);
 	}
+
+	public HardConstraints getHardConstraints() {
+		return hard;
+	}
+
+	public SoftConstraints getSoftConstraints() {
+		return soft;
+	}
 }

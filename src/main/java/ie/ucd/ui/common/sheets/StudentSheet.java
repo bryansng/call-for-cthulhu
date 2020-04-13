@@ -1,9 +1,11 @@
 package ie.ucd.ui.common.sheets;
 
 import ie.ucd.Common.SheetType;
+import ie.ucd.objects.CandidateSolution;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.Student;
 import ie.ucd.ui.common.constraints.Constraints;
+import ie.ucd.ui.interfaces.StudentSheetInterface;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -11,7 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class StudentSheet extends Sheet<Student> {
+public class StudentSheet extends Sheet<Student> implements StudentSheetInterface<Student> {
 	private Strength strength;
 	private Constraints constraints;
 
@@ -35,6 +37,20 @@ public class StudentSheet extends Sheet<Student> {
 		getChildren().add(0, strength);
 
 		getChildren().add(0, new Label("Quality"));
+	}
+
+	public void updateStrengthAndConstraints(CandidateSolution solution) {
+		// update constraints.
+		constraints.getHardConstraints().setSelected(
+				solution.getViolationsStudentAssignedPreferredProject() > 0 ? false : true,
+				solution.getViolationsSameStream() > 0 ? false : true,
+				solution.getViolationsStudentAssignedOneProject() > 0 ? false : true,
+				solution.getViolationsProjectAssignedToOneStudent() > 0 ? false : true);
+		constraints.getSoftConstraints().setSelected(
+				solution.getViolationsEquallyDistributedAcrossSupervisors() > 0 ? false : true,
+				solution.getViolationsHigherGPAHigherPreferences() > 0 ? false : true);
+
+		// update strength.
 	}
 
 	protected void initTableView() {

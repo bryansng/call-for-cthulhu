@@ -40,4 +40,9 @@ public class SoftConstraints extends VBox {
 
 		getChildren().addAll(new Label("Soft"), equallyDistributedAcrossSupervisors, higherGPAHigherPreferences);
 	}
+
+	public void setSelected(boolean equallyDistributedAcrossSupervisorsValue, boolean higherGPAHigherPreferencesValue) {
+		equallyDistributedAcrossSupervisors.setSelected(equallyDistributedAcrossSupervisorsValue);
+		higherGPAHigherPreferences.setSelected(higherGPAHigherPreferencesValue);
+	}
 }

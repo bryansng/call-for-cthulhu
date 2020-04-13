@@ -1,16 +1,17 @@
 package ie.ucd.ui.common.sheets;
 
+import ie.ucd.ui.interfaces.SheetInterface;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
-public class SearchBox extends TextField {
+public class SearchBox<E> extends TextField {
 	private boolean isWaiting;
 	private Timeline waitForInput;
-	private Sheet sheet;
+	private SheetInterface<E> sheet;
 
-	public SearchBox(String promptText, Sheet sheet) {
+	public SearchBox(String promptText, SheetInterface<E> sheet) {
 		this.sheet = sheet;
 		resetStates();
 		initTimeline();

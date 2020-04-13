@@ -28,6 +28,7 @@ public class Common {
 	public static final double MAX_GPA = 4.2;
 	public static final double PROFIT_GPA_MULTIPLIER = 5.0;
 	public static final double PROFIT_PROJECT_IN_PREFERENCE_LIST = 20.0;
+	public static final int GPA_VIOLATION_INDEX_LIMIT = 2;
 	public static final double COST_PER_LOWER_POSITION_PROJECT_IN_PREFERENCE_LIST = -2.0;
 	public static final double COST_NOT_ASSIGNED_PREFERENCE_PROJECTS = -5.0;
 	public static final double COST_UNSUITED_STREAM = -5.0;

@@ -15,6 +15,12 @@ public class Student implements StudentInterface, SearchMatchable {
 	private ArrayList<Project> projects = new ArrayList<Project>();
 	private ArrayList<Project> preferenceList;
 
+	// violations.
+	private boolean preferenceViolation;
+	private boolean gpaViolation;
+	private boolean streamViolation;
+	private boolean assignmentViolation;
+
 	public Student(String firstName, String lastName, Integer id, String stream, Double gpa,
 			ArrayList<Project> preferenceList) {
 		this(firstName, lastName, id, stream, gpa, preferenceList.get(0), preferenceList);
@@ -32,24 +38,52 @@ public class Student implements StudentInterface, SearchMatchable {
 	}
 
 	public Double calculateSatisfaction() {
+		preferenceViolation = false;
+		gpaViolation = false;
+		streamViolation = false;
+		assignmentViolation = false;
+
 		return preferenceSatisfaction() + gpaSatisfaction() + streamSatisfaction() + assignmentSatisfaction();
 	}
 
 	// hard: student assigned exactly one of their preferred projects.
 	private Double preferenceSatisfaction() {
 		int position = preferenceList.indexOf(projects.get(0));
-		return position == -1 ? Common.COST_NOT_ASSIGNED_PREFERENCE_PROJECTS
-				: (Common.PROFIT_PROJECT_IN_PREFERENCE_LIST
-						- (Common.COST_PER_LOWER_POSITION_PROJECT_IN_PREFERENCE_LIST * position));
+
+		if (position == -1) {
+			preferenceViolation = true;
+			return Common.COST_NOT_ASSIGNED_PREFERENCE_PROJECTS;
+		}
+		return (Common.PROFIT_PROJECT_IN_PREFERENCE_LIST
+				- (Common.COST_PER_LOWER_POSITION_PROJECT_IN_PREFERENCE_LIST * position));
 	}
 
 	// soft: higher gpa means a greater chance of getting one's preferred projects.
-	// soft: students with higher GPAs should tend to get higher preferences than those with lower GPAs
+	// soft: students with higher GPAs should tend to get higher preferences than those with lower GPAs.
 	private Double gpaSatisfaction() {
 		int position = preferenceList.indexOf(projects.get(0));
-		return position == -1 ? 0.0
-				: (gpa / Common.MAX_GPA) * Settings.importanceOfGPA * (preferenceList.size() - position)
-						* Common.PROFIT_GPA_MULTIPLIER;
+
+		if (position == -1) {
+			return 0.0;
+		}
+
+		// violation if,
+		// high gpa, but low preference.
+		// low gpa, but high preference.
+		// so we if within lower and upper limit, if it is, no violation.
+		if (!isInTolerableGPAPreferenceLimit(position)) {
+			gpaViolation = true;
+		}
+
+		return (gpa / Common.MAX_GPA) * Settings.importanceOfGPA * (preferenceList.size() - position)
+				* Common.PROFIT_GPA_MULTIPLIER;
+	}
+
+	private boolean isInTolerableGPAPreferenceLimit(int projectPositionInPreferenceList) {
+		int midIndex = preferenceList.size() - (new Double(gpa / Common.MAX_GPA * preferenceList.size()).intValue());
+		int lower = midIndex - Common.GPA_VIOLATION_INDEX_LIMIT;
+		int upper = midIndex + Common.GPA_VIOLATION_INDEX_LIMIT;
+		return projectPositionInPreferenceList >= lower && projectPositionInPreferenceList <= upper;
 	}
 
 	// hard: student assigned project of the same stream.
@@ -57,6 +91,7 @@ public class Student implements StudentInterface, SearchMatchable {
 		if (projects.get(0).hasCompatibleStream(stream)) {
 			return -Common.COST_UNSUITED_STREAM;
 		}
+		streamViolation = true;
 		return Common.COST_UNSUITED_STREAM;
 	}
 
@@ -65,6 +100,7 @@ public class Student implements StudentInterface, SearchMatchable {
 		if (projects.size() == 1.0) {
 			return -Common.COST_NONE_OR_MULTIPLE_PROJECTS;
 		}
+		assignmentViolation = true;
 		return Common.COST_NONE_OR_MULTIPLE_PROJECTS * projects.size();
 	}
 
@@ -143,6 +179,22 @@ public class Student implements StudentInterface, SearchMatchable {
 
 	public ArrayList<Project> getPreferenceList() {
 		return preferenceList;
+	}
+
+	public boolean isPreferenceViolation() {
+		return preferenceViolation;
+	}
+
+	public boolean isStreamViolation() {
+		return streamViolation;
+	}
+
+	public boolean isGPAViolation() {
+		return gpaViolation;
+	}
+
+	public boolean isAssignmentViolation() {
+		return assignmentViolation;
 	}
 
 	public Student setFirstName(String firstName) {

@@ -17,6 +17,16 @@ public class CandidateSolution {
 	private double numCSStudents = 0.0;
 	private double totalProjectsAssigned = 0.0;
 
+	// constraints.
+	// hard.
+	private int violationsStudentAssignedPreferredProject;
+	private int violationsSameStream;
+	private int violationsStudentAssignedOneProject;
+	private int violationsProjectAssignedToOneStudent;
+	// soft.
+	private int violationsEquallyDistributedAcrossSupervisors;
+	private int violationsHigherGPAHigherPreferences;
+
 	public CandidateSolution(CandidateSolution other) {
 		this(other.getNumberOfStudents(), other.getStaffMembers(), other.getNames(), other.getProjects(),
 				other.getStudents());
@@ -67,12 +77,24 @@ public class CandidateSolution {
 	}
 
 	public Double calculateGlobalSatisfaction() {
+		violationsStudentAssignedPreferredProject = 0;
+		violationsSameStream = 0;
+		violationsStudentAssignedOneProject = 0;
+		violationsProjectAssignedToOneStudent = 0;
+		violationsEquallyDistributedAcrossSupervisors = 0;
+		violationsHigherGPAHigherPreferences = 0;
+
 		Double satisfaction = 0.0;
 		for (Student student : students) {
 			satisfaction += student.calculateSatisfaction();
+			violationsStudentAssignedPreferredProject += student.isPreferenceViolation() ? 1 : 0;
+			violationsSameStream += student.isStreamViolation() ? 1 : 0;
+			violationsHigherGPAHigherPreferences += student.isGPAViolation() ? 1 : 0;
+			violationsStudentAssignedOneProject += student.isAssignmentViolation() ? 1 : 0;
 		}
 		for (Project project : projects) {
 			satisfaction += project.calculateSatisfaction();
+			violationsProjectAssignedToOneStudent += project.isAssignmentViolation() ? 1 : 0;
 		}
 		satisfaction += projectDistributionToSupervisorsSatisfaction();
 
@@ -89,13 +111,12 @@ public class CandidateSolution {
 	// soft: projects are more-or-less equally distributed across supervisors.
 	// ! dont have to calculate every time
 	private Double projectDistributionToSupervisorsSatisfaction() {
-		double numViolations = 0.0;
 		for (StaffMember staff : staffMembers) {
 			if (staff.getNumberActivitiesUsed() <= Common.numAvgProjectsProposed + 2) {
-				numViolations += 1.0;
+				violationsEquallyDistributedAcrossSupervisors += 1.0;
 			}
 		}
-		return numViolations * Common.COST_UNEQUAL_PROJECT_DISTRIBUTION_TO_SUPERVISOR;
+		return violationsEquallyDistributedAcrossSupervisors * Common.COST_UNEQUAL_PROJECT_DISTRIBUTION_TO_SUPERVISOR;
 	}
 
 	public String toStringStudents() {
@@ -257,5 +278,29 @@ public class CandidateSolution {
 		double percentDS = numDSStudents * 1.0 / students.size() * 100;
 		// System.out.println("Student percent: " + percentDS);
 		return percentDS >= 35 && percentDS <= 45; // 40 +- 5
+	}
+
+	public int getViolationsStudentAssignedPreferredProject() {
+		return violationsStudentAssignedPreferredProject;
+	}
+
+	public int getViolationsSameStream() {
+		return violationsSameStream;
+	}
+
+	public int getViolationsStudentAssignedOneProject() {
+		return violationsStudentAssignedOneProject;
+	}
+
+	public int getViolationsProjectAssignedToOneStudent() {
+		return violationsProjectAssignedToOneStudent;
+	}
+
+	public int getViolationsEquallyDistributedAcrossSupervisors() {
+		return violationsEquallyDistributedAcrossSupervisors;
+	}
+
+	public int getViolationsHigherGPAHigherPreferences() {
+		return violationsHigherGPAHigherPreferences;
 	}
 }
