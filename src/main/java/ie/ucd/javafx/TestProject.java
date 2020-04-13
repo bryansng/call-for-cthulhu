@@ -6,6 +6,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.Tab;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -17,7 +19,8 @@ public class TestProject extends Application {
         launch(args);
     }
     
-    @Override
+    //@SuppressWarnings("restriction")
+	@Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
         Scene scene = new Scene(root);
@@ -76,6 +79,12 @@ public class TestProject extends Application {
     	fileChooser.showOpenDialog(primaryStage);
     }
     
+    public void moveTab()	{
+    	/*TabPane tabpane = new TabPane();
+    	tabpane.getSelectionModel()
+    	Tab selectedTab = tabpane.getSelectionModel().getSelectedItem();
+    	System.out.println(selectedTab);*/
+    }
     /*
      * 	FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Resource File");

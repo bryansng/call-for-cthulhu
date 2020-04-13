@@ -35,5 +35,9 @@ public class TestController {
 	public void selectBrowse(ActionEvent event)		{
 		testproject.browseFiles();
 	}
+	
+	public void changeTab(ActionEvent event)	{
+		testproject.moveTab();
+	}
 
 }
