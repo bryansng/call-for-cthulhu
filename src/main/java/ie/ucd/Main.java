@@ -39,7 +39,8 @@ public class Main extends Application {
 
 		solverPane = new SolverPane(stage, SolverType.SimulatedAnnealing);
 		Scene scene = new Scene(solverPane, 1280, 960);
-		scene.getStylesheets().add("ui/sa/solver.css");
+		scene.getStylesheets().add("ui/solver/visualizer.css");
+		scene.getStylesheets().add("ui/solver/constraints.css");
 
 		stage.setScene(scene);
 		stage.show();
@@ -63,7 +64,7 @@ public class Main extends Application {
 		solution.generateStudents();
 		System.out.println(solution.CSDSPercentage());
 
-		Solver solver = new SimulatedAnnealing(solution, null);
+		Solver solver = new SimulatedAnnealing(solution, null, null);
 		solver.run();
 		CandidateSolution bestSolution = solver.getBestSolution();
 

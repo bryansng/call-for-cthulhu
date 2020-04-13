@@ -1,4 +1,4 @@
-package ie.ucd.ui.common;
+package ie.ucd.ui.common.sheets;
 
 import javafx.scene.layout.VBox;
 import java.io.File;
@@ -10,14 +10,17 @@ import ie.ucd.interfaces.SearchMatchable;
 import ie.ucd.io.CSVFileWriter;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.Student;
+import ie.ucd.ui.interfaces.SheetInterface;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public abstract class Sheet<E> extends VBox {
+public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 	protected TableView<E> tableView;
 	protected ObservableList<E> actualList;
 	protected FilteredList<E> filteredList;
@@ -28,6 +31,10 @@ public abstract class Sheet<E> extends VBox {
 	public Sheet(Stage stage, boolean includeSaveToFileButton, SheetType sheetType) {
 		super();
 		this.sheetType = sheetType;
+		initLayout(stage, includeSaveToFileButton);
+	}
+
+	private void initLayout(Stage stage, boolean includeSaveToFileButton) {
 		initTableView();
 		initSearchBox();
 		getChildren().add(tableView);
@@ -79,8 +86,10 @@ public abstract class Sheet<E> extends VBox {
 		return tableView.getItems().add(element);
 	}
 
-	public boolean setAll(ArrayList<E> elements) {
-		return actualList.setAll(elements);
+	public void setAll(ArrayList<E> elements) {
+		Platform.runLater(() -> {
+			actualList.setAll(elements);
+		});
 	}
 
 	protected void initSearchBox() {

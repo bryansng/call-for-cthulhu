@@ -21,7 +21,9 @@ import javafx.util.Duration;
 
 public class Visualizer extends GridPane implements VisualizerInterface {
 	private final int WINDOW_SIZE = 10000; // 13000
-	private final int VISUALIZER_DEQUE_EMPTY_LIMIT = 2000; //  time_to_wait_before_stop_scheduler_in_sec / scheduler_wait_in_sec, i.e. 2/0.001
+	private final int VISUALIZER_DEQUE_EMPTY_LIMIT = 1000; //  time_to_wait_before_stop_scheduler_in_sec / scheduler_wait_in_sec, i.e. 1/0.001
+
+	private ControlButtons controlButtons;
 
 	private int emptyCount;
 	private String yAxisName;
@@ -57,7 +59,9 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 			} else {
 				emptyCount++;
 				if (emptyCount > VISUALIZER_DEQUE_EMPTY_LIMIT) {
+					controlButtons.enableOnlyClearAndReset();
 					pause();
+					System.out.println("visualizer paused");
 				}
 			}
 		}));
@@ -65,6 +69,7 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 	}
 
 	private void initLayout() {
+		getStylesheets().add("ui/solver/visualizer.css");
 		getChildren().add(initLineChart());
 	}
 
@@ -182,5 +187,9 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 			currSeries.setName(String.format("%-" + padding + "s %10.4f", currSeriesName, currEnergy));
 			bestSeries.setName(String.format("%-" + padding + "s %10.4f", bestSeriesName, bestEnergy));
 		}
+	}
+
+	public void setControlButtons(ControlButtons controlButtons) {
+		this.controlButtons = controlButtons;
 	}
 }

@@ -1,0 +1,35 @@
+/* https://stackoverflow.com/questions/52130439/javafx-style-checkbox */
+
+.check-box:disabled {
+	-fx-text-fill: black;
+}
+
+.check-box:disabled>.box {
+	-fx-opacity: 0.5;
+}
+
+.check-box:selected>.box {
+	-fx-background-color: #28a745b6;
+}
+
+.check-box:selected>.box>.mark {
+	-fx-opacity: 0;
+}
+
+.check-box:selected {
+	/* -fx-background-color: #28a745b6; */
+	-fx-text-fill: black;
+	/* -fx-font-weight: bold; */
+	-fx-opacity: 1;
+}
+
+.check-box>.box {
+	-fx-background-color: #dc3546b6;
+}
+
+.check-box {
+	/* -fx-background-color: #dc3546b6; */
+	-fx-text-fill: black;
+	/* -fx-font-weight: bold; */
+	-fx-opacity: 1;
+}

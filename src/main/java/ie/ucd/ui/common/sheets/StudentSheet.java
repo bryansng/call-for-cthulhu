@@ -1,8 +1,9 @@
-package ie.ucd.ui.common;
+package ie.ucd.ui.common.sheets;
 
 import ie.ucd.Common.SheetType;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.Student;
+import ie.ucd.ui.common.constraints.Constraints;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -11,12 +12,29 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 public class StudentSheet extends Sheet<Student> {
+	private Strength strength;
+	private Constraints constraints;
+
 	public StudentSheet(Stage stage) {
-		this(stage, false);
+		this(stage, false, false);
 	}
 
-	public StudentSheet(Stage stage, boolean includeSaveToFileButton) {
+	public StudentSheet(Stage stage, boolean includeSaveToFileButton, boolean includeQualityEvaluation) {
 		super(stage, includeSaveToFileButton, SheetType.Student);
+
+		if (includeQualityEvaluation) {
+			initSolutionQualityLayout();
+		}
+	}
+
+	private void initSolutionQualityLayout() {
+		constraints = new Constraints();
+		getChildren().add(0, constraints);
+
+		strength = new Strength();
+		getChildren().add(0, strength);
+
+		getChildren().add(0, new Label("Quality"));
 	}
 
 	protected void initTableView() {

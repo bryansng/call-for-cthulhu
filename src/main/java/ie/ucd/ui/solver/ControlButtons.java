@@ -1,14 +1,13 @@
 package ie.ucd.ui.solver;
 
 import java.io.IOException;
-
 import ie.ucd.Common.SolverType;
 import ie.ucd.io.Parser;
 import ie.ucd.objects.CandidateSolution;
 import ie.ucd.solvers.GeneticAlgorithm;
 import ie.ucd.solvers.SimulatedAnnealing;
 import ie.ucd.solvers.Solver;
-import ie.ucd.ui.common.StudentSheet;
+import ie.ucd.ui.common.sheets.Sheets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
@@ -16,7 +15,7 @@ public class ControlButtons extends HBox {
 	private SolverType solverType;
 	private Solver solver;
 	private Visualizer visualizer;
-	private StudentSheet sheet;
+	private Sheets sheets;
 
 	private boolean isRunning;
 	private boolean isPaused;
@@ -28,14 +27,13 @@ public class ControlButtons extends HBox {
 
 	private volatile Thread thread;
 
-	public ControlButtons(Visualizer visualizer, StudentSheet sheet, SolverType solverType) {
+	public ControlButtons(Visualizer visualizer, Sheets sheets, SolverType solverType) {
 		super();
 		this.visualizer = visualizer;
-		this.sheet = sheet;
+		this.sheets = sheets;
 		this.solverType = solverType;
 		resetStates();
 		initLayout();
-		addToSheet();
 	}
 
 	private void initLayout() {
@@ -45,16 +43,16 @@ public class ControlButtons extends HBox {
 				isPaused = false;
 				solver.resume();
 				visualizer.resume();
-				pause.setDisable(false);
 				play.setDisable(true);
+				pause.setDisable(false);
 				step.setDisable(true);
 			} else if (!isRunning) {
 				isRunning = true;
 				visualizer.resume();
 				startThread();
-				clearAndReset.setDisable(false);
-				pause.setDisable(false);
 				play.setDisable(true);
+				pause.setDisable(false);
+				clearAndReset.setDisable(false);
 				step.setDisable(true);
 			}
 		});
@@ -65,8 +63,9 @@ public class ControlButtons extends HBox {
 				isPaused = true;
 				visualizer.pause();
 				solver.suspend();
-				pause.setDisable(true);
 				play.setDisable(false);
+				play.requestFocus();
+				pause.setDisable(true);
 				step.setDisable(false);
 			}
 		});
@@ -78,9 +77,10 @@ public class ControlButtons extends HBox {
 				visualizer.pause();
 				visualizer.resetSeries();
 				solver.stop();
-				clearAndReset.setDisable(true);
-				pause.setDisable(true);
 				play.setDisable(false);
+				play.requestFocus();
+				pause.setDisable(true);
+				clearAndReset.setDisable(true);
 				step.setDisable(true);
 			}
 		});
@@ -105,6 +105,17 @@ public class ControlButtons extends HBox {
 		getChildren().add(step);
 	}
 
+	// used when visualizer one animating.
+	public void enableOnlyClearAndReset() {
+		if (isRunning) {
+			play.setDisable(true);
+			pause.setDisable(true);
+			clearAndReset.setDisable(false);
+			step.setDisable(true);
+			System.out.println("buttons reset");
+		}
+	}
+
 	private void resetStates() {
 		isRunning = false;
 		isPaused = false;
@@ -115,18 +126,6 @@ public class ControlButtons extends HBox {
 		thread = new Thread(createNewSolver());
 		thread.setDaemon(true);
 		thread.start();
-	}
-
-	// testing purposes: remove during production.
-	private void addToSheet() {
-		try {
-			Parser parser = new Parser();
-			CandidateSolution solution = new CandidateSolution(500, parser.getStaffMembers(), parser.getNames(), null, null);
-			solution.generateProjects();
-			sheet.setAll(solution.generateStudents());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	private Solver createNewSolver() {
@@ -143,10 +142,9 @@ public class ControlButtons extends HBox {
 				case SimulatedAnnealing:
 				default:
 					//! simulated annealing here should take in the updated parameters.
-					solver = new SimulatedAnnealing(solution, visualizer);
+					solver = new SimulatedAnnealing(solution, visualizer, sheets);
 					break;
 			}
-			sheet.setAll(solution.getStudents());
 			this.solver = solver;
 			return solver;
 		} catch (IOException e) {

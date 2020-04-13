@@ -5,6 +5,8 @@ import ie.ucd.Common;
 import ie.ucd.objects.CandidateSolution;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.Student;
+import ie.ucd.ui.common.sheets.Sheets;
+import ie.ucd.ui.interfaces.SheetInterface;
 import ie.ucd.ui.interfaces.VisualizerInterface;
 
 public class SimulatedAnnealing extends Solver {
@@ -18,17 +20,19 @@ public class SimulatedAnnealing extends Solver {
 	private double coolingRate;
 	private double maxIteration;
 	private VisualizerInterface visualizer;
+	private SheetInterface<Student> currSheet;
+	private SheetInterface<Student> bestSheet;
 
 	public SimulatedAnnealing(CandidateSolution startingSolution) {
-		this(startingSolution, null);
+		this(startingSolution, null, null);
 	}
 
-	public SimulatedAnnealing(CandidateSolution startingSolution, VisualizerInterface visualizer) {
-		this(100.0, 0.001, 0.01, 10000, startingSolution, visualizer);
+	public SimulatedAnnealing(CandidateSolution startingSolution, VisualizerInterface visualizer, Sheets sheets) {
+		this(100.0, 0.001, 0.01, 10000, startingSolution, visualizer, sheets);
 	}
 
 	public SimulatedAnnealing(double temperature, double coolingRate, double minTemperature, double maxIteration,
-			CandidateSolution startingSolution, VisualizerInterface visualizer) {
+			CandidateSolution startingSolution, VisualizerInterface visualizer, Sheets sheets) {
 		this.temperature = temperature;
 		this.coolingRate = coolingRate;
 		this.startTemperature = temperature;
@@ -36,6 +40,10 @@ public class SimulatedAnnealing extends Solver {
 		this.maxIteration = maxIteration;
 		this.startingSolution = startingSolution;
 		this.visualizer = visualizer;
+		if (sheets != null) {
+			this.currSheet = sheets.getCurrentSheet();
+			this.bestSheet = sheets.getBestSheet();
+		}
 	}
 
 	public CandidateSolution getBestSolution() {
@@ -47,6 +55,10 @@ public class SimulatedAnnealing extends Solver {
 		CandidateSolution currSolution = startingSolution;
 		CandidateSolution nextSolution;
 		CandidateSolution bestSolution = currSolution;
+		if (currSheet != null)
+			currSheet.setAll(currSolution.getStudents());
+		if (bestSheet != null)
+			bestSheet.setAll(bestSolution.getStudents());
 
 		// minimizing negative fitness == maximizing positive fitness?
 		double currEnergy = calculateEnergy(currSolution);
@@ -88,6 +100,8 @@ public class SimulatedAnnealing extends Solver {
 				if (randomProbability <= acceptanceProbability) {
 					currSolution = nextSolution;
 					currEnergy = nextEnergy;
+					if (currSheet != null)
+						currSheet.setAll(currSolution.getStudents());
 				} else {
 					totalRejected += 1;
 				}
@@ -99,11 +113,8 @@ public class SimulatedAnnealing extends Solver {
 				if (nextEnergy < bestEnergy) {
 					bestSolution = nextSolution;
 					bestEnergy = nextEnergy;
-					System.out.println("\nNew best solution found.");
-					System.out.println("Satisfaction: " + storedSatisfaction);
-					System.out.println("1.0 / Satisfaction * 100000: " + calculateEnergy(nextSolution));
-					System.out.println("currEnergy: " + currEnergy);
-					System.out.println("nextEnergy: " + nextEnergy + "\n");
+					if (bestSheet != null)
+						bestSheet.setAll(bestSolution.getStudents());
 				}
 
 				// cool system. (not much difference between the below two configurations)
