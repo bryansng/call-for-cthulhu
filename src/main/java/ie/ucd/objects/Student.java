@@ -2,6 +2,7 @@ package ie.ucd.objects;
 
 import java.util.ArrayList;
 import ie.ucd.Common;
+import ie.ucd.Settings;
 import ie.ucd.interfaces.SearchMatchable;
 import ie.ucd.interfaces.StudentInterface;
 
@@ -47,7 +48,7 @@ public class Student implements StudentInterface, SearchMatchable {
 	private Double gpaSatisfaction() {
 		int position = preferenceList.indexOf(projects.get(0));
 		return position == -1 ? 0.0
-				: (gpa / Common.MAX_GPA) * Common.IMPORTANCE_OF_GPA * (preferenceList.size() - position)
+				: (gpa / Common.MAX_GPA) * Settings.importanceOfGPA * (preferenceList.size() - position)
 						* Common.PROFIT_GPA_MULTIPLIER;
 	}
 

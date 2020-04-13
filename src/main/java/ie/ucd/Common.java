@@ -27,7 +27,6 @@ public class Common {
 	// the below are used during calculating of global/local satisfaction.
 	public static final double MAX_GPA = 4.2;
 	public static final double PROFIT_GPA_MULTIPLIER = 5.0;
-	public static final double IMPORTANCE_OF_GPA = 1.0; // 0 to 1. This is the value slider changes in the UI.
 	public static final double PROFIT_PROJECT_IN_PREFERENCE_LIST = 20.0;
 	public static final double COST_PER_LOWER_POSITION_PROJECT_IN_PREFERENCE_LIST = -2.0;
 	public static final double COST_NOT_ASSIGNED_PREFERENCE_PROJECTS = -5.0;
