@@ -10,6 +10,10 @@ public class HardConstraints extends VBox {
 	private CheckBox sameStream;
 	private CheckBox studentAssignedOneProject;
 	private CheckBox projectAssignedToOneStudent;
+	private String studentAssignedPreferredProjectText;
+	private String sameStreamText;
+	private String studentAssignedOneProjectText;
+	private String projectAssignedToOneStudentText;
 
 	public HardConstraints() {
 		this(false, false);
@@ -21,10 +25,15 @@ public class HardConstraints extends VBox {
 	}
 
 	public void initLayout(boolean enableToggle, boolean enableToggleSettings) {
-		studentAssignedPreferredProject = new CheckBox("Each student is assigned exactly one of their preferred projects.");
-		sameStream = new CheckBox("Each student is assigned projects with the same stream as the student.");
-		studentAssignedOneProject = new CheckBox("Each student is assigned exactly one project.");
-		projectAssignedToOneStudent = new CheckBox("Each project is assigned to at most one student.");
+		studentAssignedPreferredProjectText = "Each student is assigned exactly one of their preferred projects.";
+		sameStreamText = "Each student is assigned projects with the same stream as the student.";
+		studentAssignedOneProjectText = "Each student is assigned exactly one project.";
+		projectAssignedToOneStudentText = "Each project is assigned to at most one student.";
+
+		studentAssignedPreferredProject = new CheckBox(studentAssignedPreferredProjectText);
+		sameStream = new CheckBox(sameStreamText);
+		studentAssignedOneProject = new CheckBox(studentAssignedOneProjectText);
+		projectAssignedToOneStudent = new CheckBox(projectAssignedToOneStudentText);
 
 		if (!enableToggle) {
 			studentAssignedPreferredProject.setDisable(true);
@@ -54,11 +63,26 @@ public class HardConstraints extends VBox {
 				projectAssignedToOneStudent);
 	}
 
-	public void setSelected(boolean studentAssignedPreferredProjectValue, boolean sameStreamValue,
-			boolean studentAssignedOneProjectValue, boolean projectAssignedToOneStudentVale) {
-		studentAssignedPreferredProject.setSelected(studentAssignedPreferredProjectValue);
-		sameStream.setSelected(sameStreamValue);
-		studentAssignedOneProject.setSelected(studentAssignedOneProjectValue);
-		projectAssignedToOneStudent.setSelected(projectAssignedToOneStudentVale);
+	public void updateStudentAssignedPreferredProject(boolean isNotViolated, Integer violationCount, Integer total) {
+		studentAssignedPreferredProject.setSelected(isNotViolated);
+		studentAssignedPreferredProject.setText(studentAssignedPreferredProjectText
+				+ (violationCount == null ? "" : " (" + violationCount + "/" + total + ")"));
+	}
+
+	public void updateSameStream(boolean isNotViolated, Integer violationCount, Integer total) {
+		sameStream.setSelected(isNotViolated);
+		sameStream.setText(sameStreamText + (violationCount == null ? "" : " (" + violationCount + "/" + total + ")"));
+	}
+
+	public void updateStudentAssignedOneProject(boolean isNotViolated, Integer violationCount, Integer total) {
+		studentAssignedOneProject.setSelected(isNotViolated);
+		studentAssignedOneProject.setText(
+				studentAssignedOneProjectText + (violationCount == null ? "" : " (" + violationCount + "/" + total + ")"));
+	}
+
+	public void updateProjectAssignedToOneStudent(boolean isNotViolated, Integer violationCount, Integer total) {
+		projectAssignedToOneStudent.setSelected(isNotViolated);
+		projectAssignedToOneStudent.setText(
+				projectAssignedToOneStudentText + (violationCount == null ? "" : " (" + violationCount + "/" + total + ")"));
 	}
 }

@@ -20,20 +20,20 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 
 public class Visualizer extends GridPane implements VisualizerInterface {
+	private int emptyCount;
 	private final int WINDOW_SIZE = 10000; // 13000
-	private final int VISUALIZER_DEQUE_EMPTY_LIMIT = 1000; //  time_to_wait_before_stop_scheduler_in_sec / scheduler_wait_in_sec, i.e. 1/0.001
+	private final int DEQUE_EMPTY_LIMIT = 1000; //  time_to_wait_before_stop_scheduler_in_sec / scheduler_wait_in_sec, i.e. 1/0.001
+	private boolean isDoneProcessing;
+	private Deque<Coordinate> coordinateDeque;
+	private Timeline addToGraph;
 
 	private ControlButtons controlButtons;
 
-	private int emptyCount;
 	private String yAxisName;
 	private LineChart<Number, Number> lineChart;
-	private Deque<Coordinate> coordinateDeque;
 	private XYChart.Series<Number, Number> currSeries;
 	private XYChart.Series<Number, Number> bestSeries;
 	private LocalDateTime startDateTime;
-
-	private Timeline addToGraph;
 
 	public Visualizer(SolverType solverType) {
 		super();
@@ -56,14 +56,19 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 			if (!coordinateDeque.isEmpty()) {
 				addDataToChart();
 				emptyCount = 0;
-			} else {
-				emptyCount++;
-				if (emptyCount > VISUALIZER_DEQUE_EMPTY_LIMIT) {
-					controlButtons.enableOnlyClearAndReset();
-					pause();
-					System.out.println("visualizer paused");
-				}
+			} else if (coordinateDeque.isEmpty() && isDoneProcessing) {
+				controlButtons.enableOnlyClearAndReset();
+				pause();
+				System.out.println("visualizer paused");
 			}
+			// else {
+			// 	emptyCount++;
+			// 	if (emptyCount > DEQUE_EMPTY_LIMIT) {
+			// 		controlButtons.enableOnlyClearAndReset();
+			// 		pause();
+			// 		System.out.println("visualizer paused");
+			// 	}
+			// }
 		}));
 		addToGraph.setCycleCount(Animation.INDEFINITE);
 	}
@@ -86,6 +91,8 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 		// creating the chart.
 		lineChart = new LineChart<Number, Number>(xAxis, yAxis);
 		lineChart.setTitle(yAxisName + " over Time / Loop Number");
+		lineChart.setHorizontalGridLinesVisible(false);
+		lineChart.setVerticalGridLinesVisible(false);
 		lineChart.setAnimated(false);
 		lineChart.setCreateSymbols(false);
 		lineChart.setPrefWidth(1024);
@@ -121,11 +128,11 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 	public void newSeries() {
 		startDateTime = LocalDateTime.now();
 		emptyCount = 0;
-		resetSeries();
 	}
 
 	@Override
 	public void resetSeries() {
+		isDoneProcessing = false;
 		currSeries.getData().clear();
 		bestSeries.getData().clear();
 		coordinateDeque.clear();
@@ -145,6 +152,10 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 
 	public void resume() {
 		addToGraph.play();
+	}
+
+	public void setDoneProcessing(boolean isDone) {
+		isDoneProcessing = isDone;
 	}
 
 	public void initOneShotScheduler() {

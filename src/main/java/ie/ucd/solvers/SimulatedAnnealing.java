@@ -20,8 +20,7 @@ public class SimulatedAnnealing extends Solver {
 	private double coolingRate;
 	private double maxIteration;
 	private VisualizerInterface visualizer;
-	private StudentSheet currSheet;
-	private StudentSheet bestSheet;
+	private Sheets sheets;
 
 	public SimulatedAnnealing(CandidateSolution startingSolution) {
 		this(startingSolution, null, null);
@@ -40,10 +39,7 @@ public class SimulatedAnnealing extends Solver {
 		this.maxIteration = maxIteration;
 		this.startingSolution = startingSolution;
 		this.visualizer = visualizer;
-		if (sheets != null) {
-			this.currSheet = sheets.getCurrentSheet();
-			this.bestSheet = sheets.getBestSheet();
-		}
+		this.sheets = sheets;
 	}
 
 	public CandidateSolution getBestSolution() {
@@ -51,20 +47,26 @@ public class SimulatedAnnealing extends Solver {
 	}
 
 	public void run() {
+		StudentSheet currSheet = null;
+		StudentSheet bestSheet = null;
+		if (sheets != null) {
+			currSheet = sheets.getCurrentSheet();
+			bestSheet = sheets.getBestSheet();
+		}
+
 		// keep track of solutions.
 		CandidateSolution currSolution = startingSolution;
 		CandidateSolution nextSolution;
 		CandidateSolution bestSolution = currSolution;
 		if (currSheet != null) {
 			currSheet.setAll(currSolution.getStudents());
-			currSheet.updateStrengthAndConstraints(currSolution);
+			currSheet.addToQueue(currSolution);
 		}
 		if (bestSheet != null) {
 			bestSheet.setAll(bestSolution.getStudents());
-			bestSheet.updateStrengthAndConstraints(currSolution);
+			bestSheet.addToQueue(bestSolution);
 		}
 
-		// minimizing negative fitness == maximizing positive fitness?
 		double currEnergy = calculateEnergy(currSolution);
 		double nextEnergy;
 		double bestEnergy = currEnergy;
@@ -106,7 +108,7 @@ public class SimulatedAnnealing extends Solver {
 					currEnergy = nextEnergy;
 					if (currSheet != null) {
 						currSheet.setAll(currSolution.getStudents());
-						currSheet.updateStrengthAndConstraints(currSolution);
+						currSheet.addToQueue(currSolution);
 					}
 				} else {
 					totalRejected += 1;
@@ -121,7 +123,7 @@ public class SimulatedAnnealing extends Solver {
 					bestEnergy = nextEnergy;
 					if (bestSheet != null) {
 						bestSheet.setAll(bestSolution.getStudents());
-						bestSheet.updateStrengthAndConstraints(currSolution);
+						bestSheet.addToQueue(bestSolution);
 					}
 				}
 
@@ -144,6 +146,12 @@ public class SimulatedAnnealing extends Solver {
 				}
 			} catch (InterruptedException e) {
 			}
+		}
+		if (visualizer != null) {
+			visualizer.setDoneProcessing(true);
+		}
+		if (sheets != null) {
+			sheets.setDoneProcessing(true);
 		}
 		System.out.println("\nExited at loop " + i + ", temperature " + temperature);
 		System.out.println("totalRejected: " + totalRejected);

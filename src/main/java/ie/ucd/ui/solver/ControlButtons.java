@@ -43,12 +43,16 @@ public class ControlButtons extends HBox {
 				isPaused = false;
 				solver.resume();
 				visualizer.resume();
+				sheets.resume();
 				play.setDisable(true);
 				pause.setDisable(false);
 				step.setDisable(true);
 			} else if (!isRunning) {
 				isRunning = true;
 				visualizer.resume();
+				visualizer.resetSeries();
+				sheets.resume();
+				sheets.resetSeries();
 				startThread();
 				play.setDisable(true);
 				pause.setDisable(false);
@@ -62,6 +66,7 @@ public class ControlButtons extends HBox {
 			if (isRunning && !isPaused) {
 				isPaused = true;
 				visualizer.pause();
+				sheets.pause();
 				solver.suspend();
 				play.setDisable(false);
 				play.requestFocus();
@@ -76,6 +81,8 @@ public class ControlButtons extends HBox {
 				resetStates();
 				visualizer.pause();
 				visualizer.resetSeries();
+				sheets.pause();
+				sheets.resetSeries();
 				solver.stop();
 				play.setDisable(false);
 				play.requestFocus();
@@ -90,11 +97,12 @@ public class ControlButtons extends HBox {
 			if (isRunning && isPaused) {
 				// if visualizer.deque empty, step through solver, then visualizer.
 				// else, just take the data from queue. (because processing is faster than visualizer can animate)
-				if (visualizer.isDequeEmpty()) {
+				if (visualizer.isDequeEmpty() || sheets.isDequeEmpty()) {
 					solver.oneStep();
 					// System.out.println("visualizer deque empty");
 				}
 				visualizer.initOneShotScheduler();
+				sheets.initOneShotScheduler();
 				// System.out.println("one shot stepping");
 			}
 		});

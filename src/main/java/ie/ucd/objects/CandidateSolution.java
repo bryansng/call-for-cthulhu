@@ -112,8 +112,8 @@ public class CandidateSolution {
 	// ! dont have to calculate every time
 	private Double projectDistributionToSupervisorsSatisfaction() {
 		for (StaffMember staff : staffMembers) {
-			if (staff.getNumberActivitiesUsed() <= Common.numAvgProjectsProposed + 2) {
-				violationsEquallyDistributedAcrossSupervisors += 1.0;
+			if (!(staff.getNumberActivitiesUsed() <= (Common.numAvgProjectsProposed + 2))) {
+				violationsEquallyDistributedAcrossSupervisors += 1;
 			}
 		}
 		return violationsEquallyDistributedAcrossSupervisors * Common.COST_UNEQUAL_PROJECT_DISTRIBUTION_TO_SUPERVISOR;
@@ -168,7 +168,7 @@ public class CandidateSolution {
 			}
 			String stream = generateStudentStream();
 			usedStudentIDs.add(randomId);
-			students.add(new Student(firstName, lastName, randomId, stream, 0.0, generatePreferenceList(stream, randomId)));
+			students.add(new Student(firstName, lastName, randomId, stream, 4.2, generatePreferenceList(stream, randomId)));
 		}
 
 		if (!isEvenStudentStreamAllocation()) {

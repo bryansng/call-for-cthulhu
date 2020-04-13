@@ -36,4 +36,33 @@ public class Sheets extends VBox {
 	public StudentSheet getBestSheet() {
 		return bestSheet;
 	}
+
+	public void pause() {
+		currSheet.pause();
+		bestSheet.pause();
+	}
+
+	public void resume() {
+		currSheet.resume();
+		bestSheet.resume();
+	}
+
+	public void resetSeries() {
+		currSheet.resetSeries();
+		bestSheet.resetSeries();
+	}
+
+	public void initOneShotScheduler() {
+		currSheet.initOneShotScheduler();
+		bestSheet.initOneShotScheduler();
+	}
+
+	public void setDoneProcessing(boolean isDone) {
+		currSheet.setDoneProcessing(isDone);
+		bestSheet.setDoneProcessing(isDone);
+	}
+
+	public boolean isDequeEmpty() {
+		return currSheet.isDequeEmpty() || bestSheet.isDequeEmpty();
+	}
 }

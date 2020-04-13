@@ -23,8 +23,9 @@ public class Strength extends VBox {
 		getChildren().add(hBox);
 	}
 
-	public void setProgressBar(double progress) {
+	public void setProgressBar(Double progress) {
 		bar.setProgress(progress); // between 0.0 and 1.0
+		setLabelText(progress.toString());
 	}
 
 	public void setLabelText(String text) {

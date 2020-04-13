@@ -3,6 +3,10 @@
 	-fx-stroke: transparent;
 }
 
+.chart-line-symbol {
+	-fx-shape: "";
+}
+
 .chart-legend {
 	-fx-translate-x: -145;
 	-fx-translate-y: -325;

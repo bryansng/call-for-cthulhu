@@ -1,21 +1,38 @@
 package ie.ucd.ui.common.sheets;
 
+import ie.ucd.Settings;
 import ie.ucd.Common.SheetType;
 import ie.ucd.objects.CandidateSolution;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.Student;
 import ie.ucd.ui.common.constraints.Constraints;
+import ie.ucd.ui.common.constraints.HardConstraints;
+import ie.ucd.ui.common.constraints.SoftConstraints;
 import ie.ucd.ui.interfaces.StudentSheetInterface;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 
-public class StudentSheet extends Sheet<Student> implements StudentSheetInterface<Student> {
+public class StudentSheet extends Sheet<Student> implements StudentSheetInterface {
 	private Strength strength;
 	private Constraints constraints;
+
+	private int emptyCount;
+	private boolean isDoneProcessing;
+	private final int DEQUE_EMPTY_LIMIT = 1000;
+	private Timeline addToSheet;
+	private Deque<CandidateSolution> solutionDeque;
 
 	public StudentSheet(Stage stage) {
 		this(stage, false, false);
@@ -27,6 +44,7 @@ public class StudentSheet extends Sheet<Student> implements StudentSheetInterfac
 		if (includeQualityEvaluation) {
 			initSolutionQualityLayout();
 		}
+		initAddToSheetScheduler();
 	}
 
 	private void initSolutionQualityLayout() {
@@ -39,18 +57,139 @@ public class StudentSheet extends Sheet<Student> implements StudentSheetInterfac
 		getChildren().add(0, new Label("Quality"));
 	}
 
-	public void updateStrengthAndConstraints(CandidateSolution solution) {
-		// update constraints.
-		constraints.getHardConstraints().setSelected(
-				solution.getViolationsStudentAssignedPreferredProject() > 0 ? false : true,
-				solution.getViolationsSameStream() > 0 ? false : true,
-				solution.getViolationsStudentAssignedOneProject() > 0 ? false : true,
-				solution.getViolationsProjectAssignedToOneStudent() > 0 ? false : true);
-		constraints.getSoftConstraints().setSelected(
-				solution.getViolationsEquallyDistributedAcrossSupervisors() > 0 ? false : true,
-				solution.getViolationsHigherGPAHigherPreferences() > 0 ? false : true);
+	private void initAddToSheetScheduler() {
+		solutionDeque = new LinkedList<CandidateSolution>();
+		addToSheet = new Timeline(new KeyFrame(Duration.millis(1), ev -> {
+			if (!solutionDeque.isEmpty()) {
+				updateStrengthAndConstraints();
+				emptyCount = 0;
+			} else if (solutionDeque.isEmpty() && isDoneProcessing) {
+				pause();
+				System.out.println("sheet paused");
+			}
+			// else {
+			// 	emptyCount++;
+			// 	if (emptyCount > DEQUE_EMPTY_LIMIT) {
+			// 		pause();
+			// 		System.out.println("sheet paused");
+			// 	}
+			// }
+		}));
+		addToSheet.setCycleCount(Animation.INDEFINITE);
+	}
 
-		// update strength.
+	public void resetSeries() {
+		isDoneProcessing = false;
+		solutionDeque.clear();
+	}
+
+	public void stop() {
+		addToSheet.stop();
+	}
+
+	public void pause() {
+		addToSheet.pause();
+	}
+
+	public void resume() {
+		addToSheet.play();
+	}
+
+	public void setDoneProcessing(boolean isDone) {
+		isDoneProcessing = isDone;
+	}
+
+	public void initOneShotScheduler() {
+		updateStrengthAndConstraints();
+	}
+
+	public boolean isDequeEmpty() {
+		return solutionDeque.isEmpty();
+	}
+
+	public void addToQueue(CandidateSolution solution) {
+		solutionDeque.add(solution);
+	}
+
+	public void updateStrengthAndConstraints() {
+		Platform.runLater(() -> {
+			try {
+				// get data from deque.
+				CandidateSolution solution = solutionDeque.removeFirst();
+
+				// update constraints.
+				HardConstraints hard = constraints.getHardConstraints();
+				SoftConstraints soft = constraints.getSoftConstraints();
+				double hardCost = 0.0;
+				double softCost = 0.0;
+
+				// hard
+				if (solution.getViolationsStudentAssignedPreferredProject() > 0) {
+					hardCost += (1.0 * solution.getViolationsStudentAssignedPreferredProject()) / solution.getNumberOfStudents()
+							* Settings.COST_PER_HARD_VIOLATION;
+
+					hard.updateStudentAssignedPreferredProject(false, solution.getViolationsStudentAssignedPreferredProject(),
+							solution.getNumberOfStudents());
+				} else {
+					hard.updateStudentAssignedPreferredProject(true, null, null);
+				}
+
+				if (solution.getViolationsSameStream() > 0) {
+					hardCost += (1.0 * solution.getViolationsSameStream()) / solution.getNumberOfStudents()
+							* Settings.COST_PER_HARD_VIOLATION;
+
+					hard.updateSameStream(false, solution.getViolationsSameStream(), solution.getNumberOfStudents());
+				} else {
+					hard.updateSameStream(true, null, null);
+				}
+
+				if (solution.getViolationsStudentAssignedOneProject() > 0) {
+					hardCost += (1.0 * solution.getViolationsStudentAssignedOneProject()) / solution.getNumberOfStudents()
+							* Settings.COST_PER_HARD_VIOLATION;
+
+					hard.updateStudentAssignedOneProject(false, solution.getViolationsStudentAssignedOneProject(),
+							solution.getNumberOfStudents());
+				} else {
+					hard.updateStudentAssignedOneProject(true, null, null);
+				}
+
+				if (solution.getViolationsProjectAssignedToOneStudent() > 0) {
+					hardCost += (1.0 * solution.getViolationsProjectAssignedToOneStudent()) / solution.getProjects().size()
+							* Settings.COST_PER_HARD_VIOLATION;
+
+					hard.updateProjectAssignedToOneStudent(false, solution.getViolationsProjectAssignedToOneStudent(),
+							solution.getProjects().size());
+				} else {
+					hard.updateProjectAssignedToOneStudent(true, null, null);
+				}
+
+				// soft
+				if (solution.getViolationsEquallyDistributedAcrossSupervisors() > 0) {
+					softCost += (1.0 * solution.getViolationsEquallyDistributedAcrossSupervisors())
+							/ solution.getStaffMembers().size() * Settings.COST_PER_SOFT_VIOLATION;
+
+					soft.updateEquallyDistributedAcrossSupervisors(false,
+							solution.getViolationsEquallyDistributedAcrossSupervisors(), solution.getStaffMembers().size());
+				} else {
+					soft.updateEquallyDistributedAcrossSupervisors(true, null, null);
+				}
+
+				if (solution.getViolationsHigherGPAHigherPreferences() > 0) {
+					softCost += (1.0 * solution.getViolationsHigherGPAHigherPreferences()) / solution.getNumberOfStudents()
+							* Settings.COST_PER_SOFT_VIOLATION;
+
+					soft.updateHigherGPAHigherPreferences(false, solution.getViolationsHigherGPAHigherPreferences(),
+							solution.getNumberOfStudents());
+				} else {
+					soft.updateHigherGPAHigherPreferences(true, null, null);
+				}
+
+				// update strength.
+				strength.setProgressBar(Settings.TOTAL_POINTS - hardCost - softCost);
+			} catch (NoSuchElementException e) {
+
+			}
+		});
 	}
 
 	protected void initTableView() {

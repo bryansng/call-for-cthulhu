@@ -8,4 +8,6 @@ public interface VisualizerInterface {
 	public void resetSeries();
 
 	public void stop();
+
+	public void setDoneProcessing(boolean isDone);
 }

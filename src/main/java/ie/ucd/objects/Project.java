@@ -31,7 +31,7 @@ public class Project implements ProjectInterface, SearchMatchable {
 
 	// hard: project assigned to at most one student.
 	private Double assignmentSatisfaction() {
-		if (numStudentsAssigned == 1.0) {
+		if (numStudentsAssigned == 1.0 || numStudentsAssigned == 0.0) {
 			return -Common.COST_NONE_OR_MULTIPLE_PROJECTS;
 		}
 		assignmentViolation = true;
