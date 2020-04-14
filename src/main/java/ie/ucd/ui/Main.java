@@ -12,6 +12,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Slider;
@@ -47,6 +48,21 @@ public class Main extends Application //implements EventHandler
 		Button buttonSA = new Button("Simulated Annealing Solver");
 		Button buttonGA = new Button("Genetic Algorithm Solver");
 		vboxLeftPane.getChildren().addAll(buttonSetup, buttonSA, buttonGA);
+		
+		//left pane SA button functionality
+		Label saLabel = new Label("This is the SA scene");
+		StackPane saTEST = new StackPane();
+		saTEST.getChildren().add(saLabel);
+		Scene saScene = new Scene(saTEST, 600, 400);
+		buttonSA.setOnAction(e -> primaryStage.setScene(saScene));
+		
+		//left pane GA button functionality
+		Label gaLabel = new Label("This is the GA scene");
+		StackPane gaTEST = new StackPane();
+		gaTEST.getChildren().add(gaLabel);
+		Scene gaScene = new Scene(gaTEST, 600, 400);
+		buttonGA.setOnAction(e -> primaryStage.setScene(gaScene));
+
 		
 		//scroll pane/border pane create
 		BorderPane borderPane = new BorderPane();
@@ -115,17 +131,12 @@ public class Main extends Application //implements EventHandler
         });
 		Button generateRandomStudent= new Button("Generate Random Project");
 		vboxHardConstraints.getChildren().addAll(headingThree, browseStudentButton, generateRandomStudent);	
+ 
 		
-		
-		
-		
-		 
 		 //gpaSlider.setBlockIncrement(0.1f);
 		
 		//vboxHardConstraints.getChildren().addAll()
-		
-	
-		
+			
 		Scene setupScene = new Scene(borderPane, 600, 400);
 		//root.getChildren().add(button);
 		primaryStage.setScene(setupScene);
