@@ -9,29 +9,20 @@ import ie.ucd.ui.common.constraints.Constraints;
 import ie.ucd.ui.common.constraints.HardConstraints;
 import ie.ucd.ui.common.constraints.SoftConstraints;
 import ie.ucd.ui.interfaces.StudentSheetInterface;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 
 public class StudentSheet extends Sheet<Student> implements StudentSheetInterface {
 	private Strength strength;
 	private Constraints constraints;
 
-	private int emptyCount;
-	private boolean isDoneProcessing;
-	private final int DEQUE_EMPTY_LIMIT = 1000;
-	private Timeline addToSheet;
 	private Deque<CandidateSolution> solutionDeque;
 
 	public StudentSheet(Stage stage) {
@@ -44,7 +35,7 @@ public class StudentSheet extends Sheet<Student> implements StudentSheetInterfac
 		if (includeQualityEvaluation) {
 			initSolutionQualityLayout();
 		}
-		initAddToSheetScheduler();
+		solutionDeque = new LinkedList<CandidateSolution>();
 	}
 
 	private void initSolutionQualityLayout() {
@@ -57,46 +48,8 @@ public class StudentSheet extends Sheet<Student> implements StudentSheetInterfac
 		getChildren().add(0, new Label("Quality"));
 	}
 
-	private void initAddToSheetScheduler() {
-		solutionDeque = new LinkedList<CandidateSolution>();
-		addToSheet = new Timeline(new KeyFrame(Duration.millis(1), ev -> {
-			if (!solutionDeque.isEmpty()) {
-				updateStrengthAndConstraints();
-				emptyCount = 0;
-			} else if (solutionDeque.isEmpty() && isDoneProcessing) {
-				pause();
-				System.out.println("sheet paused");
-			}
-			// else {
-			// 	emptyCount++;
-			// 	if (emptyCount > DEQUE_EMPTY_LIMIT) {
-			// 		pause();
-			// 		System.out.println("sheet paused");
-			// 	}
-			// }
-		}));
-		addToSheet.setCycleCount(Animation.INDEFINITE);
-	}
-
 	public void resetSeries() {
-		isDoneProcessing = false;
 		solutionDeque.clear();
-	}
-
-	public void stop() {
-		addToSheet.stop();
-	}
-
-	public void pause() {
-		addToSheet.pause();
-	}
-
-	public void resume() {
-		addToSheet.play();
-	}
-
-	public void setDoneProcessing(boolean isDone) {
-		isDoneProcessing = isDone;
 	}
 
 	public void initOneShotScheduler() {
@@ -112,7 +65,7 @@ public class StudentSheet extends Sheet<Student> implements StudentSheetInterfac
 	}
 
 	public void updateStrengthAndConstraints() {
-		Platform.runLater(() -> {
+		if (!isDequeEmpty()) {
 			try {
 				// get data from deque.
 				CandidateSolution solution = solutionDeque.removeFirst();
@@ -187,9 +140,8 @@ public class StudentSheet extends Sheet<Student> implements StudentSheetInterfac
 				// update strength.
 				strength.setProgressBar(Settings.TOTAL_POINTS - hardCost - softCost);
 			} catch (NoSuchElementException e) {
-
 			}
-		});
+		}
 	}
 
 	protected void initTableView() {

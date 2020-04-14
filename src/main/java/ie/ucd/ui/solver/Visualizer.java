@@ -8,26 +8,16 @@ import ie.ucd.Common;
 import ie.ucd.Common.SolverType;
 import ie.ucd.objects.Coordinate;
 import ie.ucd.ui.interfaces.VisualizerInterface;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.Side;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.GridPane;
-import javafx.util.Duration;
 
 public class Visualizer extends GridPane implements VisualizerInterface {
-	private int emptyCount;
 	private final int WINDOW_SIZE = 10000; // 13000
-	private final int DEQUE_EMPTY_LIMIT = 1000; //  time_to_wait_before_stop_scheduler_in_sec / scheduler_wait_in_sec, i.e. 1/0.001
-	private boolean isDoneProcessing;
 	private Deque<Coordinate> coordinateDeque;
-	private Timeline addToGraph;
-
-	private ControlButtons controlButtons;
 
 	private String yAxisName;
 	private LineChart<Number, Number> lineChart;
@@ -46,31 +36,6 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 				break;
 		}
 		initLayout();
-
-		// setup a scheduled executor to periodically put data into the chart.
-		initAddToGraphScheduler();
-	}
-
-	private void initAddToGraphScheduler() {
-		addToGraph = new Timeline(new KeyFrame(Duration.millis(1), ev -> {
-			if (!coordinateDeque.isEmpty()) {
-				addDataToChart();
-				emptyCount = 0;
-			} else if (coordinateDeque.isEmpty() && isDoneProcessing) {
-				controlButtons.enableOnlyClearAndReset();
-				pause();
-				System.out.println("visualizer paused");
-			}
-			// else {
-			// 	emptyCount++;
-			// 	if (emptyCount > DEQUE_EMPTY_LIMIT) {
-			// 		controlButtons.enableOnlyClearAndReset();
-			// 		pause();
-			// 		System.out.println("visualizer paused");
-			// 	}
-			// }
-		}));
-		addToGraph.setCycleCount(Animation.INDEFINITE);
 	}
 
 	private void initLayout() {
@@ -127,12 +92,10 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 	@Override
 	public void newSeries() {
 		startDateTime = LocalDateTime.now();
-		emptyCount = 0;
 	}
 
 	@Override
 	public void resetSeries() {
-		isDoneProcessing = false;
 		currSeries.getData().clear();
 		bestSeries.getData().clear();
 		coordinateDeque.clear();
@@ -140,22 +103,6 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 		Platform.runLater(() -> {
 			setSeriesName(0.0, 0.0);
 		});
-	}
-
-	public void stop() {
-		addToGraph.stop();
-	}
-
-	public void pause() {
-		addToGraph.pause();
-	}
-
-	public void resume() {
-		addToGraph.play();
-	}
-
-	public void setDoneProcessing(boolean isDone) {
-		isDoneProcessing = isDone;
 	}
 
 	public void initOneShotScheduler() {
@@ -166,9 +113,9 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 		return coordinateDeque.isEmpty();
 	}
 
-	private void addDataToChart() {
-		// update the chart.
-		Platform.runLater(() -> {
+	public void addDataToChart() {
+		if (!isDequeEmpty()) {
+			// update the chart.
 			try {
 				// get data from deque.
 				Coordinate coord = coordinateDeque.removeFirst();
@@ -179,12 +126,12 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 				setSeriesName(coord.getCurrEnergy(), coord.getBestEnergy());
 
 				if (currSeries.getData().size() > WINDOW_SIZE && Common.CHART_ENABLE_TRUNCATE)
-					currSeries.getData().remove(0);
+					currSeries.getData().remove(0, currSeries.getData().size() - WINDOW_SIZE / 4);
 				if (bestSeries.getData().size() > WINDOW_SIZE && Common.CHART_ENABLE_TRUNCATE)
-					bestSeries.getData().remove(0);
+					bestSeries.getData().remove(0, bestSeries.getData().size() - WINDOW_SIZE / 4);
 			} catch (NoSuchElementException e) {
 			}
-		});
+		}
 	}
 
 	private void setSeriesName(Double currEnergy, Double bestEnergy) {
@@ -198,9 +145,5 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 			currSeries.setName(String.format("%-" + padding + "s %10.4f", currSeriesName, currEnergy));
 			bestSeries.setName(String.format("%-" + padding + "s %10.4f", bestSeriesName, bestEnergy));
 		}
-	}
-
-	public void setControlButtons(ControlButtons controlButtons) {
-		this.controlButtons = controlButtons;
 	}
 }

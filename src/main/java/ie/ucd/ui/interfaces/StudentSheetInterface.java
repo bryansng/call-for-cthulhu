@@ -4,6 +4,4 @@ import ie.ucd.objects.CandidateSolution;
 
 public interface StudentSheetInterface {
 	public void addToQueue(CandidateSolution solution);
-
-	public void setDoneProcessing(boolean isDone);
 }

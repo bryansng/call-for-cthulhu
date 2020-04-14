@@ -49,12 +49,6 @@ public class Main extends Application {
 		System.out.println("All done");
 	}
 
-	@Override
-	public void stop() throws Exception {
-		super.stop();
-		solverPane.stopVisualizerScheduler();
-	}
-
 	public static void applySimulatedAnnealing() throws IOException, InvalidFormatException {
 		System.out.println("Generating for 500 students...");
 
@@ -64,7 +58,7 @@ public class Main extends Application {
 		solution.generateStudents();
 		System.out.println(solution.CSDSPercentage());
 
-		Solver solver = new SimulatedAnnealing(solution, null, null);
+		Solver solver = new SimulatedAnnealing(solution, null);
 		solver.run();
 		CandidateSolution bestSolution = solver.getBestSolution();
 

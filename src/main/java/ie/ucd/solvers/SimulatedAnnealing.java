@@ -8,6 +8,7 @@ import ie.ucd.objects.Student;
 import ie.ucd.ui.common.sheets.Sheets;
 import ie.ucd.ui.common.sheets.StudentSheet;
 import ie.ucd.ui.interfaces.VisualizerInterface;
+import ie.ucd.ui.solver.SolverPane;
 
 public class SimulatedAnnealing extends Solver {
 	private double storedSatisfaction;
@@ -19,27 +20,26 @@ public class SimulatedAnnealing extends Solver {
 	private double minTemperature;
 	private double coolingRate;
 	private double maxIteration;
-	private VisualizerInterface visualizer;
-	private Sheets sheets;
+
+	private SolverPane solverPane;
 
 	public SimulatedAnnealing(CandidateSolution startingSolution) {
-		this(startingSolution, null, null);
+		this(startingSolution, null);
 	}
 
-	public SimulatedAnnealing(CandidateSolution startingSolution, VisualizerInterface visualizer, Sheets sheets) {
-		this(100.0, 0.001, 0.01, 10000, startingSolution, visualizer, sheets);
+	public SimulatedAnnealing(CandidateSolution startingSolution, SolverPane solverPane) {
+		this(100.0, 0.001, 0.01, 10000, startingSolution, solverPane);
 	}
 
 	public SimulatedAnnealing(double temperature, double coolingRate, double minTemperature, double maxIteration,
-			CandidateSolution startingSolution, VisualizerInterface visualizer, Sheets sheets) {
+			CandidateSolution startingSolution, SolverPane solverPane) {
 		this.temperature = temperature;
 		this.coolingRate = coolingRate;
 		this.startTemperature = temperature;
 		this.minTemperature = minTemperature;
 		this.maxIteration = maxIteration;
 		this.startingSolution = startingSolution;
-		this.visualizer = visualizer;
-		this.sheets = sheets;
+		this.solverPane = solverPane;
 	}
 
 	public CandidateSolution getBestSolution() {
@@ -47,6 +47,9 @@ public class SimulatedAnnealing extends Solver {
 	}
 
 	public void run() {
+		VisualizerInterface visualizer = solverPane.getVisualizer();
+		Sheets sheets = solverPane.getSheets();
+
 		StudentSheet currSheet = null;
 		StudentSheet bestSheet = null;
 		if (sheets != null) {
@@ -147,11 +150,8 @@ public class SimulatedAnnealing extends Solver {
 			} catch (InterruptedException e) {
 			}
 		}
-		if (visualizer != null) {
-			visualizer.setDoneProcessing(true);
-		}
-		if (sheets != null) {
-			sheets.setDoneProcessing(true);
+		if (solverPane != null) {
+			solverPane.setDoneProcessing(true);
 		}
 		System.out.println("\nExited at loop " + i + ", temperature " + temperature);
 		System.out.println("totalRejected: " + totalRejected);
