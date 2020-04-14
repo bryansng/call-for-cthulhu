@@ -5,6 +5,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import ie.ucd.Common;
+import ie.ucd.Settings;
 import ie.ucd.Common.SolverType;
 import ie.ucd.objects.Coordinate;
 import ie.ucd.ui.interfaces.VisualizerInterface;
@@ -87,6 +88,10 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 
 		Coordinate coord = new Coordinate(currEnergy, bestEnergy, timeElapsed, loopNumber);
 		coordinateDeque.add(coord);
+
+		if (!Settings.enableAnimation && coordinateDeque.size() > WINDOW_SIZE) {
+			coordinateDeque.removeFirst();
+		}
 	}
 
 	@Override
@@ -126,11 +131,27 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 				setSeriesName(coord.getCurrEnergy(), coord.getBestEnergy());
 
 				if (currSeries.getData().size() > WINDOW_SIZE && Common.CHART_ENABLE_TRUNCATE)
-					currSeries.getData().remove(0, currSeries.getData().size() - WINDOW_SIZE / 4);
+					currSeries.getData().remove(0, 3000);
 				if (bestSeries.getData().size() > WINDOW_SIZE && Common.CHART_ENABLE_TRUNCATE)
-					bestSeries.getData().remove(0, bestSeries.getData().size() - WINDOW_SIZE / 4);
+					bestSeries.getData().remove(0, 3000);
 			} catch (NoSuchElementException e) {
 			}
+		}
+	}
+
+	public void addLastWindowToChart() {
+		// update the chart.
+		try {
+			for (int i = 0; i < WINDOW_SIZE && !isDequeEmpty(); i++) {
+				// get data from deque.
+				Coordinate coord = coordinateDeque.removeFirst();
+
+				// put y value with current time.
+				currSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getCurrEnergy()));
+				bestSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getBestEnergy()));
+				setSeriesName(coord.getCurrEnergy(), coord.getBestEnergy());
+			}
+		} catch (NoSuchElementException e) {
 		}
 	}
 

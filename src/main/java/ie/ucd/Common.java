@@ -16,13 +16,8 @@ public class Common {
 		Student, Project
 	}
 
-	public static enum SARandomMoveType {
-		FROM_STUDENT_PREFERENCE_LIST, SWAP_FROM_TWO_STUDENTS_PREFERENCE_LIST, SWAP_FROM_TWO_STUDENTS_ASSIGNED_PROJECTS
-	}
-
 	public static final boolean DEBUG_SHOW_SA = false; // SA debug verbosity.
 	public static final boolean DEBUG_SHOW_ENERGIES = false;
-	public static SARandomMoveType SA_RANDOM_MOVE_TYPE = SARandomMoveType.SWAP_FROM_TWO_STUDENTS_PREFERENCE_LIST; // SA debug verbosity.
 
 	// the below are used during calculating of global/local satisfaction.
 	public static final double MAX_GPA = 4.2;

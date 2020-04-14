@@ -22,6 +22,9 @@ public class CandidateSolution {
 	private int violationsStudentAssignedPreferredProject;
 	private int violationsSameStream;
 	private int violationsStudentAssignedOneProject;
+
+	private boolean isViolationProjectCalculated = false;
+	private double projectSatisfaction;
 	private int violationsProjectAssignedToOneStudent;
 	// soft.
 	private int violationsEquallyDistributedAcrossSupervisors;
@@ -80,7 +83,6 @@ public class CandidateSolution {
 		violationsStudentAssignedPreferredProject = 0;
 		violationsSameStream = 0;
 		violationsStudentAssignedOneProject = 0;
-		violationsProjectAssignedToOneStudent = 0;
 		violationsEquallyDistributedAcrossSupervisors = 0;
 		violationsHigherGPAHigherPreferences = 0;
 
@@ -92,10 +94,7 @@ public class CandidateSolution {
 			violationsHigherGPAHigherPreferences += student.isGPAViolation() ? 1 : 0;
 			violationsStudentAssignedOneProject += student.isAssignmentViolation() ? 1 : 0;
 		}
-		for (Project project : projects) {
-			satisfaction += project.calculateSatisfaction();
-			violationsProjectAssignedToOneStudent += project.isAssignmentViolation() ? 1 : 0;
-		}
+		satisfaction += calculateProjectSatisfactionAndUpdateProjectViolation();
 		satisfaction += projectDistributionToSupervisorsSatisfaction();
 
 		// if less than or equal to 1, complement of satisfaction (i.e. 1 / satisfaction) would be an opposite effect, so we limit satisfaction minimum limit to 2.0.
@@ -103,6 +102,21 @@ public class CandidateSolution {
 			satisfaction = 2.0;
 		}
 		return satisfaction;
+	}
+
+	// since projects are passed by reference, we need to calculate project satisfaction and violations immediately.
+	// if not it will be replaced with future solutions' projects.
+	public double calculateProjectSatisfactionAndUpdateProjectViolation() {
+		if (!isViolationProjectCalculated) {
+			projectSatisfaction = 0.0;
+			violationsProjectAssignedToOneStudent = 0;
+			for (Project project : projects) {
+				projectSatisfaction += project.calculateSatisfaction();
+				violationsProjectAssignedToOneStudent += project.isAssignmentViolation() ? 1 : 0;
+			}
+			isViolationProjectCalculated = true;
+		}
+		return projectSatisfaction;
 	}
 
 	// method checks if projects equally distributed across supervisors.

@@ -1,6 +1,8 @@
 package ie.ucd.ui.solver;
 
 import java.io.IOException;
+
+import ie.ucd.Settings;
 import ie.ucd.Common.SolverType;
 import ie.ucd.io.Parser;
 import ie.ucd.objects.CandidateSolution;
@@ -48,9 +50,13 @@ public class ControlButtons extends HBox {
 				solverPane.resetSeries();
 				startThread();
 				play.setDisable(true);
-				pause.setDisable(false);
 				clearAndReset.setDisable(false);
 				step.setDisable(true);
+				if (Settings.enableAnimation) {
+					pause.setDisable(false);
+				} else {
+					pause.setDisable(true);
+				}
 			}
 		});
 
@@ -100,6 +106,12 @@ public class ControlButtons extends HBox {
 		getChildren().add(pause);
 		getChildren().add(clearAndReset);
 		getChildren().add(step);
+
+		play.setDisable(false);
+		play.requestFocus();
+		pause.setDisable(true);
+		clearAndReset.setDisable(true);
+		step.setDisable(true);
 	}
 
 	// used when visualizer one animating.

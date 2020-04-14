@@ -1,6 +1,8 @@
 package ie.ucd;
 
 public class Settings {
+	public static boolean enableAnimation = false;
+
 	public static double importanceOfGPA = 1.0; // 0 to 1. This is the value slider changes in the UI.
 
 	// constraints.
@@ -19,4 +21,10 @@ public class Settings {
 	// soft.
 	public static boolean enableEquallyDistributedAcrossSupervisors = true;
 	public static boolean enableHigherGPAHigherPreferences = true;
+
+	public static enum SARandomMoveType {
+		FROM_STUDENT_PREFERENCE_LIST, SWAP_FROM_TWO_STUDENTS_PREFERENCE_LIST, SWAP_FROM_TWO_STUDENTS_ASSIGNED_PROJECTS
+	}
+
+	public static SARandomMoveType SA_RANDOM_MOVE_TYPE = SARandomMoveType.SWAP_FROM_TWO_STUDENTS_PREFERENCE_LIST;
 }

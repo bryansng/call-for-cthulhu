@@ -1,5 +1,6 @@
 package ie.ucd.ui.solver;
 
+import ie.ucd.Settings;
 import ie.ucd.Common.SolverType;
 import ie.ucd.ui.common.sheets.Sheets;
 import javafx.scene.control.Label;
@@ -65,26 +66,41 @@ public class SolverPane extends ScrollPane {
 	}
 
 	public void stop() {
-		updateUI.stop();
+		if (Settings.enableAnimation) {
+			updateUI.stop();
+		}
 	}
 
 	public void pause() {
-		updateUI.pause();
+		if (Settings.enableAnimation) {
+			updateUI.pause();
+		}
 	}
 
 	public void resume() {
-		updateUI.play();
+		if (Settings.enableAnimation) {
+			updateUI.play();
+		}
 	}
 
 	public void setDoneProcessing(boolean isDone) {
-		isDoneProcessing = isDone;
+		if (Settings.enableAnimation) {
+			isDoneProcessing = isDone;
+		} else {
+			Platform.runLater(() -> {
+				visualizer.addLastWindowToChart();
+				sheets.addLastCandidateSolutionToSheet();
+			});
+		}
 	}
 
 	public void initOneShotScheduler() {
-		Platform.runLater(() -> {
-			visualizer.initOneShotScheduler();
-			sheets.initOneShotScheduler();
-		});
+		if (Settings.enableAnimation) {
+			Platform.runLater(() -> {
+				visualizer.initOneShotScheduler();
+				sheets.initOneShotScheduler();
+			});
+		}
 	}
 
 	public boolean isDequeEmpty() {

@@ -47,6 +47,11 @@ public class Sheets extends VBox {
 		bestSheet.initOneShotScheduler();
 	}
 
+	public void addLastCandidateSolutionToSheet() {
+		currSheet.addLastCandidateSolutionToSheet();
+		bestSheet.addLastCandidateSolutionToSheet();
+	}
+
 	public boolean isDequeEmpty() {
 		return currSheet.isDequeEmpty() || bestSheet.isDequeEmpty();
 	}

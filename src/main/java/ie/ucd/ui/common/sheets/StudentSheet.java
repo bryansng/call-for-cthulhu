@@ -53,7 +53,7 @@ public class StudentSheet extends Sheet<Student> implements StudentSheetInterfac
 	}
 
 	public void initOneShotScheduler() {
-		updateStrengthAndConstraints();
+		updateSheetAndStrengthAndConstraints();
 	}
 
 	public boolean isDequeEmpty() {
@@ -64,11 +64,22 @@ public class StudentSheet extends Sheet<Student> implements StudentSheetInterfac
 		solutionDeque.add(solution);
 	}
 
-	public void updateStrengthAndConstraints() {
-		if (!isDequeEmpty()) {
+	public void updateSheetAndStrengthAndConstraints() {
+		updateSheetAndStrengthAndConstraints(null);
+	}
+
+	public void updateSheetAndStrengthAndConstraints(CandidateSolution lastSolution) {
+		if (!isDequeEmpty() || lastSolution != null) {
 			try {
 				// get data from deque.
-				CandidateSolution solution = solutionDeque.removeFirst();
+				CandidateSolution solution;
+				if (lastSolution == null)
+					solution = solutionDeque.removeFirst();
+				else
+					solution = lastSolution;
+
+				// update sheet.
+				setAll(solution.getStudents());
 
 				// update constraints.
 				HardConstraints hard = constraints.getHardConstraints();
@@ -142,6 +153,10 @@ public class StudentSheet extends Sheet<Student> implements StudentSheetInterfac
 			} catch (NoSuchElementException e) {
 			}
 		}
+	}
+
+	public void addLastCandidateSolutionToSheet() {
+		updateSheetAndStrengthAndConstraints(solutionDeque.removeLast());
 	}
 
 	protected void initTableView() {

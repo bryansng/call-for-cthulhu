@@ -1,7 +1,7 @@
 package ie.ucd.solvers;
 
 import java.util.Random;
-import ie.ucd.Common;
+import ie.ucd.Settings;
 import ie.ucd.objects.CandidateSolution;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.Student;
@@ -28,7 +28,7 @@ public class SimulatedAnnealing extends Solver {
 	}
 
 	public SimulatedAnnealing(CandidateSolution startingSolution, SolverPane solverPane) {
-		this(100.0, 0.001, 0.01, 10000, startingSolution, solverPane);
+		this(100.0, 0.0001, 0.000000000000001, 10000000, startingSolution, solverPane);
 	}
 
 	public SimulatedAnnealing(double temperature, double coolingRate, double minTemperature, double maxIteration,
@@ -61,12 +61,10 @@ public class SimulatedAnnealing extends Solver {
 		CandidateSolution currSolution = startingSolution;
 		CandidateSolution nextSolution;
 		CandidateSolution bestSolution = currSolution;
-		if (currSheet != null) {
-			currSheet.setAll(currSolution.getStudents());
+		if (Settings.enableAnimation && currSheet != null) {
 			currSheet.addToQueue(currSolution);
 		}
-		if (bestSheet != null) {
-			bestSheet.setAll(bestSolution.getStudents());
+		if (Settings.enableAnimation && bestSheet != null) {
 			bestSheet.addToQueue(bestSolution);
 		}
 
@@ -87,7 +85,7 @@ public class SimulatedAnnealing extends Solver {
 				// depending on temperature,
 				// if higher, make more risky random moves.
 				// else, make more conservative moves.
-				switch (Common.SA_RANDOM_MOVE_TYPE) {
+				switch (Settings.SA_RANDOM_MOVE_TYPE) {
 					case FROM_STUDENT_PREFERENCE_LIST:
 						nextSolution = makeRandomMoveV3(currSolution);
 						break;
@@ -109,8 +107,7 @@ public class SimulatedAnnealing extends Solver {
 				if (randomProbability <= acceptanceProbability) {
 					currSolution = nextSolution;
 					currEnergy = nextEnergy;
-					if (currSheet != null) {
-						currSheet.setAll(currSolution.getStudents());
+					if (Settings.enableAnimation && currSheet != null) {
 						currSheet.addToQueue(currSolution);
 					}
 				} else {
@@ -124,8 +121,7 @@ public class SimulatedAnnealing extends Solver {
 				if (nextEnergy < bestEnergy) {
 					bestSolution = nextSolution;
 					bestEnergy = nextEnergy;
-					if (bestSheet != null) {
-						bestSheet.setAll(bestSolution.getStudents());
+					if (Settings.enableAnimation && bestSheet != null) {
 						bestSheet.addToQueue(bestSolution);
 					}
 				}
@@ -149,6 +145,12 @@ public class SimulatedAnnealing extends Solver {
 				}
 			} catch (InterruptedException e) {
 			}
+		}
+		if (!Settings.enableAnimation && currSheet != null) {
+			currSheet.addToQueue(currSolution);
+		}
+		if (!Settings.enableAnimation && bestSheet != null) {
+			bestSheet.addToQueue(bestSolution);
 		}
 		if (solverPane != null) {
 			solverPane.setDoneProcessing(true);
@@ -182,6 +184,7 @@ public class SimulatedAnnealing extends Solver {
 		// replace student's assigned project with another in preference list.
 		student.setProjectAssigned(student.getPreferenceList().get(rand.nextInt(student.getPreferenceList().size())), 0);
 
+		newSolution.calculateProjectSatisfactionAndUpdateProjectViolation();
 		return newSolution;
 	}
 
@@ -205,6 +208,7 @@ public class SimulatedAnnealing extends Solver {
 		student1.setProjectAssigned(student2.getPreferenceList().get(p2Index), 0);
 		student2.setProjectAssigned(student1.getPreferenceList().get(p1Index), 0);
 
+		newSolution.calculateProjectSatisfactionAndUpdateProjectViolation();
 		return newSolution;
 	}
 
@@ -228,11 +232,12 @@ public class SimulatedAnnealing extends Solver {
 		student1.setProjectAssigned(student2.getProjectAssigned(0), 0);
 		student2.setProjectAssigned(p1, 0);
 
+		newSolution.calculateProjectSatisfactionAndUpdateProjectViolation();
 		return newSolution;
 	}
 
 	public Double calculateEnergy(CandidateSolution solution) {
 		storedSatisfaction = solution.calculateGlobalSatisfaction();
-		return (1.0 / storedSatisfaction) * 100000;
+		return (1.0 / storedSatisfaction) * 100000; // scale up.
 	}
 }

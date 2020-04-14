@@ -86,9 +86,7 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 	}
 
 	public void setAll(ArrayList<E> elements) {
-		Platform.runLater(() -> {
-			actualList.setAll(elements);
-		});
+		actualList.setAll(elements);
 	}
 
 	protected void initSearchBox() {
