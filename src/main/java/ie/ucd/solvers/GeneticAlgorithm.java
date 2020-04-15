@@ -104,8 +104,9 @@ public class GeneticAlgorithm extends Solver {
 		String fittestBitCodeSolution = "";
 		if (visualizer != null)
 			visualizer.newSeries();
-		for (int i = 1; i <= numberOfGenerations; i++) {
-			System.out.println("Creating Generation #" + i);
+		for (int i = 1; i <= numberOfGenerations && !this.isStopped; i++) {
+			if (Common.DEBUG_SHOW_GA)
+				System.out.println("Creating Generation #" + i);
 
 			// calculate and store satisfaction for each bitCodeSolution in a population.
 			// at the same time, find fittest solution.
