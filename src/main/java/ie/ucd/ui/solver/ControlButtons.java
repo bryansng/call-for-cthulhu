@@ -142,12 +142,13 @@ public class ControlButtons extends HBox {
 			//! should take in projects and students from setup pane.
 			Solver solver;
 			Parser parser = new Parser();
-			CandidateSolution solution = new CandidateSolution(500, parser.getStaffMembers(), parser.getNames(), null, null);
+			CandidateSolution solution = new CandidateSolution(200, parser.getStaffMembers(), parser.getNames(), null, null);
 			solution.generateProjects();
 			solution.generateStudents();
 			switch (solverType) {
 				case GeneticAlgorithm:
 					solver = new GeneticAlgorithm(solution, solverPane);
+					break;
 				case SimulatedAnnealing:
 				default:
 					//! simulated annealing here should take in the updated parameters.

@@ -1,7 +1,7 @@
 package ie.ucd;
 
 public class Settings {
-	public static boolean enableAnimation = false;
+	public static boolean enableAnimation = true;
 
 	public static double importanceOfGPA = 1.0; // 0 to 1. This is the value slider changes in the UI.
 

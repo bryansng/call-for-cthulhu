@@ -26,21 +26,21 @@ public class Main extends Application {
 
 	public static void main(String[] args) throws IOException, InvalidFormatException, Exception {
 		System.out.println("Running application...\n");
-
 		// generateExcelFiles();
 		// generateCSVFiles();
 		// readCSVFiles();
 		// readTest();
 		// applySimulatedAnnealing();
-		applyGeneticAlgorithm();
-		// launch();
+		// applyGeneticAlgorithm();
+		launch();
 	}
 
 	@Override
 	public void start(Stage stage) throws IOException, InvalidFormatException, InterruptedException {
 		System.out.println("Generating for 500 students...");
 
-		solverPane = new SolverPane(stage, SolverType.SimulatedAnnealing);
+		solverPane = new SolverPane(stage, SolverType.GeneticAlgorithm);
+		// solverPane = new SolverPane(stage, SolverType.SimulatedAnnealing);
 		Scene scene = new Scene(solverPane, 1280, 960);
 		scene.getStylesheets().add("ui/solver/visualizer.css");
 		scene.getStylesheets().add("ui/solver/constraints.css");
@@ -48,10 +48,7 @@ public class Main extends Application {
 		stage.setScene(scene);
 		stage.show();
 
-		// solver.run(solution);
 		System.out.println("All done");
-		applyGeneticAlgorithm();
-		// playingNormalDistribution();
 	}
 
 	public static void applyGeneticAlgorithm() throws IOException {

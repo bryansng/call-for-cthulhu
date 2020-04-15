@@ -68,6 +68,7 @@ public class SimulatedAnnealing extends Solver {
 			bestSheet.addToQueue(bestSolution);
 		}
 
+		// keep track of energy.
 		double currEnergy = calculateEnergy(currSolution);
 		double nextEnergy;
 		double bestEnergy = currEnergy;
@@ -80,59 +81,59 @@ public class SimulatedAnnealing extends Solver {
 		if (visualizer != null)
 			visualizer.newSeries();
 		for (i = 0; i < maxIteration && temperature > minTemperature && !this.isStopped; i++) {
+			// random move to students to get new students.
+			// depending on temperature,
+			// if higher, make more risky random moves.
+			// else, make more conservative moves.
+			switch (Settings.SA_RANDOM_MOVE_TYPE) {
+				case FROM_STUDENT_PREFERENCE_LIST:
+					nextSolution = makeRandomMoveV3(currSolution);
+					break;
+				case SWAP_FROM_TWO_STUDENTS_ASSIGNED_PROJECTS:
+					nextSolution = makeRandomMoveV1(currSolution);
+					break;
+				case SWAP_FROM_TWO_STUDENTS_PREFERENCE_LIST:
+				default:
+					nextSolution = makeRandomMoveV2(currSolution);
+					break;
+			}
+
+			// compute new energy.
+			nextEnergy = calculateEnergy(nextSolution);
+
+			// decide if accept this new solution.
+			double randomProbability = new Random().nextDouble();
+			double acceptanceProbability = calculateAcceptanceProbability(currEnergy, nextEnergy, temperature);
+			if (randomProbability <= acceptanceProbability) {
+				currSolution = nextSolution;
+				currEnergy = nextEnergy;
+				if (Settings.enableAnimation && currSheet != null) {
+					currSheet.addToQueue(currSolution);
+				}
+			} else {
+				totalRejected += 1;
+			}
+			if (acceptanceProbability == 1.0) {
+				totalStraightAccept += 1;
+			}
+
+			// keep track of the best solution found, i.e. next lowest energy.
+			if (nextEnergy < bestEnergy) {
+				bestSolution = nextSolution;
+				bestEnergy = nextEnergy;
+				if (Settings.enableAnimation && bestSheet != null) {
+					bestSheet.addToQueue(bestSolution);
+				}
+			}
+
+			// cool system. (not much difference between the below two configurations)
+			temperature *= 1 - coolingRate; // exponential decrease.
+			// temperature = startTemperature * ((maxIteration - i + 1.0) / maxIteration); // linear decrease;
+
+			if (visualizer != null)
+				visualizer.addToQueue(currEnergy, bestEnergy, i);
+
 			try {
-				// random move to students to get new students.
-				// depending on temperature,
-				// if higher, make more risky random moves.
-				// else, make more conservative moves.
-				switch (Settings.SA_RANDOM_MOVE_TYPE) {
-					case FROM_STUDENT_PREFERENCE_LIST:
-						nextSolution = makeRandomMoveV3(currSolution);
-						break;
-					case SWAP_FROM_TWO_STUDENTS_ASSIGNED_PROJECTS:
-						nextSolution = makeRandomMoveV1(currSolution);
-						break;
-					case SWAP_FROM_TWO_STUDENTS_PREFERENCE_LIST:
-					default:
-						nextSolution = makeRandomMoveV2(currSolution);
-						break;
-				}
-
-				// compute new energy.
-				nextEnergy = calculateEnergy(nextSolution);
-
-				// decide if accept this new solution.
-				double randomProbability = new Random().nextDouble();
-				double acceptanceProbability = calculateAcceptanceProbability(currEnergy, nextEnergy, temperature);
-				if (randomProbability <= acceptanceProbability) {
-					currSolution = nextSolution;
-					currEnergy = nextEnergy;
-					if (Settings.enableAnimation && currSheet != null) {
-						currSheet.addToQueue(currSolution);
-					}
-				} else {
-					totalRejected += 1;
-				}
-				if (acceptanceProbability == 1.0) {
-					totalStraightAccept += 1;
-				}
-
-				// keep track of the best solution found, i.e. next lowest energy.
-				if (nextEnergy < bestEnergy) {
-					bestSolution = nextSolution;
-					bestEnergy = nextEnergy;
-					if (Settings.enableAnimation && bestSheet != null) {
-						bestSheet.addToQueue(bestSolution);
-					}
-				}
-
-				// cool system. (not much difference between the below two configurations)
-				temperature *= 1 - coolingRate; // exponential decrease.
-				// temperature = startTemperature * ((maxIteration - i + 1.0) / maxIteration); // linear decrease;
-
-				if (visualizer != null)
-					visualizer.addToQueue(currEnergy, bestEnergy, i);
-
 				if (this.isOneStep) {
 					this.oneStepDone();
 				}
