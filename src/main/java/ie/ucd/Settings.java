@@ -2,6 +2,8 @@ package ie.ucd;
 
 public class Settings {
 	public static boolean enableAnimation = true;
+	public static int maximumXAxisTicks = 10000; // higher = UI slower.
+	public static int pointsToRemove = maximumXAxisTicks * 20 / 100;
 
 	public static double importanceOfGPA = 1.0; // 0 to 1. This is the value slider changes in the UI.
 

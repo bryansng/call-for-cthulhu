@@ -17,7 +17,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.GridPane;
 
 public class Visualizer extends GridPane implements VisualizerInterface {
-	private final int WINDOW_SIZE = 10000; // 13000
 	private Deque<Coordinate> coordinateDeque;
 
 	private String yAxisName;
@@ -31,6 +30,7 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 		switch (solverType) {
 			case GeneticAlgorithm:
 				yAxisName = "Fitness";
+				break;
 			case SimulatedAnnealing:
 			default:
 				yAxisName = "Energy";
@@ -89,7 +89,7 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 		Coordinate coord = new Coordinate(currEnergy, bestEnergy, timeElapsed, loopNumber);
 		coordinateDeque.add(coord);
 
-		if (!Settings.enableAnimation && coordinateDeque.size() > WINDOW_SIZE) {
+		if (!Settings.enableAnimation && coordinateDeque.size() > Settings.maximumXAxisTicks) {
 			coordinateDeque.removeFirst();
 		}
 	}
@@ -130,10 +130,10 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 				bestSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getBestEnergy()));
 				setSeriesName(coord.getCurrEnergy(), coord.getBestEnergy());
 
-				if (currSeries.getData().size() > WINDOW_SIZE && Common.CHART_ENABLE_TRUNCATE)
-					currSeries.getData().remove(0, 3000);
-				if (bestSeries.getData().size() > WINDOW_SIZE && Common.CHART_ENABLE_TRUNCATE)
-					bestSeries.getData().remove(0, 3000);
+				if (currSeries.getData().size() > Settings.maximumXAxisTicks && Common.CHART_ENABLE_TRUNCATE)
+					currSeries.getData().remove(0, Settings.pointsToRemove);
+				if (bestSeries.getData().size() > Settings.maximumXAxisTicks && Common.CHART_ENABLE_TRUNCATE)
+					bestSeries.getData().remove(0, Settings.pointsToRemove);
 			} catch (NoSuchElementException e) {
 			}
 		}
@@ -142,7 +142,7 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 	public void addLastWindowToChart() {
 		// update the chart.
 		try {
-			for (int i = 0; i < WINDOW_SIZE && !isDequeEmpty(); i++) {
+			for (int i = 0; i < Settings.maximumXAxisTicks && !isDequeEmpty(); i++) {
 				// get data from deque.
 				Coordinate coord = coordinateDeque.removeFirst();
 
