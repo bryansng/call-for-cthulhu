@@ -14,7 +14,7 @@ import ie.ucd.ui.common.sheets.StudentSheet;
 import ie.ucd.ui.interfaces.VisualizerInterface;
 import ie.ucd.ui.solver.SolverPane;
 
-public class GeneticAlgorithm extends Solver {
+public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 	private double mutationChance;
 	private double crossoverChance;
 	private double pickFittestParentsChance;
@@ -69,22 +69,15 @@ public class GeneticAlgorithm extends Solver {
 
 		StudentSheet currSheet = null;
 		StudentSheet bestSheet = null;
-		if (sheets != null) {
-			currSheet = sheets.getCurrentSheet();
-			bestSheet = sheets.getBestSheet();
-		}
+		uiAssignRespectiveSheets(sheets, currSheet, bestSheet);
 
 		// keep track of solutions.
 		CandidateSolution currSolution = startingSolution;
 		CandidateSolution nextPossibleSolution = currSolution;
 		CandidateSolution fittestSolution = currSolution;
 		CandidateSolution bestSolution = currSolution;
-		if (Settings.enableAnimation && currSheet != null) {
-			currSheet.addToQueue(fittestSolution);
-		}
-		if (Settings.enableAnimation && bestSheet != null) {
-			bestSheet.addToQueue(bestSolution);
-		}
+		uiAddToCurrQueueAnimate(currSheet, currSolution);
+		uiAddToBestQueueAnimate(bestSheet, bestSolution);
 
 		// keep track of satisfaction/fitness.
 		Double bestSatisfaction = currSolution.calculateGlobalSatisfaction();
@@ -102,9 +95,8 @@ public class GeneticAlgorithm extends Solver {
 		Integer fittestIndex = 0;
 		Double fittestSatisfaction = Double.NEGATIVE_INFINITY;
 		String fittestBitCodeSolution = "";
-		if (visualizer != null)
-			visualizer.newSeries();
-		for (int i = 1; i <= numberOfGenerations && !this.isStopped; i++) {
+		uiSignalNewGraph(visualizer);
+		for (int i = 1; i <= numberOfGenerations && threadStillRunning(); i++) {
 			if (Common.DEBUG_SHOW_GA)
 				System.out.println("Creating Generation #" + i);
 
@@ -131,16 +123,12 @@ public class GeneticAlgorithm extends Solver {
 			if (Common.DEBUG_SHOW_GA) {
 				System.out.println("Fittest solution strength: " + fittestSatisfaction);
 			}
-			if (Settings.enableAnimation && currSheet != null) {
-				currSheet.addToQueue(fittestSolution);
-			}
+			uiAddToCurrQueueAnimate(currSheet, fittestSolution);
 			// keep track of the best solution found, i.e. next highest fitness/satisfaction.
 			if (fittestSatisfaction > bestSatisfaction) {
 				bestSolution = fittestSolution;
 				bestSatisfaction = fittestSatisfaction;
-				if (Settings.enableAnimation && bestSheet != null) {
-					bestSheet.addToQueue(bestSolution);
-				}
+				uiAddToBestQueueAnimate(bestSheet, bestSolution);
 			}
 
 			// generate population for next generation.
@@ -159,37 +147,19 @@ public class GeneticAlgorithm extends Solver {
 			nextPopulation.clear();
 			incrementPickFittestParentsChance();
 
-			if (visualizer != null)
-				visualizer.addToQueue(fittestSatisfaction, bestSatisfaction, i);
+			uiAddToGraph(visualizer, fittestSatisfaction, bestSatisfaction, i);
 
-			try {
-				if (this.isOneStep) {
-					this.oneStepDone();
-				}
-				if (this.isSuspended) {
-					synchronized (this) {
-						while (this.isSuspended) {
-							wait();
-						}
-					}
-				}
-			} catch (InterruptedException e) {
-			}
+			threadHandleOneStepAndWaiting();
 		}
 		// get best final solution from final generation.
 		finalSolutionFitness = populationSatisfactions.get(fittestIndex);
 		this.finalSolution = assignProjectsFromBitCodeSolution(fittestBitCodeSolution, fittestSolution);
-		System.out.println("Genetic Algorithm simulation complete.");
 
-		if (!Settings.enableAnimation && currSheet != null) {
-			currSheet.addToQueue(fittestSolution);
-		}
-		if (!Settings.enableAnimation && bestSheet != null) {
-			bestSheet.addToQueue(bestSolution);
-		}
-		if (solverPane != null) {
-			solverPane.setDoneProcessing(true);
-		}
+		uiAddToCurrQueueNoAnimate(currSheet, fittestSolution);
+		uiAddToBestQueueNoAnimate(bestSheet, bestSolution);
+		uiSignalProcessingDone(solverPane);
+
+		System.out.println("Genetic Algorithm simulation complete.");
 	}
 
 	private String[] chooseParents(ArrayList<String> population, ArrayList<Double> satisfactions) {

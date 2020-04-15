@@ -34,6 +34,26 @@ public abstract class Solver implements Runnable {
 		notify();
 	}
 
+	protected void threadHandleOneStepAndWaiting() {
+		try {
+			if (this.isOneStep) {
+				this.oneStepDone();
+			}
+			if (this.isSuspended) {
+				synchronized (this) {
+					while (this.isSuspended) {
+						wait();
+					}
+				}
+			}
+		} catch (InterruptedException e) {
+		}
+	}
+
+	protected boolean threadStillRunning() {
+		return !isStopped;
+	}
+
 	public void restart() {
 		this.isSuspended = false;
 		this.isStopped = false;

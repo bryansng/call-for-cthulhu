@@ -10,7 +10,7 @@ import ie.ucd.ui.common.sheets.StudentSheet;
 import ie.ucd.ui.interfaces.VisualizerInterface;
 import ie.ucd.ui.solver.SolverPane;
 
-public class SimulatedAnnealing extends Solver {
+public class SimulatedAnnealing extends Solver implements SolverUIUpdater {
 	private double storedSatisfaction;
 	private CandidateSolution bestSolution;
 
@@ -52,21 +52,14 @@ public class SimulatedAnnealing extends Solver {
 
 		StudentSheet currSheet = null;
 		StudentSheet bestSheet = null;
-		if (sheets != null) {
-			currSheet = sheets.getCurrentSheet();
-			bestSheet = sheets.getBestSheet();
-		}
+		uiAssignRespectiveSheets(sheets, currSheet, bestSheet);
 
 		// keep track of solutions.
 		CandidateSolution currSolution = startingSolution;
 		CandidateSolution nextSolution;
 		CandidateSolution bestSolution = currSolution;
-		if (Settings.enableAnimation && currSheet != null) {
-			currSheet.addToQueue(currSolution);
-		}
-		if (Settings.enableAnimation && bestSheet != null) {
-			bestSheet.addToQueue(bestSolution);
-		}
+		uiAddToCurrQueueAnimate(currSheet, currSolution);
+		uiAddToBestQueueAnimate(bestSheet, bestSolution);
 
 		// keep track of energy.
 		double currEnergy = calculateEnergy(currSolution);
@@ -78,9 +71,8 @@ public class SimulatedAnnealing extends Solver {
 		int totalRejected = 0;
 		int totalStraightAccept = 0;
 		int i = 0;
-		if (visualizer != null)
-			visualizer.newSeries();
-		for (i = 0; i < maxIteration && temperature > minTemperature && !this.isStopped; i++) {
+		uiSignalNewGraph(visualizer);
+		for (i = 0; i < maxIteration && temperature > minTemperature && threadStillRunning(); i++) {
 			// random move to students to get new students.
 			// depending on temperature,
 			// if higher, make more risky random moves.
@@ -107,9 +99,7 @@ public class SimulatedAnnealing extends Solver {
 			if (randomProbability <= acceptanceProbability) {
 				currSolution = nextSolution;
 				currEnergy = nextEnergy;
-				if (Settings.enableAnimation && currSheet != null) {
-					currSheet.addToQueue(currSolution);
-				}
+				uiAddToCurrQueueAnimate(currSheet, currSolution);
 			} else {
 				totalRejected += 1;
 			}
@@ -121,41 +111,20 @@ public class SimulatedAnnealing extends Solver {
 			if (nextEnergy < bestEnergy) {
 				bestSolution = nextSolution;
 				bestEnergy = nextEnergy;
-				if (Settings.enableAnimation && bestSheet != null) {
-					bestSheet.addToQueue(bestSolution);
-				}
+				uiAddToBestQueueAnimate(bestSheet, bestSolution);
 			}
 
 			// cool system. (not much difference between the below two configurations)
 			temperature *= 1 - coolingRate; // exponential decrease.
 			// temperature = startTemperature * ((maxIteration - i + 1.0) / maxIteration); // linear decrease;
 
-			if (visualizer != null)
-				visualizer.addToQueue(currEnergy, bestEnergy, i);
+			uiAddToGraph(visualizer, currEnergy, bestEnergy, i);
+			threadHandleOneStepAndWaiting();
+		}
+		uiAddToCurrQueueNoAnimate(currSheet, currSolution);
+		uiAddToBestQueueNoAnimate(bestSheet, bestSolution);
+		uiSignalProcessingDone(solverPane);
 
-			try {
-				if (this.isOneStep) {
-					this.oneStepDone();
-				}
-				if (this.isSuspended) {
-					synchronized (this) {
-						while (this.isSuspended) {
-							wait();
-						}
-					}
-				}
-			} catch (InterruptedException e) {
-			}
-		}
-		if (!Settings.enableAnimation && currSheet != null) {
-			currSheet.addToQueue(currSolution);
-		}
-		if (!Settings.enableAnimation && bestSheet != null) {
-			bestSheet.addToQueue(bestSolution);
-		}
-		if (solverPane != null) {
-			solverPane.setDoneProcessing(true);
-		}
 		System.out.println("\nExited at loop " + i + ", temperature " + temperature);
 		System.out.println("totalRejected: " + totalRejected);
 		System.out.println("totalStraightAccepted (i.e. prob = 1.0): " + totalStraightAccept);

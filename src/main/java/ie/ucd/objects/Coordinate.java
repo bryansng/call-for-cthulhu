@@ -1,24 +1,24 @@
 package ie.ucd.objects;
 
 public class Coordinate {
-	private double currEnergy;
-	private double bestEnergy;
+	private double currY;
+	private double bestY;
 	private long timeElapsed;
 	private int loopNumber;
 
-	public Coordinate(double currEnergy, double bestEnergy, long timeElapsed, int loopNumber) {
-		this.currEnergy = currEnergy;
-		this.bestEnergy = bestEnergy;
+	public Coordinate(double currY, double bestY, long timeElapsed, int loopNumber) {
+		this.currY = currY;
+		this.bestY = bestY;
 		this.timeElapsed = timeElapsed;
 		this.loopNumber = loopNumber;
 	}
 
-	public double getCurrEnergy() {
-		return currEnergy;
+	public double getCurrY() {
+		return currY;
 	}
 
-	public double getBestEnergy() {
-		return bestEnergy;
+	public double getBestY() {
+		return bestY;
 	}
 
 	public double getTimeElapsed() {

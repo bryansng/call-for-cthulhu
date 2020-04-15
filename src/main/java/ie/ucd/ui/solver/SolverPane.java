@@ -16,6 +16,7 @@ import javafx.util.Duration;
 
 public class SolverPane extends ScrollPane {
 	private Visualizer visualizer;
+	private CustomProgressIndicator progressIndicator;
 	private ControlButtons controlButtons;
 	private Sheets sheets;
 
@@ -25,6 +26,7 @@ public class SolverPane extends ScrollPane {
 	public SolverPane(Stage stage, SolverType solverType) {
 		super();
 		visualizer = new Visualizer(solverType);
+		progressIndicator = new CustomProgressIndicator();
 		sheets = new Sheets(stage);
 		controlButtons = new ControlButtons(this, solverType);
 		initLayout();
@@ -37,6 +39,7 @@ public class SolverPane extends ScrollPane {
 		VBox vBox = new VBox();
 		vBox.getChildren().add(new Label("Visualization"));
 		vBox.getChildren().add(visualizer);
+		vBox.getChildren().add(progressIndicator);
 		vBox.getChildren().add(controlButtons);
 		vBox.getChildren().add(sheets);
 

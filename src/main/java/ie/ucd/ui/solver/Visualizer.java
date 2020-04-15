@@ -126,9 +126,9 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 				Coordinate coord = coordinateDeque.removeFirst();
 
 				// put y value with current time.
-				currSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getCurrEnergy()));
-				bestSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getBestEnergy()));
-				setSeriesName(coord.getCurrEnergy(), coord.getBestEnergy());
+				currSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getCurrY()));
+				bestSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getBestY()));
+				setSeriesName(coord.getCurrY(), coord.getBestY());
 
 				if (currSeries.getData().size() > Settings.maximumXAxisTicks && Common.CHART_ENABLE_TRUNCATE)
 					currSeries.getData().remove(0, Settings.pointsToRemove);
@@ -147,9 +147,9 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 				Coordinate coord = coordinateDeque.removeFirst();
 
 				// put y value with current time.
-				currSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getCurrEnergy()));
-				bestSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getBestEnergy()));
-				setSeriesName(coord.getCurrEnergy(), coord.getBestEnergy());
+				currSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getCurrY()));
+				bestSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getBestY()));
+				setSeriesName(coord.getCurrY(), coord.getBestY());
 			}
 		} catch (NoSuchElementException e) {
 		}
