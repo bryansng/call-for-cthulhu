@@ -147,7 +147,7 @@ public class ControlButtons extends HBox {
 			solution.generateStudents();
 			switch (solverType) {
 				case GeneticAlgorithm:
-					solver = new GeneticAlgorithm(solution);
+					solver = new GeneticAlgorithm(solution, solverPane);
 				case SimulatedAnnealing:
 				default:
 					//! simulated annealing here should take in the updated parameters.

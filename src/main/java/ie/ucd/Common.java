@@ -16,8 +16,12 @@ public class Common {
 		Student, Project
 	}
 
-	public static final boolean DEBUG_SHOW_SA = false; // SA debug verbosity.
+	// SA debug verbosity.
+	public static final boolean DEBUG_SHOW_SA = false;
 	public static final boolean DEBUG_SHOW_ENERGIES = false;
+
+	// GA debug verbosity.
+	public static final boolean DEBUG_SHOW_GA = false;
 
 	// the below are used during calculating of global/local satisfaction.
 	public static final double MAX_GPA = 4.2;
@@ -35,6 +39,9 @@ public class Common {
 	public static int numAvgProjectsProposed = 3;
 	public static AbstractRealDistribution distr = new NormalDistribution();
 	private static double gaussianLimit = 2.5;
+
+	//used in Genetic Algorithm
+	public static final int MAX_ARRAY_SIZE = 1500;
 
 	// https://www.javamex.com/tutorials/random_numbers/gaussian_distribution_2.shtml
 	public static double getProbability() {

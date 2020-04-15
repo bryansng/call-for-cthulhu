@@ -2,7 +2,9 @@ package ie.ucd;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 import ie.ucd.objects.StaffMember;
+import ie.ucd.solvers.GeneticAlgorithm;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import ie.ucd.objects.Student;
 import ie.ucd.solvers.SimulatedAnnealing;
@@ -24,13 +26,14 @@ public class Main extends Application {
 
 	public static void main(String[] args) throws IOException, InvalidFormatException, Exception {
 		System.out.println("Running application...\n");
+
 		// generateExcelFiles();
 		// generateCSVFiles();
 		// readCSVFiles();
 		// readTest();
 		// applySimulatedAnnealing();
-		// applyGeneticAlgorithm();
-		launch();
+		applyGeneticAlgorithm();
+		// launch();
 	}
 
 	@Override
@@ -46,6 +49,30 @@ public class Main extends Application {
 		stage.show();
 
 		// solver.run(solution);
+		System.out.println("All done");
+		applyGeneticAlgorithm();
+		// playingNormalDistribution();
+	}
+
+	public static void applyGeneticAlgorithm() throws IOException {
+		System.out.println("Generating for 500 students...");
+
+		Parser parser = new Parser();
+		CandidateSolution solution = new CandidateSolution(500, parser.getStaffMembers(), parser.getNames(), null, null);
+		solution.generateProjects();
+		solution.generateStudents();
+		System.out.println(solution.CSDSPercentage());
+
+		Solver solver = new GeneticAlgorithm(solution, null);
+		solver.run();
+		CandidateSolution bestSolution = solver.getBestSolution();
+		// int count = 1;
+		// for (Student student : bestSolution.getStudents()) {
+		// 	System.out.println(count++ + " : " + student.getId() + " : " + student.getFirstName() + " "
+		// 			+ student.getLastName() + " : " + student.getProjectAssigned(0).getResearchActivity());
+		// }
+		// System.out.println("FITNESS OF FINAL SOLUTION: " + solver.getFinalSolutionFitness());
+
 		System.out.println("All done");
 	}
 
