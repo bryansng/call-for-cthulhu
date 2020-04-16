@@ -1,5 +1,6 @@
 package ie.ucd.ui.common.sheets;
 
+import ie.ucd.Common.SolverType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -10,9 +11,12 @@ import javafx.stage.Stage;
 public class Sheets extends VBox {
 	private StudentSheet currSheet;
 	private StudentSheet bestSheet;
+	private String infix = " ";
 
-	public Sheets(Stage stage) {
+	public Sheets(Stage stage, SolverType solverType) {
 		super();
+		if (solverType == SolverType.GeneticAlgorithm)
+			infix = " Fittest ";
 		initLayout(stage);
 	}
 
@@ -24,7 +28,7 @@ public class Sheets extends VBox {
 
 		TabPane tabPane = new TabPane();
 		tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-		tabPane.getTabs().add(new Tab("Current Solution", currSheet));
+		tabPane.getTabs().add(new Tab("Current" + infix + "Solution", currSheet));
 		tabPane.getTabs().add(new Tab("Best Solution", bestSheet));
 		getChildren().add(tabPane);
 	}

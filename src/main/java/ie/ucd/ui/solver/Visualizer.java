@@ -13,7 +13,9 @@ import javafx.geometry.Side;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Data;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 
 public class Visualizer extends GridPane implements VisualizerInterface {
 	private Deque<Coordinate> coordinateDeque;
@@ -24,22 +26,26 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 	private XYChart.Series<Number, Number> bestSeries;
 	private LocalDateTime startDateTime;
 
+	private SolverType solverType;
+
 	public Visualizer(SolverType solverType) {
 		super();
+		this.solverType = solverType;
 		switch (solverType) {
 			case GeneticAlgorithm:
 				yAxisName = "Fitness";
+				getStylesheets().add("ui/solver/visualizerGA.css");
 				break;
 			case SimulatedAnnealing:
 			default:
 				yAxisName = "Energy";
+				getStylesheets().add("ui/solver/visualizerSA.css");
 				break;
 		}
 		initLayout();
 	}
 
 	private void initLayout() {
-		getStylesheets().add("ui/solver/visualizer.css");
 		getChildren().add(initLineChart());
 	}
 
@@ -52,6 +58,7 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 		xAxis.setForceZeroInRange(false);
 		yAxis.setLabel(yAxisName);
 		yAxis.setAutoRanging(true);
+		yAxis.setForceZeroInRange(false);
 
 		// creating the chart.
 		lineChart = new LineChart<Number, Number>(xAxis, yAxis);
@@ -59,7 +66,8 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 		lineChart.setHorizontalGridLinesVisible(false);
 		lineChart.setVerticalGridLinesVisible(false);
 		lineChart.setAnimated(false);
-		lineChart.setCreateSymbols(false);
+		if (solverType == SolverType.SimulatedAnnealing)
+			lineChart.setCreateSymbols(false);
 		lineChart.setPrefWidth(1024);
 		lineChart.setPrefHeight(768);
 		lineChart.setLegendSide(Side.RIGHT);
@@ -67,7 +75,7 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 		// defining a series, initial series has no data.
 		currSeries = new XYChart.Series<Number, Number>();
 		bestSeries = new XYChart.Series<Number, Number>();
-		setSeriesName(null, null);
+		setSeriesName(0.0, 0.0);
 
 		// initialize coordinate deque.
 		coordinateDeque = new LinkedList<Coordinate>();
@@ -80,12 +88,12 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 	}
 
 	@Override
-	public void addToQueue(double currEnergy, double bestEnergy, int loopNumber) {
+	public void addToQueue(double currY, double bestY, int loopNumber) {
 		// populating the deque with data, the data in deque will be added to the series at regular intervals.
 		LocalDateTime now = LocalDateTime.now();
 		long timeElapsed = java.time.Duration.between(startDateTime, now).getNano();
 
-		Coordinate coord = new Coordinate(currEnergy, bestEnergy, timeElapsed, loopNumber);
+		Coordinate coord = new Coordinate(currY, bestY, timeElapsed, loopNumber);
 		coordinateDeque.add(coord);
 
 		if (!Settings.enableAnimation && coordinateDeque.size() > Settings.maximumXAxisTicks) {
@@ -126,7 +134,19 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 
 				// put y value with current time.
 				currSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getCurrY()));
-				bestSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getBestY()));
+				if (solverType == SolverType.GeneticAlgorithm) {
+					// for genetic algorithm, to have legend show the color of the symbol, we cannot use css to set transparent (because legend symbol is based on that css color).
+					// so an alternative is to do this, setting each node individually invisible.
+					// https://stackoverflow.com/questions/39507491/how-to-remove-symbol-markers-from-only-selected-series-in-javafx-charts
+					Data<Number, Number> data = new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getBestY());
+					bestSeries.getData().add(data);
+					StackPane sp = (StackPane) data.getNode();
+					sp.setVisible(false);
+				} else {
+					bestSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getBestY()));
+				}
+
+				// update legend with new y values.
 				setSeriesName(coord.getCurrY(), coord.getBestY());
 
 				if (currSeries.getData().size() > Settings.maximumXAxisTicks && Common.CHART_ENABLE_TRUNCATE)

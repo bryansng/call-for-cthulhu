@@ -38,9 +38,9 @@ public interface SolverUIUpdater {
 			visualizer.newSeries();
 	}
 
-	default void uiAddToGraph(VisualizerInterface visualizer, Double currEnergy, Double bestEnergy, Integer loopNumber) {
+	default void uiAddToGraph(VisualizerInterface visualizer, Double currY, Double bestY, Integer loopNumber) {
 		if (visualizer != null)
-			visualizer.addToQueue(currEnergy, bestEnergy, loopNumber);
+			visualizer.addToQueue(currY, bestY, loopNumber);
 	}
 
 	default void uiAddToProgressIndicator(SolverPane solverPane, Double start, Double current, Double end) {

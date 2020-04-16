@@ -29,16 +29,6 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 	private final Random random = new Random();
 	private SolverPane solverPane;
 
-	public GeneticAlgorithm() {
-		this.mutationChance = 0.05;
-		this.crossoverChance = 0.4;
-		this.numberOfGenerations = 125;
-		this.sizeOfPopulation = 70;
-		this.pickFittestParentsChance = 0.800;
-		this.fittestParentsIncrementFactor = (double) Math
-				.round(((1 - pickFittestParentsChance) * 1.500 / numberOfGenerations) * 1000d) / 1000d;
-	}
-
 	public GeneticAlgorithm(CandidateSolution startingSolution) {
 		this(startingSolution, null);
 	}
@@ -122,6 +112,7 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 					fittestBitCodeSolution = bitCodeSolution;
 					fittestSolution = nextPossibleSolution;
 				}
+				uiAddToGraph(visualizer, populationSatisfaction, bestSatisfaction, i);
 			}
 			if (Common.DEBUG_SHOW_GA) {
 				System.out.println("Fittest solution strength: " + fittestSatisfaction);
@@ -150,9 +141,8 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 			nextPopulation.clear();
 			incrementPickFittestParentsChance();
 
-			uiAddToGraph(visualizer, fittestSatisfaction, bestSatisfaction, i);
-
 			threadHandleOneStepAndWaiting();
+			uiAddToProgressIndicator(solverPane, 1.0, i * 1.0, numberOfGenerations * 1.0);
 		}
 		// get best final solution from final generation.
 		finalSolutionFitness = populationSatisfactions.get(fittestIndex);

@@ -24,11 +24,11 @@
 }
 
 .default-color1.chart-series-line {
-	-fx-stroke: #f0e68c;
+	-fx-stroke: #dda0dd;
 }
 
 .default-color2.chart-series-line {
-	-fx-stroke: #dda0dd;
+	-fx-stroke: #f0e68c;
 }
 
 .default-color0.chart-line-symbol {
@@ -36,9 +36,9 @@
 }
 
 .default-color1.chart-line-symbol {
-	-fx-background-color: #f0e68c;
+	-fx-background-color: #dda0dd;
 }
 
 .default-color2.chart-line-symbol {
-	-fx-background-color: #dda0dd;
+	-fx-background-color: #f0e68c;
 }

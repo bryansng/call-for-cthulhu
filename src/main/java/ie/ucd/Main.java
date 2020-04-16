@@ -42,7 +42,6 @@ public class Main extends Application {
 		// solverPane = new SolverPane(stage, SolverType.GeneticAlgorithm);
 		solverPane = new SolverPane(stage, SolverType.SimulatedAnnealing);
 		Scene scene = new Scene(solverPane, 1280, 960);
-		scene.getStylesheets().add("ui/solver/visualizer.css");
 		scene.getStylesheets().add("ui/solver/constraints.css");
 
 		stage.setScene(scene);

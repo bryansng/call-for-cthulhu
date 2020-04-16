@@ -31,7 +31,7 @@ public class SolverPane extends ScrollPane {
 		super();
 		visualizer = new Visualizer(solverType);
 		progressIndicator = new CustomProgressIndicator();
-		sheets = new Sheets(stage);
+		sheets = new Sheets(stage, solverType);
 		controlButtons = new ControlButtons(this, solverType);
 		initLayout();
 
