@@ -8,12 +8,16 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ie.ucd.ui.interfaces.VisualizerInterface;
+import ie.ucd.ui.solver.progress.CustomProgressIndicator;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.util.Duration;
 
+/**
+ * A class that represents the Solver UI Controller.
+ */
 public class SolverPane extends ScrollPane {
 	private Visualizer visualizer;
 	private CustomProgressIndicator progressIndicator;
@@ -52,6 +56,7 @@ public class SolverPane extends ScrollPane {
 				initOneShotScheduler();
 			} else if (isDoneProcessing && isDequeEmpty()) {
 				pause();
+				progressIndicator.setProgress(1.0);
 				controlButtons.enableOnlyClearAndReset();
 				System.out.println("scheduler paused");
 			}
@@ -66,6 +71,7 @@ public class SolverPane extends ScrollPane {
 	public void resetSeries() {
 		visualizer.resetSeries();
 		sheets.resetSeries();
+		progressIndicator.resetSeries();
 	}
 
 	public void stop() {
@@ -87,9 +93,8 @@ public class SolverPane extends ScrollPane {
 	}
 
 	public void setDoneProcessing(boolean isDone) {
-		if (Settings.enableAnimation) {
-			isDoneProcessing = isDone;
-		} else {
+		isDoneProcessing = isDone;
+		if (!Settings.enableAnimation) {
 			Platform.runLater(() -> {
 				visualizer.addLastWindowToChart();
 				sheets.addLastCandidateSolutionToSheet();
@@ -102,6 +107,7 @@ public class SolverPane extends ScrollPane {
 			Platform.runLater(() -> {
 				visualizer.initOneShotScheduler();
 				sheets.initOneShotScheduler();
+				// progressIndicator.initOneShotScheduler();
 			});
 		}
 	}
@@ -112,6 +118,10 @@ public class SolverPane extends ScrollPane {
 
 	public VisualizerInterface getVisualizer() {
 		return visualizer;
+	}
+
+	public CustomProgressIndicator getProgressIndidactor() {
+		return progressIndicator;
 	}
 
 	public Sheets getSheets() {

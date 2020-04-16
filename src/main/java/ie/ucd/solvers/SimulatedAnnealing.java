@@ -15,7 +15,7 @@ public class SimulatedAnnealing extends Solver implements SolverUIUpdater {
 	private CandidateSolution bestSolution;
 
 	private CandidateSolution startingSolution;
-	private double temperature;
+	private double currTemperature;
 	private double startTemperature;
 	private double minTemperature;
 	private double coolingRate;
@@ -29,13 +29,14 @@ public class SimulatedAnnealing extends Solver implements SolverUIUpdater {
 
 	public SimulatedAnnealing(CandidateSolution startingSolution, SolverPane solverPane) {
 		this(100.0, 0.0001, 0.000000000000001, 10000000, startingSolution, solverPane);
+		// this(100.0, 0.01, 0.001, 10000000, startingSolution, solverPane);
 	}
 
-	public SimulatedAnnealing(double temperature, double coolingRate, double minTemperature, double maxIteration,
+	public SimulatedAnnealing(double currTemperature, double coolingRate, double minTemperature, double maxIteration,
 			CandidateSolution startingSolution, SolverPane solverPane) {
-		this.temperature = temperature;
+		this.currTemperature = currTemperature;
 		this.coolingRate = coolingRate;
-		this.startTemperature = temperature;
+		this.startTemperature = currTemperature;
 		this.minTemperature = minTemperature;
 		this.maxIteration = maxIteration;
 		this.startingSolution = startingSolution;
@@ -52,7 +53,10 @@ public class SimulatedAnnealing extends Solver implements SolverUIUpdater {
 
 		StudentSheet currSheet = null;
 		StudentSheet bestSheet = null;
-		uiAssignRespectiveSheets(sheets, currSheet, bestSheet);
+		if (sheets != null) {
+			currSheet = sheets.getCurrentSheet();
+			bestSheet = sheets.getBestSheet();
+		}
 
 		// keep track of solutions.
 		CandidateSolution currSolution = startingSolution;
@@ -72,9 +76,9 @@ public class SimulatedAnnealing extends Solver implements SolverUIUpdater {
 		int totalStraightAccept = 0;
 		int i = 0;
 		uiSignalNewGraph(visualizer);
-		for (i = 0; i < maxIteration && temperature > minTemperature && threadStillRunning(); i++) {
+		for (i = 0; i < maxIteration && currTemperature > minTemperature && threadStillRunning(); i++) {
 			// random move to students to get new students.
-			// depending on temperature,
+			// depending on currTemperature,
 			// if higher, make more risky random moves.
 			// else, make more conservative moves.
 			switch (Settings.SA_RANDOM_MOVE_TYPE) {
@@ -95,7 +99,7 @@ public class SimulatedAnnealing extends Solver implements SolverUIUpdater {
 
 			// decide if accept this new solution.
 			double randomProbability = new Random().nextDouble();
-			double acceptanceProbability = calculateAcceptanceProbability(currEnergy, nextEnergy, temperature);
+			double acceptanceProbability = calculateAcceptanceProbability(currEnergy, nextEnergy, currTemperature);
 			if (randomProbability <= acceptanceProbability) {
 				currSolution = nextSolution;
 				currEnergy = nextEnergy;
@@ -115,17 +119,18 @@ public class SimulatedAnnealing extends Solver implements SolverUIUpdater {
 			}
 
 			// cool system. (not much difference between the below two configurations)
-			temperature *= 1 - coolingRate; // exponential decrease.
-			// temperature = startTemperature * ((maxIteration - i + 1.0) / maxIteration); // linear decrease;
+			currTemperature *= 1 - coolingRate; // exponential decrease.
+			// currTemperature = startTemperature * ((maxIteration - i + 1.0) / maxIteration); // linear decrease;
 
 			uiAddToGraph(visualizer, currEnergy, bestEnergy, i);
 			threadHandleOneStepAndWaiting();
+			uiAddToProgressIndicator(solverPane, startTemperature, currTemperature, minTemperature);
 		}
 		uiAddToCurrQueueNoAnimate(currSheet, currSolution);
 		uiAddToBestQueueNoAnimate(bestSheet, bestSolution);
 		uiSignalProcessingDone(solverPane);
 
-		System.out.println("\nExited at loop " + i + ", temperature " + temperature);
+		System.out.println("\nExited at loop " + i + ", currTemperature " + currTemperature);
 		System.out.println("totalRejected: " + totalRejected);
 		System.out.println("totalStraightAccepted (i.e. prob = 1.0): " + totalStraightAccept);
 		System.out.println("currEnergy: " + currEnergy);
@@ -135,11 +140,11 @@ public class SimulatedAnnealing extends Solver implements SolverUIUpdater {
 		this.bestSolution = bestSolution;
 	}
 
-	private Double calculateAcceptanceProbability(double currEnergy, double nextEnergy, double temperature) {
+	private Double calculateAcceptanceProbability(double currEnergy, double nextEnergy, double currTemperature) {
 		if (nextEnergy < currEnergy)
 			return 1.0;
 		else
-			return Math.exp((currEnergy - nextEnergy) / temperature);
+			return Math.exp((currEnergy - nextEnergy) / currTemperature);
 	}
 
 	// pick another project in a student's preference list.

@@ -62,6 +62,7 @@ public class StudentSheet extends Sheet<Student> implements StudentSheetInterfac
 
 	public void addToQueue(CandidateSolution solution) {
 		solutionDeque.add(solution);
+		System.out.println("added to sheet.");
 	}
 
 	public void updateSheetAndStrengthAndConstraints() {

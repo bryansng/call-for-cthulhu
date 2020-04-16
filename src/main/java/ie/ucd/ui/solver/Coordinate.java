@@ -1,4 +1,4 @@
-package ie.ucd.objects;
+package ie.ucd.ui.solver;
 
 public class Coordinate {
 	private double currY;

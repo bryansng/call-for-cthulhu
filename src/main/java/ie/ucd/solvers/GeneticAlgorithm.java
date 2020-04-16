@@ -69,7 +69,10 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 
 		StudentSheet currSheet = null;
 		StudentSheet bestSheet = null;
-		uiAssignRespectiveSheets(sheets, currSheet, bestSheet);
+		if (sheets != null) {
+			currSheet = sheets.getCurrentSheet();
+			bestSheet = sheets.getBestSheet();
+		}
 
 		// keep track of solutions.
 		CandidateSolution currSolution = startingSolution;

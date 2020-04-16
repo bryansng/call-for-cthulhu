@@ -1,7 +1,7 @@
 package ie.ucd;
 
 public class Settings {
-	public static boolean enableAnimation = true;
+	public static boolean enableAnimation = false;
 	public static int maximumXAxisTicks = 10000; // higher = UI slower.
 	public static int pointsToRemove = maximumXAxisTicks * 20 / 100;
 
@@ -29,4 +29,6 @@ public class Settings {
 	}
 
 	public static SARandomMoveType SA_RANDOM_MOVE_TYPE = SARandomMoveType.SWAP_FROM_TWO_STUDENTS_PREFERENCE_LIST;
+
+	// ! consider adding SA cooling type, linear or exponential.
 }

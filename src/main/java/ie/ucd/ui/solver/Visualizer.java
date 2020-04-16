@@ -7,7 +7,6 @@ import java.util.NoSuchElementException;
 import ie.ucd.Common;
 import ie.ucd.Settings;
 import ie.ucd.Common.SolverType;
-import ie.ucd.objects.Coordinate;
 import ie.ucd.ui.interfaces.VisualizerInterface;
 import javafx.application.Platform;
 import javafx.geometry.Side;
