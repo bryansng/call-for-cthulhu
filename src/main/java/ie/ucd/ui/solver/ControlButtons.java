@@ -147,7 +147,7 @@ public class ControlButtons extends HBox {
 			solution.generateStudents();
 			switch (solverType) {
 				case GeneticAlgorithm:
-					solver = new GeneticAlgorithm(Settings.gaMutationProbability, Settings.gaCrossoverChance,
+					solver = new GeneticAlgorithm(Settings.gaMutationChance, Settings.gaCrossoverChance,
 							Settings.gaNumberOfGeneration, Settings.gaPopulationSize, Settings.gaPickFittestParentsChance, solution,
 							solverPane);
 					break;

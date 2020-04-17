@@ -51,6 +51,11 @@ public class SimulatedAnnealingTP extends TitledPane {
 			Settings.saCoolingRate = Settings.SA_DEFAULT_COOLING_RATE;
 			Settings.saMinTemperature = Settings.SA_DEFAULT_MIN_TEMPERATURE;
 			Settings.saMaxIteration = Settings.SA_DEFAULT_MAX_ITERATION;
+
+			startTemperatureWarning.setText("");
+			coolingRateWarning.setText("");
+			minTemperatureWarning.setText("");
+			maxIterationWarning.setText("");
 		});
 		return defaultConfig;
 	}

@@ -47,13 +47,13 @@ public class Settings {
 	public static final Integer GA_DEFAULT_NUMBER_OF_GENERATION = DEMO_GA_FAST ? 125 : 125;
 	public static final Integer GA_DEFAULT_POPULATION_SIZE = DEMO_GA_FAST ? 70 : 70;
 	public static final Double GA_DEFAULT_CROSSOVER_CHANCE = DEMO_GA_FAST ? 0.4 : 0.4;
-	public static final Double GA_DEFAULT_MUTATION_PROBABILITY = DEMO_GA_FAST ? 0.05 : 0.05;
+	public static final Double GA_DEFAULT_MUTATION_CHANCE = DEMO_GA_FAST ? 0.05 : 0.05;
 	public static final Double GA_DEFAULT_PICK_FITTEST_PARENTS_CHANCE = DEMO_GA_FAST ? 0.8 : 0.8;
 	public static Integer gaNumberOfGeneration = GA_DEFAULT_NUMBER_OF_GENERATION;
 	public static Integer gaPopulationSize = GA_DEFAULT_POPULATION_SIZE;
 	public static Double gaCrossoverChance = GA_DEFAULT_CROSSOVER_CHANCE;
-	public static Double gaMutationProbability = GA_DEFAULT_MUTATION_PROBABILITY;
-	public static Double gaPickFittestParentsChance = GA_DEFAULT_MUTATION_PROBABILITY;
+	public static Double gaMutationChance = GA_DEFAULT_MUTATION_CHANCE;
+	public static Double gaPickFittestParentsChance = GA_DEFAULT_PICK_FITTEST_PARENTS_CHANCE;
 
 	// ! consider adding SA cooling type, linear or exponential.
 }

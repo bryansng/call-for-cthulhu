@@ -17,7 +17,7 @@ public class Common {
 	}
 
 	// NavigationPane on typed parameter debug verbosity.
-	public static final boolean DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE = false;
+	public static final boolean DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE = true;
 
 	// SA debug verbosity.
 	public static final boolean DEBUG_SHOW_SA = false;
