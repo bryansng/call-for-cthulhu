@@ -21,6 +21,7 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 	private Deque<Coordinate> coordinateDeque;
 
 	private String yAxisName;
+	private String xAxisName;
 	private LineChart<Number, Number> lineChart;
 	private XYChart.Series<Number, Number> currSeries;
 	private XYChart.Series<Number, Number> bestSeries;
@@ -34,11 +35,13 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 		switch (solverType) {
 			case GeneticAlgorithm:
 				yAxisName = "Fitness";
+				xAxisName = "Number of Generations";
 				getStylesheets().add("ui/solver/visualizerGA.css");
 				break;
 			case SimulatedAnnealing:
 			default:
 				yAxisName = "Energy";
+				xAxisName = "Number of Iterations";
 				getStylesheets().add("ui/solver/visualizerSA.css");
 				break;
 		}
@@ -53,7 +56,7 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 		// defining axes.
 		final NumberAxis xAxis = new NumberAxis();
 		final NumberAxis yAxis = new NumberAxis();
-		xAxis.setLabel("Loop Number");
+		xAxis.setLabel(xAxisName);
 		xAxis.setAutoRanging(true);
 		xAxis.setForceZeroInRange(false);
 		yAxis.setLabel(yAxisName);
@@ -62,7 +65,7 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 
 		// creating the chart.
 		lineChart = new LineChart<Number, Number>(xAxis, yAxis);
-		lineChart.setTitle(yAxisName + " over Time / Loop Number");
+		lineChart.setTitle(yAxisName + " over " + xAxisName + " / Time");
 		lineChart.setHorizontalGridLinesVisible(false);
 		lineChart.setVerticalGridLinesVisible(false);
 		lineChart.setAnimated(false);

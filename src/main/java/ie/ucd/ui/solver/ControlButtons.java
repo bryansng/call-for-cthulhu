@@ -147,12 +147,15 @@ public class ControlButtons extends HBox {
 			solution.generateStudents();
 			switch (solverType) {
 				case GeneticAlgorithm:
-					solver = new GeneticAlgorithm(solution, solverPane);
+					solver = new GeneticAlgorithm(Settings.gaMutationProbability, Settings.gaCrossoverChance,
+							Settings.gaNumberOfGeneration, Settings.gaPopulationSize, Settings.gaPickFittestParentsChance, solution,
+							solverPane);
 					break;
 				case SimulatedAnnealing:
 				default:
 					//! simulated annealing here should take in the updated parameters.
-					solver = new SimulatedAnnealing(solution, solverPane);
+					solver = new SimulatedAnnealing(Settings.saStartTemperature, Settings.saCoolingRate,
+							Settings.saMinTemperature, Settings.saMaxIteration, solution, solverPane);
 					break;
 			}
 			this.solver = solver;

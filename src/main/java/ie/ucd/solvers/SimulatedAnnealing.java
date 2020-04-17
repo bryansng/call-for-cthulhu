@@ -29,14 +29,14 @@ public class SimulatedAnnealing extends Solver implements SolverUIUpdater {
 
 	public SimulatedAnnealing(CandidateSolution startingSolution, SolverPane solverPane) {
 		// this(100.0, 0.0001, 0.000000000000001, 10000000, startingSolution, solverPane);
-		this(100.0, 0.001, 0.001, 10000000, startingSolution, solverPane);
+		this(100.0, 0.001, 0.001, 50000, startingSolution, solverPane);
 	}
 
-	public SimulatedAnnealing(double currTemperature, double coolingRate, double minTemperature, double maxIteration,
+	public SimulatedAnnealing(double startTemperature, double coolingRate, double minTemperature, double maxIteration,
 			CandidateSolution startingSolution, SolverPane solverPane) {
-		this.currTemperature = currTemperature;
+		this.currTemperature = startTemperature;
 		this.coolingRate = coolingRate;
-		this.startTemperature = currTemperature;
+		this.startTemperature = startTemperature;
 		this.minTemperature = minTemperature;
 		this.maxIteration = maxIteration;
 		this.startingSolution = startingSolution;

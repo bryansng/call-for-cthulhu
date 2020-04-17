@@ -3,10 +3,8 @@ package ie.ucd.solvers;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
-
 import ie.ucd.objects.CandidateSolution;
 import ie.ucd.Common;
-import ie.ucd.Settings;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.Student;
 import ie.ucd.ui.common.sheets.Sheets;

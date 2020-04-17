@@ -16,6 +16,9 @@ public class Common {
 		Student, Project
 	}
 
+	// NavigationPane on typed parameter debug verbosity.
+	public static final boolean DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE = false;
+
 	// SA debug verbosity.
 	public static final boolean DEBUG_SHOW_SA = false;
 	public static final boolean DEBUG_SHOW_ENERGIES = false;

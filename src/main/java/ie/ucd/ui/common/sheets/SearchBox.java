@@ -18,7 +18,7 @@ public class SearchBox<E> extends TextField {
 
 		// setMaxWidth(800);
 		setPromptText(promptText);
-		setOnKeyTyped(keyEvent -> {
+		setOnKeyReleased(keyEvent -> {
 			if (!isWaiting) {
 				isWaiting = true;
 				waitForInput.play();
