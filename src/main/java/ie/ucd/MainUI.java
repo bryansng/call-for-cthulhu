@@ -2,13 +2,16 @@ package ie.ucd;
 
 import ie.ucd.Common.SolverType;
 import ie.ucd.ui.navigation.NavigationPane;
+import ie.ucd.ui.setup.SetupPane;
 import ie.ucd.ui.solver.SolverPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class MainUI extends BorderPane {
 	private NavigationPane navPane;
-	private SolverPane solverPane;
+	private SetupPane setupPane;
+	private SolverPane saPane;
+	private SolverPane gaPane;
 
 	public MainUI(Stage stage) {
 		super();
@@ -16,13 +19,26 @@ public class MainUI extends BorderPane {
 	}
 
 	public void initLayout(Stage stage) {
-		navPane = new NavigationPane();
+		setupPane = new SetupPane();
+		saPane = new SolverPane(stage, SolverType.SimulatedAnnealing);
+		gaPane = new SolverPane(stage, SolverType.GeneticAlgorithm);
 
-		// solverPane = new SolverPane(stage, SolverType.GeneticAlgorithm);
-		solverPane = new SolverPane(stage, SolverType.SimulatedAnnealing);
-		solverPane.getStylesheets().add("ui/solver/constraints.css");
+		navPane = new NavigationPane(this);
 
+		getStylesheets().add("ui/solver/constraints.css");
 		setLeft(navPane);
-		setRight(solverPane);
+		setRight(saPane);
+	}
+
+	public void showSetupPane() {
+		setRight(setupPane);
+	}
+
+	public void showSAPane() {
+		setRight(saPane);
+	}
+
+	public void showGAPane() {
+		setRight(gaPane);
 	}
 }

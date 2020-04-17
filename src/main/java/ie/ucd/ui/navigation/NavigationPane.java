@@ -1,5 +1,6 @@
 package ie.ucd.ui.navigation;
 
+import ie.ucd.MainUI;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TitledPane;
 
@@ -8,15 +9,26 @@ public class NavigationPane extends Accordion {
 	private TitledPane saTP;
 	private TitledPane gaTP;
 
-	public NavigationPane() {
+	public NavigationPane(MainUI mainUI) {
 		super();
-		initLayout();
+		initLayout(mainUI);
 	}
 
-	private void initLayout() {
+	private void initLayout(MainUI mainUI) {
 		setupTP = new SetupTP();
+		setupTP.setOnMouseClicked((evt) -> {
+			mainUI.showSetupPane();
+		});
+
 		saTP = new SimulatedAnnealingTP();
+		saTP.setOnMouseClicked((evt) -> {
+			mainUI.showSAPane();
+		});
+
 		gaTP = new GeneticAlgorithmTP();
+		gaTP.setOnMouseClicked((evt) -> {
+			mainUI.showGAPane();
+		});
 		getPanes().addAll(setupTP, saTP, gaTP);
 	}
 }
