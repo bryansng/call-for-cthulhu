@@ -1,5 +1,9 @@
 package ie.ucd;
 
+import java.util.ArrayList;
+import ie.ucd.objects.Student;
+import ie.ucd.objects.Project;
+
 public class Settings {
 	public static final boolean DEMO_SA_FAST = true;
 	public static final boolean DEMO_GA_FAST = true;
@@ -9,6 +13,9 @@ public class Settings {
 	public static int pointsToRemove = maximumXAxisTicks * 20 / 100;
 
 	public static double importanceOfGPA = 1.0; // 0 to 1. This is the value slider changes in the UI.
+
+	public static ArrayList<Student> loadedStudents;
+	public static ArrayList<Project> loadedProjects;
 
 	// constraints.
 	public static final int NUM_HARD_CONSTRAINTS = 4;

@@ -7,6 +7,9 @@ import com.opencsv.CSVReaderBuilder;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.StaffMember;
 import ie.ucd.objects.Student;
+
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -35,13 +38,22 @@ public class CSVFileReader {
 
     public ArrayList<Project> readProject(String filename, HashMap<String, StaffMember> allStaffMembers)
             throws Exception {
+        return readProject(filename, allStaffMembers, null);
+    }
+
+    public ArrayList<Project> readProject(String filename, HashMap<String, StaffMember> allStaffMembers, File fromFile)
+            throws Exception {
         CSVParser csvParser = getParser();
         CSVReader csvReader = null;
         ArrayList<Project> projects = new ArrayList<Project>();
         String[] line;
-        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
         try {
-            csvReader = new CSVReaderBuilder(new InputStreamReader(is)).withCSVParser(csvParser).build();
+            if (fromFile == null) {
+                InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
+                csvReader = new CSVReaderBuilder(new InputStreamReader(is)).withCSVParser(csvParser).build();
+            } else {
+                csvReader = new CSVReaderBuilder(new FileReader(fromFile)).withCSVParser(csvParser).build();
+            }
         } catch (Exception e) {
             System.out.println("error creating reader for input file: " + filename);
         }
@@ -58,14 +70,23 @@ public class CSVFileReader {
         return projects;
     }
 
-    public ArrayList<Student> readStudents(String filename, ArrayList<Project> projects) throws IOException {
+    public ArrayList<Student> readStudents(String filename, ArrayList<Project> projects) throws Exception {
+        return readStudents(filename, projects, null);
+    }
+
+    public ArrayList<Student> readStudents(String filename, ArrayList<Project> projects, File fromFile)
+            throws IOException {
         CSVReader csvReader = null;
         CSVParser csvParser = getParser();
         ArrayList<Student> students = new ArrayList<Student>();
         String[] line;
-        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
         try {
-            csvReader = new CSVReaderBuilder(new InputStreamReader(is)).withCSVParser(csvParser).build();
+            if (fromFile == null) {
+                InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
+                csvReader = new CSVReaderBuilder(new InputStreamReader(is)).withCSVParser(csvParser).build();
+            } else {
+                csvReader = new CSVReaderBuilder(new FileReader(fromFile)).withCSVParser(csvParser).build();
+            }
         } catch (Exception e) {
             System.out.println("error creating CSVReader object for input file: " + filename);
         }
@@ -87,9 +108,9 @@ public class CSVFileReader {
                     }
                 }
             }
-            // assert thisStudentsProjects.size() == 10 : "Preference list size must be equal to 10, but is "
-            // + thisStudentsProjects.size()
-            // + ", check if readStudents() is given the correct ArrayList projects tailored for these students.";
+            assert thisStudentsProjects.size() == 10 : "Preference list size must be equal to 10, but is "
+                    + thisStudentsProjects.size()
+                    + ", check if readStudents() is given the correct ArrayList projects tailored for these students.";
             // System.out.println(thisStudentsProjects.size() < 10);
             students.add(new Student(line[0], line[1], Integer.parseInt(line[2]), line[3], 0.0, thisStudentsProjects));
             // System.out.println(aIndex + " " + students.get(students.size() - 1));
@@ -122,6 +143,5 @@ public class CSVFileReader {
 
     private CSVParser getParser() {
         return new CSVParserBuilder().withSeparator(separator.charAt(0)).withIgnoreQuotations(ignoreQuotations).build();
-
     }
 }

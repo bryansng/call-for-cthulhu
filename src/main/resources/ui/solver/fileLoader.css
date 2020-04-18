@@ -1,0 +1,27 @@
+.file-loader-container:hover>.button {
+	-fx-color: -fx-hover-base;
+}
+
+.file-loader-container:armed>.button {
+	-fx-color: -fx-pressed-base;
+}
+
+.text-field:hover {
+	-fx-cursor: default;
+}
+
+.text-field:disabled {
+	-fx-cursor: default;
+}
+
+.text-field:focused {
+	-fx-cursor: default;
+}
+
+.text-field:pressed {
+	-fx-cursor: default;
+}
+
+.text-field:show-mnemonic {
+	-fx-cursor: default;
+}

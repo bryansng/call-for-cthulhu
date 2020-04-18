@@ -10,11 +10,11 @@ import javafx.stage.Stage;
 
 public class ProjectSheet extends Sheet<Project> {
 	public ProjectSheet(Stage stage) {
-		this(stage, false);
+		this(stage, false, false);
 	}
 
-	public ProjectSheet(Stage stage, boolean includeSaveToFileButton) {
-		super(stage, includeSaveToFileButton, SheetType.Project);
+	public ProjectSheet(Stage stage, boolean includeLoadFromFileButton, boolean includeSaveToFileButton) {
+		super(stage, includeLoadFromFileButton, includeSaveToFileButton, SheetType.Project);
 	}
 
 	protected void initTableView() {

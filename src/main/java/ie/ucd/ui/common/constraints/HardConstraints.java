@@ -1,5 +1,6 @@
 package ie.ucd.ui.common.constraints;
 
+import ie.ucd.Common;
 import ie.ucd.Settings;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -44,19 +45,40 @@ public class HardConstraints extends VBox {
 		if (enableToggleSettings) {
 			studentAssignedPreferredProject.setOnAction((evt) -> {
 				Settings.enableStudentAssignedPreferredProject = studentAssignedPreferredProject.isSelected();
+				if (Common.DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE)
+					System.out.println(
+							String.format("%b %b %b %b", Settings.enableStudentAssignedPreferredProject, Settings.enableSameStream,
+									Settings.enableStudentAssignedOneProject, Settings.enableProjectAssignedToOneStudent));
 			});
 
 			sameStream.setOnAction((evt) -> {
 				Settings.enableSameStream = sameStream.isSelected();
+				if (Common.DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE)
+					System.out.println(
+							String.format("%b %b %b %b", Settings.enableStudentAssignedPreferredProject, Settings.enableSameStream,
+									Settings.enableStudentAssignedOneProject, Settings.enableProjectAssignedToOneStudent));
 			});
 
 			studentAssignedOneProject.setOnAction((evt) -> {
 				Settings.enableStudentAssignedOneProject = studentAssignedOneProject.isSelected();
+				if (Common.DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE)
+					System.out.println(
+							String.format("%b %b %b %b", Settings.enableStudentAssignedPreferredProject, Settings.enableSameStream,
+									Settings.enableStudentAssignedOneProject, Settings.enableProjectAssignedToOneStudent));
 			});
 
 			projectAssignedToOneStudent.setOnAction((evt) -> {
 				Settings.enableProjectAssignedToOneStudent = projectAssignedToOneStudent.isSelected();
+				if (Common.DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE)
+					System.out.println(
+							String.format("%b %b %b %b", Settings.enableStudentAssignedPreferredProject, Settings.enableSameStream,
+									Settings.enableStudentAssignedOneProject, Settings.enableProjectAssignedToOneStudent));
 			});
+
+			studentAssignedPreferredProject.setSelected(Settings.enableStudentAssignedPreferredProject);
+			sameStream.setSelected(Settings.enableSameStream);
+			studentAssignedOneProject.setSelected(Settings.enableStudentAssignedOneProject);
+			projectAssignedToOneStudent.setSelected(Settings.enableProjectAssignedToOneStudent);
 		}
 
 		getChildren().addAll(new Label("Hard"), studentAssignedPreferredProject, sameStream, studentAssignedOneProject,

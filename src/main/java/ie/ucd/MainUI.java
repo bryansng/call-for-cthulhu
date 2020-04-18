@@ -19,7 +19,7 @@ public class MainUI extends BorderPane {
 	}
 
 	public void initLayout(Stage stage) {
-		setupPane = new SetupPane();
+		setupPane = new SetupPane(stage);
 		saPane = new SolverPane(stage, SolverType.SimulatedAnnealing);
 		gaPane = new SolverPane(stage, SolverType.GeneticAlgorithm);
 
@@ -27,7 +27,7 @@ public class MainUI extends BorderPane {
 
 		getStylesheets().add("ui/solver/constraints.css");
 		setLeft(navPane);
-		setRight(saPane);
+		showSetupPane();
 	}
 
 	public void showSetupPane() {

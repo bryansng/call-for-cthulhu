@@ -26,11 +26,12 @@ public class StudentSheet extends Sheet<Student> implements StudentSheetInterfac
 	private Deque<CandidateSolution> solutionDeque;
 
 	public StudentSheet(Stage stage) {
-		this(stage, false, false);
+		this(stage, false, false, false);
 	}
 
-	public StudentSheet(Stage stage, boolean includeSaveToFileButton, boolean includeQualityEvaluation) {
-		super(stage, includeSaveToFileButton, SheetType.Student);
+	public StudentSheet(Stage stage, boolean includeLoadFromFileButton, boolean includeSaveToFileButton,
+			boolean includeQualityEvaluation) {
+		super(stage, includeLoadFromFileButton, includeSaveToFileButton, SheetType.Student);
 
 		if (includeQualityEvaluation) {
 			initSolutionQualityLayout();
@@ -39,7 +40,7 @@ public class StudentSheet extends Sheet<Student> implements StudentSheetInterfac
 	}
 
 	private void initSolutionQualityLayout() {
-		constraints = new Constraints();
+		constraints = new Constraints(false, false);
 		getChildren().add(0, constraints);
 
 		strength = new Strength();

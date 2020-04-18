@@ -1,5 +1,6 @@
 package ie.ucd.ui.common.constraints;
 
+import ie.ucd.Common;
 import ie.ucd.Settings;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -34,11 +35,21 @@ public class SoftConstraints extends VBox {
 		if (enableToggleSettings) {
 			equallyDistributedAcrossSupervisors.setOnAction((evt) -> {
 				Settings.enableEquallyDistributedAcrossSupervisors = equallyDistributedAcrossSupervisors.isSelected();
+				if (Common.DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE)
+					System.out.println(String.format("%b %b", Settings.enableEquallyDistributedAcrossSupervisors,
+							Settings.enableHigherGPAHigherPreferences));
 			});
 
 			higherGPAHigherPreferences.setOnAction((evt) -> {
 				Settings.enableHigherGPAHigherPreferences = higherGPAHigherPreferences.isSelected();
+				if (Common.DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE)
+					System.out.println(String.format("%b %b", Settings.enableEquallyDistributedAcrossSupervisors,
+							Settings.enableHigherGPAHigherPreferences));
 			});
+
+			equallyDistributedAcrossSupervisors.setSelected(Settings.enableEquallyDistributedAcrossSupervisors);
+			higherGPAHigherPreferences.setSelected(Settings.enableHigherGPAHigherPreferences);
+			;
 		}
 
 		getChildren().addAll(new Label("Soft"), equallyDistributedAcrossSupervisors, higherGPAHigherPreferences);
