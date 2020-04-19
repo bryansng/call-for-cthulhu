@@ -2,6 +2,7 @@ package ie.ucd.ui.common.sheets;
 
 import ie.ucd.Common.SheetType;
 import ie.ucd.objects.Project;
+import ie.ucd.ui.setup.SetupPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -10,11 +11,12 @@ import javafx.stage.Stage;
 
 public class ProjectSheet extends Sheet<Project> {
 	public ProjectSheet(Stage stage) {
-		this(stage, false, false);
+		this(stage, false, false, null);
 	}
 
-	public ProjectSheet(Stage stage, boolean includeLoadFromFileButton, boolean includeSaveToFileButton) {
-		super(stage, includeLoadFromFileButton, includeSaveToFileButton, SheetType.Project);
+	public ProjectSheet(Stage stage, boolean includeLoadFromFileButton, boolean includeSaveToFileButton,
+			SetupPane setupPane) {
+		super(stage, includeLoadFromFileButton, includeSaveToFileButton, SheetType.Project, setupPane);
 	}
 
 	protected void initTableView() {

@@ -50,8 +50,9 @@ public class SetupPane extends ScrollPane {
 		Label labelProjects = new Label("2. Load/Generate Projects");
 		Label labelStudents = new Label("3. Load/Generate Students");
 		constraints = new Constraints(true, true);
-		projectSheet = new ProjectSheet(stage, true, true);
+		projectSheet = new ProjectSheet(stage, true, true, this);
 		studentSheet = new StudentSheet(stage, true, true, false);
+		studentSheet.setDisable(true);
 		vBox.getChildren().addAll(labelSettings, constraints, sublabelOthers, initImportanceOfGPA(), initEnableAnimation(),
 				labelProjects, projectSheet, labelStudents, studentSheet);
 		setContent(vBox);
@@ -82,5 +83,13 @@ public class SetupPane extends ScrollPane {
 
 		enableAnimation.setSelected(Settings.enableAnimation);
 		return enableAnimation;
+	}
+
+	public void clearStudentsInStudentSheet() {
+		studentSheet.clear();
+	}
+
+	public void enableStudentSheet() {
+		studentSheet.setDisable(false);
 	}
 }

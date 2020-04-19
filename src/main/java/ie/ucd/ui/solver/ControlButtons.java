@@ -2,6 +2,7 @@ package ie.ucd.ui.solver;
 
 import java.io.IOException;
 
+import ie.ucd.Common;
 import ie.ucd.Settings;
 import ie.ucd.Common.SolverType;
 import ie.ucd.io.Parser;
@@ -138,31 +139,36 @@ public class ControlButtons extends HBox {
 	}
 
 	private Solver createNewSolver() {
-		try {
-			//! should take in projects and students from setup pane.
-			Solver solver;
-			Parser parser = new Parser();
-			CandidateSolution solution = new CandidateSolution(500, parser.getStaffMembers(), parser.getNames(), null, null);
-			solution.generateProjects();
-			solution.generateStudents();
-			switch (solverType) {
-				case GeneticAlgorithm:
-					solver = new GeneticAlgorithm(Settings.gaMutationChance, Settings.gaCrossoverChance,
-							Settings.gaNumberOfGeneration, Settings.gaPopulationSize, Settings.gaPickFittestParentsChance, solution,
-							solverPane);
-					break;
-				case SimulatedAnnealing:
-				default:
-					//! simulated annealing here should take in the updated parameters.
-					solver = new SimulatedAnnealing(Settings.saStartTemperature, Settings.saCoolingRate,
-							Settings.saMinTemperature, Settings.saMaxIteration, solution, solverPane);
-					break;
-			}
-			this.solver = solver;
-			return solver;
-		} catch (IOException e) {
-			e.printStackTrace();
+		Solver solver;
+		Parser parser;
+		CandidateSolution startingSolution;
+		if (Common.IS_DEBUGGING_SOLVERS) {
+			parser = new Parser();
+			startingSolution = new CandidateSolution(500, parser.getStaffMembers(), parser.getNames(), null, null);
+			startingSolution.generateProjects();
+			startingSolution.generateStudents();
 		}
-		return null;
+		switch (solverType) {
+			case GeneticAlgorithm:
+				if (Common.IS_DEBUGGING_SOLVERS) {
+					solver = new GeneticAlgorithm(startingSolution, solverPane);
+				} else {
+					solver = new GeneticAlgorithm(Settings.gaMutationChance, Settings.gaCrossoverChance,
+							Settings.gaNumberOfGeneration, Settings.gaPopulationSize, Settings.gaPickFittestParentsChance,
+							Settings.setupSolution, solverPane);
+				}
+				break;
+			case SimulatedAnnealing:
+			default:
+				if (Common.IS_DEBUGGING_SOLVERS) {
+					solver = new SimulatedAnnealing(startingSolution, solverPane);
+				} else {
+					solver = new SimulatedAnnealing(Settings.saStartTemperature, Settings.saCoolingRate,
+							Settings.saMinTemperature, Settings.saMaxIteration, Settings.setupSolution, solverPane);
+				}
+				break;
+		}
+		this.solver = solver;
+		return solver;
 	}
 }

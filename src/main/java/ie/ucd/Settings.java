@@ -2,6 +2,8 @@ package ie.ucd;
 
 import java.util.ArrayList;
 import ie.ucd.objects.Student;
+import ie.ucd.io.Parser;
+import ie.ucd.objects.CandidateSolution;
 import ie.ucd.objects.Project;
 
 public class Settings {
@@ -14,6 +16,10 @@ public class Settings {
 
 	public static double importanceOfGPA = 1.0; // 0 to 1. This is the value slider changes in the UI.
 
+	public static int numberOfStudents = 500;
+	public static Parser parser = new Parser();
+	public static CandidateSolution setupSolution = new CandidateSolution(numberOfStudents, parser.getStaffMembers(),
+			parser.getNames(), null, null);
 	public static ArrayList<Student> loadedStudents;
 	public static ArrayList<Project> loadedProjects;
 

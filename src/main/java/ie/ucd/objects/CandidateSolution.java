@@ -1,6 +1,5 @@
 package ie.ucd.objects;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
@@ -144,6 +143,10 @@ public class CandidateSolution {
 	public ArrayList<Project> generateProjects() {
 		projects = new ArrayList<Project>();
 
+		for (StaffMember staffMember : staffMembers) {
+			staffMember.resetResearchActivitiesUsed();
+		}
+
 		int numProjects = numberOfStudents / 2;
 		for (int i = 0; i < Common.numAvgProjectsProposed * numProjects; i++) {
 			int randInt = new Random().nextInt(staffMembers.size());
@@ -160,7 +163,7 @@ public class CandidateSolution {
 		return projects;
 	}
 
-	public ArrayList<Student> generateStudents() throws IOException {
+	public ArrayList<Student> generateStudents() {
 		HashSet<Integer> usedStudentIDs = new HashSet<Integer>();
 		students = new ArrayList<Student>();
 		numDSStudents = 0.0;

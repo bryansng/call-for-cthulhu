@@ -18,9 +18,13 @@ public class Parser {
 	public HashMap<String, StaffMember> staffMembersMap = new HashMap<String, StaffMember>();
 	public ArrayList<String> names = new ArrayList<String>();
 
-	public Parser() throws IOException {
-		parseExcelFile();
-		parseNamesFile();
+	public Parser() {
+		try {
+			parseExcelFile();
+			parseNamesFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public ArrayList<StaffMember> getStaffMembers() {

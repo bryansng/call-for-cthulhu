@@ -8,14 +8,14 @@ public class StaffMember implements StaffMemberInterface {
 	private String proposedBy;
 	private String[] researchActivities;
 	private boolean[] researchActivitiesUsed;
-	private int numActivitiesUsed = 0;
+	private int numActivitiesUsed;
 	private String[] researchAreas;
 	private String stream;
 
 	public StaffMember(String proposedBy, String researchActivities, String researchAreas, String stream) {
 		this.proposedBy = proposedBy;
 		this.researchActivities = researchActivities.trim().split("\\s*,\\s*");
-		this.researchActivitiesUsed = new boolean[this.researchActivities.length]; // are they initialized to false?
+		resetResearchActivitiesUsed();
 		this.researchAreas = researchAreas.trim().split("\\s*,\\s*");
 		this.stream = parseStream(stream);
 	}
@@ -95,5 +95,10 @@ public class StaffMember implements StaffMemberInterface {
 
 	public void setStream(String stream) {
 		this.stream = stream;
+	}
+
+	public void resetResearchActivitiesUsed() {
+		researchActivitiesUsed = new boolean[this.researchActivities.length];
+		numActivitiesUsed = 0;
 	}
 }
