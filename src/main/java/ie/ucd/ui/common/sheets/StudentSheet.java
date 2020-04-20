@@ -14,12 +14,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
-public class StudentSheet extends Sheet<Student> implements StudentSheetInterface {
+public class StudentSheet extends SetupSheet<Student> implements StudentSheetInterface {
 	private Strength strength;
 	private Constraints constraints;
 
@@ -40,13 +41,17 @@ public class StudentSheet extends Sheet<Student> implements StudentSheetInterfac
 	}
 
 	private void initSolutionQualityLayout() {
-		constraints = new Constraints(false, false);
-		getChildren().add(0, constraints);
+		VBox vBox = new VBox();
+
+		vBox.getChildren().add(new Label("Quality"));
 
 		strength = new Strength();
-		getChildren().add(0, strength);
+		vBox.getChildren().add(strength);
 
-		getChildren().add(0, new Label("Quality"));
+		constraints = new Constraints(false, false);
+		vBox.getChildren().add(constraints);
+
+		getChildren().add(0, vBox);
 	}
 
 	public void resetSeries() {

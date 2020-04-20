@@ -1,64 +1,40 @@
 package ie.ucd.ui.common.sheets;
 
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Predicate;
-import ie.ucd.Settings;
 import ie.ucd.Common.SheetType;
 import ie.ucd.interfaces.SearchMatchable;
-import ie.ucd.io.CSVFileReader;
 import ie.ucd.io.CSVFileWriter;
-import ie.ucd.io.Parser;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.Student;
 import ie.ucd.ui.interfaces.SheetInterface;
-import ie.ucd.ui.setup.SetupPane;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+// class handles the sheet view, search box and save button.
 public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 	protected TableView<E> tableView;
 	protected ObservableList<E> actualList;
 	protected FilteredList<E> filteredList;
 	protected SearchBox<E> searchBox;
 	protected SheetType sheetType;
-	private String sheetTypeName;
-	private FileChooser fileChooser;
-	private SetupPane setupPane;
+	protected FileChooser fileChooser;
 
-	public Sheet(Stage stage, boolean includeLoadFromFileButton, boolean includeSaveToFileButton, SheetType sheetType) {
-		this(stage, includeLoadFromFileButton, includeSaveToFileButton, sheetType, null);
-	}
-
-	public Sheet(Stage stage, boolean includeLoadFromFileButton, boolean includeSaveToFileButton, SheetType sheetType,
-			SetupPane setupPane) {
+	public Sheet(Stage stage, boolean includeSaveToFileButton, SheetType sheetType) {
 		super();
 		this.sheetType = sheetType;
-		this.setupPane = setupPane;
-		if (sheetType == SheetType.Project) {
-			sheetTypeName = "Projects";
-		} else if (sheetType == SheetType.Student) {
-			sheetTypeName = "Students";
-		}
-		initLayout(stage, includeLoadFromFileButton, includeSaveToFileButton);
+		initLayout(stage, includeSaveToFileButton);
 	}
 
-	private void initLayout(Stage stage, boolean includeLoadFromFileButton, boolean includeSaveToFileButton) {
+	private void initLayout(Stage stage, boolean includeSaveToFileButton) {
 		initFileChooser();
-		if (includeLoadFromFileButton) {
-			initLoadButton(stage);
-			initGenerateButton();
-		}
 		initTableView();
 		initSearchBox();
 		getChildren().add(tableView);
@@ -77,66 +53,6 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT and CSV files (*.txt, *.csv)", "*.txt",
 				"*.csv");
 		fileChooser.getExtensionFilters().add(extFilter);
-	}
-
-	private void initLoadButton(Stage stage) {
-		VBox vBox = new VBox();
-
-		TextField filePath = new TextField(System.getProperty("user.dir"));
-		filePath.setFocusTraversable(false);
-		filePath.setMouseTransparent(true);
-
-		Button loadButton = new Button("Browse");
-		loadButton.setFocusTraversable(false);
-		loadButton.setMouseTransparent(true);
-
-		HBox hBox = new HBox();
-		hBox.setOnMouseClicked((evt) -> {
-			handleFileLoading(stage, filePath);
-		});
-		hBox.getChildren().addAll(filePath, loadButton);
-		hBox.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
-		hBox.getStylesheets().add("ui/solver/fileLoader.css");
-		hBox.getStyleClass().add("file-loader-container");
-		vBox.getChildren().addAll(new Label("Load " + sheetTypeName), hBox);
-
-		getChildren().add(vBox);
-	}
-
-	private void handleFileLoading(Stage stage, TextField filePath) {
-		// handle errors.
-		// 1. projects not created.
-
-		// Show save file dialog.
-		File file = fileChooser.showOpenDialog(stage);
-
-		if (file != null) {
-			filePath.setText(file.getAbsolutePath());
-			loadFromFile(file);
-			if (sheetType == SheetType.Project) {
-				setAll((ArrayList<E>) Settings.loadedProjects);
-			} else if (sheetType == SheetType.Student) {
-				setAll((ArrayList<E>) Settings.loadedStudents);
-			}
-		}
-	}
-
-	private void initGenerateButton() {
-		Button generateButton = new Button("Generate Random " + sheetTypeName);
-		generateButton.setOnAction(e -> {
-			if (sheetType == SheetType.Project) {
-				// clear current set first.
-				clearStudents();
-
-				Settings.loadedProjects = Settings.setupSolution.generateProjects();
-				setAll((ArrayList<E>) Settings.loadedProjects);
-				enableStudentSheet();
-			} else if (sheetType == SheetType.Student) {
-				Settings.loadedStudents = Settings.setupSolution.generateStudents();
-				setAll((ArrayList<E>) Settings.loadedStudents);
-			}
-		});
-		getChildren().add(generateButton);
 	}
 
 	private void initSaveButton(Stage stage) {
@@ -208,32 +124,5 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	private void loadFromFile(File fromFile) {
-		CSVFileReader reader = new CSVFileReader();
-		try {
-			if (sheetType == SheetType.Project) {
-				// clear current set first.
-				clearStudents();
-
-				Settings.loadedProjects = reader.readProject(null, new Parser().getStaffMembersMap(), fromFile);
-				enableStudentSheet();
-			} else if (sheetType == SheetType.Student) {
-				Settings.loadedStudents = reader.readStudents(null, Settings.loadedProjects, fromFile);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void clearStudents() {
-		if (setupPane != null)
-			setupPane.clearStudentsInStudentSheet();
-	}
-
-	private void enableStudentSheet() {
-		if (setupPane != null)
-			setupPane.enableStudentSheet();
 	}
 }

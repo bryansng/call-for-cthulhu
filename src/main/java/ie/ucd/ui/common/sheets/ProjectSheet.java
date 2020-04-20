@@ -9,7 +9,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-public class ProjectSheet extends Sheet<Project> {
+public class ProjectSheet extends SetupSheet<Project> {
 	public ProjectSheet(Stage stage) {
 		this(stage, false, false, null);
 	}

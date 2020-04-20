@@ -6,7 +6,7 @@ import ie.ucd.objects.Project;
 import ie.ucd.objects.Student;
 import ie.ucd.ui.common.constraints.Constraints;
 import ie.ucd.ui.common.sheets.ProjectSheet;
-import ie.ucd.ui.common.sheets.Sheet;
+import ie.ucd.ui.common.sheets.SetupSheet;
 import ie.ucd.ui.common.sheets.StudentSheet;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -22,21 +22,8 @@ import javafx.stage.Stage;
 public class SetupPane extends ScrollPane {
 	private Constraints constraints;
 	private Slider importanceOfGPA;
-	private Sheet<Project> projectSheet;
-	private Sheet<Student> studentSheet;
-
-	// 1. settings.
-	// constraints (updates settings)
-	// other settings. (also updates settings)
-	// Importance of GPA
-
-	// 2. load projects.
-	// Load from file
-	// Randomly Generate
-
-	// 3. load students.
-	// Load from file.
-	// Randomly Generate
+	private SetupSheet<Project> projectSheet;
+	private SetupSheet<Student> studentSheet;
 
 	public SetupPane(Stage stage) {
 		super();
