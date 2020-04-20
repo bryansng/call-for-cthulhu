@@ -23,8 +23,8 @@ public class Sheets extends VBox {
 	public void initLayout(Stage stage) {
 		getChildren().add(new Label("Solutions"));
 
-		currSheet = new StudentSheet(stage, false, true, true);
-		bestSheet = new StudentSheet(stage, false, true, true);
+		currSheet = new StudentSheet(stage, false, true, true, null);
+		bestSheet = new StudentSheet(stage, false, true, true, null);
 
 		TabPane tabPane = new TabPane();
 		tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);

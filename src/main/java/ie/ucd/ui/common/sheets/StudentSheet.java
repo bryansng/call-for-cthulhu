@@ -9,6 +9,7 @@ import ie.ucd.ui.common.constraints.Constraints;
 import ie.ucd.ui.common.constraints.HardConstraints;
 import ie.ucd.ui.common.constraints.SoftConstraints;
 import ie.ucd.ui.interfaces.StudentSheetInterface;
+import ie.ucd.ui.setup.SetupPane;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -27,12 +28,12 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 	private Deque<CandidateSolution> solutionDeque;
 
 	public StudentSheet(Stage stage) {
-		this(stage, false, false, false);
+		this(stage, false, false, false, null);
 	}
 
 	public StudentSheet(Stage stage, boolean includeLoadFromFileButton, boolean includeSaveToFileButton,
-			boolean includeQualityEvaluation) {
-		super(stage, includeLoadFromFileButton, includeSaveToFileButton, SheetType.Student);
+			boolean includeQualityEvaluation, SetupPane setupPane) {
+		super(stage, includeLoadFromFileButton, includeSaveToFileButton, SheetType.Student, setupPane);
 
 		if (includeQualityEvaluation) {
 			initSolutionQualityLayout();

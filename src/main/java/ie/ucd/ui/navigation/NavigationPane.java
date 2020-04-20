@@ -29,6 +29,14 @@ public class NavigationPane extends Accordion {
 		gaTP.setOnMouseClicked((evt) -> {
 			mainUI.showGAPane();
 		});
+
+		saTP.setDisable(true);
+		gaTP.setDisable(true);
 		getPanes().addAll(setupTP, saTP, gaTP);
+	}
+
+	public void setEnableNavigateSolvers(boolean value) {
+		saTP.setDisable(!value);
+		gaTP.setDisable(!value);
 	}
 }

@@ -29,21 +29,21 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 	public SetupSheet(Stage stage, boolean includeLoadFromFileButton, boolean includeSaveToFileButton,
 			SheetType sheetType, SetupPane setupPane) {
 		super(stage, includeSaveToFileButton, sheetType);
-		this.setupPane = setupPane;
-		if (sheetType == SheetType.Project) {
-			sheetTypeName = "Projects";
-		} else if (sheetType == SheetType.Student) {
-			sheetTypeName = "Students";
+		if (includeLoadFromFileButton) {
+			this.setupPane = setupPane;
+			if (sheetType == SheetType.Project) {
+				sheetTypeName = "Projects";
+			} else if (sheetType == SheetType.Student) {
+				sheetTypeName = "Students";
+			}
+			initLayout(stage);
 		}
-		initLayout(stage, includeLoadFromFileButton, includeSaveToFileButton);
 	}
 
-	private void initLayout(Stage stage, boolean includeLoadFromFileButton, boolean includeSaveToFileButton) {
+	private void initLayout(Stage stage) {
 		VBox vBox = new VBox();
-		if (includeLoadFromFileButton) {
-			vBox.getChildren().add(initLoadButton(stage));
-			vBox.getChildren().add(initGenerateButton());
-		}
+		vBox.getChildren().add(initLoadButton(stage));
+		vBox.getChildren().add(initGenerateButton());
 		getChildren().add(0, vBox);
 	}
 
@@ -73,7 +73,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 
 	private void handleFileLoading(Stage stage, TextField filePath) {
 		// handle errors.
-		// 1. projects not created.
+		// 1. students loaded and projects loaded incompatible.
 
 		// Show save file dialog.
 		File file = fileChooser.showOpenDialog(stage);
@@ -81,11 +81,6 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 		if (file != null) {
 			filePath.setText(file.getAbsolutePath());
 			loadFromFile(file);
-			if (sheetType == SheetType.Project) {
-				setAll((ArrayList<E>) Settings.loadedProjects);
-			} else if (sheetType == SheetType.Student) {
-				setAll((ArrayList<E>) Settings.loadedStudents);
-			}
 		}
 	}
 
@@ -99,9 +94,11 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 				Settings.loadedProjects = Settings.setupSolution.generateProjects();
 				setAll((ArrayList<E>) Settings.loadedProjects);
 				enableStudentSheet();
+				setEnableNavigateSolvers(false);
 			} else if (sheetType == SheetType.Student) {
 				Settings.loadedStudents = Settings.setupSolution.generateStudents();
 				setAll((ArrayList<E>) Settings.loadedStudents);
+				setEnableNavigateSolvers(true);
 			}
 		});
 		return generateButton;
@@ -115,9 +112,13 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 				clearStudents();
 
 				Settings.loadedProjects = reader.readProject(null, new Parser().getStaffMembersMap(), fromFile);
+				setAll((ArrayList<E>) Settings.loadedProjects);
 				enableStudentSheet();
+				setEnableNavigateSolvers(false);
 			} else if (sheetType == SheetType.Student) {
 				Settings.loadedStudents = reader.readStudents(null, Settings.loadedProjects, fromFile);
+				setAll((ArrayList<E>) Settings.loadedStudents);
+				setEnableNavigateSolvers(true);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -132,5 +133,10 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 	private void enableStudentSheet() {
 		if (setupPane != null)
 			setupPane.enableStudentSheet();
+	}
+
+	private void setEnableNavigateSolvers(boolean value) {
+		if (setupPane != null)
+			setupPane.setEnableNavigateSolvers(value);
 	}
 }

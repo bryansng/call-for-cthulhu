@@ -81,7 +81,7 @@ public class SimulatedAnnealingTP extends TitledPane {
 				System.out.println(String.format("%f %f %f %f", Settings.saStartTemperature, Settings.saCoolingRate,
 						Settings.saMinTemperature, Settings.saMaxIteration));
 		});
-		return new VBox(2.5, new Label("Starting Temperature"), startTemperature);
+		return new VBox(new VBox(2.5, new Label("Starting Temperature"), startTemperature), startTemperatureWarning);
 	}
 
 	private Node initCoolingRate() {
@@ -105,7 +105,7 @@ public class SimulatedAnnealingTP extends TitledPane {
 				System.out.println(String.format("%f %f %f %f", Settings.saStartTemperature, Settings.saCoolingRate,
 						Settings.saMinTemperature, Settings.saMaxIteration));
 		});
-		return new VBox(2.5, new Label("Cooling Rate"), coolingRate);
+		return new VBox(new VBox(2.5, new Label("Cooling Rate"), coolingRate), coolingRateWarning);
 	}
 
 	private Node initMinTemperature() {
@@ -129,7 +129,7 @@ public class SimulatedAnnealingTP extends TitledPane {
 				System.out.println(String.format("%f %f %f %f", Settings.saStartTemperature, Settings.saCoolingRate,
 						Settings.saMinTemperature, Settings.saMaxIteration));
 		});
-		return new VBox(2.5, new Label("Minimum Temperature"), minTemperature);
+		return new VBox(new VBox(2.5, new Label("Minimum Temperature"), minTemperature), minTemperatureWarning);
 	}
 
 	private Node initMaxIteration() {
@@ -153,6 +153,6 @@ public class SimulatedAnnealingTP extends TitledPane {
 				System.out.println(String.format("%f %f %f %f", Settings.saStartTemperature, Settings.saCoolingRate,
 						Settings.saMinTemperature, Settings.saMaxIteration));
 		});
-		return new VBox(2.5, new Label("Max Iteration"), maxIteration);
+		return new VBox(new VBox(2.5, new Label("Max Iteration"), maxIteration), maxIterationWarning);
 	}
 }

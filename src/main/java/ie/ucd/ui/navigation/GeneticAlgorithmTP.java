@@ -34,11 +34,8 @@ public class GeneticAlgorithmTP extends TitledPane {
 
 	private Node initContent() {
 		VBox container = new VBox(5);
-		// container.getChildren().addAll(initNumberOfGeneration(), numberOfGenerationWarning, initPopulationSize(),
-		// 		populationSizeWarning, initCrossoverChance(), crossoverChanceWarning, initMutationChance(),
-		// 		mutationChanceWarning, initPickFittestParentsChance(), pickFittestParentsChanceWarning);
-		container.getChildren().addAll(initNumberOfGeneration(), numberOfGenerationWarning, initPopulationSize(),
-				populationSizeWarning, initCrossoverChance(), initMutationChance(), initPickFittestParentsChance());
+		container.getChildren().addAll(initNumberOfGeneration(), initPopulationSize(), initCrossoverChance(),
+				initMutationChance(), initPickFittestParentsChance());
 		container.getChildren().add(0, initDefaultConfigButton());
 		return container;
 	}
@@ -87,7 +84,7 @@ public class GeneticAlgorithmTP extends TitledPane {
 				System.out.println(String.format("%d %d %f %f %f", Settings.gaNumberOfGeneration, Settings.gaPopulationSize,
 						Settings.gaCrossoverChance, Settings.gaMutationChance, Settings.gaPickFittestParentsChance));
 		});
-		return new VBox(2.5, new Label("Number of generation"), numberOfGeneration);
+		return new VBox(new VBox(2.5, new Label("Number of generation"), numberOfGeneration), numberOfGenerationWarning);
 	}
 
 	private Node initPopulationSize() {
@@ -111,7 +108,7 @@ public class GeneticAlgorithmTP extends TitledPane {
 				System.out.println(String.format("%d %d %f %f %f", Settings.gaNumberOfGeneration, Settings.gaPopulationSize,
 						Settings.gaCrossoverChance, Settings.gaMutationChance, Settings.gaPickFittestParentsChance));
 		});
-		return new VBox(2.5, new Label("Population size"), populationSize);
+		return new VBox(new VBox(2.5, new Label("Population size"), populationSize), populationSizeWarning);
 	}
 
 	private Node initCrossoverChance() {

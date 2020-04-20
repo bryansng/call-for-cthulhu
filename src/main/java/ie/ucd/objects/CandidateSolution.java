@@ -3,6 +3,7 @@ package ie.ucd.objects;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
+import org.apache.commons.lang3.mutable.MutableInt;
 import ie.ucd.Common;
 
 public class CandidateSolution {
@@ -10,7 +11,7 @@ public class CandidateSolution {
 	private ArrayList<String> names;
 	private ArrayList<Project> projects;
 	private ArrayList<Student> students;
-	private int numberOfStudents;
+	private MutableInt numberOfStudents;
 
 	private double numDSStudents = 0.0;
 	private double numCSStudents = 0.0;
@@ -30,11 +31,11 @@ public class CandidateSolution {
 	private int violationsHigherGPAHigherPreferences;
 
 	public CandidateSolution(CandidateSolution other) {
-		this(other.getNumberOfStudents(), other.getStaffMembers(), other.getNames(), other.getProjects(),
+		this(new MutableInt(other.getNumberOfStudents()), other.getStaffMembers(), other.getNames(), other.getProjects(),
 				other.getStudents());
 	}
 
-	public CandidateSolution(int numberOfStudents, ArrayList<StaffMember> staffMembers, ArrayList<String> names,
+	public CandidateSolution(MutableInt numberOfStudents, ArrayList<StaffMember> staffMembers, ArrayList<String> names,
 			ArrayList<Project> projects, ArrayList<Student> students) {
 		this.numberOfStudents = numberOfStudents;
 		this.staffMembers = staffMembers;
@@ -59,8 +60,8 @@ public class CandidateSolution {
 		return students;
 	}
 
-	public int getNumberOfStudents() {
-		return numberOfStudents;
+	public Integer getNumberOfStudents() {
+		return numberOfStudents.getValue();
 	}
 
 	public double getTotalProjectsAssigned() {
@@ -147,7 +148,7 @@ public class CandidateSolution {
 			staffMember.resetResearchActivitiesUsed();
 		}
 
-		int numProjects = numberOfStudents / 2;
+		int numProjects = numberOfStudents.getValue() / 2;
 		for (int i = 0; i < Common.numAvgProjectsProposed * numProjects; i++) {
 			int randInt = new Random().nextInt(staffMembers.size());
 			while (staffMembers.get(randInt).isAllActivitiesUsed()) {
@@ -170,7 +171,7 @@ public class CandidateSolution {
 		numCSStudents = 0.0;
 		totalProjectsAssigned = 0.0;
 
-		for (int i = 0; i < numberOfStudents; i++) {
+		for (int i = 0; i < numberOfStudents.getValue(); i++) {
 			Integer randomInt = new Random().nextInt(names.size());
 			String[] name = names.get(randomInt).split(",")[1].split(" ");
 			String firstName = name[0];
@@ -250,11 +251,11 @@ public class CandidateSolution {
 	}
 
 	private String getCSPercentage() {
-		return formatPercentage(numCSStudents / numberOfStudents * 100.0);
+		return formatPercentage(numCSStudents / numberOfStudents.getValue() * 100.0);
 	}
 
 	private String getDSPercentage() {
-		return formatPercentage(numDSStudents / numberOfStudents * 100.0);
+		return formatPercentage(numDSStudents / numberOfStudents.getValue() * 100.0);
 	}
 
 	public String ProjectDistributionPercentage() {
@@ -270,7 +271,7 @@ public class CandidateSolution {
 		String res = "\n\nPercentage project as 1st Preference:\n";
 		for (Project project : projects) {
 			res += project.getResearchActivity() + " - " + project.getStream() + " - " + project.getPreferredProbability()
-					+ " - " + formatPercentage(project.getNumAs1stPreference() / numberOfStudents * 100) + "\n";
+					+ " - " + formatPercentage(project.getNumAs1stPreference() / numberOfStudents.getValue() * 100) + "\n";
 		}
 		return res;
 	}

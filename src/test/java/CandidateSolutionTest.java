@@ -6,17 +6,18 @@ import ie.ucd.objects.CandidateSolution;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
+import org.apache.commons.lang3.mutable.MutableInt;
 import org.junit.Assert;
 
 public class CandidateSolutionTest {
-	private int dummyNumStudents;
+	private MutableInt dummyNumStudents;
 	private Parser dummyParser;
 	private CandidateSolution dummyCandidateSolution;
 
 	@BeforeEach
 	protected void setUp() throws Exception {
 		System.out.println("Setting CandidateSolutionTest up!");
-		dummyNumStudents = 500;
+		dummyNumStudents = new MutableInt(500);
 		dummyParser = new Parser();
 		dummyCandidateSolution = new CandidateSolution(dummyNumStudents, dummyParser.getStaffMembers(),
 				dummyParser.getNames(), null, null);
@@ -36,7 +37,7 @@ public class CandidateSolutionTest {
 	@DisplayName("Test generateProjects")
 	public void testGenerateProjects() throws IOException {
 		System.out.println("Running: testGenerateProjects");
-		Assert.assertEquals(dummyNumStudents * Common.numAvgProjectsProposed / 2,
+		Assert.assertEquals(dummyNumStudents.getValue() * Common.numAvgProjectsProposed / 2,
 				dummyCandidateSolution.generateProjects().size());
 	}
 
@@ -45,7 +46,7 @@ public class CandidateSolutionTest {
 	public void testGenerateStudents() throws IOException {
 		System.out.println("Running: testGenerateStudents");
 		dummyCandidateSolution.generateProjects();
-		Assert.assertEquals(dummyNumStudents, dummyCandidateSolution.generateStudents().size());
+		Assert.assertEquals((int) dummyNumStudents.getValue(), dummyCandidateSolution.generateStudents().size());
 	}
 
 	@AfterEach

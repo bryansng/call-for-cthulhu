@@ -2,15 +2,14 @@ package ie.ucd;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 import ie.ucd.objects.StaffMember;
 import ie.ucd.solvers.GeneticAlgorithm;
+import org.apache.commons.lang3.mutable.MutableInt;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import ie.ucd.objects.Student;
 import ie.ucd.solvers.SimulatedAnnealing;
 import ie.ucd.ui.solver.SolverPane;
 import ie.ucd.solvers.Solver;
-import ie.ucd.Common.SolverType;
 import ie.ucd.io.CSVFileReader;
 import ie.ucd.io.CSVFileWriter;
 import ie.ucd.io.ExcelWriter;
@@ -46,7 +45,8 @@ public class Main extends Application {
 		System.out.println("Generating for 500 students...");
 
 		Parser parser = new Parser();
-		CandidateSolution solution = new CandidateSolution(500, parser.getStaffMembers(), parser.getNames(), null, null);
+		CandidateSolution solution = new CandidateSolution(new MutableInt(500), parser.getStaffMembers(), parser.getNames(),
+				null, null);
 		solution.generateProjects();
 		solution.generateStudents();
 		System.out.println(solution.CSDSPercentage());
@@ -68,7 +68,8 @@ public class Main extends Application {
 		System.out.println("Generating for 500 students...");
 
 		Parser parser = new Parser();
-		CandidateSolution solution = new CandidateSolution(500, parser.getStaffMembers(), parser.getNames(), null, null);
+		CandidateSolution solution = new CandidateSolution(new MutableInt(500), parser.getStaffMembers(), parser.getNames(),
+				null, null);
 		solution.generateProjects();
 		solution.generateStudents();
 		System.out.println(solution.CSDSPercentage());
@@ -87,7 +88,8 @@ public class Main extends Application {
 		ArrayList<Student> students;
 
 		System.out.println("Generating for 500 students...");
-		CandidateSolution solution = new CandidateSolution(500, parser.getStaffMembers(), parser.getNames(), null, null);
+		CandidateSolution solution = new CandidateSolution(new MutableInt(500), parser.getStaffMembers(), parser.getNames(),
+				null, null);
 		projects = solution.generateProjects();
 		students = solution.generateStudents();
 		writer.writeProjects(projects, 500);
@@ -106,7 +108,8 @@ public class Main extends Application {
 		ArrayList<Student> students;
 
 		System.out.println("Generating for 500 students...");
-		CandidateSolution solution = new CandidateSolution(500, parser.getStaffMembers(), parser.getNames(), null, null);
+		CandidateSolution solution = new CandidateSolution(new MutableInt(500), parser.getStaffMembers(), parser.getNames(),
+				null, null);
 		projects = solution.generateProjects();
 		students = solution.generateStudents();
 		System.out.println(solution.CSDSPercentage());

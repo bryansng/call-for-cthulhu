@@ -1,7 +1,5 @@
 package ie.ucd.ui.solver;
 
-import java.io.IOException;
-
 import ie.ucd.Common;
 import ie.ucd.Settings;
 import ie.ucd.Common.SolverType;
@@ -144,7 +142,8 @@ public class ControlButtons extends HBox {
 		CandidateSolution startingSolution;
 		if (Common.IS_DEBUGGING_SOLVERS) {
 			parser = new Parser();
-			startingSolution = new CandidateSolution(500, parser.getStaffMembers(), parser.getNames(), null, null);
+			startingSolution = new CandidateSolution(Settings.numberOfStudents, parser.getStaffMembers(), parser.getNames(),
+					null, null);
 			startingSolution.generateProjects();
 			startingSolution.generateStudents();
 		}

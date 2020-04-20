@@ -1,6 +1,9 @@
 package ie.ucd;
 
 import java.util.ArrayList;
+
+import org.apache.commons.lang3.mutable.MutableInt;
+
 import ie.ucd.objects.Student;
 import ie.ucd.io.Parser;
 import ie.ucd.objects.CandidateSolution;
@@ -16,7 +19,8 @@ public class Settings {
 
 	public static double importanceOfGPA = 1.0; // 0 to 1. This is the value slider changes in the UI.
 
-	public static int numberOfStudents = 500;
+	public static final Integer DEFAULT_NUMBER_OF_STUDENTS = 500;
+	public static MutableInt numberOfStudents = new MutableInt(DEFAULT_NUMBER_OF_STUDENTS);
 	public static Parser parser = new Parser();
 	public static CandidateSolution setupSolution = new CandidateSolution(numberOfStudents, parser.getStaffMembers(),
 			parser.getNames(), null, null);

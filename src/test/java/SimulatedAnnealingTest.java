@@ -7,17 +7,19 @@ import ie.ucd.solvers.SimulatedAnnealing;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
+
+import org.apache.commons.lang3.mutable.MutableInt;
 import org.junit.Assert;
 
 public class SimulatedAnnealingTest {
-	private int dummyNumStudents;
+	private MutableInt dummyNumStudents;
 	private Parser dummyParser;
 	private CandidateSolution dummyCandidateSolution;
 
 	@BeforeEach
 	protected void setUp() throws Exception {
 		System.out.println("Setting SimulatedAnnealingTest up!");
-		dummyNumStudents = 500;
+		dummyNumStudents = new MutableInt(500);
 		dummyParser = new Parser();
 		dummyCandidateSolution = new CandidateSolution(dummyNumStudents, dummyParser.getStaffMembers(),
 				dummyParser.getNames(), null, null);
