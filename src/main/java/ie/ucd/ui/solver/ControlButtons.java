@@ -137,6 +137,10 @@ public class ControlButtons extends HBox {
 	}
 
 	private Solver createNewSolver() {
+		// update number of constraints toggled by user before running solver.
+		// this is required to calculate Strength correctly.
+		Settings.updateNumEnabledConstraints();
+
 		Solver solver;
 		Parser parser;
 		CandidateSolution startingSolution;

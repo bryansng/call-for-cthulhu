@@ -43,7 +43,13 @@ public class Student implements StudentInterface, SearchMatchable {
 		streamViolation = false;
 		assignmentViolation = false;
 
-		return preferenceSatisfaction() + gpaSatisfaction() + streamSatisfaction() + assignmentSatisfaction();
+		Double satisfaction = 0.0;
+		satisfaction += Settings.enableStudentAssignedPreferredProject ? preferenceSatisfaction() : 0.0;
+		satisfaction += Settings.enableSameStream ? streamSatisfaction() : 0.0;
+		satisfaction += Settings.enableStudentAssignedOneProject ? assignmentSatisfaction() : 0.0;
+		satisfaction += Settings.enableHigherGPAHigherPreferences ? gpaSatisfaction() : 0.0;
+
+		return satisfaction;
 	}
 
 	// hard: student assigned exactly one of their preferred projects.

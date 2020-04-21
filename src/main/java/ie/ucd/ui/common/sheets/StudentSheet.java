@@ -57,6 +57,7 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 
 	public void resetSeries() {
 		solutionDeque.clear();
+		constraints.reset();
 	}
 
 	public void initOneShotScheduler() {
@@ -95,64 +96,76 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 				double softCost = 0.0;
 
 				// hard
-				if (solution.getViolationsStudentAssignedPreferredProject() > 0) {
-					hardCost += (1.0 * solution.getViolationsStudentAssignedPreferredProject()) / solution.getNumberOfStudents()
-							* Settings.COST_PER_HARD_VIOLATION;
+				if (Settings.enableStudentAssignedPreferredProject) {
+					if (solution.getViolationsStudentAssignedPreferredProject() > 0) {
+						hardCost += (1.0 * solution.getViolationsStudentAssignedPreferredProject()) / solution.getNumberOfStudents()
+								* Settings.COST_PER_HARD_VIOLATION;
 
-					hard.updateStudentAssignedPreferredProject(false, solution.getViolationsStudentAssignedPreferredProject(),
-							solution.getNumberOfStudents());
-				} else {
-					hard.updateStudentAssignedPreferredProject(true, null, null);
+						hard.updateStudentAssignedPreferredProject(false, solution.getViolationsStudentAssignedPreferredProject(),
+								solution.getNumberOfStudents());
+					} else {
+						hard.updateStudentAssignedPreferredProject(true, null, null);
+					}
 				}
 
-				if (solution.getViolationsSameStream() > 0) {
-					hardCost += (1.0 * solution.getViolationsSameStream()) / solution.getNumberOfStudents()
-							* Settings.COST_PER_HARD_VIOLATION;
+				if (Settings.enableSameStream) {
+					if (solution.getViolationsSameStream() > 0) {
+						hardCost += (1.0 * solution.getViolationsSameStream()) / solution.getNumberOfStudents()
+								* Settings.COST_PER_HARD_VIOLATION;
 
-					hard.updateSameStream(false, solution.getViolationsSameStream(), solution.getNumberOfStudents());
-				} else {
-					hard.updateSameStream(true, null, null);
+						hard.updateSameStream(false, solution.getViolationsSameStream(), solution.getNumberOfStudents());
+					} else {
+						hard.updateSameStream(true, null, null);
+					}
 				}
 
-				if (solution.getViolationsStudentAssignedOneProject() > 0) {
-					hardCost += (1.0 * solution.getViolationsStudentAssignedOneProject()) / solution.getNumberOfStudents()
-							* Settings.COST_PER_HARD_VIOLATION;
+				if (Settings.enableStudentAssignedOneProject) {
+					if (solution.getViolationsStudentAssignedOneProject() > 0) {
+						hardCost += (1.0 * solution.getViolationsStudentAssignedOneProject()) / solution.getNumberOfStudents()
+								* Settings.COST_PER_HARD_VIOLATION;
 
-					hard.updateStudentAssignedOneProject(false, solution.getViolationsStudentAssignedOneProject(),
-							solution.getNumberOfStudents());
-				} else {
-					hard.updateStudentAssignedOneProject(true, null, null);
+						hard.updateStudentAssignedOneProject(false, solution.getViolationsStudentAssignedOneProject(),
+								solution.getNumberOfStudents());
+					} else {
+						hard.updateStudentAssignedOneProject(true, null, null);
+					}
 				}
 
-				if (solution.getViolationsProjectAssignedToOneStudent() > 0) {
-					hardCost += (1.0 * solution.getViolationsProjectAssignedToOneStudent()) / solution.getProjects().size()
-							* Settings.COST_PER_HARD_VIOLATION;
+				if (Settings.enableProjectAssignedToOneStudent) {
+					if (solution.getViolationsProjectAssignedToOneStudent() > 0) {
+						hardCost += (1.0 * solution.getViolationsProjectAssignedToOneStudent()) / solution.getProjects().size()
+								* Settings.COST_PER_HARD_VIOLATION;
 
-					hard.updateProjectAssignedToOneStudent(false, solution.getViolationsProjectAssignedToOneStudent(),
-							solution.getProjects().size());
-				} else {
-					hard.updateProjectAssignedToOneStudent(true, null, null);
+						hard.updateProjectAssignedToOneStudent(false, solution.getViolationsProjectAssignedToOneStudent(),
+								solution.getProjects().size());
+					} else {
+						hard.updateProjectAssignedToOneStudent(true, null, null);
+					}
 				}
 
 				// soft
-				if (solution.getViolationsEquallyDistributedAcrossSupervisors() > 0) {
-					softCost += (1.0 * solution.getViolationsEquallyDistributedAcrossSupervisors())
-							/ solution.getStaffMembers().size() * Settings.COST_PER_SOFT_VIOLATION;
+				if (Settings.enableEquallyDistributedAcrossSupervisors) {
+					if (solution.getViolationsEquallyDistributedAcrossSupervisors() > 0) {
+						softCost += (1.0 * solution.getViolationsEquallyDistributedAcrossSupervisors())
+								/ solution.getStaffMembers().size() * Settings.COST_PER_SOFT_VIOLATION;
 
-					soft.updateEquallyDistributedAcrossSupervisors(false,
-							solution.getViolationsEquallyDistributedAcrossSupervisors(), solution.getStaffMembers().size());
-				} else {
-					soft.updateEquallyDistributedAcrossSupervisors(true, null, null);
+						soft.updateEquallyDistributedAcrossSupervisors(false,
+								solution.getViolationsEquallyDistributedAcrossSupervisors(), solution.getStaffMembers().size());
+					} else {
+						soft.updateEquallyDistributedAcrossSupervisors(true, null, null);
+					}
 				}
 
-				if (solution.getViolationsHigherGPAHigherPreferences() > 0) {
-					softCost += (1.0 * solution.getViolationsHigherGPAHigherPreferences()) / solution.getNumberOfStudents()
-							* Settings.COST_PER_SOFT_VIOLATION;
+				if (Settings.enableHigherGPAHigherPreferences) {
+					if (solution.getViolationsHigherGPAHigherPreferences() > 0) {
+						softCost += (1.0 * solution.getViolationsHigherGPAHigherPreferences()) / solution.getNumberOfStudents()
+								* Settings.COST_PER_SOFT_VIOLATION;
 
-					soft.updateHigherGPAHigherPreferences(false, solution.getViolationsHigherGPAHigherPreferences(),
-							solution.getNumberOfStudents());
-				} else {
-					soft.updateHigherGPAHigherPreferences(true, null, null);
+						soft.updateHigherGPAHigherPreferences(false, solution.getViolationsHigherGPAHigherPreferences(),
+								solution.getNumberOfStudents());
+					} else {
+						soft.updateHigherGPAHigherPreferences(true, null, null);
+					}
 				}
 
 				// update strength.

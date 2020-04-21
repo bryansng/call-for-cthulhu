@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Random;
 import org.apache.commons.lang3.mutable.MutableInt;
 import ie.ucd.Common;
+import ie.ucd.Settings;
 
 public class CandidateSolution {
 	private ArrayList<StaffMember> staffMembers;
@@ -95,7 +96,8 @@ public class CandidateSolution {
 			violationsStudentAssignedOneProject += student.isAssignmentViolation() ? 1 : 0;
 		}
 		satisfaction += calculateProjectSatisfactionAndUpdateProjectViolation();
-		satisfaction += projectDistributionToSupervisorsSatisfaction();
+		satisfaction += Settings.enableEquallyDistributedAcrossSupervisors ? projectDistributionToSupervisorsSatisfaction()
+				: 0.0;
 
 		// if less than or equal to 1, complement of satisfaction (i.e. 1 / satisfaction) would be an opposite effect, so we limit satisfaction minimum limit to 2.0.
 		if (satisfaction <= 1) {
@@ -110,9 +112,11 @@ public class CandidateSolution {
 		if (!isViolationProjectCalculated) {
 			projectSatisfaction = 0.0;
 			violationsProjectAssignedToOneStudent = 0;
-			for (Project project : projects) {
-				projectSatisfaction += project.calculateSatisfaction();
-				violationsProjectAssignedToOneStudent += project.isAssignmentViolation() ? 1 : 0;
+			if (Settings.enableProjectAssignedToOneStudent) {
+				for (Project project : projects) {
+					projectSatisfaction += project.calculateSatisfaction();
+					violationsProjectAssignedToOneStudent += project.isAssignmentViolation() ? 1 : 0;
+				}
 			}
 			isViolationProjectCalculated = true;
 		}

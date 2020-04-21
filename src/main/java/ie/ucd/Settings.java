@@ -28,20 +28,44 @@ public class Settings {
 	public static ArrayList<Project> loadedProjects;
 
 	// constraints.
-	public static final int NUM_HARD_CONSTRAINTS = 4;
-	public static final int NUM_SOFT_CONSTRAINTS = 2;
-	public static final int TOTAL_CONSTRAINTS = NUM_HARD_CONSTRAINTS + NUM_SOFT_CONSTRAINTS;
+	public static int NUM_HARD_CONSTRAINTS = 4;
+	public static int NUM_SOFT_CONSTRAINTS = 2;
+	public static int TOTAL_CONSTRAINTS = NUM_HARD_CONSTRAINTS + NUM_SOFT_CONSTRAINTS;
 	public static final double TOTAL_POINTS = 1.0;
-	public static final double COST_PER_SOFT_VIOLATION = 0.05;
-	public static final double COST_PER_HARD_VIOLATION = (TOTAL_POINTS - (NUM_SOFT_CONSTRAINTS * COST_PER_SOFT_VIOLATION))
+	public static double COST_PER_SOFT_VIOLATION = 0.1 / NUM_SOFT_CONSTRAINTS;
+	public static double COST_PER_HARD_VIOLATION = (TOTAL_POINTS - (NUM_SOFT_CONSTRAINTS * COST_PER_SOFT_VIOLATION))
 			/ NUM_HARD_CONSTRAINTS;
+
+	public static void updateNumEnabledConstraints() {
+		NUM_HARD_CONSTRAINTS = 0;
+		NUM_SOFT_CONSTRAINTS = 0;
+
+		NUM_HARD_CONSTRAINTS += enableStudentAssignedPreferredProject ? 1 : 0;
+		NUM_HARD_CONSTRAINTS += enableSameStream ? 1 : 0;
+		NUM_HARD_CONSTRAINTS += enableStudentAssignedOneProject ? 1 : 0;
+		NUM_HARD_CONSTRAINTS += enableProjectAssignedToOneStudent ? 1 : 0;
+
+		NUM_SOFT_CONSTRAINTS += enableEquallyDistributedAcrossSupervisors ? 1 : 0;
+		NUM_SOFT_CONSTRAINTS += enableHigherGPAHigherPreferences ? 1 : 0;
+
+		TOTAL_CONSTRAINTS = NUM_HARD_CONSTRAINTS + NUM_SOFT_CONSTRAINTS;
+
+		COST_PER_SOFT_VIOLATION = NUM_SOFT_CONSTRAINTS > 0 ? (0.1 / NUM_SOFT_CONSTRAINTS) : 0.0;
+		COST_PER_HARD_VIOLATION = NUM_HARD_CONSTRAINTS > 0
+				? ((TOTAL_POINTS - (NUM_SOFT_CONSTRAINTS * COST_PER_SOFT_VIOLATION)) / NUM_HARD_CONSTRAINTS)
+				: 0.0;
+
+		System.out.println("soft: " + COST_PER_SOFT_VIOLATION);
+		System.out.println("hard: " + COST_PER_HARD_VIOLATION);
+	}
+
 	// hard.
 	public static boolean enableStudentAssignedPreferredProject = true;
-	public static boolean enableSameStream = true;
+	public static boolean enableSameStream = false;
 	public static boolean enableStudentAssignedOneProject = true;
-	public static boolean enableProjectAssignedToOneStudent = true;
+	public static boolean enableProjectAssignedToOneStudent = false;
 	// soft.
-	public static boolean enableEquallyDistributedAcrossSupervisors = true;
+	public static boolean enableEquallyDistributedAcrossSupervisors = false;
 	public static boolean enableHigherGPAHigherPreferences = true;
 
 	public static enum SARandomMoveType {

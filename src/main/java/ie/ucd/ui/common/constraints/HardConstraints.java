@@ -86,25 +86,52 @@ public class HardConstraints extends VBox {
 	}
 
 	public void updateStudentAssignedPreferredProject(boolean isNotViolated, Integer violationCount, Integer total) {
-		studentAssignedPreferredProject.setSelected(isNotViolated);
-		studentAssignedPreferredProject.setText(studentAssignedPreferredProjectText
-				+ (violationCount == null ? "" : " (" + violationCount + "/" + total + ")"));
+		if (Settings.enableStudentAssignedPreferredProject) {
+			studentAssignedPreferredProject.setIndeterminate(false);
+			studentAssignedPreferredProject.setSelected(isNotViolated);
+			studentAssignedPreferredProject.setText(studentAssignedPreferredProjectText
+					+ (violationCount == null ? "" : " (" + violationCount + "/" + total + ")"));
+		}
 	}
 
 	public void updateSameStream(boolean isNotViolated, Integer violationCount, Integer total) {
-		sameStream.setSelected(isNotViolated);
-		sameStream.setText(sameStreamText + (violationCount == null ? "" : " (" + violationCount + "/" + total + ")"));
+		if (Settings.enableSameStream) {
+			sameStream.setIndeterminate(false);
+			sameStream.setSelected(isNotViolated);
+			sameStream.setText(sameStreamText + (violationCount == null ? "" : " (" + violationCount + "/" + total + ")"));
+		}
 	}
 
 	public void updateStudentAssignedOneProject(boolean isNotViolated, Integer violationCount, Integer total) {
-		studentAssignedOneProject.setSelected(isNotViolated);
-		studentAssignedOneProject.setText(
-				studentAssignedOneProjectText + (violationCount == null ? "" : " (" + violationCount + "/" + total + ")"));
+		if (Settings.enableStudentAssignedOneProject) {
+			studentAssignedOneProject.setIndeterminate(false);
+			studentAssignedOneProject.setSelected(isNotViolated);
+			studentAssignedOneProject.setText(
+					studentAssignedOneProjectText + (violationCount == null ? "" : " (" + violationCount + "/" + total + ")"));
+		}
 	}
 
 	public void updateProjectAssignedToOneStudent(boolean isNotViolated, Integer violationCount, Integer total) {
-		projectAssignedToOneStudent.setSelected(isNotViolated);
-		projectAssignedToOneStudent.setText(
-				projectAssignedToOneStudentText + (violationCount == null ? "" : " (" + violationCount + "/" + total + ")"));
+		if (Settings.enableProjectAssignedToOneStudent) {
+			projectAssignedToOneStudent.setIndeterminate(false);
+			projectAssignedToOneStudent.setSelected(isNotViolated);
+			projectAssignedToOneStudent.setText(
+					projectAssignedToOneStudentText + (violationCount == null ? "" : " (" + violationCount + "/" + total + ")"));
+		}
+	}
+
+	public void reset() {
+		studentAssignedPreferredProject.setIndeterminate(true);
+		studentAssignedPreferredProject.setSelected(false);
+		studentAssignedPreferredProject.setText(studentAssignedPreferredProjectText);
+		sameStream.setIndeterminate(true);
+		sameStream.setSelected(false);
+		sameStream.setText(sameStreamText);
+		studentAssignedOneProject.setIndeterminate(true);
+		studentAssignedOneProject.setSelected(false);
+		studentAssignedOneProject.setText(studentAssignedOneProjectText);
+		projectAssignedToOneStudent.setIndeterminate(true);
+		projectAssignedToOneStudent.setSelected(false);
+		projectAssignedToOneStudent.setText(projectAssignedToOneStudentText);
 	}
 }

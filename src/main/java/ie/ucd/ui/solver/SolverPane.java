@@ -5,6 +5,7 @@ import ie.ucd.Common.SolverType;
 import ie.ucd.ui.common.sheets.Sheets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ie.ucd.ui.interfaces.VisualizerInterface;
@@ -43,7 +44,7 @@ public class SolverPane extends ScrollPane {
 		VBox vBox = new VBox();
 		vBox.getChildren().add(new Label("Visualization"));
 		vBox.getChildren().add(visualizer);
-		vBox.getChildren().add(progressIndicator);
+		vBox.getChildren().add(new HBox(5, new Label("Processing thread progress:"), progressIndicator));
 		vBox.getChildren().add(controlButtons);
 		vBox.getChildren().add(sheets);
 
@@ -56,9 +57,13 @@ public class SolverPane extends ScrollPane {
 				initOneShotScheduler();
 			} else if (isDoneProcessing && isDequeEmpty()) {
 				pause();
+				progressIndicator.resetSeries();
 				progressIndicator.setProgress(1.0);
 				controlButtons.enableOnlyClearAndReset();
 				System.out.println("scheduler paused");
+
+				if (!Settings.enableAnimation)
+					forcePause();
 			}
 		}));
 		updateUI.setCycleCount(Animation.INDEFINITE);
@@ -84,6 +89,10 @@ public class SolverPane extends ScrollPane {
 		if (Settings.enableAnimation) {
 			updateUI.pause();
 		}
+	}
+
+	public void forcePause() {
+		updateUI.pause();
 	}
 
 	public void resume() {

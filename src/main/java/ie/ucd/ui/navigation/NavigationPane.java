@@ -30,8 +30,8 @@ public class NavigationPane extends Accordion {
 			mainUI.showGAPane();
 		});
 
-		saTP.setDisable(true);
-		gaTP.setDisable(true);
+		// saTP.setDisable(true);
+		// gaTP.setDisable(true);
 		getPanes().addAll(setupTP, saTP, gaTP);
 	}
 

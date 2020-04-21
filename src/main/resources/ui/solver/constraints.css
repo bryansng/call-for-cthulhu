@@ -1,5 +1,17 @@
 /* https://stackoverflow.com/questions/52130439/javafx-style-checkbox */
 
+.check-box:indeterminate {
+	-fx-opacity: 0.5;
+}
+
+.check-box:indeterminate>.box {
+	-fx-background-color: #ffe818d7;
+}
+
+.check-box:indeterminate>.box>.mark {
+	-fx-opacity: 0;
+}
+
 .check-box:disabled {
 	-fx-text-fill: black;
 }

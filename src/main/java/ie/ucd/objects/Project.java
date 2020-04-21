@@ -1,6 +1,7 @@
 package ie.ucd.objects;
 
 import ie.ucd.Common;
+import ie.ucd.Settings;
 import ie.ucd.interfaces.ProjectInterface;
 import ie.ucd.interfaces.SearchMatchable;
 
@@ -26,7 +27,7 @@ public class Project implements ProjectInterface, SearchMatchable {
 
 	public Double calculateSatisfaction() {
 		assignmentViolation = false;
-		return assignmentSatisfaction();
+		return Settings.enableProjectAssignedToOneStudent ? assignmentSatisfaction() : 0.0;
 	}
 
 	// hard: project assigned to at most one student.

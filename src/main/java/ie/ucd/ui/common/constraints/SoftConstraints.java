@@ -61,14 +61,29 @@ public class SoftConstraints extends VBox {
 	}
 
 	public void updateEquallyDistributedAcrossSupervisors(boolean isNotViolated, Integer violationCount, Integer total) {
-		equallyDistributedAcrossSupervisors.setSelected(isNotViolated);
-		equallyDistributedAcrossSupervisors.setText(equallyDistributedAcrossSupervisorsText
-				+ (violationCount == null ? "" : " (" + violationCount + "/" + total + ")"));
+		if (Settings.enableEquallyDistributedAcrossSupervisors) {
+			equallyDistributedAcrossSupervisors.setIndeterminate(false);
+			equallyDistributedAcrossSupervisors.setSelected(isNotViolated);
+			equallyDistributedAcrossSupervisors.setText(equallyDistributedAcrossSupervisorsText
+					+ (violationCount == null ? "" : " (" + violationCount + "/" + total + ")"));
+		}
 	}
 
 	public void updateHigherGPAHigherPreferences(boolean isNotViolated, Integer violationCount, Integer total) {
-		higherGPAHigherPreferences.setSelected(isNotViolated);
-		higherGPAHigherPreferences.setText(
-				higherGPAHigherPreferencesText + (violationCount == null ? "" : " (" + violationCount + "/" + total + ")"));
+		if (Settings.enableHigherGPAHigherPreferences) {
+			higherGPAHigherPreferences.setIndeterminate(false);
+			higherGPAHigherPreferences.setSelected(isNotViolated);
+			higherGPAHigherPreferences.setText(
+					higherGPAHigherPreferencesText + (violationCount == null ? "" : " (" + violationCount + "/" + total + ")"));
+		}
+	}
+
+	public void reset() {
+		equallyDistributedAcrossSupervisors.setIndeterminate(true);
+		equallyDistributedAcrossSupervisors.setSelected(false);
+		equallyDistributedAcrossSupervisors.setText(equallyDistributedAcrossSupervisorsText);
+		higherGPAHigherPreferences.setIndeterminate(true);
+		higherGPAHigherPreferences.setSelected(false);
+		higherGPAHigherPreferences.setText(higherGPAHigherPreferencesText);
 	}
 }

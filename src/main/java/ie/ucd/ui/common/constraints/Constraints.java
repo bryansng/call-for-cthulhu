@@ -31,4 +31,9 @@ public class Constraints extends VBox {
 	public SoftConstraints getSoftConstraints() {
 		return soft;
 	}
+
+	public void reset() {
+		hard.reset();
+		soft.reset();
+	}
 }
