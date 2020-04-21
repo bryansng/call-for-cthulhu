@@ -6,8 +6,8 @@ import java.util.Random;
 
 import ie.ucd.objects.CandidateSolution;
 import ie.ucd.Common;
-import ie.ucd.Settings;
 import ie.ucd.objects.Project;
+import ie.ucd.objects.BitCodeSolution;
 import ie.ucd.objects.Student;
 import ie.ucd.ui.common.sheets.Sheets;
 import ie.ucd.ui.common.sheets.StudentSheet;
@@ -17,8 +17,8 @@ import ie.ucd.ui.solver.SolverPane;
 public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 	private double mutationChance;
 	private double crossoverChance;
-	private double pickFittestParentsChance;
-	private final double fittestParentsIncrementFactor;
+	private double cullPercentage;
+	private final double cullPercentageIncrementFactor;
 	private int numberOfGenerations;
 	private int sizeOfPopulation;
 
@@ -34,22 +34,22 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 	}
 
 	public GeneticAlgorithm(CandidateSolution startingSolution, SolverPane solverPane) {
-		this(0.05, 0.4, 125, 70, 0.8, startingSolution, solverPane);
+		this(0.05, 0.4, 125, 80, 0.25, startingSolution, solverPane);
 	}
 
 	public GeneticAlgorithm(double mutationChance, double crossoverChance, int numberOfGenerations, int sizeOfPopulation,
-			double pickFittestParentsChance, CandidateSolution startingSolution, SolverPane solverPane) {
+			double cullPercentage, CandidateSolution startingSolution, SolverPane solverPane) {
 		this.mutationChance = mutationChance;
 		this.crossoverChance = crossoverChance;
 		this.numberOfGenerations = numberOfGenerations;
 		this.sizeOfPopulation = sizeOfPopulation;
-		this.pickFittestParentsChance = pickFittestParentsChance;
-		this.fittestParentsIncrementFactor = (double) Math
-				.round(((1 - pickFittestParentsChance) * 1.500 / numberOfGenerations) * 1000d) / 1000d;
+		this.cullPercentage = cullPercentage;
+		this.cullPercentageIncrementFactor = (double) Math
+				.round(((1 - cullPercentage) / numberOfGenerations) * 1000d) / 1000d;
 		this.startingSolution = startingSolution;
 		this.solverPane = solverPane;
 		if (Common.DEBUG_SHOW_GA) {
-			System.out.println("Calculated increment factor = " + fittestParentsIncrementFactor);
+			System.out.println("Calculated culling increment factor = " + cullPercentageIncrementFactor);
 		}
 	}
 
@@ -79,12 +79,12 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 		ArrayList<String> allBitCodes = generateAllBitCodes(currSolution.getStudents().size());
 
 		// generate population for generation 0.
-		ArrayList<String> currPopulation = generateInitialPopulation(allBitCodes);
-		ArrayList<String> nextPopulation = new ArrayList<String>();
+		BitCodeSolution[] currPopulation = generateInitialPopulation(allBitCodes);
+		BitCodeSolution[] nextPopulation = new BitCodeSolution[sizeOfPopulation];
 
 		System.out.println("Running Genetic Algorithm (" + numberOfGenerations + " Generations):\n");
 		System.out.println("Starting satisfaction: " + bestSatisfaction);
-		ArrayList<Double> populationSatisfactions = new ArrayList<Double>();
+//		ArrayList<Double> populationSatisfactions = new ArrayList<Double>();
 		Integer fittestIndex = 0;
 		Double fittestSatisfaction = Double.NEGATIVE_INFINITY;
 		String fittestBitCodeSolution = "";
@@ -95,15 +95,16 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 
 			// calculate and store satisfaction for each bitCodeSolution in a population.
 			// at the same time, find fittest solution.
-			populationSatisfactions = new ArrayList<Double>();
-			for (int j = 0; j < currPopulation.size(); j++) {
-				String bitCodeSolution = currPopulation.get(j);
+//			populationSatisfactions = new ArrayList<Double>();
+			for (int j = 0; j < currPopulation.length; j++) {
+				String bitCodeSolution = currPopulation[j].getSolution();
 				nextPossibleSolution = assignProjectsFromBitCodeSolution(bitCodeSolution, startingSolution);
 				// ArrayList<Project> updatedProjects = updateProjects(projects, students.size());
 				double populationSatisfaction = nextPossibleSolution.calculateGlobalSatisfaction();
 				if (Common.DEBUG_SHOW_GA)
 					System.out.println("populationSatisfaction: " + populationSatisfaction);
-				populationSatisfactions.add(populationSatisfaction);
+//				populationSatisfactions.add(populationSatisfaction);
+				currPopulation[j].setSatisfaction(populationSatisfaction);
 
 				// find fittest solution in population.
 				if (populationSatisfaction > fittestSatisfaction) {
@@ -126,26 +127,29 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 			}
 
 			// generate population for next generation.
-			while (nextPopulation.size() <= sizeOfPopulation) {
-				String[] parents = chooseParents(currPopulation, populationSatisfactions);
+			int counter = 0;
+			while (counter < sizeOfPopulation) {
+				BitCodeSolution[] populationAfterSorting = descendingBubbleSort(currPopulation);
+				BitCodeSolution[] populationAfterCulling = cull(populationAfterSorting);
+				String[] parents = getParents(populationAfterCulling);
 				if (parents[0] == null || parents[1] == null)
 					System.out.println(parents[0] + "\n" + parents[1]);
 				String offspring = crossover(parents[0], parents[1]);
-				if (!offspring.equals("")) {
+				if (! offspring.equals("")) {
 					offspring = mutate(offspring);
-					nextPopulation.add(offspring);
+					nextPopulation[counter] = new BitCodeSolution(offspring);
+					counter++;
 				}
 			}
-			currPopulation.clear();
-			currPopulation = new ArrayList<String>(nextPopulation);
-			nextPopulation.clear();
-			incrementPickFittestParentsChance();
+			currPopulation = nextPopulation;
+			nextPopulation = new BitCodeSolution[sizeOfPopulation];
+			incrementCullPercentage();
 
 			threadHandleOneStepAndWaiting();
 			uiAddToProgressIndicator(solverPane, 1.0, i * 1.0, numberOfGenerations * 1.0);
 		}
 		// get best final solution from final generation.
-		finalSolutionFitness = populationSatisfactions.get(fittestIndex);
+		finalSolutionFitness = currPopulation[fittestIndex].getSatisfaction();
 		this.finalSolution = assignProjectsFromBitCodeSolution(fittestBitCodeSolution, fittestSolution);
 
 		uiAddToCurrQueueNoAnimate(currSheet, fittestSolution);
@@ -155,51 +159,32 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 		System.out.println("Genetic Algorithm simulation complete.");
 	}
 
-	private String[] chooseParents(ArrayList<String> population, ArrayList<Double> satisfactions) {
+	private String[] getParents(BitCodeSolution[] bitCodeSolutions) {
 		String[] parents = new String[2];
 		double max = 1.0, secondMax = 1.0; // arbitrary positive values.
+		int randomIndex1 = random.nextInt(bitCodeSolutions.length);
+		int randomIndex2 = random.nextInt(bitCodeSolutions.length);
+		while(randomIndex1 == randomIndex2)
+			randomIndex2 = random.nextInt(bitCodeSolutions.length);
 
-		// convert to array to make process easier.
-		String[] populationArray = populationToArray(population);
-		double[] satisfactionArray = satisfactionToArray(satisfactions);
-		int bound = (int) pickFittestParentsChance * 1000;
-		int probabilityIndex = random.nextInt(1000);
+		parents[0] = bitCodeSolutions[randomIndex1].getSolution();
+		parents[1] = bitCodeSolutions[randomIndex2].getSolution();
 
-		if (probabilityIndex < bound) {
-			//get two fittest parents
-			for (int i = 0; i < sizeOfPopulation; i++) {
-				if (satisfactionArray[i] > max) {
-					secondMax = max;
-					parents[1] = parents[0];
-					max = satisfactionArray[i];
-					parents[0] = populationArray[i];
-				} else if (satisfactionArray[i] > secondMax && satisfactionArray[i] < max) {
-					secondMax = satisfactionArray[i];
-					parents[1] = populationArray[i];
-				}
-			}
-		} else {
-			int parentAIndex = 0;
-			//get the fittest and a random parent to encourage diversity
-			for (int i = 0; i < sizeOfPopulation; i++) {
-				if (satisfactionArray[i] > max) {
-					max = satisfactionArray[i];
-					parents[0] = populationArray[i];
-					parentAIndex = i;
-				}
-			}
-
-			int parentBIndex = random.nextInt(sizeOfPopulation);
-			while (parentBIndex == parentAIndex) {
-				parentBIndex = random.nextInt(sizeOfPopulation);
-			}
-			parents[1] = populationArray[parentBIndex];
-		}
-		if (parents[0] == null || parents[1] == null)
-			System.out.println("Parent's strength: " + max + " " + secondMax);
-		if (Common.DEBUG_SHOW_GA)
-			System.out.println("Parent's strength: " + max + " " + secondMax);
 		return parents;
+	}
+
+	private BitCodeSolution[] descendingBubbleSort(BitCodeSolution[] population) {
+		int n = population.length;
+		for (int i = 0; i < n-1; i++) {
+			for (int j = 0; j < n - i - 1; j++) {
+				if (population[j].getSatisfaction() < population[j + 1].getSatisfaction()) {
+					BitCodeSolution temp = population[j];
+					population[j] = population[j + 1];
+					population[j + 1] = temp;
+				}
+			}
+		}
+		return population;
 	}
 
 	private String crossover(String parentA, String parentB) {
@@ -231,6 +216,13 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 		}
 
 		return String.valueOf(solutionArray);
+	}
+
+	private BitCodeSolution[] cull(BitCodeSolution[] sortedPopulation) {
+		int sizeAfterCulling = (int) (sortedPopulation.length * (1 - cullPercentage));
+		BitCodeSolution[] culledPopulation = new BitCodeSolution[sizeAfterCulling];
+		System.arraycopy(sortedPopulation, 0, culledPopulation, 0, sizeAfterCulling);
+		return culledPopulation;
 	}
 
 	private ArrayList<String> generateAllBitCodes(int numberOfBitCodes) {
@@ -277,35 +269,38 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 		return Integer.parseInt(bitCode, 2);
 	}
 
-	private ArrayList<String> generateInitialPopulation(ArrayList<String> allBitCodes) {
+	private BitCodeSolution[] generateInitialPopulation(ArrayList<String> allBitCodes) {
 		// create the first solution which usually has very good strength.
 		int[] orderOfBitCodes = get1stOrderOfBitCodes(allBitCodes.size());
-		String bitCodeSolution = generateCandidateSolution(allBitCodes, orderOfBitCodes);
+		String bitCodeSolution = generateBitCodeSolution(allBitCodes, orderOfBitCodes);
 		bitCodeSolution = mutate(bitCodeSolution);
 
 		// add first solution to population.
-		ArrayList<String> population = new ArrayList<String>();
-		population.add(bitCodeSolution);
+		BitCodeSolution[] population = new BitCodeSolution[sizeOfPopulation];
+		population[0] = new BitCodeSolution(bitCodeSolution);
+
+		HashSet<String> usedSolutions = new HashSet<String>();
 
 		// each following solution builds on the previous one by swapping around.
 		// any two random positions in orderOfBitCodes.
 		for (int i = 1; i < sizeOfPopulation; i++) {
 			int[] previousOrder = orderOfBitCodes;
 			orderOfBitCodes = getNextOrderOfBitCodes(previousOrder);
-			bitCodeSolution = generateCandidateSolution(allBitCodes, orderOfBitCodes);
+			bitCodeSolution = generateBitCodeSolution(allBitCodes, orderOfBitCodes);
 			bitCodeSolution = mutate(bitCodeSolution);
-			while (population.contains(bitCodeSolution)) {
+			while (usedSolutions.contains(bitCodeSolution)) {
 				orderOfBitCodes = getNextOrderOfBitCodes(orderOfBitCodes);
-				bitCodeSolution = generateCandidateSolution(allBitCodes, orderOfBitCodes);
+				bitCodeSolution = generateBitCodeSolution(allBitCodes, orderOfBitCodes);
 				bitCodeSolution = mutate(bitCodeSolution);
 			}
-			population.add(bitCodeSolution);
+			population[i] = new BitCodeSolution(bitCodeSolution);
+			usedSolutions.add(bitCodeSolution);
 		}
 
 		return population;
 	}
 
-	private String generateCandidateSolution(ArrayList<String> allBitCodes, int[] orderOfBitCodes) {
+	private String generateBitCodeSolution(ArrayList<String> allBitCodes, int[] orderOfBitCodes) {
 		String candidateSolution = "";
 		for (int index : orderOfBitCodes) {
 			candidateSolution = candidateSolution.concat(allBitCodes.get(index));
@@ -404,8 +399,8 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 		int[] ranking = new int[numberOfBitCodes];
 		for (int i = 0; i < solutionInDecimal.length; i++) {
 			int count = 0;
-			for (int j = 0; j < solutionInDecimal.length; j++) {
-				if (solutionInDecimal[j] > solutionInDecimal[i]) {
+			for (int value : solutionInDecimal) {
+				if (value > solutionInDecimal[i]) {
 					count++;
 				}
 			}
@@ -414,58 +409,10 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 		return ranking;
 	}
 
-	/**
-	 * This was initially used to update each project with the correct number of students assigned to it.
-	 * This was required to ensure satisfaction from the projects side was calculated correctly.
-	 * However CandidateSolution was updated to deal with this internally, so this is no longer needed (in theory).
-	 */
-	private ArrayList<Project> updateProjects(ArrayList<Project> projects, int numberOfProjectsAssigned) {
-		// essentially, to calculate fitness, we do not need to know which project was given to whom it only matters how many projects were or were not assigned.
-		// ArrayList of Student objects returned by run() already contains the assigned Project object.
-		ArrayList<Project> updatedProjects = new ArrayList<Project>();
-		int i;
-		for (i = 0; i < numberOfProjectsAssigned; i++) {
-			Project project = projects.get(i);
-			project.setNumStudentsAssigned(1);
-			updatedProjects.add(project);
-		}
-		while (i < projects.size()) {
-			Project project = projects.get(i);
-			project.setNumStudentsAssigned(0);
-			updatedProjects.add(project);
-			i++;
-		}
-		return updatedProjects;
-	}
-
-	private void incrementPickFittestParentsChance() {
-		pickFittestParentsChance += fittestParentsIncrementFactor;
-		if (pickFittestParentsChance > 1.0)
-			pickFittestParentsChance = 1.0; // limit probability
-	}
-
-	private String[] populationToArray(ArrayList<String> population) {
-		Object[] populationTemp = population.toArray();
-		String[] populationArray = new String[Common.MAX_ARRAY_SIZE];
-		int i = 0;
-		for (Object object : populationTemp) {
-			populationArray[i] = (String) object;
-			i++;
-		}
-		return populationArray;
-	}
-
-	private double[] satisfactionToArray(ArrayList<Double> globalSatisfactionList) {
-		Object[] globalSatisfactionTemp = globalSatisfactionList.toArray();
-		double[] satisfactionArray = new double[Common.MAX_ARRAY_SIZE];
-		int i = 0;
-		for (Object object : globalSatisfactionTemp) {
-			satisfactionArray[i] = (double) object;
-			if (Common.DEBUG_SHOW_GA)
-				System.out.println("satisfactionFromArray-- " + satisfactionArray[i]);
-			i++;
-		}
-		return satisfactionArray;
+	private void incrementCullPercentage() {
+		cullPercentage += cullPercentageIncrementFactor;
+		if (cullPercentage > 0.97)
+			cullPercentage = 0.97; // limit probability
 	}
 
 	public CandidateSolution getBestSolution() {
