@@ -1,6 +1,8 @@
 package ie.ucd.objects;
 
-public class BitCodeSolution {
+import ie.ucd.interfaces.BitCodeSolutionInterface;
+
+public class BitCodeSolution implements BitCodeSolutionInterface {
     private String solution;
     private double satisfaction;
 
