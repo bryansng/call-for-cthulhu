@@ -4,6 +4,8 @@ import com.opencsv.CSVParser;
 import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
+
+import ie.ucd.Common;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.StaffMember;
 import ie.ucd.objects.Student;
@@ -13,6 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.InterruptedIOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -65,7 +68,15 @@ public class CSVFileReader {
                 flag = 1;
                 continue;
             }
-            projects.add(new Project(allStaffMembers.get(line[0]), line[1], line[2], Double.parseDouble(line[3])));
+            assert line[2].equals("CS") || line[2].equals("CS+DS") || line[2].equals(
+                    "DS") : "Unable to read Projects input file, expected values of third column to be either 'CS', 'DS', or 'CS+DS'.";
+            assert line.length != 4
+                    || line.length != 3 : "Unable to read Projects input file, expected 3 or 4 columns of values.";
+
+            if (line.length == 4)
+                projects.add(new Project(allStaffMembers.get(line[0]), line[1], line[2], Double.parseDouble(line[3])));
+            else if (line.length == 3)
+                projects.add(new Project(allStaffMembers.get(line[0]), line[1], line[2], Common.getProbability()));
         }
         return projects;
     }
@@ -99,20 +110,26 @@ public class CSVFileReader {
                 flag = 1;
                 continue;
             }
-            ArrayList<Project> thisStudentsProjects = new ArrayList<Project>();
+            ArrayList<Project> thisStudentsPreference = new ArrayList<Project>();
             for (int i = 4; i < 14; i++) {
                 for (Project project : projects) {
                     if (project.getResearchActivity().equals(line[i])) {
-                        thisStudentsProjects.add(project);
+                        thisStudentsPreference.add(project);
                         break;
                     }
                 }
             }
-            assert thisStudentsProjects.size() == 10 : "Preference list size must be equal to 10, but is "
-                    + thisStudentsProjects.size()
-                    + ", check if readStudents() is given the correct ArrayList projects tailored for these students.";
-            // System.out.println(thisStudentsProjects.size() < 10);
-            students.add(new Student(line[0], line[1], Integer.parseInt(line[2]), line[3], 0.0, thisStudentsProjects));
+            if (thisStudentsPreference.size() != 10) {
+                throw new InterruptedIOException(
+                        "Preference list size must be equal to 10, but is %d, check if readStudents() is given the correct ArrayList projects tailored for these students.");
+            }
+            assert thisStudentsPreference.size() == 10 : String.format(
+                    "Preference list size must be equal to 10, but is %d, check if readStudents() is given the correct ArrayList projects tailored for these students.",
+                    thisStudentsPreference.size());
+            // System.out.println(thisStudentsPreference.size() + " " + (thisStudentsPreference.size() == 10));
+            // System.out.println("actual " + (thisStudentsPreference.size() < 10) + ", expected: false");
+            students.add(
+                    new Student(line[0], line[1], Integer.parseInt(line[2]), line[3], 0.0, thisStudentsPreference));
             // System.out.println(aIndex + " " + students.get(students.size() - 1));
             // aIndex += 1;
         }

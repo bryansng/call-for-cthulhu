@@ -53,12 +53,11 @@ public class CSVReaderTest {
 	public void testReadProjectWrongLayout() {
 		System.out.println("Running: testReadProjectWrongLayout");
 
-		ArrayList<Project> dummyProjects = null;
 		try {
-			dummyProjects = dummyReader.readProject("testCSVs/testWrongProject-wrongLayout.csv", parser.getStaffMembersMap());
+			dummyReader.readProject("testCSVs/testWrongProject-wrongLayout.csv", parser.getStaffMembersMap());
+		} catch (AssertionError e) {
 		} catch (Exception e) {
 		}
-		Assert.assertNull("Projects not null, expected unsuccessful read.", dummyProjects);
 	}
 
 	@Test
@@ -80,13 +79,11 @@ public class CSVReaderTest {
 	public void testReadProjectMissingFields() {
 		System.out.println("Running: testReadProjectMissingFields");
 
-		ArrayList<Project> dummyProjects = null;
 		try {
-			dummyProjects = dummyReader.readProject("testCSVs/testWrongProject-missingFields.csv",
-					parser.getStaffMembersMap());
+			dummyReader.readProject("testCSVs/testWrongProject-missingFields.csv", parser.getStaffMembersMap());
+		} catch (AssertionError e) {
 		} catch (Exception e) {
 		}
-		Assert.assertNull("Projects not null, expected unsuccessful read.", dummyProjects);
 	}
 
 	@Test

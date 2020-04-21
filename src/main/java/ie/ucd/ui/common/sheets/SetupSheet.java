@@ -4,11 +4,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import java.io.File;
+import java.io.InterruptedIOException;
 import java.util.ArrayList;
 import ie.ucd.Settings;
 import ie.ucd.Common.SheetType;
 import ie.ucd.io.CSVFileReader;
 import ie.ucd.io.Parser;
+import ie.ucd.objects.Student;
 import ie.ucd.ui.setup.SetupPane;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -20,6 +22,7 @@ import javafx.stage.Stage;
 public abstract class SetupSheet<E> extends Sheet<E> {
 	private String sheetTypeName;
 	private SetupPane setupPane;
+	private Label errorWarning;
 
 	public SetupSheet(Stage stage, boolean includeLoadFromFileButton, boolean includeSaveToFileButton,
 			SheetType sheetType) {
@@ -41,9 +44,15 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 	}
 
 	private void initLayout(Stage stage) {
-		VBox vBox = new VBox();
-		vBox.getChildren().add(initLoadButton(stage));
-		vBox.getChildren().add(initGenerateButton());
+		VBox vBox = new VBox(5);
+
+		VBox buffer = new VBox();
+		buffer.getChildren().addAll(new Label("---"), new Label("or"), new Label("---"));
+
+		errorWarning = new Label();
+		setEnableErrorWarning(false, "");
+
+		vBox.getChildren().addAll(initLoadButton(stage), errorWarning, buffer, initGenerateButton());
 		getChildren().add(0, vBox);
 	}
 
@@ -106,8 +115,8 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 
 	private void loadFromFile(File fromFile) {
 		CSVFileReader reader = new CSVFileReader();
-		try {
-			if (sheetType == SheetType.Project) {
+		if (sheetType == SheetType.Project) {
+			try {
 				// clear current set first.
 				clearStudents();
 
@@ -115,13 +124,31 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 				setAll((ArrayList<E>) Settings.loadedProjects);
 				enableStudentSheet();
 				setEnableNavigateSolvers(false);
-			} else if (sheetType == SheetType.Student) {
+				setEnableErrorWarning(false, "");
+			} catch (AssertionError e) {
+				setEnableErrorWarning(true, "ERROR: Unable to read file. Please ensure you are loading a file for "
+						+ sheetTypeName + ".\nExpected format is: Staff Name,Research Activity,Stream");
+			} catch (Exception e) {
+				setEnableErrorWarning(true, "ERROR: Unable to read file. Please ensure you are loading a file for "
+						+ sheetTypeName + ".\nExpected format is: Staff Name,Research Activity,Stream");
+			}
+		} else if (sheetType == SheetType.Student) {
+			try {
 				Settings.loadedStudents = reader.readStudents(null, Settings.loadedProjects, fromFile);
 				setAll((ArrayList<E>) Settings.loadedStudents);
 				setEnableNavigateSolvers(true);
+				setEnableErrorWarning(false, "");
+			} catch (AssertionError e) {
+				setEnableErrorWarning(true,
+						"ERROR: A student's preference list project cannot be found in the Loaded projects.");
+			} catch (InterruptedIOException e) {
+				setEnableErrorWarning(true,
+						"ERROR: A student's preference list project cannot be found in the Loaded projects.");
+			} catch (Exception e) {
+				setEnableErrorWarning(true, "ERROR: Unable to read file. Please ensure you are loading a file for "
+						+ sheetTypeName
+						+ ".\nExpected format is: First Name,Last Name,ID,Stream,Preference 1,Preference 2,Preference 3,Preference 4,Preference 5,Preference 6,Preference 7,Preference 8,Preference 9,Preference 10");
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -138,5 +165,11 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 	private void setEnableNavigateSolvers(boolean value) {
 		if (setupPane != null)
 			setupPane.setEnableNavigateSolvers(value);
+	}
+
+	private void setEnableErrorWarning(boolean value, String errorMsg) {
+		errorWarning.setText(errorMsg);
+		errorWarning.setVisible(value);
+		errorWarning.setManaged(value);
 	}
 }

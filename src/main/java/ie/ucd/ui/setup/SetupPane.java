@@ -70,7 +70,8 @@ public class SetupPane extends ScrollPane {
 			if (Common.DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE)
 				System.out.println(String.format("%d", Settings.numberOfStudents.getValue()));
 		});
-		return new VBox(new VBox(2.5, new Label("Number of Students"), numStudents), numStudentsWarning);
+		return new VBox(new VBox(2.5, new Label("Number of Students (used by generator)"), numStudents),
+				numStudentsWarning);
 	}
 
 	private Node initImportanceOfGPA() {
