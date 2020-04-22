@@ -227,11 +227,17 @@ public class Student implements StudentInterface, SearchMatchable {
 		return this;
 	}
 
+	// more suited for SA then GA.
 	public Student setProjectAssigned(Project project, Integer index) {
 		this.projects.get(0).decrementStudentsAssigned();
 		this.projects.get(0).decrementAs1stPreference();
 		project.incrementAs1stPreference();
 		project.incrementStudentsAssigned();
+		this.projects.set(index, project);
+		return this;
+	}
+
+	public Student setProjectAssignedNoExtra(Project project, Integer index) {
 		this.projects.set(index, project);
 		return this;
 	}

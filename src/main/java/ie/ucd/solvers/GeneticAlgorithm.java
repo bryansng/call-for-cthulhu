@@ -38,14 +38,14 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 	}
 
 	public GeneticAlgorithm(double mutationChance, double crossoverChance, int numberOfGenerations, int sizeOfPopulation,
-				double cullPercentage, CandidateSolution startingSolution, SolverPane solverPane) {
+			double cullPercentage, CandidateSolution startingSolution, SolverPane solverPane) {
 		this.mutationChance = mutationChance;
 		this.crossoverChance = crossoverChance;
 		this.numberOfGenerations = numberOfGenerations;
 		this.sizeOfPopulation = sizeOfPopulation;
 		this.cullPercentage = cullPercentage;
-		this.cullPercentageIncrementFactor = (double) Math
-				.round(((1 - cullPercentage) / numberOfGenerations) * 1000d) / 1000d;
+		this.cullPercentageIncrementFactor = (double) Math.round(((1 - cullPercentage) / numberOfGenerations) * 1000d)
+				/ 1000d;
 		this.startingSolution = startingSolution;
 		this.solverPane = solverPane;
 		if (Common.DEBUG_SHOW_GA) {
@@ -84,7 +84,7 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 
 		System.out.println("Running Genetic Algorithm (" + numberOfGenerations + " Generations):\n");
 		System.out.println("Starting satisfaction: " + bestSatisfaction);
-//		ArrayList<Double> populationSatisfactions = new ArrayList<Double>();
+		//		ArrayList<Double> populationSatisfactions = new ArrayList<Double>();
 		int fittestIndex = 0;
 		double fittestSatisfaction = Double.NEGATIVE_INFINITY;
 		String fittestBitCodeSolution = "";
@@ -95,6 +95,7 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 
 			// calculate and store satisfaction for each bitCodeSolution in a population.
 			// at the same time, find fittest solution.
+			fittestSatisfaction = Double.NEGATIVE_INFINITY;
 			for (int j = 0; j < currPopulation.length; j++) {
 				String bitCodeSolution = currPopulation[j].getSolution();
 				nextPossibleSolution = assignProjectsFromBitCodeSolution(bitCodeSolution, startingSolution);
@@ -102,25 +103,28 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 				double solutionSatisfaction = nextPossibleSolution.calculateGlobalSatisfaction();
 				if (Common.DEBUG_SHOW_GA)
 					System.out.println("solutionSatisfaction: " + solutionSatisfaction);
-//				populationSatisfactions.add(populationSatisfaction);
+				//				populationSatisfactions.add(populationSatisfaction);
 				currPopulation[j].setSatisfaction(solutionSatisfaction);
 
 				// find fittest solution in population.
-//				if (solutionSatisfaction > fittestSatisfaction) {
-//					fittestIndex = j;
-//					fittestSatisfaction = solutionSatisfaction;
-//					fittestBitCodeSolution = bitCodeSolution;
-//					fittestSolution = nextPossibleSolution;
-//				}
+				if (solutionSatisfaction > fittestSatisfaction) {
+					if (Common.DEBUG_SHOW_GA)
+						System.out.println(String.format("Changed fittest Satisfaction: was %f, is now %f", fittestSatisfaction,
+								solutionSatisfaction));
+					fittestIndex = j;
+					fittestSatisfaction = solutionSatisfaction;
+					fittestBitCodeSolution = bitCodeSolution;
+					fittestSolution = nextPossibleSolution;
+				}
 				uiAddToGraph(visualizer, solutionSatisfaction, bestSatisfaction, i);
 			}
 			BitCodeSolution[] populationAfterSorting = descendingBubbleSort(currPopulation);
 			//get fittest of the population after sorting
-			fittestSatisfaction = populationAfterSorting[0].getSatisfaction();
-			fittestBitCodeSolution = populationAfterSorting[0].getSolution();
-			fittestSolution = assignProjectsFromBitCodeSolution(fittestBitCodeSolution, startingSolution);
+			// fittestSatisfaction = populationAfterSorting[0].getSatisfaction();
+			// fittestBitCodeSolution = populationAfterSorting[0].getSolution();
+			// fittestSolution = assignProjectsFromBitCodeSolution(fittestBitCodeSolution, startingSolution); // dont use this, use the above already calculated nextPossibleSolution (ask bryan why in call) [because implementation is random, with the same parameters, this function will produce a different fittestSolution due to random assignment of projects to remaining unassigned students]
 			BitCodeSolution[] populationAfterCulling = cull(populationAfterSorting);
-			if (true) {
+			if (Common.DEBUG_SHOW_GA) {
 				System.out.println("Fittest solution strength: " + fittestSatisfaction);
 			}
 			uiAddToCurrQueueAnimate(currSheet, fittestSolution);
@@ -134,13 +138,13 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 			// generate population for next generation.
 			int counter = 0;
 			while (counter < sizeOfPopulation) {
-//				BitCodeSolution[] populationAfterSorting = descendingBubbleSort(currPopulation);
-//				BitCodeSolution[] populationAfterCulling = cull(populationAfterSorting);
+				//				BitCodeSolution[] populationAfterSorting = descendingBubbleSort(currPopulation);
+				//				BitCodeSolution[] populationAfterCulling = cull(populationAfterSorting);
 				String[] parents = getParents(populationAfterCulling);
 				if (parents[0] == null || parents[1] == null)
 					System.out.println(parents[0] + "\n" + parents[1]);
 				String offspring = crossover(parents[0], parents[1]);
-				if (! offspring.equals("")) {
+				if (!offspring.equals("")) {
 					offspring = mutate(offspring);
 					nextPopulation[counter] = new BitCodeSolution(offspring);
 					counter++;
@@ -154,8 +158,8 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 			uiAddToProgressIndicator(solverPane, 1.0, i * 1.0, numberOfGenerations * 1.0);
 		}
 		// get best final solution from final generation.
-		finalSolutionFitness = currPopulation[fittestIndex].getSatisfaction();
-		this.finalSolution = assignProjectsFromBitCodeSolution(fittestBitCodeSolution, fittestSolution);
+		finalSolutionFitness = fittestSatisfaction;
+		this.finalSolution = fittestSolution;
 
 		uiAddToCurrQueueNoAnimate(currSheet, fittestSolution);
 		uiAddToBestQueueNoAnimate(bestSheet, bestSolution);
@@ -169,7 +173,7 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 		double max = 1.0, secondMax = 1.0; // arbitrary positive values.
 		int randomIndex1 = random.nextInt(bitCodeSolutions.length);
 		int randomIndex2 = random.nextInt(bitCodeSolutions.length);
-		while(randomIndex1 == randomIndex2)
+		while (randomIndex1 == randomIndex2)
 			randomIndex2 = random.nextInt(bitCodeSolutions.length);
 
 		parents[0] = bitCodeSolutions[randomIndex1].getSolution();
@@ -180,7 +184,7 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 
 	private BitCodeSolution[] descendingBubbleSort(BitCodeSolution[] population) {
 		int n = population.length;
-		for (int i = 0; i < n-1; i++) {
+		for (int i = 0; i < n - 1; i++) {
 			for (int j = 0; j < n - i - 1; j++) {
 				if (population[j].getSatisfaction() < population[j + 1].getSatisfaction()) {
 					BitCodeSolution temp = population[j];
@@ -353,7 +357,7 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 		ArrayList<Student> assignedStudents = new ArrayList<Student>();
 		ArrayList<Student> unassignedStudents = new ArrayList<Student>();
 		HashSet<Project> usedProjects = new HashSet<Project>();
-//		HashSet<String> usedRA = new HashSet<String>();
+		//		HashSet<String> usedRA = new HashSet<String>();
 
 		// assign projects to students.
 		for (int rank = 1; rank <= students.size(); rank++) {
@@ -366,7 +370,8 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 						if (usedProjects.contains(project))
 							continue;
 						project.resetNumStudentsAssigned();
-						currentStudent.setProjectAssigned(project, 0);
+						currentStudent.setProjectAssignedNoExtra(project, 0);
+						project.reassigned();
 						usedProjects.add(project);
 						isAssigned = true;
 						break;
@@ -386,11 +391,13 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 				randomProject = projects.get(random.nextInt(projects.size()));
 			}
 			randomProject.resetNumStudentsAssigned();
-			student.setProjectAssigned(randomProject, 0);
+			student.setProjectAssignedNoExtra(randomProject, 0);
+			randomProject.reassigned();
 			usedProjects.add(randomProject);
 			assignedStudents.add(student);
 		}
-		newSolution = new CandidateSolution(assignedStudents.size(), currSolution.getStaffMembers(), currSolution.getNames(), projects, students);
+		newSolution = new CandidateSolution(assignedStudents.size(), currSolution.getStaffMembers(),
+				currSolution.getNames(), projects, students);
 		newSolution.calculateProjectSatisfactionAndUpdateProjectViolation();
 		return newSolution;
 	}

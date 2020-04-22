@@ -155,4 +155,14 @@ public class Project implements ProjectInterface, SearchMatchable {
 	public void resetNumStudentsAssigned() {
 		numStudentsAssigned = 0;
 	}
+
+	public void deassigned() {
+		incrementAs1stPreference();
+		incrementStudentsAssigned();
+	}
+
+	public void reassigned() {
+		incrementAs1stPreference();
+		incrementStudentsAssigned();
+	}
 }

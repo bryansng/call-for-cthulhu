@@ -1,7 +1,7 @@
 package ie.ucd;
 
 public class Settings {
-	public static boolean enableAnimation = true;
+	public static boolean enableAnimation = false;
 	public static int maximumXAxisTicks = 10000; // higher = UI slower.
 	public static int pointsToRemove = maximumXAxisTicks * 20 / 100;
 
