@@ -39,9 +39,9 @@ public class Main extends Application {
 	public void start(Stage stage) throws IOException, InvalidFormatException, InterruptedException {
 		System.out.println("Generating for 500 students...");
 
-		// solverPane = new SolverPane(stage, SolverType.GeneticAlgorithm);
-		solverPane = new SolverPane(stage, SolverType.SimulatedAnnealing);
-		Scene scene = new Scene(solverPane, 1280, 960);
+		 solverPane = new SolverPane(stage, SolverType.GeneticAlgorithm);
+//		solverPane = new SolverPane(stage, SolverType.SimulatedAnnealing);
+		Scene scene = new Scene(solverPane, 1280, 600);
 		scene.getStylesheets().add("ui/solver/constraints.css");
 
 		stage.setScene(scene);
