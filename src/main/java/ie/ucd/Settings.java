@@ -13,7 +13,7 @@ public class Settings {
 	public static final boolean DEMO_SA_FAST = true;
 	public static final boolean DEMO_GA_FAST = true;
 
-	public static boolean enableAnimation = true;
+	public static boolean enableAnimation = false;
 	public static int maximumXAxisTicks = 10000; // higher = UI slower.
 	public static int pointsToRemove = maximumXAxisTicks * 20 / 100;
 
@@ -61,11 +61,11 @@ public class Settings {
 
 	// hard.
 	public static boolean enableStudentAssignedPreferredProject = true;
-	public static boolean enableSameStream = false;
+	public static boolean enableSameStream = true;
 	public static boolean enableStudentAssignedOneProject = true;
-	public static boolean enableProjectAssignedToOneStudent = false;
+	public static boolean enableProjectAssignedToOneStudent = true;
 	// soft.
-	public static boolean enableEquallyDistributedAcrossSupervisors = false;
+	public static boolean enableEquallyDistributedAcrossSupervisors = true;
 	public static boolean enableHigherGPAHigherPreferences = true;
 
 	public static enum SARandomMoveType {

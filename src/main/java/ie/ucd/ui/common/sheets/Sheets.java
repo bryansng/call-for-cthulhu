@@ -46,6 +46,11 @@ public class Sheets extends VBox {
 		bestSheet.resetSeries();
 	}
 
+	public void resetEvaluation() {
+		currSheet.resetEvaluation();
+		bestSheet.resetEvaluation();
+	}
+
 	public void initOneShotScheduler() {
 		currSheet.initOneShotScheduler();
 		bestSheet.initOneShotScheduler();

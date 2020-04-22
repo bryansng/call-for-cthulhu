@@ -57,6 +57,9 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 
 	public void resetSeries() {
 		solutionDeque.clear();
+	}
+
+	public void resetEvaluation() {
 		constraints.reset();
 	}
 

@@ -35,7 +35,7 @@ public class Main extends Application {
 	}
 
 	@Override
-	public void start(Stage stage) throws IOException, InvalidFormatException, InterruptedException {
+	public void start(Stage stage) {
 		Scene scene = new Scene(new MainUI(stage), 1280, 960);
 		stage.setScene(scene);
 		stage.show();

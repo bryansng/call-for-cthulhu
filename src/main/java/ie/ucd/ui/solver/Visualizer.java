@@ -170,7 +170,14 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 
 				// put y value with current time.
 				currSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getCurrY()));
-				bestSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getBestY()));
+				if (solverType == SolverType.GeneticAlgorithm) {
+					Data<Number, Number> data = new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getBestY());
+					bestSeries.getData().add(data);
+					StackPane sp = (StackPane) data.getNode();
+					sp.setVisible(false);
+				} else {
+					bestSeries.getData().add(new XYChart.Data<Number, Number>(coord.getLoopNumber(), coord.getBestY()));
+				}
 				setSeriesName(coord.getCurrY(), coord.getBestY());
 			}
 		} catch (NoSuchElementException e) {

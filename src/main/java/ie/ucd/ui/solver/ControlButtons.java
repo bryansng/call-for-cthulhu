@@ -47,6 +47,7 @@ public class ControlButtons extends HBox {
 				isRunning = true;
 				solverPane.resume();
 				solverPane.resetSeries();
+				solverPane.resetSheetsEvaluation();
 				startThread();
 				play.setDisable(true);
 				clearAndReset.setDisable(false);

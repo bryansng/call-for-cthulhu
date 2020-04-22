@@ -32,7 +32,7 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 	}
 
 	public GeneticAlgorithm(CandidateSolution startingSolution, SolverPane solverPane) {
-		this(0.05, 0.4, 125, 70, 0.8, startingSolution, solverPane);
+		this(0.05, 0.4, 100, 70, 0.8, startingSolution, solverPane);
 	}
 
 	public GeneticAlgorithm(double mutationChance, double crossoverChance, int numberOfGenerations, int sizeOfPopulation,

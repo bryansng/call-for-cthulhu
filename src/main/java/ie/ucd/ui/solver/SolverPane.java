@@ -5,6 +5,7 @@ import ie.ucd.Common.SolverType;
 import ie.ucd.ui.common.sheets.Sheets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -14,6 +15,8 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.util.Duration;
 
 /**
@@ -41,14 +44,28 @@ public class SolverPane extends ScrollPane {
 	}
 
 	private void initLayout() {
-		VBox vBox = new VBox();
-		vBox.getChildren().add(new Label("Visualization"));
-		vBox.getChildren().add(visualizer);
-		vBox.getChildren().add(new HBox(5, new Label("Processing thread progress:"), progressIndicator));
-		vBox.getChildren().add(controlButtons);
-		vBox.getChildren().add(sheets);
+		// VBox vBox = new VBox();
+		// vBox.getChildren().add(new Label("Visualization"));
+		// vBox.getChildren().add(visualizer);
+		// vBox.getChildren().add(new HBox(5, new Label("Processing thread progress:"), progressIndicator));
+		// vBox.getChildren().add(controlButtons);
+		// vBox.getChildren().add(sheets);
 
-		setContent(vBox);
+		// setContent(vBox);
+
+		GridPane gridPane = new GridPane();
+		gridPane.setPadding(new Insets(10, 10, 10, 10));
+		gridPane.setVgap(5);
+		gridPane.setHgap(5);
+		gridPane.setAlignment(Pos.CENTER);
+
+		gridPane.add(new Label("Visualization"), 0, 0);
+		gridPane.add(visualizer, 0, 1);
+		gridPane.add(new HBox(5, new Label("Processing thread progress:"), progressIndicator), 0, 2);
+		gridPane.add(controlButtons, 0, 3);
+		gridPane.add(sheets, 0, 4);
+
+		setContent(gridPane);
 	}
 
 	private void initUpdateUIScheduler() {
@@ -77,6 +94,10 @@ public class SolverPane extends ScrollPane {
 		visualizer.resetSeries();
 		sheets.resetSeries();
 		progressIndicator.resetSeries();
+	}
+
+	public void resetSheetsEvaluation() {
+		sheets.resetEvaluation();
 	}
 
 	public void stop() {

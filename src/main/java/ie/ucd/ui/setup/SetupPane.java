@@ -89,7 +89,8 @@ public class SetupPane extends ScrollPane {
 	}
 
 	private Node initEnableAnimation() {
-		CheckBox enableAnimation = new CheckBox("Enable Animation (slower)");
+		CheckBox enableAnimation = new CheckBox(
+				"Enable Animation (slower) (If disabled, data will be populated once calculation is complete)");
 
 		enableAnimation.setOnAction((evt) -> {
 			Settings.enableAnimation = enableAnimation.isSelected();
