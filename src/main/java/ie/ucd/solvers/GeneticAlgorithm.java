@@ -371,6 +371,7 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
                 System.out.println(randomIndex);
             }
         }
+        //375
         return orderOfBitCodes;
     }
 
