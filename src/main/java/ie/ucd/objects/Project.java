@@ -161,4 +161,8 @@ public class Project implements ProjectInterface, SearchMatchable {
 		numStudentsAssigned = 0;
 		isGivenAs1stPreference = false;
 	}
+
+	public void resetNumStudentsAssigned() {
+		numStudentsAssigned = 0;
+	}
 }

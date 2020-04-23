@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ie.ucd.ui.interfaces.VisualizerInterface;
 import ie.ucd.ui.solver.progress.CustomProgressIndicator;
@@ -44,15 +43,6 @@ public class SolverPane extends ScrollPane {
 	}
 
 	private void initLayout() {
-		// VBox vBox = new VBox();
-		// vBox.getChildren().add(new Label("Visualization"));
-		// vBox.getChildren().add(visualizer);
-		// vBox.getChildren().add(new HBox(5, new Label("Processing thread progress:"), progressIndicator));
-		// vBox.getChildren().add(controlButtons);
-		// vBox.getChildren().add(sheets);
-
-		// setContent(vBox);
-
 		GridPane gridPane = new GridPane();
 		gridPane.setPadding(new Insets(10, 10, 10, 10));
 		gridPane.setVgap(5);
@@ -124,7 +114,7 @@ public class SolverPane extends ScrollPane {
 
 	public void setDoneProcessing(boolean isDone) {
 		isDoneProcessing = isDone;
-		if (!Settings.enableAnimation) {
+		if (isDone && !Settings.enableAnimation) {
 			Platform.runLater(() -> {
 				visualizer.addLastWindowToChart();
 				sheets.addLastCandidateSolutionToSheet();

@@ -238,6 +238,7 @@ public class Student implements StudentInterface, SearchMatchable {
 		return this;
 	}
 
+	// more suited for SA then GA.
 	public Student setProjectAssigned(Project project, Integer index) {
 		if (Common.DEBUG_SHOW_PROJECT_NUM_STUDENT_ASSIGNED) {
 			System.out.println(String.format("\nstudent %s previous p %s, new p %s", System.identityHashCode(this),

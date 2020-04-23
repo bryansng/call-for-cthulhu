@@ -45,6 +45,7 @@ public class ControlButtons extends HBox {
 				step.setDisable(true);
 			} else if (!isRunning) {
 				isRunning = true;
+				solverPane.setDoneProcessing(false);
 				solverPane.resume();
 				solverPane.resetSeries();
 				solverPane.resetSheetsEvaluation();
