@@ -1,5 +1,6 @@
 package ie.ucd.ui.navigation;
 
+import ie.ucd.Common;
 import ie.ucd.MainUI;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TitledPane;
@@ -30,8 +31,10 @@ public class NavigationPane extends Accordion {
 			mainUI.showGAPane();
 		});
 
-		// saTP.setDisable(true);
-		// gaTP.setDisable(true);
+		if (!Common.IS_DEBUGGING_SOLVERS) {
+			saTP.setDisable(true);
+			gaTP.setDisable(true);
+		}
 		getPanes().addAll(setupTP, saTP, gaTP);
 	}
 
