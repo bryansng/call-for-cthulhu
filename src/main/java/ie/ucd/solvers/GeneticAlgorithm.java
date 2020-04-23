@@ -1,6 +1,7 @@
 package ie.ucd.solvers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 import ie.ucd.objects.CandidateSolution;
@@ -139,8 +140,8 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 			}
 
 			// sort and cull population.
-			BitCodeSolution[] populationAfterSorting = descendingBubbleSort(currPopulation);
-			BitCodeSolution[] populationAfterCulling = cull(populationAfterSorting);
+			sort(currPopulation);
+			BitCodeSolution[] populationAfterCulling = cull(currPopulation);
 			if (Common.DEBUG_SHOW_GA) {
 				System.out.println("Fittest solution strength: " + fittestSatisfaction);
 			}
@@ -248,7 +249,7 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 				//if satisfaction repeats minRepetitionsForPlateau times, plateau reached
 				if (satisfaction == currFittestSatisfaction)
 					plateauCounter++;
-				//if lower satisfaction found, no need to look further
+					//if lower satisfaction found, no need to look further
 				else if (satisfaction < currFittestSatisfaction)
 					break;
 			}
@@ -257,18 +258,8 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 			isPlateauReached = true;
 	}
 
-	private BitCodeSolution[] descendingBubbleSort(BitCodeSolution[] population) {
-		int n = population.length;
-		for (int i = 0; i < n - 1; i++) {
-			for (int j = 0; j < n - i - 1; j++) {
-				if (population[j].getSatisfaction() < population[j + 1].getSatisfaction()) {
-					BitCodeSolution temp = population[j];
-					population[j] = population[j + 1];
-					population[j + 1] = temp;
-				}
-			}
-		}
-		return population;
+	private void sort(BitCodeSolution[] population) {
+		Arrays.sort(population, (x, y) -> Double.compare(y.getSatisfaction(), x.getSatisfaction()));
 	}
 
 	private ArrayList<String> generateAllBitCodes(int numberOfBitCodes) {
