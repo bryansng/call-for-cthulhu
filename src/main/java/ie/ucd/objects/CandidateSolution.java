@@ -216,6 +216,8 @@ public class CandidateSolution {
 		ArrayList<Project> list = new ArrayList<Project>();
 		HashSet<Integer> usedIndex = new HashSet<Integer>();
 
+		// resetProjectsCounters();
+
 		// assuming impossible to run out of projects to give as 1st preference since projects.size() always > numOfStudents.
 		for (int i = 0; i < 10;) {
 			int randomIndex = new Random().nextInt(projects.size());

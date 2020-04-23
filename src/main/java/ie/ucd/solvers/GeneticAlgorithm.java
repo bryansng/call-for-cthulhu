@@ -125,6 +125,7 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 				}
 				uiAddToGraph(visualizer, solutionSatisfaction, bestSatisfaction, i);
 			}
+			uiAddToCurrQueueAnimate(currSheet, fittestSolution);
 
 			// look for plateau.
 			if (i >= plateauCheckFrom) {
@@ -143,7 +144,7 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 			if (Common.DEBUG_SHOW_GA) {
 				System.out.println("Fittest solution strength: " + fittestSatisfaction);
 			}
-			uiAddToCurrQueueAnimate(currSheet, fittestSolution);
+
 			// keep track of the best solution found, i.e. next highest fitness/satisfaction.
 			if (fittestSatisfaction > bestSatisfaction) {
 				bestSolution = fittestSolution;
@@ -329,8 +330,14 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 		// each following solution builds on the previous one by swapping around.
 		// any two random positions in orderOfBitCodes.
 		for (int i = 1; i < sizeOfPopulation; i++) {
+			// System.out.println("\n" + bitCodeSolution);
+
 			int[] previousOrder = orderOfBitCodes;
+			// System.out.println(String.format("previousOrder: %s, newOrder: %s", System.identityHashCode(previousOrder),
+			// System.identityHashCode(orderOfBitCodes)));
 			orderOfBitCodes = getNextOrderOfBitCodes(previousOrder);
+			// System.out.println(String.format("previousOrder: %s, newOrder: %s", System.identityHashCode(previousOrder),
+			// 		System.identityHashCode(orderOfBitCodes)));
 			bitCodeSolution = generateBitCodeSolution(allBitCodes, orderOfBitCodes);
 			bitCodeSolution = mutate(bitCodeSolution);
 			while (usedSolutions.contains(bitCodeSolution)) {
@@ -362,11 +369,11 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 		HashSet<Integer> usedNumbers = new HashSet<Integer>();
 		// generate a random arrangement pattern for bit codes in a solution
 		for (int i = 0; i < numberOfBitCodes; i++) {
-			// randomIndex = random.nextInt(numberOfBitCodes * 10) / 10;
-			randomIndex = random.nextInt(numberOfBitCodes);
+			randomIndex = random.nextInt(numberOfBitCodes * 10) / 10;
+			// randomIndex = random.nextInt(numberOfBitCodes);
 			while (usedNumbers.contains(randomIndex))
-				// randomIndex = random.nextInt(numberOfBitCodes * 10) / 10;
-				randomIndex = random.nextInt(numberOfBitCodes);
+				randomIndex = random.nextInt(numberOfBitCodes * 10) / 10;
+			// randomIndex = random.nextInt(numberOfBitCodes);
 			orderOfBitCodes[i] = randomIndex;
 			usedNumbers.add(randomIndex);
 			if (Common.DEBUG_SHOW_GA) {
