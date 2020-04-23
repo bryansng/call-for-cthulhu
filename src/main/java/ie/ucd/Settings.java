@@ -1,9 +1,7 @@
 package ie.ucd;
 
 import java.util.ArrayList;
-
 import org.apache.commons.lang3.mutable.MutableInt;
-
 import ie.ucd.objects.Student;
 import ie.ucd.io.Parser;
 import ie.ucd.objects.CandidateSolution;
@@ -13,7 +11,7 @@ public class Settings {
 	public static final boolean DEMO_SA_FAST = true;
 	public static final boolean DEMO_GA_FAST = true;
 
-	public static boolean enableAnimation = false;
+	public static boolean enableAnimation = true;
 	public static int maximumXAxisTicks = 10000; // higher = UI slower.
 	public static int pointsToRemove = maximumXAxisTicks * 20 / 100;
 
@@ -35,6 +33,11 @@ public class Settings {
 	public static double COST_PER_SOFT_VIOLATION = 0.1 / NUM_SOFT_CONSTRAINTS;
 	public static double COST_PER_HARD_VIOLATION = (TOTAL_POINTS - (NUM_SOFT_CONSTRAINTS * COST_PER_SOFT_VIOLATION))
 			/ NUM_HARD_CONSTRAINTS;
+
+	public static void prepareSetupSolution() {
+		setupSolution = new CandidateSolution(numberOfStudents, parser.getStaffMembers(), parser.getNames(), loadedProjects,
+				loadedStudents);
+	}
 
 	public static void updateNumEnabledConstraints() {
 		NUM_HARD_CONSTRAINTS = 0;

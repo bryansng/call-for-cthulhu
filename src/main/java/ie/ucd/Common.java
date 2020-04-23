@@ -20,11 +20,12 @@ public class Common {
 	public static final boolean DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE = true;
 
 	// ControlButton will change to using solvers' internal parameter configs.
-	public static final boolean IS_DEBUGGING_SOLVERS = true;
+	public static final boolean IS_DEBUGGING_SOLVERS = false;
 
 	// SA debug verbosity.
 	public static final boolean DEBUG_SHOW_SA = false;
 	public static final boolean DEBUG_SHOW_ENERGIES = false;
+	public static final boolean DEBUG_SHOW_PROJECT_NUM_STUDENT_ASSIGNED = false;
 
 	// GA debug verbosity.
 	public static final boolean DEBUG_SHOW_GA = false;

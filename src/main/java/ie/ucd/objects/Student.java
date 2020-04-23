@@ -35,6 +35,11 @@ public class Student implements StudentInterface, SearchMatchable {
 		this.gpa = gpa;
 		this.projects.add(projectAssigned);
 		this.preferenceList = preferenceList;
+		if (Common.DEBUG_SHOW_PROJECT_NUM_STUDENT_ASSIGNED) {
+			System.out.println(String.format("\nproject address: %s", System.identityHashCode(projectAssigned)));
+			System.out.println("project assigned to initialized student: " + projects.get(0).getNumStudentsAssigned() + " "
+					+ projectAssigned.getNumStudentsAssigned());
+		}
 	}
 
 	public Double calculateSatisfaction() {
@@ -234,10 +239,21 @@ public class Student implements StudentInterface, SearchMatchable {
 	}
 
 	public Student setProjectAssigned(Project project, Integer index) {
-		this.projects.get(0).decrementStudentsAssigned();
-		this.projects.get(0).decrementAs1stPreference();
-		project.incrementAs1stPreference();
-		project.incrementStudentsAssigned();
+		if (Common.DEBUG_SHOW_PROJECT_NUM_STUDENT_ASSIGNED) {
+			System.out.println(String.format("\nstudent %s previous p %s, new p %s", System.identityHashCode(this),
+					System.identityHashCode(this.projects.get(index)), System.identityHashCode(project)));
+			System.out.println(String.format("before math: previous %f, new %f",
+					this.projects.get(index).getNumStudentsAssigned(), project.getNumStudentsAssigned()));
+			// this.projects.get(index).decrementStudentsAssigned();
+			// this.projects.get(index).decrementAs1stPreference();
+			// project.incrementAs1stPreference();
+			// project.incrementStudentsAssigned();
+			System.out.println(String.format("after math: previous %f, new %f",
+					this.projects.get(index).getNumStudentsAssigned(), project.getNumStudentsAssigned()));
+			if (this.projects.get(index).getNumStudentsAssigned() == 0)
+				System.out.println(System.identityHashCode(this.projects.get(index)) + " "
+						+ this.projects.get(index).getNumStudentsAssigned());
+		}
 		this.projects.set(index, project);
 		return this;
 	}
@@ -248,7 +264,10 @@ public class Student implements StudentInterface, SearchMatchable {
 	}
 
 	public Student getCopy() {
+		if (Common.DEBUG_SHOW_PROJECT_NUM_STUDENT_ASSIGNED)
+			System.out.println("getCopy's project numStudentAssigned check: " + projects.get(0).getNumStudentsAssigned());
 		return new Student(firstName, lastName, id, stream, gpa, projects.get(0), preferenceList);
+
 		// return new Student(firstName, lastName, id, stream, gpa, projects.get(0), new ArrayList<Project>(preferenceList)); // preferenceList made a copy.
 	}
 }

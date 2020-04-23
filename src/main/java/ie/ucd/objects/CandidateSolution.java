@@ -75,6 +75,11 @@ public class CandidateSolution {
 
 		ArrayList<Student> newStudents = new ArrayList<Student>();
 		for (Student student : students) {
+			// Student newStudent = student.getCopy();
+			// newStudents.add(newStudent);
+			// System.out.println(String.format("old (%s): %s, new (%s): %s", System.identityHashCode(student),
+			// 		System.identityHashCode(student.getProject()), System.identityHashCode(newStudent),
+			// 		System.identityHashCode(newStudent.getProject())));
 			newStudents.add(student.getCopy());
 		}
 		return newStudents;
@@ -113,6 +118,7 @@ public class CandidateSolution {
 			projectSatisfaction = 0.0;
 			violationsProjectAssignedToOneStudent = 0;
 			if (Settings.enableProjectAssignedToOneStudent) {
+				resetProjectsNumStudentsAssigned();
 				for (Project project : projects) {
 					projectSatisfaction += project.calculateSatisfaction();
 					violationsProjectAssignedToOneStudent += project.isAssignmentViolation() ? 1 : 0;
@@ -175,6 +181,8 @@ public class CandidateSolution {
 		numCSStudents = 0.0;
 		totalProjectsAssigned = 0.0;
 
+		resetProjectsCounters();
+
 		for (int i = 0; i < numberOfStudents.getValue(); i++) {
 			Integer randomInt = new Random().nextInt(names.size());
 			String[] name = names.get(randomInt).split(",")[1].split(" ");
@@ -207,7 +215,6 @@ public class CandidateSolution {
 	private ArrayList<Project> generatePreferenceList(String stream, Integer randomId) {
 		ArrayList<Project> list = new ArrayList<Project>();
 		HashSet<Integer> usedIndex = new HashSet<Integer>();
-		resetProjectsCounters();
 
 		// assuming impossible to run out of projects to give as 1st preference since projects.size() always > numOfStudents.
 		for (int i = 0; i < 10;) {
@@ -235,6 +242,20 @@ public class CandidateSolution {
 	private void resetProjectsCounters() {
 		for (Project project : projects) {
 			project.resetCounters();
+		}
+	}
+
+	// only used during calculateSatisfaction.
+	public void resetProjectsNumStudentsAssigned() {
+		// resets all to zero.
+		for (Project project : projects) {
+			project.setNumStudentsAssigned(0.0);
+		}
+
+		// increment when a student has it.
+		for (Student student : students) {
+			Project projectAssigned = student.getProject();
+			projectAssigned.incrementStudentsAssigned();
 		}
 	}
 

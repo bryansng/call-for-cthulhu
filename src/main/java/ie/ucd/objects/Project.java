@@ -32,6 +32,13 @@ public class Project implements ProjectInterface, SearchMatchable {
 
 	// hard: project assigned to at most one student.
 	private Double assignmentSatisfaction() {
+		if (Common.DEBUG_SHOW_PROJECT_NUM_STUDENT_ASSIGNED) {
+			if (numStudentsAssigned < 0)
+				System.out.println("is less than zero, this is not expected. is " + numStudentsAssigned);
+			if (numStudentsAssigned > 60) {
+				System.out.println("too big is " + numStudentsAssigned);
+			}
+		}
 		if (numStudentsAssigned == 1.0 || numStudentsAssigned == 0.0) {
 			return -Common.COST_NONE_OR_MULTIPLE_PROJECTS;
 		}
@@ -70,7 +77,8 @@ public class Project implements ProjectInterface, SearchMatchable {
 	}
 
 	public void decrementAs1stPreference() {
-		numAs1stPreference -= 1.0;
+		if (numAs1stPreference > 0)
+			numAs1stPreference -= 1.0;
 	}
 
 	public void incrementStudentsAssigned() {
@@ -78,7 +86,8 @@ public class Project implements ProjectInterface, SearchMatchable {
 	}
 
 	public void decrementStudentsAssigned() {
-		numStudentsAssigned -= 1.0;
+		if (numStudentsAssigned > 0)
+			numStudentsAssigned -= 1.0;
 	}
 
 	public String toString() {

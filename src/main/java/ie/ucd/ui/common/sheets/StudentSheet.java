@@ -61,6 +61,7 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 
 	public void resetEvaluation() {
 		constraints.reset();
+		strength.reset();
 	}
 
 	public void initOneShotScheduler() {

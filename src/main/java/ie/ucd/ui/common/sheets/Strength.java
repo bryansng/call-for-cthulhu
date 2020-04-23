@@ -50,4 +50,11 @@ public class Strength extends VBox {
 		value.setText(valueText);
 		rating.setText(ratingText);
 	}
+
+	public void reset() {
+		bar.setProgress(0.0);
+		value.setText("-");
+		rating.setText("-");
+		rating.setStyle("");
+	}
 }
