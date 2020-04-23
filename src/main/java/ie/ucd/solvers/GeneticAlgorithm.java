@@ -15,427 +15,463 @@ import ie.ucd.ui.interfaces.VisualizerInterface;
 import ie.ucd.ui.solver.SolverPane;
 
 public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
-	private double mutationChance;
-	private double crossoverChance;
-	private double cullPercentage;
-	private final double cullPercentageIncrementFactor;
-	private int numberOfGenerations;
-	private int sizeOfPopulation;
+    private double mutationChance;
+    private double crossoverChance;
+    private double cullPercentage;
+    private final double cullPercentageIncrementFactor;
+    private int numberOfGenerations;
+    private int sizeOfPopulation;
 
-	private CandidateSolution startingSolution;
-	private CandidateSolution finalSolution;
-	private double finalSolutionFitness;
+    private CandidateSolution startingSolution;
+    private CandidateSolution finalSolution;
+    private double finalSolutionFitness;
 
-	private final Random random = new Random();
-	private SolverPane solverPane;
+    int plateauCheckFrom;
+    double plateauPercentage;
+    int minRepetitionsForPlateau;
+    boolean isPlateauReached;
 
-	public GeneticAlgorithm(CandidateSolution startingSolution) {
-		this(startingSolution, null);
-	}
+    private final Random random = new Random();
+    private SolverPane solverPane;
 
-	public GeneticAlgorithm(CandidateSolution startingSolution, SolverPane solverPane) {
-		this(0.05, 0.7, 100, 250, 0.25, startingSolution, solverPane);
-	}
+    public GeneticAlgorithm(CandidateSolution startingSolution) {
+        this(startingSolution, null);
+    }
 
-	public GeneticAlgorithm(double mutationChance, double crossoverChance, int numberOfGenerations, int sizeOfPopulation,
-			double cullPercentage, CandidateSolution startingSolution, SolverPane solverPane) {
-		this.mutationChance = mutationChance;
-		this.crossoverChance = crossoverChance;
-		this.numberOfGenerations = numberOfGenerations;
-		this.sizeOfPopulation = sizeOfPopulation;
-		this.cullPercentage = cullPercentage;
-		this.cullPercentageIncrementFactor = (double) Math.round(((1 - cullPercentage) / numberOfGenerations) * 1000d)
-				/ 1000d;
-		this.startingSolution = startingSolution;
-		this.solverPane = solverPane;
-		if (Common.DEBUG_SHOW_GA) {
-			System.out.println("Calculated culling increment factor = " + cullPercentageIncrementFactor);
-		}
-	}
+    public GeneticAlgorithm(CandidateSolution startingSolution, SolverPane solverPane) {
+        this(0.1, 0.5, 125,
+                150, 0.25, startingSolution, solverPane);
+    }
 
-	public void run() {
-		VisualizerInterface visualizer = solverPane.getVisualizer();
-		Sheets sheets = solverPane.getSheets();
+    public GeneticAlgorithm(double mutationChance, double crossoverChance, int numberOfGenerations, int sizeOfPopulation,
+                            double cullPercentage, CandidateSolution startingSolution, SolverPane solverPane) {
+        this.mutationChance = mutationChance;
+        this.crossoverChance = crossoverChance;
+        this.numberOfGenerations = numberOfGenerations;
+        this.sizeOfPopulation = sizeOfPopulation;
+        this.cullPercentage = cullPercentage;
+        this.cullPercentageIncrementFactor = (double) Math.
+                round(((1 - cullPercentage) / numberOfGenerations) * 1000d) / 1000d;
+        this.startingSolution = startingSolution;
+        this.solverPane = solverPane;
+        this.plateauPercentage = 0.4;
+        this.plateauCheckFrom = (int) ((1.0 - plateauPercentage) * numberOfGenerations);
+        this.minRepetitionsForPlateau = (int) (0.2 * plateauPercentage * numberOfGenerations) - 1;
+        this.isPlateauReached = false;
+        if (Common.DEBUG_SHOW_GA) {
+            System.out.println("Calculated culling increment factor = " + cullPercentageIncrementFactor);
+        }
+    }
 
-		StudentSheet currSheet = null;
-		StudentSheet bestSheet = null;
-		if (sheets != null) {
-			currSheet = sheets.getCurrentSheet();
-			bestSheet = sheets.getBestSheet();
-		}
+    public void run() {
+        VisualizerInterface visualizer = solverPane.getVisualizer();
+        Sheets sheets = solverPane.getSheets();
 
-		// keep track of solutions.
-		CandidateSolution currSolution = startingSolution;
-		CandidateSolution nextPossibleSolution = currSolution;
-		CandidateSolution fittestSolution = currSolution;
-		CandidateSolution bestSolution = currSolution;
-		uiAddToCurrQueueAnimate(currSheet, currSolution);
-		uiAddToBestQueueAnimate(bestSheet, bestSolution);
+        StudentSheet currSheet = null;
+        StudentSheet bestSheet = null;
+        if (sheets != null) {
+            currSheet = sheets.getCurrentSheet();
+            bestSheet = sheets.getBestSheet();
+        }
 
-		// keep track of satisfaction/fitness.
-		Double bestSatisfaction = currSolution.calculateGlobalSatisfaction();
+        // keep track of solutions.
+        CandidateSolution currSolution = startingSolution;
+        CandidateSolution nextPossibleSolution = currSolution;
+        CandidateSolution fittestSolution = currSolution;
+        CandidateSolution bestSolution = currSolution;
+        uiAddToCurrQueueAnimate(currSheet, currSolution);
+        uiAddToBestQueueAnimate(bestSheet, bestSolution);
 
-		// generate bit codes to represent chromosomes.
-		ArrayList<String> allBitCodes = generateAllBitCodes(currSolution.getStudents().size());
+        //keep track of plateau
+        ArrayList<CandidateSolution> possiblePlateauSolutions = new ArrayList<CandidateSolution>();
 
-		// generate population for generation 0.
-		BitCodeSolution[] currPopulation = generateInitialPopulation(allBitCodes);
-		BitCodeSolution[] nextPopulation = new BitCodeSolution[sizeOfPopulation];
+        // keep track of satisfaction/fitness.
+        Double bestSatisfaction = currSolution.calculateGlobalSatisfaction();
 
-		System.out.println("Running Genetic Algorithm (" + numberOfGenerations + " Generations):\n");
-		System.out.println("Starting satisfaction: " + bestSatisfaction);
-		//		ArrayList<Double> populationSatisfactions = new ArrayList<Double>();
-		int fittestIndex = 0;
-		double fittestSatisfaction = Double.NEGATIVE_INFINITY;
-		String fittestBitCodeSolution = "";
-		uiSignalNewGraph(visualizer);
-		for (int i = 1; i <= numberOfGenerations && threadStillRunning(); i++) {
-			if (Common.DEBUG_SHOW_GA)
-				System.out.println("Creating Generation #" + i);
+        // generate bit codes to represent chromosomes.
+        ArrayList<String> allBitCodes = generateAllBitCodes(currSolution.getStudents().size());
 
-			// calculate and store satisfaction for each bitCodeSolution in a population.
-			// at the same time, find fittest solution.
-			fittestSatisfaction = Double.NEGATIVE_INFINITY;
-			for (int j = 0; j < currPopulation.length; j++) {
-				String bitCodeSolution = currPopulation[j].getSolution();
-				nextPossibleSolution = assignProjectsFromBitCodeSolution(bitCodeSolution, startingSolution);
-				// ArrayList<Project> updatedProjects = updateProjects(projects, students.size());
-				double solutionSatisfaction = nextPossibleSolution.calculateGlobalSatisfaction();
-				if (Common.DEBUG_SHOW_GA)
-					System.out.println("solutionSatisfaction: " + solutionSatisfaction);
-				//				populationSatisfactions.add(populationSatisfaction);
-				currPopulation[j].setSatisfaction(solutionSatisfaction);
+        // generate population for generation 0.
+        BitCodeSolution[] currPopulation = generateInitialPopulation(allBitCodes);
+        BitCodeSolution[] nextPopulation = new BitCodeSolution[sizeOfPopulation];
 
-				// find fittest solution in population.
-				if (solutionSatisfaction > fittestSatisfaction) {
-					if (Common.DEBUG_SHOW_GA)
-						System.out.println(String.format("Changed fittest Satisfaction: was %f, is now %f", fittestSatisfaction,
-								solutionSatisfaction));
-					fittestIndex = j;
-					fittestSatisfaction = solutionSatisfaction;
-					fittestBitCodeSolution = bitCodeSolution;
-					fittestSolution = nextPossibleSolution;
-				}
-				uiAddToGraph(visualizer, solutionSatisfaction, bestSatisfaction, i);
-			}
-			BitCodeSolution[] populationAfterSorting = descendingBubbleSort(currPopulation);
-			//get fittest of the population after sorting
-			// fittestSatisfaction = populationAfterSorting[0].getSatisfaction();
-			// fittestBitCodeSolution = populationAfterSorting[0].getSolution();
-			// fittestSolution = assignProjectsFromBitCodeSolution(fittestBitCodeSolution, startingSolution); // dont use this, use the above already calculated nextPossibleSolution (ask bryan why in call) [because implementation is random, with the same parameters, this function will produce a different fittestSolution due to random assignment of projects to remaining unassigned students]
-			BitCodeSolution[] populationAfterCulling = cull(populationAfterSorting);
-			if (Common.DEBUG_SHOW_GA) {
-				System.out.println("Fittest solution strength: " + fittestSatisfaction);
-			}
-			uiAddToCurrQueueAnimate(currSheet, fittestSolution);
-			// keep track of the best solution found, i.e. next highest fitness/satisfaction.
-			if (fittestSatisfaction > bestSatisfaction) {
-				bestSolution = fittestSolution;
-				bestSatisfaction = fittestSatisfaction;
-				uiAddToBestQueueAnimate(bestSheet, bestSolution);
-			}
+        System.out.println("Running Genetic Algorithm (" + numberOfGenerations + " Generations):\n");
+        System.out.println("Starting satisfaction: " + bestSatisfaction);
 
-			// generate population for next generation.
-			int counter = 0;
-			while (counter < sizeOfPopulation) {
-				//				BitCodeSolution[] populationAfterSorting = descendingBubbleSort(currPopulation);
-				//				BitCodeSolution[] populationAfterCulling = cull(populationAfterSorting);
-				String[] parents = getParents(populationAfterCulling);
-				if (parents[0] == null || parents[1] == null)
-					System.out.println(parents[0] + "\n" + parents[1]);
-				String offspring = crossover(parents[0], parents[1]);
-				if (!offspring.equals("")) {
-					offspring = mutate(offspring);
-					nextPopulation[counter] = new BitCodeSolution(offspring);
-					counter++;
-				}
-			}
-			currPopulation = nextPopulation;
-			nextPopulation = new BitCodeSolution[sizeOfPopulation];
-			incrementCullPercentage();
+        double fittestSatisfaction = Double.NEGATIVE_INFINITY;
+        uiSignalNewGraph(visualizer);
 
-			threadHandleOneStepAndWaiting();
-			uiAddToProgressIndicator(solverPane, 1.0, i * 1.0, numberOfGenerations * 1.0);
-		}
-		// get best final solution from final generation.
-		finalSolutionFitness = fittestSatisfaction;
-		this.finalSolution = fittestSolution;
+        //begin generation loop
+        for (int i = 1; i <= numberOfGenerations && threadStillRunning(); i++) {
+            if (Common.DEBUG_SHOW_GA)
+                System.out.println("Creating Generation #" + i);
 
-		uiAddToCurrQueueNoAnimate(currSheet, fittestSolution);
-		uiAddToBestQueueNoAnimate(bestSheet, bestSolution);
-		uiSignalProcessingDone(solverPane);
+            // calculate and store satisfaction for each bitCodeSolution in a population.
+            // at the same time, find fittest solution.
+            fittestSatisfaction = Double.NEGATIVE_INFINITY;
+            for (int j = 0; j < currPopulation.length; j++) {
+                String bitCodeSolution = currPopulation[j].getSolution();
+                nextPossibleSolution = assignProjectsFromBitCodeSolution(bitCodeSolution, startingSolution);
+                double solutionSatisfaction = nextPossibleSolution.calculateGlobalSatisfaction();
+                if (Common.DEBUG_SHOW_GA)
+                    System.out.println("solutionSatisfaction: " + solutionSatisfaction);
+                currPopulation[j].setSatisfaction(solutionSatisfaction);
 
-		System.out.println("Genetic Algorithm simulation complete.");
-	}
+                // find fittest solution in population.
+                if (solutionSatisfaction > fittestSatisfaction) {
+                    if (Common.DEBUG_SHOW_GA)
+                        System.out.println(String.format("Changed fittest Satisfaction: was %f, is now %f",
+                                fittestSatisfaction, solutionSatisfaction));
+                    fittestSatisfaction = solutionSatisfaction;
+                    fittestSolution = nextPossibleSolution;
+                }
+                uiAddToGraph(visualizer, solutionSatisfaction, bestSatisfaction, i);
+            }
+            //look for plateau
+            if (i >= plateauCheckFrom) {
+                checkForPlateau(possiblePlateauSolutions, fittestSolution.calculateGlobalSatisfaction());
+                if (isPlateauReached) {
+                    bestSolution = fittestSolution;
+                    break;
+                } else {
+                    possiblePlateauSolutions.add(fittestSolution);
+                }
+            }
+            //sort and cull population
+            BitCodeSolution[] populationAfterSorting = descendingBubbleSort(currPopulation);
+            BitCodeSolution[] populationAfterCulling = cull(populationAfterSorting);
+            if (Common.DEBUG_SHOW_GA) {
+                System.out.println("Fittest solution strength: " + fittestSatisfaction);
+            }
+            uiAddToCurrQueueAnimate(currSheet, fittestSolution);
+            // keep track of the best solution found, i.e. next highest fitness/satisfaction.
+            if (fittestSatisfaction > bestSatisfaction) {
+                bestSolution = fittestSolution;
+                bestSatisfaction = fittestSatisfaction;
+                uiAddToBestQueueAnimate(bestSheet, bestSolution);
+            }
 
-	private String[] getParents(BitCodeSolution[] bitCodeSolutions) {
-		String[] parents = new String[2];
-		double max = 1.0, secondMax = 1.0; // arbitrary positive values.
-		int randomIndex1 = random.nextInt(bitCodeSolutions.length);
-		int randomIndex2 = random.nextInt(bitCodeSolutions.length);
-		while (randomIndex1 == randomIndex2)
-			randomIndex2 = random.nextInt(bitCodeSolutions.length);
+            // generate population for next generation.
+            int counter = 0;
+            while (counter < sizeOfPopulation) {
+                String[] parents = getParents(populationAfterCulling);
+                if (parents[0] == null || parents[1] == null)
+                    System.out.println(parents[0] + "\n" + parents[1]);
+                String offspring = crossover(parents[0], parents[1]);
+                if (!offspring.equals("")) {
+                    offspring = mutate(offspring);
+                    nextPopulation[counter] = new BitCodeSolution(offspring);
+                    counter++;
+                }
+            }
 
-		parents[0] = bitCodeSolutions[randomIndex1].getSolution();
-		parents[1] = bitCodeSolutions[randomIndex2].getSolution();
+            //prepare for next iteration
+            currPopulation = nextPopulation;
+            nextPopulation = new BitCodeSolution[sizeOfPopulation];
+            incrementCullPercentage();
 
-		return parents;
-	}
+            threadHandleOneStepAndWaiting();
+            uiAddToProgressIndicator(solverPane, 1.0, i * 1.0, numberOfGenerations * 1.0);
+        }
 
-	private BitCodeSolution[] descendingBubbleSort(BitCodeSolution[] population) {
-		int n = population.length;
-		for (int i = 0; i < n - 1; i++) {
-			for (int j = 0; j < n - i - 1; j++) {
-				if (population[j].getSatisfaction() < population[j + 1].getSatisfaction()) {
-					BitCodeSolution temp = population[j];
-					population[j] = population[j + 1];
-					population[j + 1] = temp;
-				}
-			}
-		}
-		return population;
-	}
+        // get best final solution from final generation.
+        finalSolutionFitness = fittestSatisfaction;
+        this.finalSolution = fittestSolution;
 
-	private String crossover(String parentA, String parentB) {
-		String offspring = "";
-		// use crossover probability.
-		int bound = (int) (crossoverChance * 1000);
-		int probabilityIndex = random.nextInt(1000);
+        uiAddToCurrQueueNoAnimate(currSheet, fittestSolution);
+        uiAddToBestQueueNoAnimate(bestSheet, bestSolution);
+        uiSignalProcessingDone(solverPane);
 
-		if (probabilityIndex < bound) {
-			int crossoverIndex = random.nextInt((parentA.length() - 1) * 10) / 10;
-			offspring = parentA.substring(0, crossoverIndex).concat(parentB.substring(crossoverIndex));
-		}
-		// if crossover didn't occur offspring will be a blank String.
-		return offspring;
-	}
+        System.out.println("Genetic Algorithm simulation complete.");
+    }
 
-	private String mutate(String bitCodeSolution) {
-		char[] solutionArray = bitCodeSolution.toCharArray();
-		// use mutation probability.
-		int bound = (int) (mutationChance * 1000);
-		int probabilityIndex = random.nextInt(1000);
+    private String[] getParents(BitCodeSolution[] bitCodeSolutions) {
+        //population passed is already culled so pick random parents
+        String[] parents = new String[2];
+        int randomIndex1 = random.nextInt(bitCodeSolutions.length);
+        int randomIndex2 = random.nextInt(bitCodeSolutions.length);
+        while (randomIndex1 == randomIndex2)
+            randomIndex2 = random.nextInt(bitCodeSolutions.length);
 
-		if (probabilityIndex < bound) {
-			int randomIndex = random.nextInt(bitCodeSolution.length() * 10) / 10;
-			if (solutionArray[randomIndex] == '0')
-				solutionArray[randomIndex] = '1';
-			else
-				solutionArray[randomIndex] = '0';
-		}
+        parents[0] = bitCodeSolutions[randomIndex1].getSolution();
+        parents[1] = bitCodeSolutions[randomIndex2].getSolution();
 
-		return String.valueOf(solutionArray);
-	}
+        return parents;
+    }
 
-	private BitCodeSolution[] cull(BitCodeSolution[] sortedPopulation) {
-		int sizeAfterCulling = (int) (sortedPopulation.length * (1 - cullPercentage));
-		BitCodeSolution[] culledPopulation = new BitCodeSolution[sizeAfterCulling];
-		System.arraycopy(sortedPopulation, 0, culledPopulation, 0, sizeAfterCulling);
-		return culledPopulation;
-	}
+    private String crossover(String parentA, String parentB) {
+        String offspring = "";
+        // use crossover probability.
+        int bound = (int) (crossoverChance * 1000);
+        int probabilityIndex = random.nextInt(1000);
 
-	private ArrayList<String> generateAllBitCodes(int numberOfBitCodes) {
-		String currentBitCode = get1stBitCode();
-		ArrayList<String> allBitCodes = new ArrayList<String>();
-		allBitCodes.add(currentBitCode);
-		// generate remaining bit codes.
-		for (int i = 1; i < numberOfBitCodes; i++) {
-			String nextBitCode = getNextBitCode(currentBitCode);
-			// ensure new bit code is not a duplicate of an older one.
-			while (allBitCodes.contains(nextBitCode))
-				nextBitCode = getNextBitCode(currentBitCode);
-			allBitCodes.add(nextBitCode);
-			currentBitCode = nextBitCode;
-		}
-		return allBitCodes;
-	}
+        if (probabilityIndex < bound) {
+            //mate using String.substring() method from a random point
+            int crossoverIndex = random.nextInt((parentA.length() - 5) * 10) / 10;
+            offspring = parentA.substring(0, crossoverIndex).concat(parentB.substring(crossoverIndex));
+        }
+        // if crossover didn't occur offspring will be a blank String.
+        return offspring;
+    }
 
-	private String get1stBitCode() {
-		return "0000000000";
-	}
+    private String mutate(String bitCodeSolution) {
+        char[] solutionArray = bitCodeSolution.toCharArray();
+        // use mutation probability.
+        int bound = (int) (mutationChance * 1000);
+        int probabilityIndex = random.nextInt(1000);
 
-	private String getNextBitCode(String previousBitCode) {
-		// pick random bit 0-9 to flip.
-		int randomIndex = random.nextInt(100) / 10;
+        if (probabilityIndex < bound) {
+            //flip a random bit
+            int randomIndex = random.nextInt(bitCodeSolution.length() * 10) / 10;
+            if (solutionArray[randomIndex] == '0')
+                solutionArray[randomIndex] = '1';
+            else
+                solutionArray[randomIndex] = '0';
+        }
+        return String.valueOf(solutionArray);
+    }
 
-		// char array makes replacing a bit more elegant and convenient.
-		char[] nextBitCode = previousBitCode.toCharArray();
-		char[] flipTo = new char[1];
+    private BitCodeSolution[] cull(BitCodeSolution[] sortedPopulation) {
+        int sizeAfterCulling = (int) (sortedPopulation.length * (1 - cullPercentage));
+        BitCodeSolution[] culledPopulation = new BitCodeSolution[sizeAfterCulling];
+        System.arraycopy(sortedPopulation, 0, culledPopulation, 0, sizeAfterCulling);
+        return culledPopulation;
+    }
 
-		// check what the randomly chosen bit is and flip it.
-		if (Character.compare(nextBitCode[randomIndex], '0') == 0) {
-			flipTo[0] = '1';
-			nextBitCode[randomIndex] = flipTo[0];
-		} else if (Character.compare(nextBitCode[randomIndex], '1') == 0) {
-			flipTo[0] = '0';
-			nextBitCode[randomIndex] = flipTo[0];
-		}
-		// parse char array to String and return.
-		return String.valueOf(nextBitCode);
-	}
+    private void checkForPlateau(ArrayList<CandidateSolution> plateauSolutions, double currFittestSatisfaction) {
+        int plateauCounter = 0;
+        if (!plateauSolutions.isEmpty()) {
+            //check in reverse order
+            for (int i = plateauSolutions.size() - 1; i >= 0; i--) {
+                double satisfaction = plateauSolutions.get(i).calculateGlobalSatisfaction();
+                //if satisfaction repeats minRepetitionsForPlateau times, plateau reached
+                if (satisfaction == currFittestSatisfaction)
+                    plateauCounter++;
+                    //if lower satisfaction found, no need to look further
+                else if (satisfaction < currFittestSatisfaction)
+                    break;
+            }
+        }
+        if (plateauCounter == minRepetitionsForPlateau)
+            isPlateauReached = true;
+    }
 
-	private int toDecimal(String bitCode) {
-		return Integer.parseInt(bitCode, 2);
-	}
+    private BitCodeSolution[] descendingBubbleSort(BitCodeSolution[] population) {
+        int n = population.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (population[j].getSatisfaction() < population[j + 1].getSatisfaction()) {
+                    BitCodeSolution temp = population[j];
+                    population[j] = population[j + 1];
+                    population[j + 1] = temp;
+                }
+            }
+        }
+        return population;
+    }
 
-	private BitCodeSolution[] generateInitialPopulation(ArrayList<String> allBitCodes) {
-		// create the first solution which usually has very good strength.
-		int[] orderOfBitCodes = get1stOrderOfBitCodes(allBitCodes.size());
-		String bitCodeSolution = generateBitCodeSolution(allBitCodes, orderOfBitCodes);
-		bitCodeSolution = mutate(bitCodeSolution);
+    private ArrayList<String> generateAllBitCodes(int numberOfBitCodes) {
+        String currentBitCode = get1stBitCode();
+        ArrayList<String> allBitCodes = new ArrayList<String>();
+        allBitCodes.add(currentBitCode);
+        // generate remaining bit codes.
+        for (int i = 1; i < numberOfBitCodes; i++) {
+            String nextBitCode = getNextBitCode(currentBitCode);
+            // ensure new bit code is not a duplicate of an older one.
+            while (allBitCodes.contains(nextBitCode))
+                nextBitCode = getNextBitCode(currentBitCode);
+            allBitCodes.add(nextBitCode);
+            currentBitCode = nextBitCode;
+        }
+        return allBitCodes;
+    }
 
-		// add first solution to population.
-		BitCodeSolution[] population = new BitCodeSolution[sizeOfPopulation];
-		population[0] = new BitCodeSolution(bitCodeSolution);
+    private String get1stBitCode() {
+        return "0000000000";
+    }
 
-		HashSet<String> usedSolutions = new HashSet<String>();
+    private String getNextBitCode(String previousBitCode) {
+        // pick random bit 0-9 to flip.
+        int randomIndex = random.nextInt(100) / 10;
 
-		// each following solution builds on the previous one by swapping around.
-		// any two random positions in orderOfBitCodes.
-		for (int i = 1; i < sizeOfPopulation; i++) {
-			int[] previousOrder = orderOfBitCodes;
-			orderOfBitCodes = getNextOrderOfBitCodes(previousOrder);
-			bitCodeSolution = generateBitCodeSolution(allBitCodes, orderOfBitCodes);
-			bitCodeSolution = mutate(bitCodeSolution);
-			while (usedSolutions.contains(bitCodeSolution)) {
-				orderOfBitCodes = getNextOrderOfBitCodes(orderOfBitCodes);
-				bitCodeSolution = generateBitCodeSolution(allBitCodes, orderOfBitCodes);
-				bitCodeSolution = mutate(bitCodeSolution);
-			}
-			population[i] = new BitCodeSolution(bitCodeSolution);
-			usedSolutions.add(bitCodeSolution);
-		}
+        // char array makes replacing a bit more elegant and convenient.
+        char[] nextBitCode = previousBitCode.toCharArray();
+        char[] flipTo = new char[1];
 
-		return population;
-	}
+        // check what the randomly chosen bit is and flip it.
+        if (Character.compare(nextBitCode[randomIndex], '0') == 0) {
+            flipTo[0] = '1';
+            nextBitCode[randomIndex] = flipTo[0];
+        } else if (Character.compare(nextBitCode[randomIndex], '1') == 0) {
+            flipTo[0] = '0';
+            nextBitCode[randomIndex] = flipTo[0];
+        }
+        // parse char array to String and return.
+        return String.valueOf(nextBitCode);
+    }
 
-	private String generateBitCodeSolution(ArrayList<String> allBitCodes, int[] orderOfBitCodes) {
-		String candidateSolution = "";
-		for (int index : orderOfBitCodes) {
-			candidateSolution = candidateSolution.concat(allBitCodes.get(index));
-		}
-		return candidateSolution;
-	}
+    private int toDecimal(String bitCode) {
+        return Integer.parseInt(bitCode, 2);
+    }
 
-	private int[] get1stOrderOfBitCodes(int numberOfBitCodes) {
-		int randomIndex;
-		if (Common.DEBUG_SHOW_GA) {
-			System.out.println("Generating first order");
-		}
-		int[] orderOfBitCodes = new int[numberOfBitCodes];
-		HashSet<Integer> usedNumbers = new HashSet<Integer>();
-		// generate a random arrangement pattern for bit codes in a solution
-		for (int i = 0; i < numberOfBitCodes; i++) {
-			randomIndex = random.nextInt(numberOfBitCodes * 10) / 10;
-			while (usedNumbers.contains(randomIndex))
-				randomIndex = random.nextInt(numberOfBitCodes * 10) / 10;
-			orderOfBitCodes[i] = randomIndex;
-			usedNumbers.add(randomIndex);
-			if (Common.DEBUG_SHOW_GA) {
-				System.out.println(randomIndex);
-			}
-		}
-		return orderOfBitCodes;
-	}
+    private BitCodeSolution[] generateInitialPopulation(ArrayList<String> allBitCodes) {
+        // create the first solution which usually has very good strength.
+        int[] orderOfBitCodes = get1stOrderOfBitCodes(allBitCodes.size());
+        String bitCodeSolution = generateBitCodeSolution(allBitCodes, orderOfBitCodes);
+        bitCodeSolution = mutate(bitCodeSolution);
 
-	private int[] getNextOrderOfBitCodes(int[] previousOrderOfBitCodes) {
-		int randomIndex = random.nextInt(previousOrderOfBitCodes.length - 1);
-		// swap number at randomIndex with the next one
-		int temp = previousOrderOfBitCodes[randomIndex];
-		previousOrderOfBitCodes[randomIndex] = previousOrderOfBitCodes[randomIndex + 1];
-		previousOrderOfBitCodes[randomIndex + 1] = temp;
-		return previousOrderOfBitCodes;
-	}
+        // add first solution to population.
+        BitCodeSolution[] population = new BitCodeSolution[sizeOfPopulation];
+        population[0] = new BitCodeSolution(bitCodeSolution);
 
-	// assign projects to students, based on the solution.
-	private CandidateSolution assignProjectsFromBitCodeSolution(String bitCodeSolution, CandidateSolution currSolution) {
-		CandidateSolution newSolution = new CandidateSolution(currSolution);
-		ArrayList<Student> students = newSolution.getStudents();
-		ArrayList<Project> projects = newSolution.getProjects();
+        HashSet<String> usedSolutions = new HashSet<String>();
 
-		int[] studentRankings = getRanking(bitCodeSolution, students.size());
-		ArrayList<Student> assignedStudents = new ArrayList<Student>();
-		ArrayList<Student> unassignedStudents = new ArrayList<Student>();
-		HashSet<Project> usedProjects = new HashSet<Project>();
-		//		HashSet<String> usedRA = new HashSet<String>();
+        // each following solution builds on the previous one by swapping around.
+        // any two random positions in orderOfBitCodes.
+        for (int i = 1; i < sizeOfPopulation; i++) {
+            int[] previousOrder = orderOfBitCodes;
+            orderOfBitCodes = getNextOrderOfBitCodes(previousOrder);
+            bitCodeSolution = generateBitCodeSolution(allBitCodes, orderOfBitCodes);
+            bitCodeSolution = mutate(bitCodeSolution);
+            while (usedSolutions.contains(bitCodeSolution)) {
+                orderOfBitCodes = getNextOrderOfBitCodes(previousOrder);
+                bitCodeSolution = generateBitCodeSolution(allBitCodes, orderOfBitCodes);
+                bitCodeSolution = mutate(bitCodeSolution);
+            }
+            population[i] = new BitCodeSolution(bitCodeSolution);
+            usedSolutions.add(bitCodeSolution);
+        }
 
-		// assign projects to students.
-		for (int rank = 1; rank <= students.size(); rank++) {
-			for (int j = 0; j < studentRankings.length; j++) {
-				if (rank == studentRankings[j]) {
-					Student currentStudent = students.get(j);
-					ArrayList<Project> currentPrefList = currentStudent.getPreferenceList();
-					boolean isAssigned = false;
-					for (Project project : currentPrefList) {
-						if (usedProjects.contains(project))
-							continue;
-						project.resetNumStudentsAssigned();
-						currentStudent.setProjectAssignedNoExtra(project, 0);
-						project.reassigned();
-						usedProjects.add(project);
-						isAssigned = true;
-						break;
-					}
-					if (isAssigned)
-						assignedStudents.add(currentStudent);
-					else
-						unassignedStudents.add(currentStudent);
-				}
-			}
-		}
+        return population;
+    }
 
-		// assign projects to remaining unassigned students.
-		for (Student student : unassignedStudents) {
-			Project randomProject = projects.get(random.nextInt(projects.size()));
-			while (usedProjects.contains(randomProject)) {
-				randomProject = projects.get(random.nextInt(projects.size()));
-			}
-			randomProject.resetNumStudentsAssigned();
-			student.setProjectAssignedNoExtra(randomProject, 0);
-			randomProject.reassigned();
-			usedProjects.add(randomProject);
-			assignedStudents.add(student);
-		}
-		newSolution = new CandidateSolution(assignedStudents.size(), currSolution.getStaffMembers(),
-				currSolution.getNames(), projects, students);
-		newSolution.calculateProjectSatisfactionAndUpdateProjectViolation();
-		return newSolution;
-	}
+    private String generateBitCodeSolution(ArrayList<String> allBitCodes, int[] orderOfBitCodes) {
+        String candidateSolution = "";
+        for (int index : orderOfBitCodes) {
+            candidateSolution = candidateSolution.concat(allBitCodes.get(index));
+        }
+        return candidateSolution;
+    }
 
-	private int[] getRanking(String bitCodeSolution, int numberOfBitCodes) {
-		int low = 0, high = 10, offset = high - low;
-		int[] solutionInDecimal = new int[numberOfBitCodes];
+    private int[] get1stOrderOfBitCodes(int numberOfBitCodes) {
+        int randomIndex;
+        if (Common.DEBUG_SHOW_GA) {
+            System.out.println("Generating first order");
+        }
+        int[] orderOfBitCodes = new int[numberOfBitCodes];
+        HashSet<Integer> usedNumbers = new HashSet<Integer>();
+        // generate a random arrangement pattern for bit codes in a solution
+        for (int i = 0; i < numberOfBitCodes; i++) {
+            randomIndex = random.nextInt(numberOfBitCodes * 10) / 10;
+            while (usedNumbers.contains(randomIndex))
+                randomIndex = random.nextInt(numberOfBitCodes * 10) / 10;
+            orderOfBitCodes[i] = randomIndex;
+            usedNumbers.add(randomIndex);
+            if (Common.DEBUG_SHOW_GA) {
+                System.out.println(randomIndex);
+            }
+        }
+        return orderOfBitCodes;
+    }
 
-		for (int i = 0; i < numberOfBitCodes; i++) {
-			solutionInDecimal[i] = toDecimal(bitCodeSolution.substring(low, high));
-			low += offset;
-			high += offset;
-		}
+    private int[] getNextOrderOfBitCodes(int[] previousOrderOfBitCodes) {
+        int randomIndex = random.nextInt(previousOrderOfBitCodes.length - 1);
+        // swap number at randomIndex with the next one
+        int temp = previousOrderOfBitCodes[randomIndex];
+        previousOrderOfBitCodes[randomIndex] = previousOrderOfBitCodes[randomIndex + 1];
+        previousOrderOfBitCodes[randomIndex + 1] = temp;
+        return previousOrderOfBitCodes;
+    }
 
-		int[] ranking = new int[numberOfBitCodes];
-		for (int i = 0; i < solutionInDecimal.length; i++) {
-			int count = 0;
-			for (int value : solutionInDecimal) {
-				if (value > solutionInDecimal[i]) {
-					count++;
-				}
-			}
-			ranking[i] = count + 1;
-		}
-		return ranking;
-	}
+    // assign projects to students, based on the solution.
+    private CandidateSolution assignProjectsFromBitCodeSolution(String bitCodeSolution, CandidateSolution currSolution) {
+        CandidateSolution newSolution = new CandidateSolution(currSolution);
+        ArrayList<Student> students = newSolution.getStudents();
+        ArrayList<Project> projects = newSolution.getProjects();
 
-	private void incrementCullPercentage() {
-		cullPercentage += cullPercentageIncrementFactor;
-		if (cullPercentage > 0.97)
-			cullPercentage = 0.97; // limit probability
-	}
+        int[] studentRankings = getRanking(bitCodeSolution, students.size());
+        ArrayList<Student> assignedStudents = new ArrayList<Student>();
+        ArrayList<Student> unassignedStudents = new ArrayList<Student>();
+        HashSet<Project> usedProjects = new HashSet<Project>();
+        //		HashSet<String> usedRA = new HashSet<String>();
 
-	public CandidateSolution getBestSolution() {
-		return finalSolution;
-	}
+        // assign projects to students.
+        for (int rank = 1; rank <= students.size(); rank++) {
+            for (int j = 0; j < studentRankings.length; j++) {
+                if (rank == studentRankings[j]) {
+                    Student currentStudent = students.get(j);
+                    ArrayList<Project> currentPrefList = currentStudent.getPreferenceList();
+                    boolean isAssigned = false;
+                    for (Project project : currentPrefList) {
+                        if (usedProjects.contains(project))
+                            continue;
+                        project.resetNumStudentsAssigned();
+                        currentStudent.setProjectAssignedNoExtra(project, 0);
+                        project.reassigned();
+                        usedProjects.add(project);
+                        isAssigned = true;
+                        break;
+                    }
+                    if (isAssigned)
+                        assignedStudents.add(currentStudent);
+                    else
+                        unassignedStudents.add(currentStudent);
+                }
+            }
+        }
 
-	public double getFinalSolutionFitness() {
-		return finalSolutionFitness;
-	}
+        // assign projects to remaining unassigned students.
+        for (Student student : unassignedStudents) {
+            Project randomProject = projects.get(random.nextInt(projects.size()));
+            while (usedProjects.contains(randomProject)) {
+                randomProject = projects.get(random.nextInt(projects.size()));
+            }
+            randomProject.resetNumStudentsAssigned();
+            student.setProjectAssignedNoExtra(randomProject, 0);
+            randomProject.reassigned();
+            usedProjects.add(randomProject);
+            assignedStudents.add(student);
+        }
+//		newSolution = new CandidateSolution(assignedStudents.size(), currSolution.getStaffMembers(),
+//				currSolution.getNames(), projects, students);
+        newSolution.calculateProjectSatisfactionAndUpdateProjectViolation();
+        return newSolution;
+    }
+
+    private int[] getRanking(String bitCodeSolution, int numberOfBitCodes) {
+        int low = 0, high = 10, offset = high - low;
+        int[] solutionInDecimal = new int[numberOfBitCodes];
+
+        for (int i = 0; i < numberOfBitCodes; i++) {
+            solutionInDecimal[i] = toDecimal(bitCodeSolution.substring(low, high));
+            low += offset;
+            high += offset;
+        }
+
+        int[] ranking = new int[numberOfBitCodes];
+        for (int i = 0; i < solutionInDecimal.length; i++) {
+            int count = 0;
+            for (int value : solutionInDecimal) {
+                if (value > solutionInDecimal[i]) {
+                    count++;
+                }
+            }
+            ranking[i] = count + 1;
+        }
+        return ranking;
+    }
+
+    private void incrementCullPercentage() {
+        cullPercentage += cullPercentageIncrementFactor;
+        if (cullPercentage > 0.97)
+            cullPercentage = 0.97; // limit probability
+    }
+
+    public CandidateSolution getBestSolution() {
+        return finalSolution;
+    }
+
+    public double getFinalSolutionFitness() {
+        return finalSolutionFitness;
+    }
 }
