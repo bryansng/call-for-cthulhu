@@ -160,8 +160,8 @@ public class ControlButtons extends HBox {
 					solver = new GeneticAlgorithm(startingSolution, solverPane);
 				} else {
 					solver = new GeneticAlgorithm(Settings.gaMutationChance, Settings.gaCrossoverChance,
-							Settings.gaNumberOfGeneration, Settings.gaPopulationSize, Settings.gaPickFittestParentsChance,
-							Settings.setupSolution, solverPane);
+							Settings.gaNumberOfGeneration, Settings.gaPopulationSize, Settings.gaCullChance, Settings.setupSolution,
+							solverPane);
 				}
 				break;
 			case SimulatedAnnealing:

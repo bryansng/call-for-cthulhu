@@ -18,7 +18,7 @@ public class GeneticAlgorithmTP extends TitledPane {
 	private TextField populationSize;
 	private Slider crossoverChance;
 	private Slider mutationChance;
-	private Slider pickFittestParentsChance;
+	private Slider cullChance;
 	private Label numberOfGenerationWarning;
 	private Label populationSizeWarning;
 
@@ -35,7 +35,7 @@ public class GeneticAlgorithmTP extends TitledPane {
 	private Node initContent() {
 		VBox container = new VBox(5);
 		container.getChildren().addAll(initNumberOfGeneration(), initPopulationSize(), initCrossoverChance(),
-				initMutationChance(), initPickFittestParentsChance());
+				initMutationChance());
 		container.getChildren().add(0, initDefaultConfigButton());
 		return container;
 	}
@@ -49,13 +49,13 @@ public class GeneticAlgorithmTP extends TitledPane {
 			populationSize.setText(Settings.GA_DEFAULT_POPULATION_SIZE.toString());
 			crossoverChance.setValue(Settings.GA_DEFAULT_CROSSOVER_CHANCE);
 			mutationChance.setValue(Settings.GA_DEFAULT_MUTATION_CHANCE);
-			pickFittestParentsChance.setValue(Settings.GA_DEFAULT_PICK_FITTEST_PARENTS_CHANCE);
+			// cullChance.setValue(Settings.GA_DEFAULT_CULL_CHANCE);
 
 			Settings.gaNumberOfGeneration = Settings.GA_DEFAULT_NUMBER_OF_GENERATION;
 			Settings.gaPopulationSize = Settings.GA_DEFAULT_POPULATION_SIZE;
 			Settings.gaCrossoverChance = Settings.GA_DEFAULT_CROSSOVER_CHANCE;
 			Settings.gaMutationChance = Settings.GA_DEFAULT_MUTATION_CHANCE;
-			Settings.gaPickFittestParentsChance = Settings.GA_DEFAULT_PICK_FITTEST_PARENTS_CHANCE;
+			// Settings.gaCullChance = Settings.GA_DEFAULT_CULL_CHANCE;
 
 			numberOfGenerationWarning.setText("");
 			populationSizeWarning.setText("");
@@ -82,7 +82,7 @@ public class GeneticAlgorithmTP extends TitledPane {
 			}
 			if (Common.DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE)
 				System.out.println(String.format("%d %d %f %f %f", Settings.gaNumberOfGeneration, Settings.gaPopulationSize,
-						Settings.gaCrossoverChance, Settings.gaMutationChance, Settings.gaPickFittestParentsChance));
+						Settings.gaCrossoverChance, Settings.gaMutationChance, Settings.gaCullChance));
 		});
 		return new VBox(new VBox(2.5, new Label("Number of generation"), numberOfGeneration), numberOfGenerationWarning);
 	}
@@ -106,7 +106,7 @@ public class GeneticAlgorithmTP extends TitledPane {
 			}
 			if (Common.DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE)
 				System.out.println(String.format("%d %d %f %f %f", Settings.gaNumberOfGeneration, Settings.gaPopulationSize,
-						Settings.gaCrossoverChance, Settings.gaMutationChance, Settings.gaPickFittestParentsChance));
+						Settings.gaCrossoverChance, Settings.gaMutationChance, Settings.gaCullChance));
 		});
 		return new VBox(new VBox(2.5, new Label("Population size"), populationSize), populationSizeWarning);
 	}
@@ -120,7 +120,7 @@ public class GeneticAlgorithmTP extends TitledPane {
 				Settings.gaCrossoverChance = newValue.doubleValue();
 				if (Common.DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE)
 					System.out.println(String.format("%d %d %f %f %f", Settings.gaNumberOfGeneration, Settings.gaPopulationSize,
-							Settings.gaCrossoverChance, Settings.gaMutationChance, Settings.gaPickFittestParentsChance));
+							Settings.gaCrossoverChance, Settings.gaMutationChance, Settings.gaCullChance));
 			}
 		});
 		return new VBox(2.5, new Label("Cross-over chance"), new HBox(3, crossoverChance, textValue));
@@ -135,24 +135,24 @@ public class GeneticAlgorithmTP extends TitledPane {
 				Settings.gaMutationChance = newValue.doubleValue();
 				if (Common.DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE)
 					System.out.println(String.format("%d %d %f %f %f", Settings.gaNumberOfGeneration, Settings.gaPopulationSize,
-							Settings.gaCrossoverChance, Settings.gaMutationChance, Settings.gaPickFittestParentsChance));
+							Settings.gaCrossoverChance, Settings.gaMutationChance, Settings.gaCullChance));
 			}
 		});
 		return new VBox(2.5, new Label("Mutation chance"), new HBox(3, mutationChance, textValue));
 	}
 
-	private Node initPickFittestParentsChance() {
-		Label textValue = new Label(String.format("%.4f", Settings.gaPickFittestParentsChance));
-		pickFittestParentsChance = new Slider(0.0, 1.0, Settings.gaPickFittestParentsChance);
-		pickFittestParentsChance.valueProperty().addListener(new ChangeListener<Number>() {
+	private Node initCullChance() {
+		Label textValue = new Label(String.format("%.4f", Settings.gaCullChance));
+		cullChance = new Slider(0.0, 1.0, Settings.gaCullChance);
+		cullChance.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov, Number oldValue, Number newValue) {
 				textValue.setText(String.format("%.4f", newValue));
-				Settings.gaPickFittestParentsChance = newValue.doubleValue();
+				Settings.gaCullChance = newValue.doubleValue();
 				if (Common.DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE)
 					System.out.println(String.format("%d %d %f %f %f", Settings.gaNumberOfGeneration, Settings.gaPopulationSize,
-							Settings.gaCrossoverChance, Settings.gaMutationChance, Settings.gaPickFittestParentsChance));
+							Settings.gaCrossoverChance, Settings.gaMutationChance, Settings.gaCullChance));
 			}
 		});
-		return new VBox(2.5, new Label("Pick fittest parents chance"), new HBox(3, pickFittestParentsChance, textValue));
+		return new VBox(2.5, new Label("Pick fittest parents chance"), new HBox(3, cullChance, textValue));
 	}
 }
