@@ -100,4 +100,10 @@ public class Settings {
 	public static Double gaCullChance = GA_DEFAULT_CULL_CHANCE;
 
 	// ! consider adding SA cooling type, linear or exponential.
+
+	public static enum Theme {
+		ORIGINAL, DARK
+	}
+
+	public static boolean enableDarkTheme = false;
 }

@@ -21,7 +21,9 @@ public class Sheets extends VBox {
 	}
 
 	public void initLayout(Stage stage) {
-		getChildren().add(new Label("Solutions"));
+		Label solutionsLabel = new Label("Solutions");
+		solutionsLabel.getStyleClass().add("main-label");
+		getChildren().add(solutionsLabel);
 
 		currSheet = new StudentSheet(stage, false, true, true, null);
 		bestSheet = new StudentSheet(stage, false, true, true, null);

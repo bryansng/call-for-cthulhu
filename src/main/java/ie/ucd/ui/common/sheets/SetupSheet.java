@@ -44,7 +44,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 	}
 
 	private void initLayout(Stage stage) {
-		VBox vBox = new VBox(5);
+		VBox vBox = new VBox();
 
 		VBox buffer = new VBox();
 		buffer.getChildren().addAll(new Label("---"), new Label("or"), new Label("---"));
@@ -58,6 +58,9 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 
 	private Node initLoadButton(Stage stage) {
 		VBox vBox = new VBox();
+
+		Label loadLabel = new Label("Load " + sheetTypeName);
+		loadLabel.getStyleClass().add("sub-label");
 
 		TextField filePath = new TextField(System.getProperty("user.dir"));
 		filePath.setFocusTraversable(false);
@@ -73,9 +76,9 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 		});
 		hBox.getChildren().addAll(filePath, loadButton);
 		hBox.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
-		hBox.getStylesheets().add("ui/solver/fileLoader.css");
+		hBox.getStylesheets().add("ui/fileLoader.css");
 		hBox.getStyleClass().add("file-loader-container");
-		vBox.getChildren().addAll(new Label("Load " + sheetTypeName), hBox);
+		vBox.getChildren().addAll(loadLabel, hBox);
 
 		return vBox;
 	}

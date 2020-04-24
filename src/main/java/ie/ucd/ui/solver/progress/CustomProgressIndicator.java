@@ -7,15 +7,15 @@ import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 import javafx.application.Platform;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 
 public class CustomProgressIndicator extends StackPane {
 	private Deque<Progress> progressDeque;
 
 	private ProgressBar bar;
-	private Text percentage;
+	private Label percentage;
 	private String percentageSuffix = "%";
 	private DecimalFormat df;
 
@@ -32,7 +32,7 @@ public class CustomProgressIndicator extends StackPane {
 		bar = new ProgressBar(0.0);
 		bar.setPrefWidth(this.getPrefWidth());
 
-		percentage = new Text(0.0 + percentageSuffix);
+		percentage = new Label(0.0 + percentageSuffix);
 		getChildren().addAll(bar, percentage);
 	}
 

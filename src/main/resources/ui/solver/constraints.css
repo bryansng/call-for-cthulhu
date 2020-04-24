@@ -13,7 +13,7 @@
 }
 
 .check-box:disabled {
-	-fx-text-fill: black;
+	/* -fx-text-fill: inherit; */
 }
 
 .check-box:disabled>.box {
@@ -30,7 +30,7 @@
 
 .check-box:selected {
 	/* -fx-background-color: #28a745b6; */
-	-fx-text-fill: black;
+	/* -fx-text-fill: inherit; */
 	/* -fx-font-weight: bold; */
 	-fx-opacity: 1;
 }
@@ -41,7 +41,9 @@
 
 .check-box {
 	/* -fx-background-color: #dc3546b6; */
-	-fx-text-fill: black;
+	/* -fx-text-fill: inherit; */
 	/* -fx-font-weight: bold; */
 	-fx-opacity: 1;
+	-fx-alignment: top-left;
+	-fx-text-alignment: left;
 }

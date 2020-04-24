@@ -1,0 +1,31 @@
+.button {
+	-fx-background-color: #287BDE;
+	-fx-text-fill: white;
+	/* -fx-background-radius: 0; */
+}
+
+.label {
+	-fx-wrap-text: true;
+}
+
+.setup-pane {
+	-fx-padding: 20;
+	-fx-spacing: 50;
+}
+
+.solver-pane {
+	-fx-padding: 20;
+	-fx-spacing: 50;
+}
+
+.main-label {
+	-fx-font-size: 1.6em;
+	-fx-font-weight: bold;
+}
+
+.sub-label {
+	-fx-font-size: 1.2em;
+	-fx-font-weight: bold;
+}
+
+.warning-label {}

@@ -32,9 +32,13 @@ public class HardConstraints extends VBox {
 		projectAssignedToOneStudentText = "Each project is assigned to at most one student.";
 
 		studentAssignedPreferredProject = new CheckBox(studentAssignedPreferredProjectText);
+		studentAssignedPreferredProject.setWrapText(true);
 		sameStream = new CheckBox(sameStreamText);
+		sameStream.setWrapText(true);
 		studentAssignedOneProject = new CheckBox(studentAssignedOneProjectText);
+		studentAssignedOneProject.setWrapText(true);
 		projectAssignedToOneStudent = new CheckBox(projectAssignedToOneStudentText);
+		projectAssignedToOneStudent.setWrapText(true);
 
 		if (!enableToggle) {
 			studentAssignedPreferredProject.setDisable(true);

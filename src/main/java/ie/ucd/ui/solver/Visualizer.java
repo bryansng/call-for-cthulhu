@@ -121,7 +121,12 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 	}
 
 	public void initOneShotScheduler() {
-		addDataToChart();
+		if (solverType == SolverType.GeneticAlgorithm) {
+			for (int i = 0; i < Settings.gaPopulationSize; i++)
+				addDataToChart();
+		} else {
+			addDataToChart();
+		}
 	}
 
 	public boolean isDequeEmpty() {

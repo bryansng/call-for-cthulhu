@@ -44,7 +44,9 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 	private void initSolutionQualityLayout() {
 		VBox vBox = new VBox();
 
-		vBox.getChildren().add(new Label("Quality"));
+		Label qualityLabel = new Label("Quality");
+		qualityLabel.getStyleClass().add("main-label");
+		vBox.getChildren().add(qualityLabel);
 
 		strength = new Strength();
 		vBox.getChildren().add(strength);

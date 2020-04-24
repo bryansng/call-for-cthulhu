@@ -9,7 +9,7 @@
 
 .chart-legend {
 	-fx-background-color: transparent;
-	-fx-translate-x: -145;
+	-fx-translate-x: -205;
 	-fx-translate-y: -325;
 	-fx-font-family: 'consolas', 'monospaced';
 }

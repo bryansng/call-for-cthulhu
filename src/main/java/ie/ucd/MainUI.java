@@ -1,13 +1,17 @@
 package ie.ucd;
 
 import ie.ucd.Common.SolverType;
+import ie.ucd.Settings.Theme;
 import ie.ucd.ui.navigation.NavigationPane;
 import ie.ucd.ui.setup.SetupPane;
 import ie.ucd.ui.solver.SolverPane;
-import javafx.scene.layout.BorderPane;
+import javafx.geometry.Pos;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class MainUI extends BorderPane {
+public class MainUI extends GridPane {
+	private HBox mainContainer;
 	private NavigationPane navPane;
 	private SetupPane setupPane;
 	private SolverPane saPane;
@@ -19,27 +23,45 @@ public class MainUI extends BorderPane {
 	}
 
 	public void initLayout(Stage stage) {
+		mainContainer = new HBox();
+
 		setupPane = new SetupPane(stage, this);
 		saPane = new SolverPane(stage, SolverType.SimulatedAnnealing);
 		gaPane = new SolverPane(stage, SolverType.GeneticAlgorithm);
 
 		navPane = new NavigationPane(this);
 
-		getStylesheets().add("ui/solver/constraints.css");
-		setLeft(navPane);
-		showSetupPane();
+		if (Settings.enableDarkTheme)
+			handleThemes(Theme.DARK);
+		else
+			handleThemes(Theme.ORIGINAL);
+
+		mainContainer.getChildren().addAll(navPane, setupPane);
+		add(mainContainer, 0, 0);
+		setAlignment(Pos.CENTER);
+	}
+
+	public void handleThemes(Theme theme) {
+		switch (theme) {
+			case DARK:
+				getStylesheets().setAll("ui/solver/constraints.css", "ui/common.css", "ui/modena_dark.css");
+				break;
+			default:
+				getStylesheets().setAll("ui/solver/constraints.css", "ui/common.css");
+				break;
+		}
 	}
 
 	public void showSetupPane() {
-		setRight(setupPane);
+		mainContainer.getChildren().set(1, setupPane);
 	}
 
 	public void showSAPane() {
-		setRight(saPane);
+		mainContainer.getChildren().set(1, saPane);
 	}
 
 	public void showGAPane() {
-		setRight(gaPane);
+		mainContainer.getChildren().set(1, gaPane);
 	}
 
 	public void setEnableNavigateSolvers(boolean value) {

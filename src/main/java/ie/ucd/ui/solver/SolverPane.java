@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import ie.ucd.ui.interfaces.VisualizerInterface;
 import ie.ucd.ui.solver.progress.CustomProgressIndicator;
@@ -14,8 +15,6 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.util.Duration;
 
 /**
@@ -43,19 +42,18 @@ public class SolverPane extends ScrollPane {
 	}
 
 	private void initLayout() {
-		GridPane gridPane = new GridPane();
-		gridPane.setPadding(new Insets(10, 10, 10, 10));
-		gridPane.setVgap(5);
-		gridPane.setHgap(5);
-		gridPane.setAlignment(Pos.CENTER);
+		VBox container = new VBox();
+		container.getStyleClass().add("solver-pane");
 
-		gridPane.add(new Label("Visualization"), 0, 0);
-		gridPane.add(visualizer, 0, 1);
-		gridPane.add(new HBox(5, new Label("Processing thread progress:"), progressIndicator), 0, 2);
-		gridPane.add(controlButtons, 0, 3);
-		gridPane.add(sheets, 0, 4);
+		Label visualizerLabel = new Label("Visualization");
+		visualizerLabel.getStyleClass().add("main-label");
 
-		setContent(gridPane);
+		container.getChildren().add(visualizerLabel);
+		container.getChildren().add(visualizer);
+		container.getChildren().add(new HBox(5, new Label("Processing thread progress:"), progressIndicator));
+		container.getChildren().add(controlButtons);
+		container.getChildren().add(sheets);
+		setContent(container);
 	}
 
 	private void initUpdateUIScheduler() {

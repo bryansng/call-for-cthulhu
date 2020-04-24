@@ -26,7 +26,9 @@ public class SoftConstraints extends VBox {
 		higherGPAHigherPreferencesText = "Students with higher GPAs tend to get higher preferences than those with lower GPAs, or higher GPA means a greater chance of getting one's preferred projects.";
 
 		equallyDistributedAcrossSupervisors = new CheckBox(equallyDistributedAcrossSupervisorsText);
+		equallyDistributedAcrossSupervisors.setWrapText(true);
 		higherGPAHigherPreferences = new CheckBox(higherGPAHigherPreferencesText);
+		higherGPAHigherPreferences.setWrapText(true);
 
 		if (!enableToggle) {
 			equallyDistributedAcrossSupervisors.setDisable(true);

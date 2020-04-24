@@ -3,6 +3,7 @@ package ie.ucd.ui.setup;
 import ie.ucd.Common;
 import ie.ucd.MainUI;
 import ie.ucd.Settings;
+import ie.ucd.Settings.Theme;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.Student;
 import ie.ucd.ui.common.constraints.Constraints;
@@ -11,12 +12,15 @@ import ie.ucd.ui.common.sheets.SetupSheet;
 import ie.ucd.ui.common.sheets.StudentSheet;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -36,22 +40,41 @@ public class SetupPane extends ScrollPane {
 	}
 
 	public void initLayout(Stage stage) {
-		VBox vBox = new VBox();
+		VBox allParts = new VBox();
+		allParts.getStyleClass().add("setup-pane");
+
 		Label labelSettings = new Label("1. Settings");
+		labelSettings.getStyleClass().add("main-label");
+
 		Label sublabelOthers = new Label("Others");
+		sublabelOthers.getStyleClass().add("sub-label");
+
 		Label labelProjects = new Label("2. Load/Generate Projects");
+		labelProjects.getStyleClass().add("main-label");
+
 		Label labelStudents = new Label("3. Load/Generate Students");
+		labelStudents.getStyleClass().add("main-label");
+
 		constraints = new Constraints(true, true);
 		projectSheet = new ProjectSheet(stage, true, true, this);
 		studentSheet = new StudentSheet(stage, true, true, false, this);
 		studentSheet.setDisable(true);
-		vBox.getChildren().addAll(labelSettings, initNumStudents(), constraints, sublabelOthers, initImportanceOfGPA(),
-				initEnableAnimation(), labelProjects, projectSheet, labelStudents, studentSheet);
-		setContent(vBox);
+
+		VBox part1 = new VBox(labelSettings, initDarkTheme(), initNumStudents(), constraints, sublabelOthers,
+				initImportanceOfGPA(), initEnableAnimation());
+
+		VBox part2 = new VBox(labelProjects, projectSheet);
+
+		VBox part3 = new VBox(labelStudents, studentSheet);
+
+		allParts.getChildren().addAll(part1, part2, part3);
+		setContent(allParts);
 	}
 
 	private Node initNumStudents() {
 		Label numStudentsWarning = new Label();
+		numStudentsWarning.getStyleClass().add("warning-label");
+
 		numStudents = new TextField(Settings.numberOfStudents.toString());
 		numStudents.setOnKeyReleased((evt) -> {
 			String newConfig = numStudents.getText();
@@ -86,6 +109,26 @@ public class SetupPane extends ScrollPane {
 			}
 		});
 		return new VBox(2.5, new Label("Importance of GPA"), new HBox(3, importanceOfGPA, textValue));
+	}
+
+	private Node initDarkTheme() {
+		CheckBox enableDarkTheme = new CheckBox("Enable Dark Theme");
+
+		enableDarkTheme.setOnAction((evt) -> {
+			Settings.enableDarkTheme = enableDarkTheme.isSelected();
+
+			if (Settings.enableDarkTheme) {
+				mainUI.handleThemes(Theme.DARK);
+			} else {
+				mainUI.handleThemes(Theme.ORIGINAL);
+			}
+
+			if (Common.DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE)
+				System.out.println(String.format("%b", Settings.enableDarkTheme));
+		});
+
+		enableDarkTheme.setSelected(Settings.enableDarkTheme);
+		return enableDarkTheme;
 	}
 
 	private Node initEnableAnimation() {
