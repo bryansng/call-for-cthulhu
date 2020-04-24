@@ -31,7 +31,6 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 	int plateauCheckFrom;
 	int minRepetitionsForPlateau;
 
-
 	private final Random random = new Random();
 	private SolverPane solverPane;
 
@@ -129,10 +128,11 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 			}
 			uiAddToCurrQueueAnimate(currSheet, fittestSolution);
 
-
 			// sort and cull population.
 			sort(currPopulation);
-			System.out.println("worst: " + currPopulation[sizeOfPopulation - 1].getSatisfaction());
+			if (Common.DEBUG_SHOW_GA) {
+				System.out.println("worst: " + currPopulation[sizeOfPopulation - 1].getSatisfaction());
+			}
 			BitCodeSolution[] populationAfterCulling = cull(currPopulation);
 			if (Common.DEBUG_SHOW_GA) {
 				System.out.println("Fittest solution strength: " + fittestSatisfaction);
@@ -163,7 +163,9 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 
 			threadHandleOneStepAndWaiting();
 			uiAddToProgressIndicator(solverPane, 1.0, i * 1.0, numberOfGenerations * 1.0);
-			System.out.println(i + "  " + fittestSatisfaction + "  " + bestSatisfaction);
+			if (Common.DEBUG_SHOW_GA) {
+				System.out.println(i + "  " + fittestSatisfaction + "  " + bestSatisfaction);
+			}
 		}
 
 		// get best final solution
@@ -174,7 +176,7 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 		uiAddToBestQueueNoAnimate(bestSheet, bestSolution);
 		uiSignalProcessingDone(solverPane);
 
-		System.out.println("Genetic Algorithm simulation complete." + finalSolutionFitness);
+		System.out.println("Genetic Algorithm simulation complete.");
 	}
 
 	private String[] getParents(BitCodeSolution[] bitCodeSolutions) {
@@ -239,7 +241,7 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 				//if satisfaction repeats minRepetitionsForPlateau times, plateau reached
 				if (satisfaction == currBestSolution)
 					plateauCounter++;
-					//if lower satisfaction found, no need to look further
+				//if lower satisfaction found, no need to look further
 				else if (satisfaction < currBestSolution)
 					break;
 			}

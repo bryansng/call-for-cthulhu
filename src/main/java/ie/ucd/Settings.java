@@ -88,7 +88,7 @@ public class Settings {
 	public static Double saMaxIteration = SA_DEFAULT_MAX_ITERATION;
 
 	// GA parameters.
-	public static final Integer GA_DEFAULT_NUMBER_OF_GENERATION = DEMO_GA_FAST ? 125 : 100;
+	public static final Integer GA_DEFAULT_NUMBER_OF_GENERATION = DEMO_GA_FAST ? 125 : 200;
 	public static final Integer GA_DEFAULT_POPULATION_SIZE = DEMO_GA_FAST ? 70 : 1000;
 	public static final Double GA_DEFAULT_CROSSOVER_CHANCE = DEMO_GA_FAST ? 0.7 : 0.7;
 	public static final Double GA_DEFAULT_MUTATION_CHANCE = DEMO_GA_FAST ? 0.2 : 0.2;
