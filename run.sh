@@ -4,6 +4,7 @@ find . -name "desktop.ini" -type f -delete		# remove all desktop.ini files. (Goo
 
 mvn clean
 mvn package -Dmaven.test.skip=true
+# mvn package
 
 # java -jar target/CallForCthulu.jar
 mvn exec:java

@@ -9,9 +9,9 @@ import ie.ucd.objects.Project;
 
 public class Settings {
 	public static final boolean DEMO_SA_FAST = true;
-	public static final boolean DEMO_GA_FAST = true;
+	public static final boolean DEMO_GA_FAST = false;
 
-	public static boolean enableAnimation = true;
+	public static boolean enableAnimation = false;
 	public static int maximumXAxisTicks = 10000; // higher = UI slower.
 	public static int pointsToRemove = maximumXAxisTicks * 20 / 100;
 
@@ -88,10 +88,10 @@ public class Settings {
 	public static Double saMaxIteration = SA_DEFAULT_MAX_ITERATION;
 
 	// GA parameters.
-	public static final Integer GA_DEFAULT_NUMBER_OF_GENERATION = DEMO_GA_FAST ? 125 : 125;
-	public static final Integer GA_DEFAULT_POPULATION_SIZE = DEMO_GA_FAST ? 70 : 70;
-	public static final Double GA_DEFAULT_CROSSOVER_CHANCE = DEMO_GA_FAST ? 0.4 : 0.4;
-	public static final Double GA_DEFAULT_MUTATION_CHANCE = DEMO_GA_FAST ? 0.05 : 0.05;
+	public static final Integer GA_DEFAULT_NUMBER_OF_GENERATION = DEMO_GA_FAST ? 125 : 200;
+	public static final Integer GA_DEFAULT_POPULATION_SIZE = DEMO_GA_FAST ? 70 : 1000;
+	public static final Double GA_DEFAULT_CROSSOVER_CHANCE = DEMO_GA_FAST ? 0.7 : 0.7;
+	public static final Double GA_DEFAULT_MUTATION_CHANCE = DEMO_GA_FAST ? 0.2 : 0.2;
 	public static final Double GA_DEFAULT_CULL_CHANCE = DEMO_GA_FAST ? 0.25 : 0.25;
 	public static Integer gaNumberOfGeneration = GA_DEFAULT_NUMBER_OF_GENERATION;
 	public static Integer gaPopulationSize = GA_DEFAULT_POPULATION_SIZE;
