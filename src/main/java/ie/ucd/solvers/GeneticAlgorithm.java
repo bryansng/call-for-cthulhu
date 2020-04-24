@@ -26,10 +26,11 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 	private CandidateSolution finalSolution;
 	private double finalSolutionFitness;
 
-	int plateauCheckFrom;
 	double plateauPercentage;
-	int minRepetitionsForPlateau;
 	boolean isPlateauReached;
+	int plateauCheckFrom;
+	int minRepetitionsForPlateau;
+
 
 	private final Random random = new Random();
 	private SolverPane solverPane;
@@ -39,7 +40,7 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 	}
 
 	public GeneticAlgorithm(CandidateSolution startingSolution, SolverPane solverPane) {
-		this(0.1, 0.5, 125, 150, 0.25, startingSolution, solverPane);
+		this(0.2, 0.7, 200, 1000, 0.25, startingSolution, solverPane);
 	}
 
 	public GeneticAlgorithm(double mutationChance, double crossoverChance, int numberOfGenerations, int sizeOfPopulation,
@@ -53,7 +54,7 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 				/ 1000d;
 		this.startingSolution = startingSolution;
 		this.solverPane = solverPane;
-		this.plateauPercentage = 0.4;
+		this.plateauPercentage = 0.45;
 		this.plateauCheckFrom = (int) ((1.0 - plateauPercentage) * numberOfGenerations);
 		this.minRepetitionsForPlateau = (int) (0.2 * plateauPercentage * numberOfGenerations) - 1;
 		this.isPlateauReached = false;
@@ -108,13 +109,13 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 			// calculate and store satisfaction for each bitCodeSolution in a population.
 			// at the same time, find fittest solution.
 			fittestSatisfaction = Double.NEGATIVE_INFINITY;
-			for (int j = 0; j < currPopulation.length; j++) {
-				String bitCodeSolution = currPopulation[j].getSolution();
+			for (BitCodeSolution member : currPopulation) {
+				String bitCodeSolution = member.getSolution();
 				nextPossibleSolution = assignProjectsFromBitCodeSolution(bitCodeSolution, startingSolution);
 				double solutionSatisfaction = nextPossibleSolution.calculateGlobalSatisfaction();
 				if (Common.DEBUG_SHOW_GA)
 					System.out.println("solutionSatisfaction: " + solutionSatisfaction);
-				currPopulation[j].setSatisfaction(solutionSatisfaction);
+				member.setSatisfaction(solutionSatisfaction);
 
 				// find fittest solution in population.
 				if (solutionSatisfaction > fittestSatisfaction) {
@@ -128,19 +129,10 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 			}
 			uiAddToCurrQueueAnimate(currSheet, fittestSolution);
 
-			// look for plateau.
-			if (i >= plateauCheckFrom) {
-				checkForPlateau(possiblePlateauSolutions, fittestSatisfaction);
-				if (isPlateauReached) {
-					bestSolution = fittestSolution;
-					break;
-				} else {
-					possiblePlateauSolutions.add(fittestSolution);
-				}
-			}
 
 			// sort and cull population.
 			sort(currPopulation);
+			System.out.println("worst: " + currPopulation[sizeOfPopulation - 1].getSatisfaction());
 			BitCodeSolution[] populationAfterCulling = cull(currPopulation);
 			if (Common.DEBUG_SHOW_GA) {
 				System.out.println("Fittest solution strength: " + fittestSatisfaction);
@@ -153,38 +145,36 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 				uiAddToBestQueueAnimate(bestSheet, bestSolution);
 			}
 
-			// generate population for next generation.
-			int counter = 0;
-			while (counter < sizeOfPopulation) {
-				String[] parents = getParents(populationAfterCulling);
-				if (parents[0] == null || parents[1] == null)
-					System.out.println(parents[0] + "\n" + parents[1]);
-				String offspring = crossover(parents[0], parents[1]);
-				if (!offspring.equals("")) {
-					offspring = mutate(offspring);
-					nextPopulation[counter] = new BitCodeSolution(offspring);
-					counter++;
+			// look for plateau.
+			if (i >= plateauCheckFrom) {
+				checkForPlateau(possiblePlateauSolutions, bestSatisfaction);
+				if (isPlateauReached) {
+					break;
+				} else {
+					possiblePlateauSolutions.add(bestSolution);
 				}
 			}
 
+			//generate the next population
+			currPopulation = generateNextPopulation(populationAfterCulling);
+
 			//prepare for next iteration
-			currPopulation = nextPopulation;
-			nextPopulation = new BitCodeSolution[sizeOfPopulation];
 			incrementCullPercentage();
 
 			threadHandleOneStepAndWaiting();
 			uiAddToProgressIndicator(solverPane, 1.0, i * 1.0, numberOfGenerations * 1.0);
+			System.out.println(i + "  " + fittestSatisfaction + "  " + bestSatisfaction);
 		}
 
-		// get best final solution from final generation.
-		finalSolutionFitness = fittestSatisfaction;
-		this.finalSolution = fittestSolution;
+		// get best final solution
+		finalSolutionFitness = bestSatisfaction;
+		this.finalSolution = bestSolution;
 
 		uiAddToCurrQueueNoAnimate(currSheet, fittestSolution);
 		uiAddToBestQueueNoAnimate(bestSheet, bestSolution);
 		uiSignalProcessingDone(solverPane);
 
-		System.out.println("Genetic Algorithm simulation complete.");
+		System.out.println("Genetic Algorithm simulation complete." + finalSolutionFitness);
 	}
 
 	private String[] getParents(BitCodeSolution[] bitCodeSolutions) {
@@ -240,17 +230,17 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 		return culledPopulation;
 	}
 
-	private void checkForPlateau(ArrayList<CandidateSolution> plateauSolutions, double currFittestSatisfaction) {
+	private void checkForPlateau(ArrayList<CandidateSolution> plateauSolutions, double currBestSolution) {
 		int plateauCounter = 0;
 		if (!plateauSolutions.isEmpty()) {
 			//check in reverse order
 			for (int i = plateauSolutions.size() - 1; i >= 0; i--) {
 				double satisfaction = plateauSolutions.get(i).calculateGlobalSatisfaction();
 				//if satisfaction repeats minRepetitionsForPlateau times, plateau reached
-				if (satisfaction == currFittestSatisfaction)
+				if (satisfaction == currBestSolution)
 					plateauCounter++;
 					//if lower satisfaction found, no need to look further
-				else if (satisfaction < currFittestSatisfaction)
+				else if (satisfaction < currBestSolution)
 					break;
 			}
 		}
@@ -321,14 +311,8 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 		// each following solution builds on the previous one by swapping around.
 		// any two random positions in orderOfBitCodes.
 		for (int i = 1; i < sizeOfPopulation; i++) {
-			// System.out.println("\n" + bitCodeSolution);
-
 			int[] previousOrder = orderOfBitCodes;
-			// System.out.println(String.format("previousOrder: %s, newOrder: %s", System.identityHashCode(previousOrder),
-			// System.identityHashCode(orderOfBitCodes)));
 			orderOfBitCodes = getNextOrderOfBitCodes(previousOrder);
-			// System.out.println(String.format("previousOrder: %s, newOrder: %s", System.identityHashCode(previousOrder),
-			// 		System.identityHashCode(orderOfBitCodes)));
 			bitCodeSolution = generateBitCodeSolution(allBitCodes, orderOfBitCodes);
 			bitCodeSolution = mutate(bitCodeSolution);
 			while (usedSolutions.contains(bitCodeSolution)) {
@@ -341,6 +325,23 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 		}
 
 		return population;
+	}
+
+	private BitCodeSolution[] generateNextPopulation(BitCodeSolution[] previousPopulation) {
+		BitCodeSolution[] nextPopulation = new BitCodeSolution[sizeOfPopulation];
+		int counter = 0;
+		while (counter < sizeOfPopulation) {
+			String[] parents = getParents(previousPopulation);
+			if (parents[0] == null || parents[1] == null)
+				System.out.println(parents[0] + "\n" + parents[1]);
+			String offspring = crossover(parents[0], parents[1]);
+			if (!offspring.equals("")) {
+				offspring = mutate(offspring);
+				nextPopulation[counter] = new BitCodeSolution(offspring);
+				counter++;
+			}
+		}
+		return nextPopulation;
 	}
 
 	private String generateBitCodeSolution(ArrayList<String> allBitCodes, int[] orderOfBitCodes) {

@@ -153,6 +153,6 @@ public class GeneticAlgorithmTP extends TitledPane {
 							Settings.gaCrossoverChance, Settings.gaMutationChance, Settings.gaPickFittestParentsChance));
 			}
 		});
-		return new VBox(2.5, new Label("Pick fittest parents chance"), new HBox(3, pickFittestParentsChance, textValue));
+		return new VBox(2.5, new Label("Cull percentage"), new HBox(3, pickFittestParentsChance, textValue));
 	}
 }
