@@ -3,6 +3,7 @@ package ie.ucd.ui.common.sheets;
 import ie.ucd.Common.SheetType;
 import ie.ucd.objects.Project;
 import ie.ucd.ui.setup.SetupPane;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -19,7 +20,7 @@ public class ProjectSheet extends SetupSheet<Project> {
 		super(stage, includeLoadFromFileButton, includeSaveToFileButton, SheetType.Project, setupPane);
 	}
 
-	protected void initTableView() {
+	protected Node initTableView() {
 		tableView = new TableView<Project>();
 		actualList = tableView.getItems();
 		tableView.setPlaceholder(new Label("No projects to display."));
@@ -36,5 +37,7 @@ public class ProjectSheet extends SetupSheet<Project> {
 		tableView.getColumns().add(columnStaffMember);
 		tableView.getColumns().add(columnResearchActivity);
 		tableView.getColumns().add(columnStream);
+
+		return tableView;
 	}
 }

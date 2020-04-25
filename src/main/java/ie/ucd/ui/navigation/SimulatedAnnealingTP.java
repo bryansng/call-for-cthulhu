@@ -62,6 +62,7 @@ public class SimulatedAnnealingTP extends TitledPane {
 
 	private Node initStartTemperature() {
 		startTemperatureWarning = new Label();
+		startTemperatureWarning.getStyleClass().add("warning-label");
 		startTemperature = new TextField(Settings.saStartTemperature.toString());
 		startTemperature.setOnKeyReleased((evt) -> {
 			String newConfig = startTemperature.getText();
@@ -86,6 +87,7 @@ public class SimulatedAnnealingTP extends TitledPane {
 
 	private Node initCoolingRate() {
 		coolingRateWarning = new Label();
+		coolingRateWarning.getStyleClass().add("warning-label");
 		coolingRate = new TextField(Settings.saCoolingRate.toString());
 		coolingRate.setOnKeyReleased((evt) -> {
 			String newConfig = coolingRate.getText();
@@ -110,6 +112,7 @@ public class SimulatedAnnealingTP extends TitledPane {
 
 	private Node initMinTemperature() {
 		minTemperatureWarning = new Label();
+		minTemperatureWarning.getStyleClass().add("warning-label");
 		minTemperature = new TextField(Settings.saMinTemperature.toString());
 		minTemperature.setOnKeyReleased((evt) -> {
 			String newConfig = minTemperature.getText();
@@ -134,6 +137,7 @@ public class SimulatedAnnealingTP extends TitledPane {
 
 	private Node initMaxIteration() {
 		maxIterationWarning = new Label();
+		maxIterationWarning.getStyleClass().add("warning-label");
 		maxIteration = new TextField(Settings.saMaxIteration.toString());
 		maxIteration.setOnKeyReleased((evt) -> {
 			String newConfig = maxIteration.getText();

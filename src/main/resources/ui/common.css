@@ -1,21 +1,45 @@
+.root {
+	-fx-font-size: 1.075em;
+}
+
+.standard-main-container {
+	-fx-padding: 20;
+	-fx-spacing: 50;
+}
+
+.smaller-main-container {
+	-fx-padding: 20;
+	-fx-spacing: 15;
+}
+
+.more-smaller-main-container {
+	-fx-padding: 0 10 10 10;
+	-fx-spacing: 15;
+}
+
+.standard-sub-container {
+	-fx-spacing: 25;
+}
+
+.smaller-sub-container {
+	-fx-spacing: 10;
+}
+
+.standard-sub-sub-container {
+	-fx-spacing: 10;
+}
+
 .button {
 	-fx-background-color: #287BDE;
 	-fx-text-fill: white;
-	/* -fx-background-radius: 0; */
+}
+
+.button:hover {
+	-fx-background-color: rgb(75, 142, 224);
 }
 
 .label {
 	-fx-wrap-text: true;
-}
-
-.setup-pane {
-	-fx-padding: 20;
-	-fx-spacing: 50;
-}
-
-.solver-pane {
-	-fx-padding: 20;
-	-fx-spacing: 50;
 }
 
 .main-label {
@@ -28,4 +52,7 @@
 	-fx-font-weight: bold;
 }
 
-.warning-label {}
+.warning-label {
+	/* -fx-text-fill: #dc3546; */
+	-fx-text-fill: #db2638;
+}

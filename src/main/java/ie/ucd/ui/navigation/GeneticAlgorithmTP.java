@@ -65,6 +65,7 @@ public class GeneticAlgorithmTP extends TitledPane {
 
 	private Node initNumberOfGeneration() {
 		numberOfGenerationWarning = new Label();
+		numberOfGenerationWarning.getStyleClass().add("warning-label");
 		numberOfGeneration = new TextField(Settings.gaNumberOfGeneration.toString());
 		numberOfGeneration.setOnKeyReleased((evt) -> {
 			String newConfig = numberOfGeneration.getText();
@@ -89,6 +90,7 @@ public class GeneticAlgorithmTP extends TitledPane {
 
 	private Node initPopulationSize() {
 		populationSizeWarning = new Label();
+		populationSizeWarning.getStyleClass().add("warning-label");
 		populationSize = new TextField(Settings.gaPopulationSize.toString());
 		populationSize.setOnKeyReleased((evt) -> {
 			String newConfig = populationSize.getText();

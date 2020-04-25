@@ -13,6 +13,7 @@ import ie.ucd.objects.Student;
 import ie.ucd.ui.interfaces.SheetInterface;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
@@ -35,15 +36,15 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 
 	private void initLayout(Stage stage, boolean includeSaveToFileButton) {
 		initFileChooser();
-		initTableView();
-		initSearchBox();
-		getChildren().add(tableView);
+
+		getStyleClass().add("more-smaller-main-container");
+		getChildren().addAll(initSearchBox(), initTableView());
 		if (includeSaveToFileButton) {
-			initSaveButton(stage);
+			getChildren().add(initSaveButton(stage));
 		}
 	}
 
-	protected abstract void initTableView();
+	protected abstract Node initTableView();
 
 	private void initFileChooser() {
 		fileChooser = new FileChooser();
@@ -55,7 +56,7 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 		fileChooser.getExtensionFilters().add(extFilter);
 	}
 
-	private void initSaveButton(Stage stage) {
+	private Node initSaveButton(Stage stage) {
 		Button saveButton = new Button("Save to File");
 		saveButton.setOnAction(e -> {
 			// Show save file dialog.
@@ -65,7 +66,7 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 				saveToFile(file);
 			}
 		});
-		getChildren().add(saveButton);
+		return saveButton;
 	}
 
 	public void search(String searchTerm) {
@@ -96,7 +97,7 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 		actualList.clear();
 	}
 
-	protected void initSearchBox() {
+	protected Node initSearchBox() {
 		switch (sheetType) {
 			case Student:
 				searchBox = new SearchBox<E>("Search by ID / First name / Last name / Stream / GPA / Project Assigned", this);
@@ -106,8 +107,7 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 			default:
 				break;
 		}
-
-		getChildren().add(searchBox);
+		return searchBox;
 	}
 
 	private void saveToFile(File toFile) {

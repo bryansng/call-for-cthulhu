@@ -11,6 +11,7 @@ import ie.ucd.ui.common.constraints.SoftConstraints;
 import ie.ucd.ui.interfaces.StudentSheetInterface;
 import ie.ucd.ui.setup.SetupPane;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -42,19 +43,21 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 	}
 
 	private void initSolutionQualityLayout() {
-		VBox vBox = new VBox();
+		VBox allParts = new VBox();
+		allParts.getStyleClass().addAll("smaller-main-container");
 
 		Label qualityLabel = new Label("Quality");
 		qualityLabel.getStyleClass().add("main-label");
-		vBox.getChildren().add(qualityLabel);
 
 		strength = new Strength();
-		vBox.getChildren().add(strength);
-
 		constraints = new Constraints(false, false);
-		vBox.getChildren().add(constraints);
 
-		getChildren().add(0, vBox);
+		VBox everythingElse = new VBox();
+		everythingElse.getStyleClass().addAll("smaller-sub-container");
+		everythingElse.getChildren().addAll(strength, constraints);
+
+		allParts.getChildren().addAll(qualityLabel, everythingElse);
+		getChildren().add(0, allParts);
 	}
 
 	public void resetSeries() {
@@ -185,7 +188,7 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 		updateSheetAndStrengthAndConstraints(solutionDeque.removeLast());
 	}
 
-	protected void initTableView() {
+	protected Node initTableView() {
 		tableView = new TableView<Student>();
 		actualList = tableView.getItems();
 		tableView.setPlaceholder(new Label("No students to display."));
@@ -264,5 +267,7 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 		tableView.getColumns().add(columnPreferenceProject8);
 		tableView.getColumns().add(columnPreferenceProject9);
 		tableView.getColumns().add(columnPreferenceProject10);
+
+		return tableView;
 	}
 }

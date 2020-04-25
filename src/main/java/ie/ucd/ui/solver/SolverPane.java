@@ -5,7 +5,6 @@ import ie.ucd.Common.SolverType;
 import ie.ucd.ui.common.sheets.Sheets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -42,18 +41,19 @@ public class SolverPane extends ScrollPane {
 	}
 
 	private void initLayout() {
-		VBox container = new VBox();
-		container.getStyleClass().add("solver-pane");
+		VBox allParts = new VBox();
+		allParts.getStyleClass().addAll("standard-main-container", "solver-pane");
 
 		Label visualizerLabel = new Label("Visualization");
 		visualizerLabel.getStyleClass().add("main-label");
 
-		container.getChildren().add(visualizerLabel);
-		container.getChildren().add(visualizer);
-		container.getChildren().add(new HBox(5, new Label("Processing thread progress:"), progressIndicator));
-		container.getChildren().add(controlButtons);
-		container.getChildren().add(sheets);
-		setContent(container);
+		VBox everythingElse = new VBox();
+		everythingElse.getStyleClass().addAll("smaller-sub-container");
+		everythingElse.getChildren().addAll(visualizer,
+				new HBox(5, new Label("Processing thread progress:"), progressIndicator), controlButtons, sheets);
+
+		allParts.getChildren().addAll(new VBox(visualizerLabel, everythingElse));
+		setContent(allParts);
 	}
 
 	private void initUpdateUIScheduler() {

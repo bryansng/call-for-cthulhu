@@ -1,7 +1,7 @@
 package ie.ucd.ui.common.sheets;
 
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import java.io.File;
 import java.io.InterruptedIOException;
@@ -10,7 +10,6 @@ import ie.ucd.Settings;
 import ie.ucd.Common.SheetType;
 import ie.ucd.io.CSVFileReader;
 import ie.ucd.io.Parser;
-import ie.ucd.objects.Student;
 import ie.ucd.ui.setup.SetupPane;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -44,16 +43,17 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 	}
 
 	private void initLayout(Stage stage) {
-		VBox vBox = new VBox();
+		VBox allParts = new VBox();
+		allParts.getStyleClass().addAll("smaller-sub-container");
 
-		VBox buffer = new VBox();
-		buffer.getChildren().addAll(new Label("---"), new Label("or"), new Label("---"));
+		VBox buffer = new VBox(new Label("---\nor\n---"));
 
 		errorWarning = new Label();
+		errorWarning.getStyleClass().add("warning-label");
 		setEnableErrorWarning(false, "");
 
-		vBox.getChildren().addAll(initLoadButton(stage), errorWarning, buffer, initGenerateButton());
-		getChildren().add(0, vBox);
+		allParts.getChildren().addAll(new VBox(initLoadButton(stage), errorWarning), buffer, initGenerateButton());
+		getChildren().add(0, allParts);
 	}
 
 	private Node initLoadButton(Stage stage) {
@@ -65,17 +65,18 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 		TextField filePath = new TextField(System.getProperty("user.dir"));
 		filePath.setFocusTraversable(false);
 		filePath.setMouseTransparent(true);
+		filePath.setMaxWidth(1024);
+		HBox.setHgrow(filePath, Priority.ALWAYS);
 
 		Button loadButton = new Button("Browse");
 		loadButton.setFocusTraversable(false);
 		loadButton.setMouseTransparent(true);
 
-		HBox hBox = new HBox();
+		HBox hBox = new HBox(5);
 		hBox.setOnMouseClicked((evt) -> {
 			handleFileLoading(stage, filePath);
 		});
 		hBox.getChildren().addAll(filePath, loadButton);
-		hBox.setMaxSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
 		hBox.getStylesheets().add("ui/fileLoader.css");
 		hBox.getStyleClass().add("file-loader-container");
 		vBox.getChildren().addAll(loadLabel, hBox);
@@ -124,6 +125,11 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 				clearStudents();
 
 				Settings.loadedProjects = reader.readProject(null, new Parser().getStaffMembersMap(), fromFile);
+
+				if (Settings.loadedProjects == null || Settings.loadedProjects.size() == 0) {
+					throw new NullPointerException("Projects read is null.");
+				}
+
 				setAll((ArrayList<E>) Settings.loadedProjects);
 				enableStudentSheet();
 				setEnableNavigateSolvers(false);
@@ -138,6 +144,11 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 		} else if (sheetType == SheetType.Student) {
 			try {
 				Settings.loadedStudents = reader.readStudents(null, Settings.loadedProjects, fromFile);
+
+				if (Settings.loadedStudents == null || Settings.loadedStudents.size() == 0) {
+					throw new NullPointerException("Students read is null.");
+				}
+
 				setAll((ArrayList<E>) Settings.loadedStudents);
 				setEnableNavigateSolvers(true);
 				setEnableErrorWarning(false, "");

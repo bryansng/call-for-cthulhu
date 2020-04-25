@@ -3,9 +3,9 @@ package ie.ucd.ui.common.sheets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
 
-public class Strength extends VBox {
+public class Strength extends HBox {
 	private ProgressBar bar;
 	private Label value;
 	private Label rating;
@@ -23,8 +23,11 @@ public class Strength extends VBox {
 		bar = new ProgressBar(0.0);
 		value = new Label("-");
 		rating = new Label("-");
-		HBox hBox = new HBox(5.0, bar, value, rating);
-		getChildren().add(hBox);
+
+		StackPane valueOnBar = new StackPane(bar, value);
+
+		setSpacing(5);
+		getChildren().addAll(valueOnBar, rating);
 	}
 
 	public void setProgressBar(Double progress) {

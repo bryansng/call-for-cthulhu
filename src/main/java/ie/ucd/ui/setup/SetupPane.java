@@ -41,7 +41,7 @@ public class SetupPane extends ScrollPane {
 
 	public void initLayout(Stage stage) {
 		VBox allParts = new VBox();
-		allParts.getStyleClass().add("setup-pane");
+		allParts.getStyleClass().addAll("standard-main-container", "setup-pane");
 
 		Label labelSettings = new Label("1. Settings");
 		labelSettings.getStyleClass().add("main-label");
@@ -60,8 +60,16 @@ public class SetupPane extends ScrollPane {
 		studentSheet = new StudentSheet(stage, true, true, false, this);
 		studentSheet.setDisable(true);
 
-		VBox part1 = new VBox(labelSettings, initDarkTheme(), initNumStudents(), constraints, sublabelOthers,
-				initImportanceOfGPA(), initEnableAnimation());
+		VBox innerSubPart = new VBox(initImportanceOfGPA(), initEnableAnimation(), initDarkTheme());
+		innerSubPart.getStyleClass().add("standard-sub-sub-container");
+
+		VBox middleSubPart = new VBox(constraints, new VBox(sublabelOthers, innerSubPart));
+		middleSubPart.getStyleClass().add("standard-sub-container");
+
+		VBox outerSubPart = new VBox(initNumStudents(), middleSubPart);
+		outerSubPart.getStyleClass().add("smaller-main-container");
+
+		VBox part1 = new VBox(labelSettings, outerSubPart);
 
 		VBox part2 = new VBox(labelProjects, projectSheet);
 
@@ -76,6 +84,7 @@ public class SetupPane extends ScrollPane {
 		numStudentsWarning.getStyleClass().add("warning-label");
 
 		numStudents = new TextField(Settings.numberOfStudents.toString());
+		numStudents.setMaxWidth(200);
 		numStudents.setOnKeyReleased((evt) -> {
 			String newConfig = numStudents.getText();
 			try {

@@ -5,7 +5,6 @@ import java.text.DecimalFormat;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
-
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;

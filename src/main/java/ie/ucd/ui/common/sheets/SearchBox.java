@@ -16,7 +16,7 @@ public class SearchBox<E> extends TextField {
 		resetStates();
 		initTimeline();
 
-		// setMaxWidth(800);
+		setMaxWidth(600);
 		setPromptText(promptText);
 		setOnKeyReleased(keyEvent -> {
 			if (!isWaiting) {
