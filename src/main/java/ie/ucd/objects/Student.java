@@ -20,6 +20,7 @@ public class Student implements StudentInterface, SearchMatchable {
 	private boolean gpaViolation;
 	private boolean streamViolation;
 	private boolean assignmentViolation;
+	private boolean calculatedViolation;
 
 	public Student(String firstName, String lastName, Integer id, String stream, Double gpa,
 			ArrayList<Project> preferenceList) {
@@ -47,6 +48,7 @@ public class Student implements StudentInterface, SearchMatchable {
 		gpaViolation = false;
 		streamViolation = false;
 		assignmentViolation = false;
+		calculatedViolation = false;
 
 		Double satisfaction = 0.0;
 		satisfaction += Settings.enableStudentAssignedPreferredProject ? preferenceSatisfaction() : 0.0;
@@ -54,6 +56,7 @@ public class Student implements StudentInterface, SearchMatchable {
 		satisfaction += Settings.enableStudentAssignedOneProject ? assignmentSatisfaction() : 0.0;
 		satisfaction += Settings.enableHigherGPAHigherPreferences ? gpaSatisfaction() : 0.0;
 
+		calculatedViolation = true;
 		return satisfaction;
 	}
 
@@ -206,6 +209,14 @@ public class Student implements StudentInterface, SearchMatchable {
 
 	public boolean isAssignmentViolation() {
 		return assignmentViolation;
+	}
+
+	public boolean isViolationCalculated() {
+		return calculatedViolation;
+	}
+
+	public boolean hasHardConstraintViolation() {
+		return preferenceViolation || streamViolation || assignmentViolation;
 	}
 
 	public Student setFirstName(String firstName) {

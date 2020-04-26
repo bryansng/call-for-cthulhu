@@ -60,3 +60,11 @@
 	/* -fx-text-fill: #dc3546; */
 	-fx-text-fill: #db2638;
 }
+
+.row-good-allocation {
+	-fx-background-color: #28a74662;
+}
+
+.row-bad-allocation {
+	-fx-background-color: #dc354663;
+}

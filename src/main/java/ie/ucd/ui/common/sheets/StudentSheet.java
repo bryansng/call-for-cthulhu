@@ -11,13 +11,18 @@ import ie.ucd.ui.common.constraints.SoftConstraints;
 import ie.ucd.ui.interfaces.StudentSheetInterface;
 import ie.ucd.ui.setup.SetupPane;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+
+import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
@@ -250,6 +255,30 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 		TableColumn<Student, String> columnPreferenceProject10 = new TableColumn<Student, String>("Preference 10");
 		columnPreferenceProject10.setCellValueFactory(
 				data -> new SimpleStringProperty(data.getValue().getPreferenceList().get(9).getResearchActivity()));
+
+		// checks if the current row, i.e. student has hard constraint violations, if so, color row red, else green.
+		tableView.setRowFactory(new Callback<TableView<Student>, TableRow<Student>>() {
+			@Override
+			public TableRow<Student> call(TableView<Student> tableView) {
+				final TableRow<Student> row = new TableRow<Student>() {
+					@Override
+					protected void updateItem(Student student, boolean empty) {
+						super.updateItem(student, empty);
+
+						if (!empty && student.isViolationCalculated()) {
+							if (student.hasHardConstraintViolation()) {
+								getStyleClass().removeAll(Collections.singleton("row-good-allocation"));
+								getStyleClass().add("row-bad-allocation");
+							} else {
+								getStyleClass().removeAll(Collections.singleton("row-bad-allocation"));
+								getStyleClass().add("row-good-allocation");
+							}
+						}
+					}
+				};
+				return row;
+			}
+		});
 
 		tableView.getColumns().add(columnId);
 		tableView.getColumns().add(columnFirstName);
