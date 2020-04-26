@@ -38,7 +38,7 @@ public class MainUI extends GridPane {
 
 		mainContainer.getChildren().addAll(navPane, setupPane);
 		add(mainContainer, 0, 0);
-		setAlignment(Pos.CENTER);
+		setAlignment(Pos.TOP_CENTER);
 	}
 
 	public void handleThemes(Theme theme) {

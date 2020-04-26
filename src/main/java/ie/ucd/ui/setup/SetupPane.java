@@ -12,15 +12,15 @@ import ie.ucd.ui.common.sheets.SetupSheet;
 import ie.ucd.ui.common.sheets.StudentSheet;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -32,6 +32,7 @@ public class SetupPane extends ScrollPane {
 	private Slider importanceOfGPA;
 	private SetupSheet<Project> projectSheet;
 	private SetupSheet<Student> studentSheet;
+	private Tab tab3;
 
 	public SetupPane(Stage stage, MainUI mainUI) {
 		super();
@@ -40,9 +41,6 @@ public class SetupPane extends ScrollPane {
 	}
 
 	public void initLayout(Stage stage) {
-		VBox allParts = new VBox();
-		allParts.getStyleClass().addAll("standard-main-container", "setup-pane");
-
 		Label labelSettings = new Label("1. Settings");
 		labelSettings.getStyleClass().add("main-label");
 
@@ -58,7 +56,6 @@ public class SetupPane extends ScrollPane {
 		constraints = new Constraints(true, true);
 		projectSheet = new ProjectSheet(stage, true, true, this);
 		studentSheet = new StudentSheet(stage, true, true, false, this);
-		studentSheet.setDisable(true);
 
 		VBox innerSubPart = new VBox(initImportanceOfGPA(), initEnableAnimation(), initDarkTheme());
 		innerSubPart.getStyleClass().add("standard-sub-sub-container");
@@ -70,13 +67,26 @@ public class SetupPane extends ScrollPane {
 		outerSubPart.getStyleClass().add("smaller-main-container");
 
 		VBox part1 = new VBox(labelSettings, outerSubPart);
+		part1.getStyleClass().add("standard-padding");
 
 		VBox part2 = new VBox(labelProjects, projectSheet);
+		part2.getStyleClass().add("standard-padding");
 
 		VBox part3 = new VBox(labelStudents, studentSheet);
+		part3.getStyleClass().add("standard-padding");
 
-		allParts.getChildren().addAll(part1, part2, part3);
-		setContent(allParts);
+		Tab tab1 = new Tab("1. Settings", part1);
+		Tab tab2 = new Tab("2. Load/Generate Projects", part2);
+		tab3 = new Tab("3. Load/Generate Students", part3);
+
+		disableStudentSheet();
+
+		TabPane tabPane = new TabPane();
+		tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+		tabPane.getTabs().add(tab1);
+		tabPane.getTabs().add(tab2);
+		tabPane.getTabs().add(tab3);
+		setContent(tabPane);
 	}
 
 	private Node initNumStudents() {
@@ -160,6 +170,12 @@ public class SetupPane extends ScrollPane {
 
 	public void enableStudentSheet() {
 		studentSheet.setDisable(false);
+		tab3.setDisable(false);
+	}
+
+	public void disableStudentSheet() {
+		studentSheet.setDisable(true);
+		tab3.setDisable(true);
 	}
 
 	public void setEnableNavigateSolvers(boolean value) {

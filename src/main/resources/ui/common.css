@@ -2,6 +2,10 @@
 	-fx-font-size: 1.075em;
 }
 
+.standard-padding {
+	-fx-padding: 20;
+}
+
 .standard-main-container {
 	-fx-padding: 20;
 	-fx-spacing: 50;
@@ -13,7 +17,7 @@
 }
 
 .more-smaller-main-container {
-	-fx-padding: 0 10 10 10;
+	-fx-padding: 0 20 20 20;
 	-fx-spacing: 15;
 }
 

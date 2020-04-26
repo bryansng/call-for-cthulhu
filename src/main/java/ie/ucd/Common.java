@@ -17,7 +17,7 @@ public class Common {
 	}
 
 	// NavigationPane on typed parameter debug verbosity.
-	public static final boolean DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE = true;
+	public static final boolean DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE = false;
 
 	// ControlButton will change to using solvers' internal parameter configs.
 	public static final boolean IS_DEBUGGING_SOLVERS = false;
