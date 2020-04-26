@@ -170,7 +170,7 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 					}
 				}
 
-				if (Settings.enableHigherGPAHigherPreferences) {
+				if (Settings.enableHigherGPAHigherPreferences && Settings.enableGPA) {
 					if (solution.getViolationsHigherGPAHigherPreferences() > 0) {
 						softCost += (1.0 * solution.getViolationsHigherGPAHigherPreferences()) / solution.getNumberOfStudents()
 								* Settings.COST_PER_SOFT_VIOLATION;

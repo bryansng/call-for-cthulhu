@@ -29,6 +29,7 @@ public class SetupPane extends ScrollPane {
 	private MainUI mainUI;
 	private TextField numStudents;
 	private Constraints constraints;
+	private Node importanceOfGPANode;
 	private Slider importanceOfGPA;
 	private SetupSheet<Project> projectSheet;
 	private SetupSheet<Student> studentSheet;
@@ -57,10 +58,10 @@ public class SetupPane extends ScrollPane {
 		projectSheet = new ProjectSheet(stage, true, true, this);
 		studentSheet = new StudentSheet(stage, true, true, false, this);
 
-		VBox innerSubPart = new VBox(initImportanceOfGPA(), initEnableAnimation(), initDarkTheme());
+		VBox innerSubPart = new VBox(initEnableAnimation(), initDarkTheme());
 		innerSubPart.getStyleClass().add("standard-sub-sub-container");
 
-		VBox middleSubPart = new VBox(constraints, new VBox(sublabelOthers, innerSubPart));
+		VBox middleSubPart = new VBox(constraints, initGPAConsideration(), new VBox(sublabelOthers, innerSubPart));
 		middleSubPart.getStyleClass().add("standard-sub-container");
 
 		VBox outerSubPart = new VBox(initNumStudents(), middleSubPart);
@@ -116,6 +117,33 @@ public class SetupPane extends ScrollPane {
 				numStudentsWarning);
 	}
 
+	private Node initGPAConsideration() {
+		Label labelGPA = new Label("GPA Consideration");
+		labelGPA.getStyleClass().add("sub-label");
+
+		VBox container = new VBox();
+		container.getStyleClass().add("standard-sub-sub-container");
+		container.getChildren().addAll(initEnableGPA(), initImportanceOfGPA());
+		return new VBox(labelGPA, container);
+	}
+
+	private Node initEnableGPA() {
+		CheckBox enableGPA = new CheckBox("Enable GPA Consideration");
+
+		enableGPA.setOnAction((evt) -> {
+			Settings.enableGPA = enableGPA.isSelected();
+			importanceOfGPANode.setDisable(!Settings.enableGPA);
+			constraints.getSoftConstraints().enableGPA(Settings.enableGPA);
+			;
+
+			if (Common.DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE)
+				System.out.println(String.format("%b", Settings.enableGPA));
+		});
+
+		enableGPA.setSelected(Settings.enableGPA);
+		return enableGPA;
+	}
+
 	private Node initImportanceOfGPA() {
 		Label textValue = new Label(String.format("%.4f", Settings.importanceOfGPA));
 		importanceOfGPA = new Slider(0.0, 1.0, Settings.importanceOfGPA);
@@ -127,7 +155,12 @@ public class SetupPane extends ScrollPane {
 					System.out.println(String.format("%f", Settings.importanceOfGPA));
 			}
 		});
-		return new VBox(2.5, new Label("Importance of GPA"), new HBox(3, importanceOfGPA, textValue));
+
+		if (!Settings.enableGPA)
+			importanceOfGPA.setDisable(true);
+
+		importanceOfGPANode = new VBox(2.5, new Label("Importance of GPA"), new HBox(3, importanceOfGPA, textValue));
+		return importanceOfGPANode;
 	}
 
 	private Node initDarkTheme() {

@@ -1,5 +1,5 @@
 /*
- * Taken from joffrey-bion:
+ * Taken from joffrey-bion and modified by bryansng:
  * https://github.com/joffrey-bion/javafx-themes/blob/master/css/modena_dark.css
  *
  * This is an adjustment of the original modena.css for a consistent dark theme.
@@ -58,6 +58,7 @@
 	-fx-background-color: -fx-mark-highlight-color, rgb(255, 255, 255);
 }
 
+/* Fixes lineChart's ticks and marks are too dark to see */
 .axis {
 	AXIS_COLOR: derive(-fx-background, 50%);
 	-fx-tick-label-font-size: 0.833333em;

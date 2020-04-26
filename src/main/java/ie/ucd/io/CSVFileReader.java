@@ -6,6 +6,7 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 
 import ie.ucd.Common;
+import ie.ucd.Settings;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.StaffMember;
 import ie.ucd.objects.Student;
@@ -128,6 +129,10 @@ public class CSVFileReader {
                     thisStudentsPreference.size());
             // System.out.println(thisStudentsPreference.size() + " " + (thisStudentsPreference.size() == 10));
             // System.out.println("actual " + (thisStudentsPreference.size() < 10) + ", expected: false");
+            // if (Settings.enableGPA)
+            // students.add(
+            //         new Student(line[0], line[1], Integer.parseInt(line[2]), line[3], line[4], thisStudentsPreference));
+            // else
             students.add(
                     new Student(line[0], line[1], Integer.parseInt(line[2]), line[3], 0.0, thisStudentsPreference));
             // System.out.println(aIndex + " " + students.get(students.size() - 1));

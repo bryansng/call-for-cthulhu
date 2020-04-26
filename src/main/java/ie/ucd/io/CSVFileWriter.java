@@ -2,6 +2,7 @@ package ie.ucd.io;
 
 import java.io.*;
 
+import ie.ucd.Settings;
 import ie.ucd.objects.CandidateSolution;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.StaffMember;
@@ -9,6 +10,7 @@ import ie.ucd.objects.Student;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CSVFileWriter {
     private String separator = ",";
@@ -56,9 +58,16 @@ public class CSVFileWriter {
     }
 
     public void writeStudents(ArrayList<Student> students, File toFile) throws IOException {
-        final String[] columns = { "First Name", "Last Name", "ID", "Stream", "Preference 1", "Preference 2",
-                "Preference 3", "Preference 4", "Preference 5", "Preference 6", "Preference 7", "Preference 8",
-                "Preference 9", "Preference 10" };
+        ArrayList<String> columns = null;
+
+        if (Settings.enableGPA)
+            columns = new ArrayList<String>(Arrays.asList("First Name", "Last Name", "ID", "Stream", "GPA",
+                    "Project Assigned", "Preference 1", "Preference 2", "Preference 3", "Preference 4", "Preference 5",
+                    "Preference 6", "Preference 7", "Preference 8", "Preference 9", "Preference 10"));
+        else
+            columns = new ArrayList<String>(Arrays.asList("First Name", "Last Name", "ID", "Stream", "Project Assigned",
+                    "Preference 1", "Preference 2", "Preference 3", "Preference 4", "Preference 5", "Preference 6",
+                    "Preference 7", "Preference 8", "Preference 9", "Preference 10"));
         String line = "";
         try {
             File file;
@@ -73,9 +82,9 @@ public class CSVFileWriter {
             FileWriter fileWriter = new FileWriter(file);
 
             // write header
-            for (int i = 0; i < columns.length; i++) {
-                line = line.concat(columns[i]);
-                if (i == columns.length - 1)
+            for (int i = 0; i < columns.size(); i++) {
+                line = line.concat(columns.get(i));
+                if (i == columns.size() - 1)
                     line = line.concat(newLine);
                 else
                     line = line.concat(separator);
@@ -86,8 +95,13 @@ public class CSVFileWriter {
             int rowNum = 1;
             for (Student student : students) {
                 line = "";
-                line += student.getFirstName() + separator + student.getLastName() + separator + student.getId()
-                        + separator + student.getStream() + separator;
+                if (Settings.enableGPA)
+                    line += student.getFirstName() + separator + student.getLastName() + separator + student.getId()
+                            + separator + student.getStream() + separator + student.getGpa() + separator
+                            + student.getProject() + separator;
+                else
+                    line += student.getFirstName() + separator + student.getLastName() + separator + student.getId()
+                            + separator + student.getStream() + separator + student.getProject() + separator;
                 for (int i = 0; i < student.getPreferenceList().size(); i++) {
                     line = line.concat(student.getPreferenceList().get(i).getResearchActivity());
                     if (i == student.getPreferenceList().size() - 1)

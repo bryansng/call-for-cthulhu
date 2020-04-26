@@ -54,7 +54,7 @@ public class Student implements StudentInterface, SearchMatchable {
 		satisfaction += Settings.enableStudentAssignedPreferredProject ? preferenceSatisfaction() : 0.0;
 		satisfaction += Settings.enableSameStream ? streamSatisfaction() : 0.0;
 		satisfaction += Settings.enableStudentAssignedOneProject ? assignmentSatisfaction() : 0.0;
-		satisfaction += Settings.enableHigherGPAHigherPreferences ? gpaSatisfaction() : 0.0;
+		satisfaction += (Settings.enableHigherGPAHigherPreferences && Settings.enableGPA) ? gpaSatisfaction() : 0.0;
 
 		calculatedViolation = true;
 		return satisfaction;

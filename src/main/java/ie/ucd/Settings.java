@@ -8,13 +8,14 @@ import ie.ucd.objects.CandidateSolution;
 import ie.ucd.objects.Project;
 
 public class Settings {
-	public static final boolean DEMO_SA_FAST = false;
+	public static final boolean DEMO_SA_FAST = true;
 	public static final boolean DEMO_GA_FAST = true;
 
-	public static boolean enableAnimation = false;
+	public static boolean enableAnimation = true;
 	public static int maximumXAxisTicks = 10000; // higher = UI slower.
 	public static int pointsToRemove = maximumXAxisTicks * 20 / 100;
 
+	public static boolean enableGPA = true;
 	public static double importanceOfGPA = 1.0; // 0 to 1. This is the value slider changes in the UI.
 
 	public static final Integer DEFAULT_NUMBER_OF_STUDENTS = 500;
@@ -49,7 +50,7 @@ public class Settings {
 		NUM_HARD_CONSTRAINTS += enableProjectAssignedToOneStudent ? 1 : 0;
 
 		NUM_SOFT_CONSTRAINTS += enableEquallyDistributedAcrossSupervisors ? 1 : 0;
-		NUM_SOFT_CONSTRAINTS += enableHigherGPAHigherPreferences ? 1 : 0;
+		NUM_SOFT_CONSTRAINTS += (enableHigherGPAHigherPreferences && enableGPA) ? 1 : 0;
 
 		TOTAL_CONSTRAINTS = NUM_HARD_CONSTRAINTS + NUM_SOFT_CONSTRAINTS;
 

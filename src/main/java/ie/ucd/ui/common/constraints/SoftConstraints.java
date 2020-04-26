@@ -54,6 +54,9 @@ public class SoftConstraints extends VBox {
 			;
 		}
 
+		if (!Settings.enableGPA)
+			higherGPAHigherPreferences.setDisable(true);
+
 		getChildren().addAll(new Label("Soft"), equallyDistributedAcrossSupervisors, higherGPAHigherPreferences);
 	}
 
@@ -72,7 +75,7 @@ public class SoftConstraints extends VBox {
 	}
 
 	public void updateHigherGPAHigherPreferences(boolean isNotViolated, Integer violationCount, Integer total) {
-		if (Settings.enableHigherGPAHigherPreferences) {
+		if (Settings.enableHigherGPAHigherPreferences && Settings.enableGPA) {
 			higherGPAHigherPreferences.setIndeterminate(false);
 			higherGPAHigherPreferences.setSelected(isNotViolated);
 			higherGPAHigherPreferences.setText(
@@ -87,5 +90,11 @@ public class SoftConstraints extends VBox {
 		higherGPAHigherPreferences.setIndeterminate(true);
 		higherGPAHigherPreferences.setSelected(false);
 		higherGPAHigherPreferences.setText(higherGPAHigherPreferencesText);
+	}
+
+	public void enableGPA(boolean value) {
+		higherGPAHigherPreferences.setDisable(!value);
+		higherGPAHigherPreferences.setIndeterminate(!value);
+		higherGPAHigherPreferences.setSelected(value ? Settings.enableHigherGPAHigherPreferences : false);
 	}
 }
