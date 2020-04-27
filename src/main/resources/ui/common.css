@@ -56,8 +56,11 @@
 	-fx-font-weight: bold;
 }
 
+.successful-label {
+	-fx-text-fill: #28a746;
+}
+
 .warning-label {
-	/* -fx-text-fill: #dc3546; */
 	-fx-text-fill: #db2638;
 }
 

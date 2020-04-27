@@ -21,7 +21,9 @@ import javafx.stage.Stage;
 public abstract class SetupSheet<E> extends Sheet<E> {
 	private String sheetTypeName;
 	private SetupPane setupPane;
-	private Label errorWarning;
+	private Label onSuccessfulLoad;
+	private Label onErrorLoad;
+	private Label onSuccessfulGenerate;
 
 	public SetupSheet(Stage stage, boolean includeLoadFromFileButton, boolean includeSaveToFileButton,
 			SheetType sheetType) {
@@ -46,14 +48,31 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 		VBox allParts = new VBox();
 		allParts.getStyleClass().addAll("smaller-sub-container");
 
-		VBox buffer = new VBox(new Label("---\nor\n---"));
+		Label buffer = new Label("---\nor\n---");
+		buffer.setWrapText(true);
+		buffer.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
 
-		errorWarning = new Label();
-		errorWarning.setWrapText(true);
-		errorWarning.getStyleClass().add("warning-label");
-		setEnableErrorWarning(false, "");
+		onSuccessfulLoad = new Label();
+		onSuccessfulLoad.setWrapText(true);
+		onSuccessfulLoad.getStyleClass().add("successful-label");
+		onSuccessfulLoad.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
 
-		allParts.getChildren().addAll(new VBox(initLoadButton(stage), errorWarning), buffer, initGenerateButton());
+		onErrorLoad = new Label();
+		onErrorLoad.setWrapText(true);
+		onErrorLoad.getStyleClass().add("warning-label");
+		onErrorLoad.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
+
+		onSuccessfulGenerate = new Label();
+		onSuccessfulGenerate.setWrapText(true);
+		onSuccessfulGenerate.getStyleClass().add("successful-label");
+		onSuccessfulGenerate.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
+
+		setEnableSuccessfulLoad(false, "");
+		setEnableErrorLoad(false, "");
+		setEnableSuccessGenerate(false, "");
+
+		allParts.getChildren().addAll(new VBox(initLoadButton(stage), onSuccessfulLoad, onErrorLoad), buffer,
+				initGenerateButton(), onSuccessfulGenerate);
 		getChildren().add(0, allParts);
 	}
 
@@ -97,6 +116,11 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 	}
 
 	private Node initGenerateButton() {
+		VBox vBox = new VBox();
+
+		Label loadLabel = new Label("Generate " + sheetTypeName);
+		loadLabel.getStyleClass().add("sub-label");
+
 		Button generateButton = new Button("Generate Random " + sheetTypeName);
 		generateButton.setOnAction(e -> {
 			if (sheetType == SheetType.Project) {
@@ -107,13 +131,18 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 				setAll((ArrayList<E>) Settings.loadedProjects);
 				enableStudentSheet();
 				setEnableNavigateSolvers(false);
+				setEnableSuccessGenerate(true,
+						String.format("SUCCESS: Generated %d %s.", Settings.loadedProjects.size(), sheetTypeName.toLowerCase()));
 			} else if (sheetType == SheetType.Student) {
 				Settings.loadedStudents = Settings.setupSolution.generateStudents();
 				setAll((ArrayList<E>) Settings.loadedStudents);
 				setEnableNavigateSolvers(true);
+				setEnableSuccessGenerate(true,
+						String.format("SUCCESS: Generated %d %s.", Settings.loadedStudents.size(), sheetTypeName.toLowerCase()));
 			}
 		});
-		return generateButton;
+		vBox.getChildren().addAll(loadLabel, generateButton);
+		return vBox;
 	}
 
 	private void loadFromFile(File fromFile) {
@@ -133,13 +162,14 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 				setAll((ArrayList<E>) Settings.loadedProjects);
 				enableStudentSheet();
 				setEnableNavigateSolvers(false);
-				setEnableErrorWarning(false, "");
+				setEnableSuccessfulLoad(true,
+						String.format("SUCCESS: Loaded %d %s.", Settings.loadedProjects.size(), sheetTypeName.toLowerCase()));
 			} catch (AssertionError e) {
-				setEnableErrorWarning(true, "ERROR: Unable to read file. Please ensure you are loading a file for "
-						+ sheetTypeName + ".\nExpected format is: Staff Name,Research Activity,Stream");
+				setEnableErrorLoad(true, "ERROR: Unable to read file. Please ensure you are loading a file for " + sheetTypeName
+						+ ".\nExpected format is: Staff Name,Research Activity,Stream");
 			} catch (Exception e) {
-				setEnableErrorWarning(true, "ERROR: Unable to read file. Please ensure you are loading a file for "
-						+ sheetTypeName + ".\nExpected format is: Staff Name,Research Activity,Stream");
+				setEnableErrorLoad(true, "ERROR: Unable to read file. Please ensure you are loading a file for " + sheetTypeName
+						+ ".\nExpected format is: Staff Name,Research Activity,Stream");
 			}
 		} else if (sheetType == SheetType.Student) {
 			try {
@@ -151,16 +181,14 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 
 				setAll((ArrayList<E>) Settings.loadedStudents);
 				setEnableNavigateSolvers(true);
-				setEnableErrorWarning(false, "");
+				setEnableSuccessfulLoad(true,
+						String.format("SUCCESS: Loaded %d %s.", Settings.loadedStudents.size(), sheetTypeName.toLowerCase()));
 			} catch (AssertionError e) {
-				setEnableErrorWarning(true,
-						"ERROR: A student's preference list project cannot be found in the Loaded projects.");
+				setEnableErrorLoad(true, "ERROR: A student's preference list project cannot be found in the Loaded projects.");
 			} catch (InterruptedIOException e) {
-				setEnableErrorWarning(true,
-						"ERROR: A student's preference list project cannot be found in the Loaded projects.");
+				setEnableErrorLoad(true, "ERROR: A student's preference list project cannot be found in the Loaded projects.");
 			} catch (Exception e) {
-				setEnableErrorWarning(true, "ERROR: Unable to read file. Please ensure you are loading a file for "
-						+ sheetTypeName
+				setEnableErrorLoad(true, "ERROR: Unable to read file. Please ensure you are loading a file for " + sheetTypeName
 						+ ".\nExpected format is:\n- First Name,Last Name,ID,Stream,GPA,Project Assigned,Preference 1,Preference 2,Preference 3,Preference 4,Preference 5,Preference 6,Preference 7,Preference 8,Preference 9,Preference 10, or\n- First Name,Last Name,ID,Stream,Project Assigned,Preference 1,Preference 2,Preference 3,Preference 4,Preference 5,Preference 6,Preference 7,Preference 8,Preference 9,Preference 10, or\n- First Name,Last Name,ID,Stream,Preference 1,Preference 2,Preference 3,Preference 4,Preference 5,Preference 6,Preference 7,Preference 8,Preference 9,Preference 10");
 			}
 		}
@@ -181,9 +209,36 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 			setupPane.setEnableNavigateSolvers(value);
 	}
 
-	private void setEnableErrorWarning(boolean value, String errorMsg) {
-		errorWarning.setText(errorMsg);
-		errorWarning.setVisible(value);
-		errorWarning.setManaged(value);
+	private void setEnableSuccessfulLoad(boolean value, String msg) {
+		resetSuccessErrorLabels();
+		onSuccessfulLoad.setText(msg);
+		onSuccessfulLoad.setVisible(value);
+		onSuccessfulLoad.setManaged(value);
+	}
+
+	private void setEnableErrorLoad(boolean value, String msg) {
+		resetSuccessErrorLabels();
+		onErrorLoad.setText(msg);
+		onErrorLoad.setVisible(value);
+		onErrorLoad.setManaged(value);
+	}
+
+	private void setEnableSuccessGenerate(boolean value, String msg) {
+		resetSuccessErrorLabels();
+		onSuccessfulGenerate.setText(msg);
+		onSuccessfulGenerate.setVisible(value);
+		onSuccessfulGenerate.setManaged(value);
+	}
+
+	public void resetSuccessErrorLabels() {
+		onSuccessfulLoad.setText("");
+		onSuccessfulLoad.setVisible(false);
+		onSuccessfulLoad.setManaged(false);
+		onErrorLoad.setText("");
+		onErrorLoad.setVisible(false);
+		onErrorLoad.setManaged(false);
+		onSuccessfulGenerate.setText("");
+		onSuccessfulGenerate.setVisible(false);
+		onSuccessfulGenerate.setManaged(false);
 	}
 }

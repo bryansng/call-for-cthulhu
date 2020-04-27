@@ -15,17 +15,16 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class SetupPane extends ScrollPane {
+public class SetupPane extends TabPane {
 	private MainUI mainUI;
 	private TextField numStudents;
 	private Constraints constraints;
@@ -69,12 +68,15 @@ public class SetupPane extends ScrollPane {
 
 		VBox part1 = new VBox(labelSettings, outerSubPart);
 		part1.getStyleClass().add("standard-padding");
+		VBox.setVgrow(part1, Priority.ALWAYS);
 
 		VBox part2 = new VBox(labelProjects, projectSheet);
 		part2.getStyleClass().add("standard-padding");
+		VBox.setVgrow(part2, Priority.ALWAYS);
 
 		VBox part3 = new VBox(labelStudents, studentSheet);
 		part3.getStyleClass().add("standard-padding");
+		VBox.setVgrow(part3, Priority.ALWAYS);
 
 		Tab tab1 = new Tab("1. Settings", part1);
 		Tab tab2 = new Tab("2. Load/Generate Projects", part2);
@@ -82,12 +84,10 @@ public class SetupPane extends ScrollPane {
 
 		disableStudentSheet();
 
-		TabPane tabPane = new TabPane();
-		tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-		tabPane.getTabs().add(tab1);
-		tabPane.getTabs().add(tab2);
-		tabPane.getTabs().add(tab3);
-		setContent(tabPane);
+		setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+		getTabs().add(tab1);
+		getTabs().add(tab2);
+		getTabs().add(tab3);
 	}
 
 	private Node initNumStudents() {
@@ -101,10 +101,19 @@ public class SetupPane extends ScrollPane {
 			try {
 				if (newConfig.equals("")) {
 					Settings.numberOfStudents.setValue(Settings.DEFAULT_NUMBER_OF_STUDENTS);
+					numStudentsWarning.setText("");
 				} else {
-					Settings.numberOfStudents.setValue(Integer.parseInt(newConfig));
+					Integer val = Integer.parseInt(newConfig);
+					if (val >= 14 && val <= 1500) {
+						Settings.numberOfStudents.setValue(val);
+						numStudentsWarning.setText("");
+					} else {
+						Settings.numberOfStudents.setValue(Settings.DEFAULT_NUMBER_OF_STUDENTS);
+						// below 14, crashes on generation of students.
+						// above 1500+, crashes on generation of projects.
+						numStudentsWarning.setText("WARNING: Expected range is 14 to 1500.");
+					}
 				}
-				numStudentsWarning.setText("");
 			} catch (NumberFormatException e) {
 				numStudentsWarning.setText("WARNING: Must be a number.");
 				Settings.numberOfStudents.setValue(Settings.DEFAULT_NUMBER_OF_STUDENTS);
@@ -199,16 +208,20 @@ public class SetupPane extends ScrollPane {
 
 	public void clearStudentsInStudentSheet() {
 		studentSheet.clear();
+		studentSheet.resetSuccessErrorLabels();
 	}
 
 	public void enableStudentSheet() {
-		studentSheet.setDisable(false);
-		tab3.setDisable(false);
+		setEnableStudentSheet(true);
 	}
 
 	public void disableStudentSheet() {
-		studentSheet.setDisable(true);
-		tab3.setDisable(true);
+		setEnableStudentSheet(false);
+	}
+
+	private void setEnableStudentSheet(boolean value) {
+		studentSheet.setDisable(!value);
+		tab3.setDisable(!value);
 	}
 
 	public void setEnableNavigateSolvers(boolean value) {
