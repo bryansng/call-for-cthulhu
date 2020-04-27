@@ -26,6 +26,10 @@ public class Settings {
 	public static ArrayList<Student> loadedStudents;
 	public static ArrayList<Project> loadedProjects;
 
+	// load button's dialog main directory.
+	public static final String DEFAULT_DIRECTORY = System.getProperty("user.dir");
+	public static String dialogDirectory = DEFAULT_DIRECTORY;
+
 	// constraints.
 	public static int NUM_HARD_CONSTRAINTS = 4;
 	public static int NUM_SOFT_CONSTRAINTS = 2;

@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Predicate;
+
+import ie.ucd.Settings;
 import ie.ucd.Common.SheetType;
 import ie.ucd.interfaces.SearchMatchable;
 import ie.ucd.io.CSVFileWriter;
@@ -50,7 +52,7 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 
 	private void initFileChooser() {
 		fileChooser = new FileChooser();
-		fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+		fileChooser.setInitialDirectory(new File(Settings.dialogDirectory));
 
 		// Set extension filter for text files.
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT and CSV files (*.txt, *.csv)", "*.txt",
@@ -61,10 +63,13 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 	private Node initSaveButton(Stage stage) {
 		Button saveButton = new Button("Save to File");
 		saveButton.setOnAction(e -> {
+			fileChooser.setInitialDirectory(new File(Settings.dialogDirectory));
+
 			// Show save file dialog.
 			File file = fileChooser.showSaveDialog(stage);
 
 			if (file != null) {
+				handleUpdateDialogDirectory(file);
 				saveToFile(file);
 			}
 		});
@@ -127,6 +132,9 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		// used previously when we didn't have a variable to store the ArrayList<E> elements.
+		// the below is when we thought we wanted to implement modify/edit tableView.
 		// CSVFileWriter writer = new CSVFileWriter();
 		// ArrayList<E> elements = new ArrayList<E>(actualList);
 		// try {
@@ -140,5 +148,9 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 		// } catch (IOException e) {
 		// 	e.printStackTrace();
 		// }
+	}
+
+	protected void handleUpdateDialogDirectory(File file) {
+		Settings.dialogDirectory = file.getParent();
 	}
 }

@@ -82,7 +82,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 		Label loadLabel = new Label("Load " + sheetTypeName);
 		loadLabel.getStyleClass().add("sub-label");
 
-		TextField filePath = new TextField(System.getProperty("user.dir"));
+		TextField filePath = new TextField(Settings.dialogDirectory);
 		filePath.setFocusTraversable(false);
 		filePath.setMouseTransparent(true);
 		filePath.setMaxWidth(1024);
@@ -106,10 +106,13 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 	}
 
 	private void handleFileLoading(Stage stage, TextField filePath) {
+		fileChooser.setInitialDirectory(new File(Settings.dialogDirectory));
+
 		// Show save file dialog.
 		File file = fileChooser.showOpenDialog(stage);
 
 		if (file != null) {
+			handleUpdateDialogDirectory(file);
 			filePath.setText(file.getAbsolutePath());
 			loadFromFile(file);
 		}
