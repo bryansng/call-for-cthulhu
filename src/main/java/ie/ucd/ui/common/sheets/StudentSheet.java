@@ -11,7 +11,6 @@ import ie.ucd.ui.common.constraints.SoftConstraints;
 import ie.ucd.ui.interfaces.StudentSheetInterface;
 import ie.ucd.ui.setup.SetupPane;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -21,7 +20,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-
 import java.util.Collections;
 import java.util.Deque;
 import java.util.LinkedList;

@@ -54,7 +54,8 @@ public class Student implements StudentInterface, SearchMatchable {
 		satisfaction += Settings.enableStudentAssignedPreferredProject ? preferenceSatisfaction() : 0.0;
 		satisfaction += Settings.enableSameStream ? streamSatisfaction() : 0.0;
 		satisfaction += Settings.enableStudentAssignedOneProject ? assignmentSatisfaction() : 0.0;
-		satisfaction += (Settings.enableHigherGPAHigherPreferences && Settings.enableGPA) ? gpaSatisfaction() : 0.0;
+		satisfaction += (Settings.enableHigherGPAHigherPreferences && Settings.enableGPA && gpa != null) ? gpaSatisfaction()
+				: 0.0;
 
 		calculatedViolation = true;
 		return satisfaction;
@@ -142,10 +143,15 @@ public class Student implements StudentInterface, SearchMatchable {
 
 	public boolean matchSearchTerm(String searchTerm) {
 		searchTerm = searchTerm.toLowerCase();
-		return firstName.toLowerCase().contains(searchTerm) || lastName.toLowerCase().contains(searchTerm)
-				|| getProject().getResearchActivity().toLowerCase().contains(searchTerm)
-				|| stream.toLowerCase().equals(searchTerm) || gpa.toString().equals(searchTerm)
-				|| Integer.toString(id).contains(searchTerm);
+		try {
+			return firstName.toLowerCase().contains(searchTerm) || lastName.toLowerCase().contains(searchTerm)
+					|| getProject().getResearchActivity().toLowerCase().contains(searchTerm)
+					|| stream.toLowerCase().equals(searchTerm) || gpa.toString().equals(searchTerm)
+					|| Integer.toString(id).contains(searchTerm);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	private boolean isInPreferenceList(String searchTerm) {

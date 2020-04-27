@@ -49,6 +49,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 		VBox buffer = new VBox(new Label("---\nor\n---"));
 
 		errorWarning = new Label();
+		errorWarning.setWrapText(true);
 		errorWarning.getStyleClass().add("warning-label");
 		setEnableErrorWarning(false, "");
 
@@ -130,6 +131,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 					throw new NullPointerException("Projects read is null.");
 				}
 
+				Settings.prepareSetupSolution();
 				setAll((ArrayList<E>) Settings.loadedProjects);
 				enableStudentSheet();
 				setEnableNavigateSolvers(false);

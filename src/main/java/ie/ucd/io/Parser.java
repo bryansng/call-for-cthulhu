@@ -11,6 +11,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import ie.ucd.Common;
 import ie.ucd.objects.StaffMember;
 
 public class Parser {
@@ -59,9 +61,18 @@ public class Parser {
 			String specialFocus = row.getCell(3) == null ? "" : row.getCell(3).getStringCellValue();
 
 			if (!researchActivity.equals("")) {
+				if (Common.DEBUG_IO_UNICODE && proposedBy.startsWith("Pep"))
+					System.out.println(proposedBy);
+
 				StaffMember staffMember = new StaffMember(proposedBy, researchActivity, researchAreas, specialFocus);
 				staffMembers.add(staffMember);
 				staffMembersMap.put(proposedBy, staffMember);
+
+				if (Common.DEBUG_IO_UNICODE && proposedBy.startsWith("Pep"))
+					System.out.println(staffMember);
+
+				if (Common.DEBUG_IO_UNICODE && proposedBy.startsWith("Pep"))
+					System.out.println(staffMembersMap.containsKey(proposedBy));
 			}
 		}
 		is.close();

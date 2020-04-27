@@ -2,13 +2,13 @@ package ie.ucd.io;
 
 import java.io.*;
 
+import ie.ucd.Common;
 import ie.ucd.Settings;
 import ie.ucd.objects.CandidateSolution;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.StaffMember;
 import ie.ucd.objects.Student;
-import java.io.FileWriter;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -21,7 +21,7 @@ public class CSVFileWriter {
     }
 
     public void writeProjects(ArrayList<Project> projects, File toFile) throws IOException {
-        final String[] columns = { "Staff Name", "Research Activity", "Stream", "Preferred Probability" };
+        final String[] columns = { "Staff Name", "Research Activity", "Stream" };
         try {
             int numOfStudents = projects.size() / 3 * 2;
 
@@ -35,21 +35,26 @@ public class CSVFileWriter {
             }
 
             // create writer
-            FileWriter fileWriter = new FileWriter(file);
+            Writer fileWriter = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
 
             // write header
-            fileWriter.write(
-                    columns[0] + separator + columns[1] + separator + columns[2] + separator + columns[3] + newLine);
+            fileWriter.write(columns[0] + separator + columns[1] + separator + columns[2] + newLine);
             // write the details
             for (Project project : projects) {
+                if (Common.DEBUG_IO_UNICODE) {
+                    System.out.println("\nproject: " + project);
+                    System.out.println("staffMember: " + project.getStaffMember());
+                    System.out.println("staffMember proposedby: " + project.getStaffMember().getProposedBy());
+                }
                 fileWriter.write(project.getStaffMember().getProposedBy() + separator + project.getResearchActivity()
-                        + separator + project.getStream() + separator + project.getPreferredProbability() + newLine);
+                        + separator + project.getStream() + newLine);
             }
             // close writer
             fileWriter.flush();
             fileWriter.close();
         } catch (Exception e) {
             System.out.println("I/O error in CSVFileWriter.writeProjects");
+            e.printStackTrace();
         }
     }
 
@@ -79,7 +84,7 @@ public class CSVFileWriter {
             }
 
             // create writer
-            FileWriter fileWriter = new FileWriter(file);
+            Writer fileWriter = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
 
             // write header
             for (int i = 0; i < columns.size(); i++) {
@@ -95,13 +100,10 @@ public class CSVFileWriter {
             int rowNum = 1;
             for (Student student : students) {
                 line = "";
-                if (Settings.enableGPA)
-                    line += student.getFirstName() + separator + student.getLastName() + separator + student.getId()
-                            + separator + student.getStream() + separator + student.getGpa() + separator
-                            + student.getProject() + separator;
-                else
-                    line += student.getFirstName() + separator + student.getLastName() + separator + student.getId()
-                            + separator + student.getStream() + separator + student.getProject() + separator;
+                line += student.getFirstName() + separator + student.getLastName() + separator + student.getId()
+                        + separator + student.getStream()
+                        + (Settings.enableGPA ? separator + student.getGpa() + separator : separator)
+                        + student.getProject() + separator;
                 for (int i = 0; i < student.getPreferenceList().size(); i++) {
                     line = line.concat(student.getPreferenceList().get(i).getResearchActivity());
                     if (i == student.getPreferenceList().size() - 1)

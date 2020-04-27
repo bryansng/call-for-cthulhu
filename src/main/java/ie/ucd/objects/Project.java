@@ -64,8 +64,13 @@ public class Project implements ProjectInterface, SearchMatchable {
 
 	public boolean matchSearchTerm(String searchTerm) {
 		searchTerm = searchTerm.toLowerCase();
-		return staffMember.getProposedBy().toLowerCase().contains(searchTerm)
-				|| researchActivity.toLowerCase().contains(searchTerm) || stream.toLowerCase().equals(searchTerm);
+		try {
+			return staffMember.getProposedBy().toLowerCase().contains(searchTerm)
+					|| researchActivity.toLowerCase().contains(searchTerm) || stream.toLowerCase().equals(searchTerm);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	public void incrementAsPreference() {

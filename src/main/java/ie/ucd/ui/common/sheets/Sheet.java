@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 // class handles the sheet view, search box and save button.
 public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 	protected TableView<E> tableView;
+	protected ArrayList<E> elements;
 	protected ObservableList<E> actualList;
 	protected FilteredList<E> filteredList;
 	protected SearchBox<E> searchBox;
@@ -90,10 +91,12 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 	}
 
 	public void setAll(ArrayList<E> elements) {
+		this.elements = elements;
 		actualList.setAll(elements);
 	}
 
 	public void clear() {
+		this.elements = null;
 		actualList.clear();
 	}
 
@@ -112,9 +115,8 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 
 	private void saveToFile(File toFile) {
 		CSVFileWriter writer = new CSVFileWriter();
-		ArrayList<E> elements = new ArrayList<E>(actualList);
 		try {
-			if (!elements.isEmpty()) {
+			if (elements != null && !elements.isEmpty()) {
 				if (elements.get(0) instanceof Student) {
 					writer.writeStudents((ArrayList<Student>) elements, toFile);
 				} else if (elements.get(0) instanceof Project) {
@@ -124,5 +126,18 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		// CSVFileWriter writer = new CSVFileWriter();
+		// ArrayList<E> elements = new ArrayList<E>(actualList);
+		// try {
+		// 	if (!elements.isEmpty()) {
+		// 		if (elements.get(0) instanceof Student) {
+		// 			writer.writeStudents((ArrayList<Student>) elements, toFile);
+		// 		} else if (elements.get(0) instanceof Project) {
+		// 			writer.writeProjects((ArrayList<Project>) elements, toFile);
+		// 		}
+		// 	}
+		// } catch (IOException e) {
+		// 	e.printStackTrace();
+		// }
 	}
 }

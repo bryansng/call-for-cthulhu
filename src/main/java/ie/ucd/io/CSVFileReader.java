@@ -12,6 +12,7 @@ import ie.ucd.objects.StaffMember;
 import ie.ucd.objects.Student;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -56,7 +57,9 @@ public class CSVFileReader {
                 InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
                 csvReader = new CSVReaderBuilder(new InputStreamReader(is)).withCSVParser(csvParser).build();
             } else {
-                csvReader = new CSVReaderBuilder(new FileReader(fromFile)).withCSVParser(csvParser).build();
+                csvReader = new CSVReaderBuilder(new InputStreamReader(new FileInputStream(fromFile), "UTF-8"))
+                        .withCSVParser(csvParser).build();
+                // csvReader = new CSVReaderBuilder(new FileReader(fromFile)).withCSVParser(csvParser).build();
             }
         } catch (Exception e) {
             System.out.println("error creating reader for input file: " + filename);
@@ -73,6 +76,9 @@ public class CSVFileReader {
                     "DS") : "Unable to read Projects input file, expected values of third column to be either 'CS', 'DS', or 'CS+DS'.";
             assert line.length != 4
                     || line.length != 3 : "Unable to read Projects input file, expected 3 or 4 columns of values.";
+
+            if (Common.DEBUG_IO_UNICODE && line[0].contains("Pep"))
+                System.out.println(line[0] + ": " + allStaffMembers.get(line[0]));
 
             if (line.length == 4)
                 projects.add(new Project(allStaffMembers.get(line[0]), line[1], line[2], Double.parseDouble(line[3])));
@@ -97,7 +103,8 @@ public class CSVFileReader {
                 InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
                 csvReader = new CSVReaderBuilder(new InputStreamReader(is)).withCSVParser(csvParser).build();
             } else {
-                csvReader = new CSVReaderBuilder(new FileReader(fromFile)).withCSVParser(csvParser).build();
+                csvReader = new CSVReaderBuilder(new InputStreamReader(new FileInputStream(fromFile), "UTF-8"))
+                        .withCSVParser(csvParser).build();
             }
         } catch (Exception e) {
             System.out.println("error creating CSVReader object for input file: " + filename);
@@ -111,15 +118,53 @@ public class CSVFileReader {
                 flag = 1;
                 continue;
             }
+
             ArrayList<Project> thisStudentsPreference = new ArrayList<Project>();
-            for (int i = 4; i < 14; i++) {
+            boolean hasProjectAssigned = false;
+            String projectAssignedStr = null;
+            Project projectAssigned = null;
+            int start, end;
+            if (Settings.enableGPA && isGPA(line[4])) {
+                // if has column for project assigned.
+                if (line.length == 16) {
+                    start = 6;
+                    end = 16;
+                    hasProjectAssigned = true;
+                    projectAssignedStr = line[5];
+                } else {
+                    start = 5;
+                    end = 15;
+                }
+            } else {
+                // if has column for project assigned.
+                if (line.length == 15) {
+                    start = 5;
+                    end = 15;
+                    hasProjectAssigned = true;
+                    projectAssignedStr = line[4];
+                } else {
+                    start = 4;
+                    end = 14;
+                }
+            }
+
+            // find actual Project objects from the strings.
+            for (int curr = start; curr < end; curr++) {
                 for (Project project : projects) {
-                    if (project.getResearchActivity().equals(line[i])) {
+                    // if is ProjectAssigned.
+                    if (projectAssigned == null && hasProjectAssigned && projectAssignedStr != null
+                            && project.getResearchActivity().equals(projectAssignedStr)) {
+                        projectAssigned = project;
+                    }
+
+                    // if is Project object of preference list.
+                    if (project.getResearchActivity().equals(line[curr])) {
                         thisStudentsPreference.add(project);
                         break;
                     }
                 }
             }
+
             if (thisStudentsPreference.size() != 10) {
                 throw new InterruptedIOException(
                         "Preference list size must be equal to 10, but is %d, check if readStudents() is given the correct ArrayList projects tailored for these students.");
@@ -129,16 +174,38 @@ public class CSVFileReader {
                     thisStudentsPreference.size());
             // System.out.println(thisStudentsPreference.size() + " " + (thisStudentsPreference.size() == 10));
             // System.out.println("actual " + (thisStudentsPreference.size() < 10) + ", expected: false");
-            // if (Settings.enableGPA)
-            // students.add(
-            //         new Student(line[0], line[1], Integer.parseInt(line[2]), line[3], line[4], thisStudentsPreference));
-            // else
-            students.add(
-                    new Student(line[0], line[1], Integer.parseInt(line[2]), line[3], 0.0, thisStudentsPreference));
+            if (hasProjectAssigned && projectAssigned != null) {
+                students.add(new Student(line[0], line[1], Integer.parseInt(line[2]), line[3],
+                        (Settings.enableGPA && isGPA(line[4]))
+                                ? (line[4].equals("null")) ? null : Double.parseDouble(line[4])
+                                : null,
+                        projectAssigned, thisStudentsPreference));
+            } else {
+                students.add(new Student(line[0], line[1], Integer.parseInt(line[2]), line[3],
+                        (Settings.enableGPA && isGPA(line[4]))
+                                ? (line[4].equals("null")) ? null : Double.parseDouble(line[4])
+                                : null,
+                        thisStudentsPreference));
+            }
             // System.out.println(aIndex + " " + students.get(students.size() - 1));
             // aIndex += 1;
         }
         return students;
+    }
+
+    // is GPA if it is a double, and that double is within 0.0 to 4.2.
+    private boolean isGPA(String strVal) {
+        if (strVal.equals("null"))
+            return true;
+
+        try {
+            Double val = Double.parseDouble(strVal);
+            if (val >= 0.0 && val <= 4.2) {
+                return true;
+            }
+        } catch (Exception e) {
+        }
+        return false;
     }
 
     public ArrayList<StaffMember> readStaffMembers(String filename) throws IOException {

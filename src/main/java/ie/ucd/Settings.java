@@ -11,7 +11,7 @@ public class Settings {
 	public static final boolean DEMO_SA_FAST = true;
 	public static final boolean DEMO_GA_FAST = true;
 
-	public static boolean enableAnimation = true;
+	public static boolean enableAnimation = false;
 	public static int maximumXAxisTicks = 10000; // higher = UI slower.
 	public static int pointsToRemove = maximumXAxisTicks * 20 / 100;
 

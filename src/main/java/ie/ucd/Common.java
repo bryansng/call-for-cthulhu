@@ -22,6 +22,10 @@ public class Common {
 	// ControlButton will change to using solvers' internal parameter configs.
 	public static final boolean IS_DEBUGGING_SOLVERS = false;
 
+	// Used during load and save of projectsCSV500.
+	// some staff names have unicode characters, which were not taken into account.
+	public static final boolean DEBUG_IO_UNICODE = false;
+
 	// SA debug verbosity.
 	public static final boolean DEBUG_SHOW_SA = false;
 	public static final boolean DEBUG_SHOW_ENERGIES = false;
