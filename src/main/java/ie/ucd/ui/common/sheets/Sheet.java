@@ -40,6 +40,7 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 
 		getStyleClass().add("more-smaller-main-container");
 		getChildren().addAll(initSearchBox(), initTableView());
+		tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		if (includeSaveToFileButton) {
 			getChildren().add(initSaveButton(stage));
 		}

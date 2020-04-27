@@ -72,6 +72,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 		Button loadButton = new Button("Browse");
 		loadButton.setFocusTraversable(false);
 		loadButton.setMouseTransparent(true);
+		loadButton.setDisable(false);
 
 		HBox hBox = new HBox(5);
 		hBox.setOnMouseClicked((evt) -> {
@@ -86,9 +87,6 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 	}
 
 	private void handleFileLoading(Stage stage, TextField filePath) {
-		// handle errors.
-		// 1. students loaded and projects loaded incompatible.
-
 		// Show save file dialog.
 		File file = fileChooser.showOpenDialog(stage);
 
@@ -163,7 +161,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 			} catch (Exception e) {
 				setEnableErrorWarning(true, "ERROR: Unable to read file. Please ensure you are loading a file for "
 						+ sheetTypeName
-						+ ".\nExpected format is: First Name,Last Name,ID,Stream,Preference 1,Preference 2,Preference 3,Preference 4,Preference 5,Preference 6,Preference 7,Preference 8,Preference 9,Preference 10");
+						+ ".\nExpected format is:\n- First Name,Last Name,ID,Stream,GPA,Project Assigned,Preference 1,Preference 2,Preference 3,Preference 4,Preference 5,Preference 6,Preference 7,Preference 8,Preference 9,Preference 10, or\n- First Name,Last Name,ID,Stream,Project Assigned,Preference 1,Preference 2,Preference 3,Preference 4,Preference 5,Preference 6,Preference 7,Preference 8,Preference 9,Preference 10, or\n- First Name,Last Name,ID,Stream,Preference 1,Preference 2,Preference 3,Preference 4,Preference 5,Preference 6,Preference 7,Preference 8,Preference 9,Preference 10");
 			}
 		}
 	}

@@ -19,6 +19,7 @@ public class MainUI extends GridPane {
 
 	public MainUI(Stage stage) {
 		super();
+		stage.setMaximized(true);
 		initLayout(stage);
 	}
 
