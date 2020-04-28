@@ -172,9 +172,11 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 		finalSolutionFitness = bestSatisfaction;
 		this.finalSolution = bestSolution;
 
-		uiAddToCurrQueueNoAnimate(currSheet, fittestSolution);
-		uiAddToBestQueueNoAnimate(bestSheet, bestSolution);
-		uiSignalProcessingDone(solverPane);
+		if (!isStopped) {
+			uiAddToCurrQueueNoAnimate(currSheet, fittestSolution);
+			uiAddToBestQueueNoAnimate(bestSheet, bestSolution);
+			uiSignalProcessingDone(solverPane);
+		}
 
 		System.out.println("Genetic Algorithm simulation complete.");
 	}

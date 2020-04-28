@@ -188,7 +188,8 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 	}
 
 	public void addLastCandidateSolutionToSheet() {
-		updateSheetAndStrengthAndConstraints(solutionDeque.removeLast());
+		if (!isDequeEmpty())
+			updateSheetAndStrengthAndConstraints(solutionDeque.removeLast());
 	}
 
 	protected Node initTableView() {

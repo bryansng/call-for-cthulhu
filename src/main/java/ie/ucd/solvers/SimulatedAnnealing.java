@@ -126,9 +126,11 @@ public class SimulatedAnnealing extends Solver implements SolverUIUpdater {
 			threadHandleOneStepAndWaiting();
 			uiAddToProgressIndicator(solverPane, startTemperature, currTemperature, minTemperature);
 		}
-		uiAddToCurrQueueNoAnimate(currSheet, currSolution);
-		uiAddToBestQueueNoAnimate(bestSheet, bestSolution);
-		uiSignalProcessingDone(solverPane);
+		if (!isStopped) {
+			uiAddToCurrQueueNoAnimate(currSheet, currSolution);
+			uiAddToBestQueueNoAnimate(bestSheet, bestSolution);
+			uiSignalProcessingDone(solverPane);
+		}
 
 		System.out.println("\nExited at loop " + i + ", currTemperature " + currTemperature);
 		System.out.println("totalRejected: " + totalRejected);

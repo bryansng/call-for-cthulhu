@@ -74,7 +74,7 @@ public class ControlButtons extends HBox {
 			}
 		});
 
-		clearAndReset = new Button("Clear and Reset");
+		clearAndReset = new Button("Reset");
 		clearAndReset.setOnAction((event) -> {
 			if (isRunning) {
 				solver.stop();

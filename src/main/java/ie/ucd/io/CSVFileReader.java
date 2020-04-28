@@ -77,8 +77,17 @@ public class CSVFileReader {
             assert line.length != 4
                     || line.length != 3 : "Unable to read Projects input file, expected 3 or 4 columns of values.";
 
+            assert !line[0].equals("") && !line[1].equals("") && !line[2]
+                    .equals("") : "Unable to read Projects input file, expected column values not empty or null.";
+
             if (Common.DEBUG_IO_UNICODE && line[0].contains("Pep"))
                 System.out.println(line[0] + ": " + allStaffMembers.get(line[0]));
+
+            if (!(line[2].equals("CS") || line[2].equals("CS+DS") || line[2].equals("DS"))
+                    && !(line.length != 4 || line.length != 3)
+                    && !(!line[0].equals("") && !line[1].equals("") && !line[2].equals(""))) {
+                throw new InterruptedIOException("Unable to read Projects input file.");
+            }
 
             if (line.length == 4)
                 projects.add(new Project(allStaffMembers.get(line[0]), line[1], line[2], Double.parseDouble(line[3])));
