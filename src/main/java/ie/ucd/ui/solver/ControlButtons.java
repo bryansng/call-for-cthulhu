@@ -77,15 +77,15 @@ public class ControlButtons extends HBox {
 		clearAndReset = new Button("Clear and Reset");
 		clearAndReset.setOnAction((event) -> {
 			if (isRunning) {
-				resetStates();
+				solver.stop();
 				solverPane.pause();
 				solverPane.resetSeries();
-				solver.stop();
 				play.setDisable(false);
 				play.requestFocus();
 				pause.setDisable(true);
 				clearAndReset.setDisable(true);
 				step.setDisable(true);
+				resetStates();
 			}
 		});
 

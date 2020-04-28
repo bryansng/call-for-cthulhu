@@ -111,9 +111,9 @@ public class Visualizer extends GridPane implements VisualizerInterface {
 
 	@Override
 	public void resetSeries() {
+		coordinateDeque.clear();
 		currSeries.getData().clear();
 		bestSeries.getData().clear();
-		coordinateDeque.clear();
 
 		Platform.runLater(() -> {
 			setSeriesName(0.0, 0.0);

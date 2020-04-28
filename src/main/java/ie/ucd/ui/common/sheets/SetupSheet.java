@@ -97,9 +97,9 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 		hBox.setOnMouseClicked((evt) -> {
 			handleFileLoading(stage, filePath);
 		});
-		hBox.getChildren().addAll(filePath, loadButton);
-		hBox.getStylesheets().add("ui/fileLoader.css");
 		hBox.getStyleClass().add("file-loader-container");
+		hBox.getStylesheets().add("ui/fileLoader.css");
+		hBox.getChildren().addAll(filePath, loadButton);
 		vBox.getChildren().addAll(loadLabel, hBox);
 
 		return vBox;

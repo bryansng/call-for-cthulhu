@@ -62,8 +62,7 @@ public class SolverPane extends ScrollPane {
 				initOneShotScheduler();
 			} else if (isDoneProcessing && isDequeEmpty()) {
 				pause();
-				progressIndicator.resetSeries();
-				progressIndicator.setProgress(1.0);
+				progressIndicator.setDone();
 				controlButtons.enableOnlyClearAndReset();
 				System.out.println("scheduler paused");
 
@@ -81,7 +80,7 @@ public class SolverPane extends ScrollPane {
 	public void resetSeries() {
 		visualizer.resetSeries();
 		sheets.resetSeries();
-		progressIndicator.resetSeries();
+		progressIndicator.reset();
 	}
 
 	public void resetSheetsEvaluation() {
@@ -116,6 +115,7 @@ public class SolverPane extends ScrollPane {
 			Platform.runLater(() -> {
 				visualizer.addLastWindowToChart();
 				sheets.addLastCandidateSolutionToSheet();
+				progressIndicator.setDone();
 			});
 		}
 	}

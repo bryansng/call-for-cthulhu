@@ -1,12 +1,10 @@
+/* .file-loader-container:disabled>.button {
+	-fx-background-color: #287BDE;
+	-fx-text-fill: white;
+} */
+
 .file-loader-container:hover>.button {
 	-fx-background-color: rgb(75, 142, 224);
-	/* before we added explicit button styles */
-	/* -fx-color: -fx-hover-base; */
-}
-
-.file-loader-container:armed>.button {
-	/* before we added explicit button styles */
-	-fx-color: -fx-pressed-base;
 }
 
 .text-field:hover {

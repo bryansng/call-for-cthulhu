@@ -40,8 +40,18 @@ public class CustomProgressIndicator extends StackPane {
 		percentage.setText(String.format("%s", df.format(progress * 100)) + percentageSuffix); // convert progress to percentage.
 	}
 
+	public void setDone() {
+		resetSeries();
+		setProgress(1.0);
+	}
+
 	public void resetSeries() {
 		progressDeque.clear();
+	}
+
+	public void reset() {
+		progressDeque.clear();
+		setProgress(0.0);
 	}
 
 	public boolean isDequeEmpty() {
@@ -70,13 +80,19 @@ public class CustomProgressIndicator extends StackPane {
 					double current = progress.getCurrent();
 					double end = progress.getEnd();
 
+					double currProgress = 0.0;
 					if (start > end) {
-						setProgress((start - current) / (start - end));
+						currProgress = (start - current) / (start - end);
 					} else if (end > start) {
-						setProgress((current - start) / (end - start));
+						currProgress = (current - start) / (end - start);
 					} else {
-						setProgress(1.0);
+						currProgress = 1.0;
 					}
+
+					if (currProgress > 1.0) {
+						currProgress = 1.0;
+					}
+					setProgress(currProgress);
 				} catch (NoSuchElementException e) {
 				}
 			}

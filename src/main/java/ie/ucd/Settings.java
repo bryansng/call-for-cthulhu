@@ -110,5 +110,5 @@ public class Settings {
 		ORIGINAL, DARK
 	}
 
-	public static boolean enableDarkTheme = false;
+	public static boolean enableDarkTheme = true;
 }
