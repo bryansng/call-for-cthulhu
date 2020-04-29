@@ -84,8 +84,8 @@ public class CSVFileReader {
                 System.out.println(line[0] + ": " + allStaffMembers.get(line[0]));
 
             if (!(line[2].equals("CS") || line[2].equals("CS+DS") || line[2].equals("DS"))
-                    && !(line.length != 4 || line.length != 3)
-                    && !(!line[0].equals("") && !line[1].equals("") && !line[2].equals(""))) {
+                    || !(line.length != 4 || line.length != 3)
+                    || !(!line[0].equals("") && !line[1].equals("") && !line[2].equals(""))) {
                 System.out.println("stuff empty");
                 throw new InterruptedIOException("Unable to read Projects input file.");
             }

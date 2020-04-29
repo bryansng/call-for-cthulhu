@@ -174,7 +174,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 				setEnableErrorLoad(true, "ERROR: Unable to read file. Please ensure no fields are empty.");
 			} catch (Exception e) {
 				setEnableErrorLoad(true, "ERROR: Unable to read file. Please ensure you are loading a file for " + sheetTypeName
-						+ ".\nExpected format is: Staff Name,Research Activity,Stream");
+						+ ".\nExpected format is: Staff Name (String),Research Activity (String),Stream (String: CS, CS, CS+DS)");
 			}
 		} else if (sheetType == SheetType.Student) {
 			try {
@@ -189,9 +189,11 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 				setEnableSuccessfulLoad(true,
 						String.format("SUCCESS: Loaded %d %s.", Settings.loadedStudents.size(), sheetTypeName.toLowerCase()));
 			} catch (AssertionError e) {
-				setEnableErrorLoad(true, "ERROR: A student's preference list project cannot be found in the Loaded projects.");
+				setEnableErrorLoad(true,
+						"ERROR: Unable to read file. A project in a student's preference list cannot be found in the Loaded projects. Please ensure you have the list of projects allocated for these students, or list of students with these projects.");
 			} catch (InterruptedIOException e) {
-				setEnableErrorLoad(true, "ERROR: A student's preference list project cannot be found in the Loaded projects.");
+				setEnableErrorLoad(true,
+						"ERROR: Unable to read file. A project in a student's preference list cannot be found in the Loaded projects. Please ensure you have the list of projects allocated for these students, or list of students with these projects.");
 			} catch (Exception e) {
 				setEnableErrorLoad(true, "ERROR: Unable to read file. Please ensure you are loading a file for " + sheetTypeName
 						+ ".\nExpected format is:\n- First Name,Last Name,ID,Stream,GPA,Project Assigned,Preference 1,Preference 2,Preference 3,Preference 4,Preference 5,Preference 6,Preference 7,Preference 8,Preference 9,Preference 10, or\n- First Name,Last Name,ID,Stream,Project Assigned,Preference 1,Preference 2,Preference 3,Preference 4,Preference 5,Preference 6,Preference 7,Preference 8,Preference 9,Preference 10, or\n- First Name,Last Name,ID,Stream,Preference 1,Preference 2,Preference 3,Preference 4,Preference 5,Preference 6,Preference 7,Preference 8,Preference 9,Preference 10");
