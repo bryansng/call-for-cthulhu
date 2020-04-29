@@ -202,7 +202,7 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 		int probabilityIndex = random.nextInt(1000);
 
 		if (probabilityIndex < bound) {
-			//mate using String.substring() method from a random point
+			// mate using String.substring() method from a random point.
 			int crossoverIndex = random.nextInt((parentA.length() - 5) * 10) / 10;
 			offspring = parentA.substring(0, crossoverIndex).concat(parentB.substring(crossoverIndex));
 		}

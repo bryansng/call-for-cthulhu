@@ -52,6 +52,16 @@ public class StaffMember implements StaffMemberInterface {
 		return researchActivities[randInt];
 	}
 
+	public void setProjectUnused(String researchActivity) {
+		for (int i = 0; i < researchActivities.length; i++) {
+			if (researchActivity.equals(researchActivities[i])) {
+				researchActivitiesUsed[i] = false;
+				numActivitiesUsed -= 1;
+				break;
+			}
+		}
+	}
+
 	public String toString() {
 		return proposedBy;
 	}

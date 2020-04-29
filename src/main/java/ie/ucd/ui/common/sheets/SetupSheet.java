@@ -170,6 +170,8 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 			} catch (AssertionError e) {
 				setEnableErrorLoad(true, "ERROR: Unable to read file. Please ensure you are loading a file for " + sheetTypeName
 						+ ".\nExpected format is: Staff Name,Research Activity,Stream");
+			} catch (InterruptedIOException e) {
+				setEnableErrorLoad(true, "ERROR: Unable to read file. Please ensure no fields are empty.");
 			} catch (Exception e) {
 				setEnableErrorLoad(true, "ERROR: Unable to read file. Please ensure you are loading a file for " + sheetTypeName
 						+ ".\nExpected format is: Staff Name,Research Activity,Stream");

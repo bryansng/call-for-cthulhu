@@ -154,18 +154,29 @@ public class CandidateSolution {
 	public ArrayList<Project> generateProjects() {
 		projects = new ArrayList<Project>();
 
+		HashSet<String> projectsUsed = new HashSet<String>();
+
 		for (StaffMember staffMember : staffMembers) {
 			staffMember.resetResearchActivitiesUsed();
 		}
 
 		int numProjects = numberOfStudents.getValue() / 2;
-		for (int i = 0; i < Common.numAvgProjectsProposed * numProjects; i++) {
+		for (int i = 0; i < Common.numAvgProjectsProposed * numProjects;) {
 			int randInt = new Random().nextInt(staffMembers.size());
 			while (staffMembers.get(randInt).isAllActivitiesUsed()) {
 				randInt = new Random().nextInt(staffMembers.size());
 			}
 
-			projects.add(staffMembers.get(randInt).getProject());
+			// if project already proposed by another staff member.
+			Project potentialProject = staffMembers.get(randInt).getProject();
+			if (projectsUsed.contains(potentialProject.getResearchActivity())) {
+				staffMembers.get(randInt).setProjectUnused(potentialProject.getResearchActivity());
+				continue;
+			}
+
+			projectsUsed.add(potentialProject.getResearchActivity());
+			projects.add(potentialProject);
+			i++;
 		}
 
 		if (!isEvenProjectStreamAllocation()) {
@@ -198,7 +209,9 @@ public class CandidateSolution {
 			}
 			String stream = generateStudentStream();
 			usedStudentIDs.add(randomId);
-			students.add(new Student(firstName, lastName, randomId, stream, 4.2, generatePreferenceList(stream, randomId)));
+
+			students.add(new Student(firstName, lastName, randomId, stream, Common.rand.nextDouble() * 4.2,
+					generatePreferenceList(stream, randomId)));
 		}
 
 		if (!isEvenStudentStreamAllocation()) {
@@ -213,6 +226,35 @@ public class CandidateSolution {
 
 	// checks for 1st preferences.
 	private ArrayList<Project> generatePreferenceList(String stream, Integer randomId) {
+		ArrayList<Project> list = new ArrayList<Project>();
+		HashSet<Integer> usedIndex = new HashSet<Integer>();
+
+		// resetProjectsCounters();
+
+		// assuming impossible to run out of projects to give as 1st preference since projects.size() always > numOfStudents.
+		for (int i = 0; i < 10;) {
+			int randomIndex = new Random().nextInt(projects.size());
+			Project project = projects.get(randomIndex);
+			if (!usedIndex.contains(randomIndex) && project.hasCompatibleStream(stream)
+					&& project.doesStudentPreferProject()) {
+				project.incrementAsPreference();
+				if (i == 0) {
+					project.incrementAs1stPreference();
+					project.incrementStudentsAssigned();
+					project.setIsGivenAs1stPreference(true);
+				}
+
+				usedIndex.add(randomIndex);
+				list.add(project);
+				i++;
+				totalProjectsAssigned++;
+			}
+		}
+
+		return list;
+	}
+
+	private ArrayList<Project> generatePreferenceListv1(String stream, Integer randomId) {
 		ArrayList<Project> list = new ArrayList<Project>();
 		HashSet<Integer> usedIndex = new HashSet<Integer>();
 

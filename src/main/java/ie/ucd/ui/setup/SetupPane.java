@@ -104,14 +104,14 @@ public class SetupPane extends TabPane {
 					numStudentsWarning.setText("");
 				} else {
 					Integer val = Integer.parseInt(newConfig);
-					if (val >= 15 && val <= 1500) {
+					if (val >= 20 && val <= 1500) {
 						Settings.numberOfStudents.setValue(val);
 						numStudentsWarning.setText("");
 					} else {
 						Settings.numberOfStudents.setValue(Settings.DEFAULT_NUMBER_OF_STUDENTS);
-						// below 14, crashes on generation of students.
+						// below 20, crashes on generation of students.
 						// above 1500+, crashes on generation of projects.
-						numStudentsWarning.setText("WARNING: Expected range is 15 to 1500.");
+						numStudentsWarning.setText("WARNING: Expected range is 20 to 1500.");
 					}
 				}
 			} catch (NumberFormatException e) {

@@ -72,10 +72,17 @@ public class GeneticAlgorithmTP extends TitledPane {
 			try {
 				if (newConfig.equals("")) {
 					Settings.gaNumberOfGeneration = Settings.GA_DEFAULT_NUMBER_OF_GENERATION;
+					numberOfGenerationWarning.setText("");
 				} else {
-					Settings.gaNumberOfGeneration = Integer.parseInt(newConfig);
+					Integer val = Integer.parseInt(newConfig);
+					if (val <= 0) {
+						Settings.gaNumberOfGeneration = Settings.GA_DEFAULT_NUMBER_OF_GENERATION;
+						numberOfGenerationWarning.setText("WARNING: Must be greater than 0.");
+					} else {
+						Settings.gaNumberOfGeneration = val;
+						numberOfGenerationWarning.setText("");
+					}
 				}
-				numberOfGenerationWarning.setText("");
 			} catch (NumberFormatException e) {
 				numberOfGenerationWarning.setText("WARNING: Must be a number.");
 				Settings.gaNumberOfGeneration = Settings.GA_DEFAULT_NUMBER_OF_GENERATION;
@@ -97,10 +104,17 @@ public class GeneticAlgorithmTP extends TitledPane {
 			try {
 				if (newConfig.equals("")) {
 					Settings.gaPopulationSize = Settings.GA_DEFAULT_POPULATION_SIZE;
+					populationSizeWarning.setText("");
 				} else {
-					Settings.gaPopulationSize = Integer.parseInt(newConfig);
+					Integer val = Integer.parseInt(newConfig);
+					if (val <= 0) {
+						Settings.gaPopulationSize = Settings.GA_DEFAULT_POPULATION_SIZE;
+						populationSizeWarning.setText("WARNING: Must be greater than 0.");
+					} else {
+						Settings.gaPopulationSize = val;
+						populationSizeWarning.setText("");
+					}
 				}
-				populationSizeWarning.setText("");
 			} catch (NumberFormatException e) {
 				populationSizeWarning.setText("WARNING: Must be a number.");
 				Settings.gaPopulationSize = Settings.GA_DEFAULT_POPULATION_SIZE;
@@ -115,7 +129,7 @@ public class GeneticAlgorithmTP extends TitledPane {
 
 	private Node initCrossoverChance() {
 		Label textValue = new Label(String.format("%.4f", Settings.gaCrossoverChance));
-		crossoverChance = new Slider(0.0, 1.0, Settings.gaCrossoverChance);
+		crossoverChance = new Slider(0.0001, 1.0, Settings.gaCrossoverChance);
 		crossoverChance.valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> ov, Number oldValue, Number newValue) {
 				textValue.setText(String.format("%.4f", newValue));

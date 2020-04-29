@@ -94,10 +94,17 @@ public class SimulatedAnnealingTP extends TitledPane {
 			try {
 				if (newConfig.equals("")) {
 					Settings.saCoolingRate = Settings.SA_DEFAULT_COOLING_RATE;
+					coolingRateWarning.setText("");
 				} else {
-					Settings.saCoolingRate = Double.parseDouble(newConfig);
+					Double val = Double.parseDouble(newConfig);
+					if (val <= 0) {
+						Settings.saCoolingRate = Settings.SA_DEFAULT_COOLING_RATE;
+						coolingRateWarning.setText("WARNING: Must be greater than 0.");
+					} else {
+						Settings.saCoolingRate = val;
+						coolingRateWarning.setText("");
+					}
 				}
-				coolingRateWarning.setText("");
 			} catch (NumberFormatException e) {
 				coolingRateWarning.setText("WARNING: Must be a number.");
 				Settings.saCoolingRate = Settings.SA_DEFAULT_COOLING_RATE;
@@ -144,10 +151,18 @@ public class SimulatedAnnealingTP extends TitledPane {
 			try {
 				if (newConfig.equals("")) {
 					Settings.saMaxIteration = Settings.SA_DEFAULT_MAX_ITERATION;
+					maxIterationWarning.setText("");
 				} else {
-					Settings.saMaxIteration = Double.parseDouble(newConfig);
+					Double val = Double.parseDouble(newConfig);
+					if (val <= 0) {
+						System.out.println("smaller than zero");
+						Settings.saMaxIteration = Settings.SA_DEFAULT_MAX_ITERATION;
+						maxIterationWarning.setText("WARNING: Must be greater than 0.");
+					} else {
+						Settings.saMaxIteration = val;
+						maxIterationWarning.setText("");
+					}
 				}
-				maxIterationWarning.setText("");
 			} catch (NumberFormatException e) {
 				maxIterationWarning.setText("WARNING: Must be a number.");
 				Settings.saMaxIteration = Settings.SA_DEFAULT_MAX_ITERATION;
