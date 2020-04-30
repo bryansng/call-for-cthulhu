@@ -97,6 +97,7 @@ public class CSVReaderTest {
 			dummyProjects = dummyReader.readProject("testCSVs/testCorrectProject.csv", parser.getStaffMembersMap());
 			dummyStudents = dummyReader.readStudents("testCSVs/testCorrectStudent.csv", dummyProjects);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		Assert.assertNotNull("Students null, expected successful read.", dummyStudents);
 		Assert.assertEquals(60, dummyStudents.size());

@@ -36,9 +36,13 @@ public class Student implements StudentInterface, SearchMatchable {
 		this.id = id;
 		this.stream = stream;
 
-		DecimalFormat df = new DecimalFormat("##.##");
-		df.setRoundingMode(RoundingMode.CEILING);
-		this.gpa = Double.parseDouble(df.format(gpa));
+		if (gpa != null) {
+			DecimalFormat df = new DecimalFormat("##.##");
+			df.setRoundingMode(RoundingMode.CEILING);
+			this.gpa = Double.parseDouble(df.format(gpa));
+		} else {
+			this.gpa = gpa;
+		}
 
 		this.projects.add(projectAssigned);
 		this.preferenceList = preferenceList;
