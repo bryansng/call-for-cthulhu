@@ -1,5 +1,6 @@
 package ie.ucd.objects;
 
+import java.io.InterruptedIOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
@@ -160,7 +161,7 @@ public class CandidateSolution {
 			staffMember.resetResearchActivitiesUsed();
 		}
 
-		int numProjects = numberOfStudents.getValue() / 2;
+		int numProjects = (int) Math.round(numberOfStudents.getValue() * 1.0 / 2);
 		for (int i = 0; i < Common.numAvgProjectsProposed * numProjects;) {
 			int randInt = new Random().nextInt(staffMembers.size());
 			while (staffMembers.get(randInt).isAllActivitiesUsed()) {
@@ -179,13 +180,13 @@ public class CandidateSolution {
 			i++;
 		}
 
-		if (!isEvenProjectStreamAllocation()) {
+		if (!isEvenProjectStreamAllocation() && numProjects > 5) {
 			return generateProjects();
 		}
 		return projects;
 	}
 
-	public ArrayList<Student> generateStudents() {
+	public ArrayList<Student> generateStudents() throws Exception {
 		HashSet<Integer> usedStudentIDs = new HashSet<Integer>();
 		students = new ArrayList<Student>();
 		numDSStudents = 0.0;
@@ -214,7 +215,7 @@ public class CandidateSolution {
 					generatePreferenceList(stream, randomId)));
 		}
 
-		if (!isEvenStudentStreamAllocation()) {
+		if (!isEvenStudentStreamAllocation() && numberOfStudents.getValue() > 0) {
 			return generateStudents();
 		}
 		return students;
@@ -225,11 +226,10 @@ public class CandidateSolution {
 	}
 
 	// checks for 1st preferences.
-	private ArrayList<Project> generatePreferenceList(String stream, Integer randomId) {
+	private ArrayList<Project> generatePreferenceList(String stream, Integer randomId) throws Exception {
+		int noSuitableProjectsCounter = 0;
 		ArrayList<Project> list = new ArrayList<Project>();
 		HashSet<Integer> usedIndex = new HashSet<Integer>();
-
-		// resetProjectsCounters();
 
 		// assuming impossible to run out of projects to give as 1st preference since projects.size() always > numOfStudents.
 		for (int i = 0; i < 10;) {
@@ -248,13 +248,22 @@ public class CandidateSolution {
 				list.add(project);
 				i++;
 				totalProjectsAssigned++;
+				noSuitableProjectsCounter = 0;
+			} else {
+				noSuitableProjectsCounter += 1;
+			}
+
+			if (noSuitableProjectsCounter >= Common.MAX_NO_SUITABLE_PROJECTS) {
+				throw new InterruptedIOException(
+						"Insufficient suitable projects (i.e. incompatible stream, etc) during generation of student preference list.");
 			}
 		}
 
 		return list;
 	}
 
-	private ArrayList<Project> generatePreferenceListv1(String stream, Integer randomId) {
+	// checks for 1st preferences.
+	private ArrayList<Project> generatePreferenceListV1(String stream, Integer randomId) {
 		ArrayList<Project> list = new ArrayList<Project>();
 		HashSet<Integer> usedIndex = new HashSet<Integer>();
 

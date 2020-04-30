@@ -31,6 +31,8 @@ public class MainUI extends GridPane {
 		gaPane = new SolverPane(stage, SolverType.GeneticAlgorithm);
 
 		navPane = new NavigationPane(this);
+		navPane.setMinWidth(250);
+		navPane.setMaxWidth(250);
 
 		if (Settings.enableDarkTheme)
 			handleThemes(Theme.DARK);

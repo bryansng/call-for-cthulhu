@@ -45,6 +45,9 @@ public class Common {
 	public static final double COST_NONE_OR_MULTIPLE_PROJECTS = -2.0;
 	public static final double COST_UNEQUAL_PROJECT_DISTRIBUTION_TO_SUPERVISOR = -5.0;
 
+	// generateStudents' generatePreferenceList' no suitable projects MAX limit.
+	public static final int MAX_NO_SUITABLE_PROJECTS = 2000;
+
 	// the below are used during generation of our random candidate solution.
 	public static Random rand = new Random();
 	public static int numAvgProjectsProposed = 3;

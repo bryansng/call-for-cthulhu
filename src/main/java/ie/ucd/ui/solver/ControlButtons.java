@@ -40,6 +40,7 @@ public class ControlButtons extends HBox {
 			if (isPaused && isRunning) {
 				isPaused = false;
 				solverPane.resume();
+				solver.resume();
 				play.setDisable(true);
 				pause.setDisable(false);
 				step.setDisable(true);
@@ -152,7 +153,11 @@ public class ControlButtons extends HBox {
 			startingSolution = new CandidateSolution(Settings.numberOfStudents, parser.getStaffMembers(), parser.getNames(),
 					null, null);
 			startingSolution.generateProjects();
-			startingSolution.generateStudents();
+			try {
+				startingSolution.generateStudents();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		switch (solverType) {
 			case GeneticAlgorithm:

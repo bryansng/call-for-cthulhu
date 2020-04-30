@@ -116,6 +116,7 @@ public class SolverPane extends ScrollPane {
 				visualizer.addLastWindowToChart();
 				sheets.addLastCandidateSolutionToSheet();
 				progressIndicator.setDone();
+				controlButtons.enableOnlyClearAndReset();
 			});
 		}
 	}

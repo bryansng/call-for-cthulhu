@@ -24,6 +24,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 	private Label onSuccessfulLoad;
 	private Label onErrorLoad;
 	private Label onSuccessfulGenerate;
+	private Label onErrorGenerate;
 
 	public SetupSheet(Stage stage, boolean includeLoadFromFileButton, boolean includeSaveToFileButton,
 			SheetType sheetType) {
@@ -67,12 +68,17 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 		onSuccessfulGenerate.getStyleClass().add("successful-label");
 		onSuccessfulGenerate.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
 
+		onErrorGenerate = new Label();
+		onErrorGenerate.setWrapText(true);
+		onErrorGenerate.getStyleClass().add("warning-label");
+		onErrorGenerate.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
+
 		setEnableSuccessfulLoad(false, "");
 		setEnableErrorLoad(false, "");
 		setEnableSuccessGenerate(false, "");
 
 		allParts.getChildren().addAll(new VBox(initLoadButton(stage), onSuccessfulLoad, onErrorLoad), buffer,
-				initGenerateButton(), onSuccessfulGenerate);
+				initGenerateButton(), onSuccessfulGenerate, onErrorGenerate);
 		getChildren().add(0, allParts);
 	}
 
@@ -125,7 +131,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 		loadLabel.getStyleClass().add("sub-label");
 
 		Button generateButton = new Button("Generate Random " + sheetTypeName);
-		generateButton.setOnAction(e -> {
+		generateButton.setOnAction(evt -> {
 			if (sheetType == SheetType.Project) {
 				// clear current set first.
 				clearStudents();
@@ -137,11 +143,16 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 				setEnableSuccessGenerate(true,
 						String.format("SUCCESS: Generated %d %s.", Settings.loadedProjects.size(), sheetTypeName.toLowerCase()));
 			} else if (sheetType == SheetType.Student) {
-				Settings.loadedStudents = Settings.setupSolution.generateStudents();
-				setAll((ArrayList<E>) Settings.loadedStudents);
-				setEnableNavigateSolvers(true);
-				setEnableSuccessGenerate(true,
-						String.format("SUCCESS: Generated %d %s.", Settings.loadedStudents.size(), sheetTypeName.toLowerCase()));
+				try {
+					Settings.loadedStudents = Settings.setupSolution.generateStudents();
+					setAll((ArrayList<E>) Settings.loadedStudents);
+					setEnableNavigateSolvers(true);
+					setEnableSuccessGenerate(true,
+							String.format("SUCCESS: Generated %d %s.", Settings.loadedStudents.size(), sheetTypeName.toLowerCase()));
+				} catch (Exception e) {
+					setEnableErrorGenerate(true,
+							"ERROR: Unable to generate students. Insufficient suitable projects (i.e. incompatible stream, etc) during generation of student preference list. Please try increasing the number of students in 1.Settings.");
+				}
 			}
 		});
 		vBox.getChildren().addAll(loadLabel, generateButton);
@@ -237,6 +248,13 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 		onSuccessfulGenerate.setManaged(value);
 	}
 
+	private void setEnableErrorGenerate(boolean value, String msg) {
+		resetSuccessErrorLabels();
+		onErrorGenerate.setText(msg);
+		onErrorGenerate.setVisible(value);
+		onErrorGenerate.setManaged(value);
+	}
+
 	public void resetSuccessErrorLabels() {
 		onSuccessfulLoad.setText("");
 		onSuccessfulLoad.setVisible(false);
@@ -247,5 +265,8 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 		onSuccessfulGenerate.setText("");
 		onSuccessfulGenerate.setVisible(false);
 		onSuccessfulGenerate.setManaged(false);
+		onErrorGenerate.setText("");
+		onErrorGenerate.setVisible(false);
+		onErrorGenerate.setManaged(false);
 	}
 }

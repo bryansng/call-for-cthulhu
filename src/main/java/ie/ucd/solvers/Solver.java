@@ -30,6 +30,7 @@ public abstract class Solver implements Runnable {
 	}
 
 	protected synchronized void oneStepDone() {
+		this.isOneStep = false;
 		this.isSuspended = true;
 		notify();
 	}

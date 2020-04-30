@@ -78,6 +78,9 @@ public class GeneticAlgorithmTP extends TitledPane {
 					if (val <= 0) {
 						Settings.gaNumberOfGeneration = Settings.GA_DEFAULT_NUMBER_OF_GENERATION;
 						numberOfGenerationWarning.setText("WARNING: Must be greater than 0.");
+					} else if (val < 15) {
+						Settings.gaNumberOfGeneration = Settings.GA_DEFAULT_NUMBER_OF_GENERATION;
+						numberOfGenerationWarning.setText("WARNING: Must be greater than 14 for diversity.");
 					} else {
 						Settings.gaNumberOfGeneration = val;
 						numberOfGenerationWarning.setText("");
@@ -110,6 +113,9 @@ public class GeneticAlgorithmTP extends TitledPane {
 					if (val <= 0) {
 						Settings.gaPopulationSize = Settings.GA_DEFAULT_POPULATION_SIZE;
 						populationSizeWarning.setText("WARNING: Must be greater than 0.");
+					} else if (val < 10) {
+						Settings.gaPopulationSize = Settings.GA_DEFAULT_POPULATION_SIZE;
+						populationSizeWarning.setText("WARNING: Must be greater than 9 for diversity.");
 					} else {
 						Settings.gaPopulationSize = val;
 						populationSizeWarning.setText("");

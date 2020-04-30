@@ -1,5 +1,7 @@
 package ie.ucd.objects;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import ie.ucd.Common;
 import ie.ucd.Settings;
@@ -33,7 +35,11 @@ public class Student implements StudentInterface, SearchMatchable {
 		this.lastName = lastName;
 		this.id = id;
 		this.stream = stream;
-		this.gpa = gpa;
+
+		DecimalFormat df = new DecimalFormat("##.##");
+		df.setRoundingMode(RoundingMode.CEILING);
+		this.gpa = Double.parseDouble(df.format(gpa));
+
 		this.projects.add(projectAssigned);
 		this.preferenceList = preferenceList;
 		if (Common.DEBUG_SHOW_PROJECT_NUM_STUDENT_ASSIGNED) {

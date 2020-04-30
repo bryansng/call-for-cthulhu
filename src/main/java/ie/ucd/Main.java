@@ -2,9 +2,6 @@ package ie.ucd;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
-import com.sun.javafx.css.StyleManager;
-
 import ie.ucd.objects.StaffMember;
 import ie.ucd.solvers.GeneticAlgorithm;
 import org.apache.commons.lang3.mutable.MutableInt;
@@ -51,7 +48,11 @@ public class Main extends Application {
 		CandidateSolution solution = new CandidateSolution(new MutableInt(500), parser.getStaffMembers(), parser.getNames(),
 				null, null);
 		solution.generateProjects();
-		solution.generateStudents();
+		try {
+			solution.generateStudents();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		System.out.println(solution.CSDSPercentage());
 
 		Solver solver = new GeneticAlgorithm(solution, null);
@@ -74,7 +75,11 @@ public class Main extends Application {
 		CandidateSolution solution = new CandidateSolution(new MutableInt(500), parser.getStaffMembers(), parser.getNames(),
 				null, null);
 		solution.generateProjects();
-		solution.generateStudents();
+		try {
+			solution.generateStudents();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		System.out.println(solution.CSDSPercentage());
 
 		Solver solver = new SimulatedAnnealing(solution, null);
@@ -88,13 +93,17 @@ public class Main extends Application {
 		Parser parser = new Parser();
 		ExcelWriter writer = new ExcelWriter();
 		ArrayList<Project> projects;
-		ArrayList<Student> students;
+		ArrayList<Student> students = null;
 
 		System.out.println("Generating for 500 students...");
 		CandidateSolution solution = new CandidateSolution(new MutableInt(500), parser.getStaffMembers(), parser.getNames(),
 				null, null);
 		projects = solution.generateProjects();
-		students = solution.generateStudents();
+		try {
+			students = solution.generateStudents();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		writer.writeProjects(projects, 500);
 		writer.writeStudents(students);
 		writer.writeAnalysis(solution);
@@ -108,13 +117,17 @@ public class Main extends Application {
 		Parser parser = new Parser();
 		CSVFileWriter csvFileWriter = new CSVFileWriter();
 		ArrayList<Project> projects;
-		ArrayList<Student> students;
+		ArrayList<Student> students = null;
 
 		System.out.println("Generating for 500 students...");
 		CandidateSolution solution = new CandidateSolution(new MutableInt(500), parser.getStaffMembers(), parser.getNames(),
 				null, null);
 		projects = solution.generateProjects();
-		students = solution.generateStudents();
+		try {
+			students = solution.generateStudents();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		System.out.println(solution.CSDSPercentage());
 		csvFileWriter.writeProjects(projects);
 		csvFileWriter.writeStudents(students);
