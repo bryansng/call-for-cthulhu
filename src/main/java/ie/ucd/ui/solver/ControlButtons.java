@@ -116,12 +116,13 @@ public class ControlButtons extends HBox {
 		step.setDisable(true);
 	}
 
-	// used when visualizer one animating.
+	// used when visualizer animating.
 	public void enableOnlyClearAndReset() {
 		if (isRunning) {
 			play.setDisable(true);
 			pause.setDisable(true);
 			clearAndReset.setDisable(false);
+			clearAndReset.requestFocus();
 			step.setDisable(true);
 			System.out.println("buttons reset");
 		}

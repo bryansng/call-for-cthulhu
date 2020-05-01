@@ -101,7 +101,8 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 		uiSignalNewGraph(visualizer);
 
 		//begin generation loop
-		for (int i = 1; i <= numberOfGenerations && threadStillRunning(); i++) {
+		int i;
+		for (i = 1; i <= numberOfGenerations && threadStillRunning(); i++) {
 			if (Common.DEBUG_SHOW_GA)
 				System.out.println("Creating Generation #" + i);
 
@@ -155,10 +156,10 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 				}
 			}
 
-			//generate the next population
+			// generate the next population.
 			currPopulation = generateNextPopulation(populationAfterCulling);
 
-			//prepare for next iteration
+			// prepare for next iteration.
 			incrementCullPercentage();
 
 			threadHandleOneStepAndWaiting();
@@ -168,7 +169,7 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 			}
 		}
 
-		// get best final solution
+		// get best final solution.
 		finalSolutionFitness = bestSatisfaction;
 		this.finalSolution = bestSolution;
 
@@ -178,11 +179,11 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 			uiSignalProcessingDone(solverPane);
 		}
 
-		System.out.println("Genetic Algorithm simulation complete.");
+		System.out.println(String.format("\nExited at generation %d.\nGenetic Algorithm simulation complete.", i - 1));
 	}
 
 	private String[] getParents(BitCodeSolution[] bitCodeSolutions) {
-		//population passed is already culled so pick random parents
+		// population passed is already culled so pick random parents.
 		String[] parents = new String[2];
 		int randomIndex1 = random.nextInt(bitCodeSolutions.length);
 		int randomIndex2 = random.nextInt(bitCodeSolutions.length);

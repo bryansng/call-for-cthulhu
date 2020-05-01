@@ -41,11 +41,13 @@ public abstract class Solver implements Runnable {
 				this.oneStepDone();
 			}
 			if (this.isSuspended) {
+				// System.out.println("waiting");
 				synchronized (this) {
 					while (this.isSuspended) {
 						wait();
 					}
 				}
+				// System.out.println("stopped waiting");
 			}
 		} catch (InterruptedException e) {
 		}

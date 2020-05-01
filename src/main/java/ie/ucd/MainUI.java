@@ -2,6 +2,7 @@ package ie.ucd;
 
 import ie.ucd.Common.SolverType;
 import ie.ucd.Settings.Theme;
+import ie.ucd.ui.about.AboutPane;
 import ie.ucd.ui.navigation.NavigationPane;
 import ie.ucd.ui.setup.SetupPane;
 import ie.ucd.ui.solver.SolverPane;
@@ -16,6 +17,7 @@ public class MainUI extends GridPane {
 	private SetupPane setupPane;
 	private SolverPane saPane;
 	private SolverPane gaPane;
+	private AboutPane aboutPane;
 
 	public MainUI(Stage stage) {
 		super();
@@ -29,6 +31,11 @@ public class MainUI extends GridPane {
 		setupPane = new SetupPane(stage, this);
 		saPane = new SolverPane(stage, SolverType.SimulatedAnnealing);
 		gaPane = new SolverPane(stage, SolverType.GeneticAlgorithm);
+		aboutPane = new AboutPane();
+		setupPane.setMinWidth(1400);
+		saPane.setMinWidth(1400);
+		gaPane.setMinWidth(1400);
+		aboutPane.setMinWidth(1400);
 
 		navPane = new NavigationPane(this);
 		navPane.setMinWidth(250);
@@ -65,6 +72,10 @@ public class MainUI extends GridPane {
 
 	public void showGAPane() {
 		mainContainer.getChildren().set(1, gaPane);
+	}
+
+	public void showAboutPane() {
+		mainContainer.getChildren().set(1, aboutPane);
 	}
 
 	public void setEnableNavigateSolvers(boolean value) {

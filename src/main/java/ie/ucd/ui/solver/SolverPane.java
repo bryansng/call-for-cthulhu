@@ -118,6 +118,11 @@ public class SolverPane extends ScrollPane {
 				progressIndicator.setDone();
 				controlButtons.enableOnlyClearAndReset();
 			});
+		} else if (isDone && Settings.enableAnimation) {
+			Platform.runLater(() -> {
+				progressIndicator.setDone();
+				controlButtons.enableOnlyClearAndReset();
+			});
 		}
 	}
 

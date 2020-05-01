@@ -9,6 +9,7 @@ public class NavigationPane extends Accordion {
 	private TitledPane setupTP;
 	private TitledPane saTP;
 	private TitledPane gaTP;
+	private TitledPane aboutTP;
 
 	public NavigationPane(MainUI mainUI) {
 		super();
@@ -31,11 +32,16 @@ public class NavigationPane extends Accordion {
 			mainUI.showGAPane();
 		});
 
+		aboutTP = new AboutTP();
+		aboutTP.setOnMouseClicked((evt) -> {
+			mainUI.showAboutPane();
+		});
+
 		if (!Common.IS_DEBUGGING_SOLVERS) {
 			saTP.setDisable(true);
 			gaTP.setDisable(true);
 		}
-		getPanes().addAll(setupTP, saTP, gaTP);
+		getPanes().addAll(setupTP, saTP, gaTP, aboutTP);
 	}
 
 	public void setEnableNavigateSolvers(boolean value) {
