@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Random;
 import ie.ucd.objects.CandidateSolution;
 import ie.ucd.Common;
+import ie.ucd.Settings;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.BitCodeSolution;
 import ie.ucd.objects.Student;
@@ -125,8 +126,11 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 					fittestSatisfaction = solutionSatisfaction;
 					fittestSolution = nextPossibleSolution;
 				}
-				uiAddToGraph(visualizer, solutionSatisfaction, bestSatisfaction, i);
+				if (Settings.enableDetailedGAVisuals)
+					uiAddToGraph(visualizer, solutionSatisfaction, bestSatisfaction, i);
 			}
+			if (!Settings.enableDetailedGAVisuals)
+				uiAddToGraph(visualizer, fittestSatisfaction, bestSatisfaction, i);
 			uiAddToCurrQueueAnimate(currSheet, fittestSolution);
 
 			// sort and cull population.

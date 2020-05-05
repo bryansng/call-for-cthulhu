@@ -57,7 +57,7 @@ public class SetupPane extends TabPane {
 		projectSheet = new ProjectSheet(stage, true, true, this);
 		studentSheet = new StudentSheet(stage, true, true, false, this);
 
-		VBox innerSubPart = new VBox(initEnableAnimation(), initDarkTheme());
+		VBox innerSubPart = new VBox(initEnableAnimation(), initDarkTheme(), initEnableDetailedGAVisuals());
 		innerSubPart.getStyleClass().add("standard-sub-sub-container");
 
 		VBox middleSubPart = new VBox(constraints, initGPAConsideration(), new VBox(sublabelOthers, innerSubPart));
@@ -189,6 +189,20 @@ public class SetupPane extends TabPane {
 
 		enableDarkTheme.setSelected(Settings.enableDarkTheme);
 		return enableDarkTheme;
+	}
+
+	private Node initEnableDetailedGAVisuals() {
+		CheckBox enableDetailedGAVisuals = new CheckBox(
+				"Enable Detailed GA Visuals (slower) (If disabled, only current fittest solution is plotted)");
+
+		enableDetailedGAVisuals.setOnAction((evt) -> {
+			Settings.enableDetailedGAVisuals = enableDetailedGAVisuals.isSelected();
+			if (Common.DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE)
+				System.out.println(String.format("%b", Settings.enableDetailedGAVisuals));
+		});
+
+		enableDetailedGAVisuals.setSelected(Settings.enableDetailedGAVisuals);
+		return enableDetailedGAVisuals;
 	}
 
 	private Node initEnableAnimation() {

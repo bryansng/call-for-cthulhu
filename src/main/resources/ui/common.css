@@ -1,5 +1,6 @@
 .root {
-	-fx-font-size: 1.075em;
+	/* -fx-font-size: 1.075em; */
+	-fx-font-size: 1.2em;
 }
 
 .standard-padding {

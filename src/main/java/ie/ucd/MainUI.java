@@ -32,14 +32,14 @@ public class MainUI extends GridPane {
 		saPane = new SolverPane(stage, SolverType.SimulatedAnnealing);
 		gaPane = new SolverPane(stage, SolverType.GeneticAlgorithm);
 		aboutPane = new AboutPane();
-		setupPane.setMinWidth(1400);
-		saPane.setMinWidth(1400);
-		gaPane.setMinWidth(1400);
-		aboutPane.setMinWidth(1400);
+		// setupPane.setMinWidth(1400);
+		// saPane.setMinWidth(1400);
+		// gaPane.setMinWidth(1400);
+		// aboutPane.setMinWidth(1400);
 
 		navPane = new NavigationPane(this);
 		navPane.setMinWidth(250);
-		navPane.setMaxWidth(250);
+		// navPane.setMaxWidth(250);
 
 		if (Settings.enableDarkTheme)
 			handleThemes(Theme.DARK);
@@ -48,17 +48,17 @@ public class MainUI extends GridPane {
 
 		mainContainer.getChildren().addAll(navPane, setupPane);
 		add(mainContainer, 0, 0);
-		setAlignment(Pos.TOP_CENTER);
+		setAlignment(Pos.TOP_LEFT);
 	}
 
 	public void handleThemes(Theme theme) {
 		switch (theme) {
-			case DARK:
-				getStylesheets().setAll("ui/solver/constraints.css", "ui/common.css", "ui/modena_dark.css");
-				break;
-			default:
-				getStylesheets().setAll("ui/solver/constraints.css", "ui/common.css");
-				break;
+		case DARK:
+			getStylesheets().setAll("ui/solver/constraints.css", "ui/common.css", "ui/modena_dark.css");
+			break;
+		default:
+			getStylesheets().setAll("ui/solver/constraints.css", "ui/common.css");
+			break;
 		}
 	}
 
