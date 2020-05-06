@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -13,6 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import ie.ucd.Common;
+import ie.ucd.Settings;
 import ie.ucd.objects.StaffMember;
 
 public class Parser {
@@ -77,7 +79,19 @@ public class Parser {
 		}
 		is.close();
 		workbook.close();
+		// System.out.println(calculateMaxUniqueProjects()); // 1115, 1115 / avgProposedProjects * 2 = 743.
+		Settings.recomputeMaxStudents(calculateMaxUniqueProjects());
 		return staffMembers;
+	}
+
+	private Integer calculateMaxUniqueProjects() {
+		HashSet<String> projectSet = new HashSet<>();
+		for (StaffMember sm : staffMembers) {
+			for (String project : sm.getResearchActivities()) {
+				projectSet.add(project);
+			}
+		}
+		return projectSet.size();
 	}
 
 	private ArrayList<String> parseNamesFile() throws IOException {

@@ -34,6 +34,10 @@ public class Common {
 	// GA debug verbosity.
 	public static final boolean DEBUG_SHOW_GA = false;
 
+	// keep tracks if projects are loaded/generated.
+	public static boolean isProjectsPopulated = false;
+	public static final boolean DEBUG_SHOW_IS_PROJECTS_POPULATED = true;
+
 	// the below are used during calculating of global/local satisfaction.
 	public static final double MAX_GPA = 4.2;
 	public static final double PROFIT_GPA_MULTIPLIER = 5.0;

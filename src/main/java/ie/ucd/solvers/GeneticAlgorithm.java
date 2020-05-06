@@ -157,6 +157,8 @@ public class GeneticAlgorithm extends Solver implements SolverUIUpdater {
 					break;
 				} else {
 					possiblePlateauSolutions.add(bestSolution);
+					if (possiblePlateauSolutions.size() > minRepetitionsForPlateau)
+						possiblePlateauSolutions.remove(0);
 				}
 			}
 

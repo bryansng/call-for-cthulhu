@@ -4,10 +4,21 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import java.io.File;
-import java.io.InterruptedIOException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+
+import ie.ucd.Common;
 import ie.ucd.Settings;
 import ie.ucd.Common.SheetType;
+import ie.ucd.exceptions.InadequatePreferenceListSizeException;
+import ie.ucd.exceptions.InsufficientSuitableProjectsException;
+import ie.ucd.exceptions.MissingFieldsException;
+import ie.ucd.exceptions.ProjectsNullException;
+import ie.ucd.exceptions.SimilarStudentIDsException;
+import ie.ucd.exceptions.StudentsNullException;
+import ie.ucd.exceptions.UnexpectedStreamException;
 import ie.ucd.io.CSVFileReader;
 import ie.ucd.io.Parser;
 import ie.ucd.ui.setup.SetupPane;
@@ -51,35 +62,66 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 
 		Label buffer = new Label("---\nor\n---");
 		buffer.setWrapText(true);
-		buffer.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
+		buffer.setMinHeight(Label.USE_PREF_SIZE);
 
 		onSuccessfulLoad = new Label();
 		onSuccessfulLoad.setWrapText(true);
 		onSuccessfulLoad.getStyleClass().add("successful-label");
-		onSuccessfulLoad.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
+		onSuccessfulLoad.setMinHeight(Label.USE_PREF_SIZE);
+		onSuccessfulLoad.setMaxWidth(1000);
 
 		onErrorLoad = new Label();
 		onErrorLoad.setWrapText(true);
 		onErrorLoad.getStyleClass().add("warning-label");
-		onErrorLoad.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
+		onErrorLoad.setMinHeight(Label.USE_PREF_SIZE);
+		onErrorLoad.setMaxWidth(1000);
 
 		onSuccessfulGenerate = new Label();
 		onSuccessfulGenerate.setWrapText(true);
 		onSuccessfulGenerate.getStyleClass().add("successful-label");
-		onSuccessfulGenerate.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
+		onSuccessfulGenerate.setMinHeight(Label.USE_PREF_SIZE);
+		onSuccessfulGenerate.setMaxWidth(1000);
 
 		onErrorGenerate = new Label();
 		onErrorGenerate.setWrapText(true);
 		onErrorGenerate.getStyleClass().add("warning-label");
-		onErrorGenerate.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
+		onErrorGenerate.setMinHeight(Label.USE_PREF_SIZE);
+		onErrorGenerate.setMaxWidth(1000);
 
 		setEnableSuccessfulLoad(false, "");
 		setEnableErrorLoad(false, "");
 		setEnableSuccessGenerate(false, "");
+		setEnableErrorGenerate(false, "");
 
 		allParts.getChildren().addAll(new VBox(initLoadButton(stage), onSuccessfulLoad, onErrorLoad), buffer,
 				initGenerateButton(), onSuccessfulGenerate, onErrorGenerate);
 		getChildren().add(0, allParts);
+	}
+
+	protected Node initClearButton() {
+		clearButton = new Button("Clear Table");
+		clearButton.setOnAction(e -> {
+			if (!Common.isProjectsPopulated) {
+				Settings.loadedStudents = null;
+				Settings.loadedProjects = null;
+				Settings.dummyStaffMembers = null;
+				clearStudents();
+				clearProjects();
+			} else {
+				if (sheetType == SheetType.Project) {
+					clearStudents();
+					clearProjects();
+					setEnableNavigateSolvers(false);
+					Common.isProjectsPopulated = false;
+					if (Common.DEBUG_SHOW_IS_PROJECTS_POPULATED)
+						System.out.println("Set isProjectsPopulated to " + Common.isProjectsPopulated);
+				} else if (sheetType == SheetType.Student) {
+					clearStudents();
+					setEnableNavigateSolvers(false);
+				}
+			}
+		});
+		return clearButton;
 	}
 
 	private Node initLoadButton(Stage stage) {
@@ -138,20 +180,37 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 
 				Settings.loadedProjects = Settings.setupSolution.generateProjects();
 				setAll((ArrayList<E>) Settings.loadedProjects);
-				enableStudentSheet();
-				setEnableNavigateSolvers(false);
+				// enableStudentSheet();
 				setEnableSuccessGenerate(true,
 						String.format("SUCCESS: Generated %d %s.", Settings.loadedProjects.size(), sheetTypeName.toLowerCase()));
+				Common.isProjectsPopulated = true;
+				if (Common.DEBUG_SHOW_IS_PROJECTS_POPULATED)
+					System.out.println("Set isProjectsPopulated to " + Common.isProjectsPopulated);
 			} else if (sheetType == SheetType.Student) {
 				try {
+					if (!Common.isProjectsPopulated) {
+						clearStudents();
+						clearProjects();
+						Settings.prepareSetupSolution();
+
+						// if projects not populated, we auto generate projects and populate the project sheets.
+						Settings.loadedProjects = Settings.setupSolution.generateProjects();
+						setupPane.setAllProjectSheet(Settings.loadedProjects);
+						Settings.loadedStudents = Settings.setupSolution.generateStudents();
+						setEnableSuccessGenerate(true,
+								String.format("SUCCESS: Generated %d %s, and automatically generated %d projects.",
+										Settings.loadedStudents.size(), sheetTypeName.toLowerCase(), Settings.loadedProjects.size()));
+					} else {
+						Settings.loadedStudents = Settings.setupSolution.generateStudents();
+						setEnableSuccessGenerate(true, String.format("SUCCESS: Generated %d %s.", Settings.loadedStudents.size(),
+								sheetTypeName.toLowerCase()));
+					}
 					Settings.loadedStudents = Settings.setupSolution.generateStudents();
 					setAll((ArrayList<E>) Settings.loadedStudents);
 					setEnableNavigateSolvers(true);
-					setEnableSuccessGenerate(true,
-							String.format("SUCCESS: Generated %d %s.", Settings.loadedStudents.size(), sheetTypeName.toLowerCase()));
-				} catch (Exception e) {
+				} catch (InsufficientSuitableProjectsException e) {
 					setEnableErrorGenerate(true,
-							"ERROR: Unable to generate students. Insufficient suitable projects (i.e. incompatible stream, etc) during generation of student preference list. Please try increasing the number of students in 1.Settings.");
+							"ERROR: Unable to generate students. Insufficient suitable projects (i.e. incompatible stream, etc) during generation of student preference list. Please try increasing the number of students in 1. Settings.");
 				}
 			}
 		});
@@ -169,42 +228,82 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 				Settings.loadedProjects = reader.readProject(null, new Parser().getStaffMembersMap(), fromFile);
 
 				if (Settings.loadedProjects == null || Settings.loadedProjects.size() == 0) {
-					throw new NullPointerException("Projects read is null.");
+					throw new ProjectsNullException("Projects read is null.");
 				}
 
 				Settings.prepareSetupSolution();
 				setAll((ArrayList<E>) Settings.loadedProjects);
-				enableStudentSheet();
-				setEnableNavigateSolvers(false);
+				// enableStudentSheet();
 				setEnableSuccessfulLoad(true,
 						String.format("SUCCESS: Loaded %d %s.", Settings.loadedProjects.size(), sheetTypeName.toLowerCase()));
-			} catch (AssertionError e) {
-				setEnableErrorLoad(true, "ERROR: Unable to read file. Please ensure you are loading a file for " + sheetTypeName
-						+ ".\nExpected format is: Staff Name,Research Activity,Stream");
-			} catch (InterruptedIOException e) {
-				setEnableErrorLoad(true, "ERROR: Unable to read file. Please ensure no fields are empty.");
+				Common.isProjectsPopulated = true;
+				if (Common.DEBUG_SHOW_IS_PROJECTS_POPULATED)
+					System.out.println("Set isProjectsPopulated to " + Common.isProjectsPopulated);
+			} catch (UnexpectedStreamException e) {
+				setEnableErrorLoad(true,
+						"ERROR: Error occurred while reading file. Please ensure stream values to be either 'CS', 'CS+DS' or 'DS'");
+			} catch (UnsupportedEncodingException e) {
+				setEnableErrorLoad(true, "ERROR: Unable to read file. Encoding UTF-8 not supported.");
+			} catch (FileNotFoundException e) {
+				setEnableErrorLoad(true, "ERROR: Unable to read file. File not found exception raised.");
+			} catch (IOException e) {
+				setEnableErrorLoad(true,
+						"ERROR: Unable to finish reading file. Input/Output error occurred while trying to read the file.");
+			} catch (MissingFieldsException e) {
+				setEnableErrorLoad(true,
+						"ERROR: Error occurred while reading file. Please ensure no required fields are missing/empty.");
 			} catch (Exception e) {
 				setEnableErrorLoad(true, "ERROR: Unable to read file. Please ensure you are loading a file for " + sheetTypeName
 						+ ".\nExpected format is: Staff Name (String),Research Activity (String),Stream (String: CS, CS, CS+DS)");
 			}
 		} else if (sheetType == SheetType.Student) {
 			try {
-				Settings.loadedStudents = reader.readStudents(null, Settings.loadedProjects, fromFile);
+				if (!Common.isProjectsPopulated) {
+					clearStudents();
+					clearProjects();
+
+					Settings.loadedStudents = reader.readStudents(null, Settings.loadedProjects, fromFile);
+					setupPane.setAllProjectSheet(Settings.loadedProjects);
+				} else {
+					Settings.loadedStudents = reader.readStudents(null, Settings.loadedProjects, fromFile);
+				}
 
 				if (Settings.loadedStudents == null || Settings.loadedStudents.size() == 0) {
-					throw new NullPointerException("Students read is null.");
+					throw new StudentsNullException("Students read is null.");
 				}
 
 				setAll((ArrayList<E>) Settings.loadedStudents);
 				setEnableNavigateSolvers(true);
-				setEnableSuccessfulLoad(true,
-						String.format("SUCCESS: Loaded %d %s.", Settings.loadedStudents.size(), sheetTypeName.toLowerCase()));
-			} catch (AssertionError e) {
+
+				if (!Common.isProjectsPopulated) {
+					setEnableSuccessfulLoad(true,
+							String.format("SUCCESS: Loaded %d %s, and automatically speculated %d projects.",
+									Settings.loadedStudents.size(), sheetTypeName.toLowerCase(), Settings.loadedProjects.size()));
+				} else {
+					setEnableSuccessfulLoad(true,
+							String.format("SUCCESS: Loaded %d %s.", Settings.loadedStudents.size(), sheetTypeName.toLowerCase()));
+				}
+			} catch (SimilarStudentIDsException e) {
+				setEnableErrorLoad(true, "ERROR: Error occurred while reading file. Please ensure students have unique IDs.");
+			} catch (UnexpectedStreamException e) {
+				setEnableErrorLoad(true,
+						"ERROR: Error occurred while reading file. Please ensure stream values to be either 'CS' or 'DS'");
+			} catch (MissingFieldsException e) {
+				setEnableErrorLoad(true,
+						"ERROR: Error occurred while reading file. Please ensure no required fields are missing/empty.");
+			} catch (NumberFormatException e) {
+				setEnableErrorLoad(true,
+						"ERROR: Error occurred while reading file. Expected student id to be an integer number.");
+			} catch (InadequatePreferenceListSizeException e) {
 				setEnableErrorLoad(true,
 						"ERROR: Unable to read file. A project in a student's preference list cannot be found in the Loaded projects. Please ensure you have the list of projects allocated for these students, or list of students with these projects.");
-			} catch (InterruptedIOException e) {
+			} catch (UnsupportedEncodingException e) {
+				setEnableErrorLoad(true, "ERROR: Unable to read file. Encoding UTF-8 not supported.");
+			} catch (FileNotFoundException e) {
+				setEnableErrorLoad(true, "ERROR: Unable to read file. File not found exception raised.");
+			} catch (IOException e) {
 				setEnableErrorLoad(true,
-						"ERROR: Unable to read file. A project in a student's preference list cannot be found in the Loaded projects. Please ensure you have the list of projects allocated for these students, or list of students with these projects.");
+						"ERROR: Unable to finish reading file. Input/Output error occurred while trying to read the file.");
 			} catch (Exception e) {
 				setEnableErrorLoad(true, "ERROR: Unable to read file. Please ensure you are loading a file for " + sheetTypeName
 						+ ".\nExpected format is:\n- First Name,Last Name,ID,Stream,GPA,Project Assigned,Preference 1,Preference 2,Preference 3,Preference 4,Preference 5,Preference 6,Preference 7,Preference 8,Preference 9,Preference 10, or\n- First Name,Last Name,ID,Stream,Project Assigned,Preference 1,Preference 2,Preference 3,Preference 4,Preference 5,Preference 6,Preference 7,Preference 8,Preference 9,Preference 10, or\n- First Name,Last Name,ID,Stream,Preference 1,Preference 2,Preference 3,Preference 4,Preference 5,Preference 6,Preference 7,Preference 8,Preference 9,Preference 10");
@@ -215,6 +314,11 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 	private void clearStudents() {
 		if (setupPane != null)
 			setupPane.clearStudentsInStudentSheet();
+	}
+
+	private void clearProjects() {
+		if (setupPane != null)
+			setupPane.clearProjectsInProjectSheet();
 	}
 
 	private void enableStudentSheet() {

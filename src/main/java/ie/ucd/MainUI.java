@@ -38,7 +38,7 @@ public class MainUI extends GridPane {
 		// aboutPane.setMinWidth(1400);
 
 		navPane = new NavigationPane(this);
-		navPane.setMinWidth(250);
+		navPane.setMinWidth(230);
 		// navPane.setMaxWidth(250);
 
 		if (Settings.enableDarkTheme)

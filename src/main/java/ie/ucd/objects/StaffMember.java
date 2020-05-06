@@ -13,11 +13,20 @@ public class StaffMember implements StaffMemberInterface {
 	private String stream;
 
 	public StaffMember(String proposedBy, String researchActivities, String researchAreas, String stream) {
+		this(proposedBy, researchActivities, researchAreas, stream, false);
+	}
+
+	public StaffMember(String proposedBy, String researchActivities, String researchAreas, String stream,
+			Boolean isDummy) {
 		this.proposedBy = proposedBy;
 		this.researchActivities = researchActivities.trim().split("\\s*,\\s*");
 		resetResearchActivitiesUsed();
 		this.researchAreas = researchAreas.trim().split("\\s*,\\s*");
-		this.stream = parseStream(stream);
+		if (isDummy) {
+			this.stream = stream;
+		} else {
+			this.stream = parseStream(stream);
+		}
 	}
 
 	private String parseStream(String stream) {

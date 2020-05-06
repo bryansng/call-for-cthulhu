@@ -1,12 +1,12 @@
 package ie.ucd.objects;
 
-import java.io.InterruptedIOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import org.apache.commons.lang3.mutable.MutableInt;
 import ie.ucd.Common;
 import ie.ucd.Settings;
+import ie.ucd.exceptions.InsufficientSuitableProjectsException;
 
 public class CandidateSolution {
 	private ArrayList<StaffMember> staffMembers;
@@ -63,7 +63,10 @@ public class CandidateSolution {
 	}
 
 	public Integer getNumberOfStudents() {
-		return numberOfStudents.getValue();
+		// if (numberOfStudents.getValue() > students.size()) {
+		// 	return numberOfStudents.getValue();
+		// }
+		return students.size();
 	}
 
 	public double getTotalProjectsAssigned() {
@@ -186,7 +189,7 @@ public class CandidateSolution {
 		return projects;
 	}
 
-	public ArrayList<Student> generateStudents() throws Exception {
+	public ArrayList<Student> generateStudents() throws InsufficientSuitableProjectsException {
 		HashSet<Integer> usedStudentIDs = new HashSet<Integer>();
 		students = new ArrayList<Student>();
 		numDSStudents = 0.0;
@@ -226,7 +229,8 @@ public class CandidateSolution {
 	}
 
 	// checks for 1st preferences.
-	private ArrayList<Project> generatePreferenceList(String stream, Integer randomId) throws Exception {
+	private ArrayList<Project> generatePreferenceList(String stream, Integer randomId)
+			throws InsufficientSuitableProjectsException {
 		int noSuitableProjectsCounter = 0;
 		ArrayList<Project> list = new ArrayList<Project>();
 		HashSet<Integer> usedIndex = new HashSet<Integer>();
@@ -254,7 +258,7 @@ public class CandidateSolution {
 			}
 
 			if (noSuitableProjectsCounter >= Common.MAX_NO_SUITABLE_PROJECTS) {
-				throw new InterruptedIOException(
+				throw new InsufficientSuitableProjectsException(
 						"Insufficient suitable projects (i.e. incompatible stream, etc) during generation of student preference list.");
 			}
 		}

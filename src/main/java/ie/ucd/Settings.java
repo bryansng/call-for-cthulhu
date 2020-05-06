@@ -6,6 +6,7 @@ import ie.ucd.objects.Student;
 import ie.ucd.io.Parser;
 import ie.ucd.objects.CandidateSolution;
 import ie.ucd.objects.Project;
+import ie.ucd.objects.StaffMember;
 
 public class Settings {
 	public static final boolean DEMO_SA_FAST = true;
@@ -22,11 +23,20 @@ public class Settings {
 
 	public static final Integer DEFAULT_NUMBER_OF_STUDENTS = 500;
 	public static MutableInt numberOfStudents = new MutableInt(DEFAULT_NUMBER_OF_STUDENTS);
+	public static Integer maxNumProjects = 500;
+	public static Integer maxNumStudents = maxNumProjects / Common.numAvgProjectsProposed * 2;
+
+	public static void recomputeMaxStudents(Integer numProjects) {
+		maxNumProjects = numProjects;
+		maxNumStudents = (maxNumProjects / Common.numAvgProjectsProposed * 2) - 1;
+	}
+
 	public static Parser parser = new Parser();
 	public static CandidateSolution setupSolution = new CandidateSolution(numberOfStudents, parser.getStaffMembers(),
 			parser.getNames(), null, null);
-	public static ArrayList<Student> loadedStudents;
-	public static ArrayList<Project> loadedProjects;
+	public static ArrayList<Student> loadedStudents = null;
+	public static ArrayList<Project> loadedProjects = null;
+	public static ArrayList<StaffMember> dummyStaffMembers = null;
 
 	// load button's dialog main directory.
 	public static final String DEFAULT_DIRECTORY = System.getProperty("user.dir");
@@ -42,8 +52,20 @@ public class Settings {
 			/ NUM_HARD_CONSTRAINTS;
 
 	public static void prepareSetupSolution() {
-		setupSolution = new CandidateSolution(numberOfStudents, parser.getStaffMembers(), parser.getNames(), loadedProjects,
-				loadedStudents);
+		// if projects loaded/generated.
+		if (Common.isProjectsPopulated) {
+			setupSolution = new CandidateSolution(numberOfStudents, parser.getStaffMembers(), parser.getNames(),
+					loadedProjects, loadedStudents);
+		} else {
+			setupSolution = new CandidateSolution(numberOfStudents, dummyStaffMembers, parser.getNames(), loadedProjects,
+					loadedStudents);
+		}
+
+		// if projects not loaded/generated, but we click generate students.
+		if (!Common.isProjectsPopulated && dummyStaffMembers == null) {
+			setupSolution = new CandidateSolution(numberOfStudents, parser.getStaffMembers(), parser.getNames(),
+					loadedProjects, loadedStudents);
+		}
 	}
 
 	public static void updateNumEnabledConstraints() {

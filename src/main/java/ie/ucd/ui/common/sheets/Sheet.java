@@ -1,5 +1,8 @@
 package ie.ucd.ui.common.sheets;
 
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +20,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -30,6 +34,7 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 	protected SearchBox<E> searchBox;
 	protected SheetType sheetType;
 	protected FileChooser fileChooser;
+	protected Button clearButton;
 
 	public Sheet(Stage stage, boolean includeSaveToFileButton, SheetType sheetType) {
 		super();
@@ -43,9 +48,17 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 		getStyleClass().add("more-smaller-main-container");
 		getChildren().addAll(initSearchBox(), initTableView());
 		tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+		HBox bottom = new HBox();
 		if (includeSaveToFileButton) {
-			getChildren().add(initSaveButton(stage));
+			bottom.getChildren().add(initSaveButton(stage));
 		}
+		Node spacer = new Pane();
+		HBox.setHgrow(spacer, Priority.ALWAYS);
+		bottom.getChildren().add(spacer);
+
+		bottom.getChildren().add(initClearButton());
+		getChildren().add(bottom);
 	}
 
 	protected abstract Node initTableView();
@@ -74,6 +87,14 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 			}
 		});
 		return saveButton;
+	}
+
+	protected Node initClearButton() {
+		clearButton = new Button("Clear Table");
+		clearButton.setOnAction(e -> {
+			clear();
+		});
+		return clearButton;
 	}
 
 	public void search(String searchTerm) {

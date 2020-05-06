@@ -1,5 +1,7 @@
 package ie.ucd.ui.setup;
 
+import java.util.ArrayList;
+
 import ie.ucd.Common;
 import ie.ucd.MainUI;
 import ie.ucd.Settings;
@@ -47,10 +49,10 @@ public class SetupPane extends TabPane {
 		Label sublabelOthers = new Label("Others");
 		sublabelOthers.getStyleClass().add("sub-label");
 
-		Label labelProjects = new Label("2. Load/Generate Projects");
+		Label labelProjects = new Label("Optional. Load/Generate Projects");
 		labelProjects.getStyleClass().add("main-label");
 
-		Label labelStudents = new Label("3. Load/Generate Students");
+		Label labelStudents = new Label("2. Load/Generate Students");
 		labelStudents.getStyleClass().add("main-label");
 
 		constraints = new Constraints(true, true);
@@ -79,10 +81,10 @@ public class SetupPane extends TabPane {
 		VBox.setVgrow(part3, Priority.ALWAYS);
 
 		Tab tab1 = new Tab("1. Settings", part1);
-		Tab tab2 = new Tab("2. Load/Generate Projects", part2);
-		tab3 = new Tab("3. Load/Generate Students", part3);
+		Tab tab2 = new Tab("Optional. Load/Generate Projects", part2);
+		tab3 = new Tab("2. Load/Generate Students", part3);
 
-		disableStudentSheet();
+		// disableStudentSheet();
 
 		setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 		getTabs().add(tab1);
@@ -105,12 +107,17 @@ public class SetupPane extends TabPane {
 				} else {
 					Integer val = Integer.parseInt(newConfig);
 					Settings.numberOfStudents.setValue(Settings.DEFAULT_NUMBER_OF_STUDENTS);
-					if (val >= 1) {
-						Settings.numberOfStudents.setValue(val);
-						numStudentsWarning.setText("");
-					} else {
+					if (val <= 0) {
 						Settings.numberOfStudents.setValue(Settings.DEFAULT_NUMBER_OF_STUDENTS);
 						numStudentsWarning.setText("WARNING: Must be greater than 0.");
+					} else if (val > Settings.maxNumStudents) {
+						Settings.numberOfStudents.setValue(Settings.DEFAULT_NUMBER_OF_STUDENTS);
+						numStudentsWarning.setText(String.format(
+								"WARNING: Must be smaller than %d due to insufficient unique research activity. Please increase more unique projects in MiskatonicStaffMembers.xlsx.",
+								Settings.maxNumStudents + 1));
+					} else if (val >= 1 && val <= Settings.maxNumStudents) {
+						Settings.numberOfStudents.setValue(val);
+						numStudentsWarning.setText("");
 					}
 				}
 			} catch (NumberFormatException e) {
@@ -222,6 +229,12 @@ public class SetupPane extends TabPane {
 	public void clearStudentsInStudentSheet() {
 		studentSheet.clear();
 		studentSheet.resetSuccessErrorLabels();
+		setEnableNavigateSolvers(false);
+	}
+
+	public void clearProjectsInProjectSheet() {
+		projectSheet.clear();
+		projectSheet.resetSuccessErrorLabels();
 	}
 
 	public void enableStudentSheet() {
@@ -239,5 +252,9 @@ public class SetupPane extends TabPane {
 
 	public void setEnableNavigateSolvers(boolean value) {
 		mainUI.setEnableNavigateSolvers(value);
+	}
+
+	public void setAllProjectSheet(ArrayList<Project> projects) {
+		projectSheet.setAll(projects);
 	}
 }
