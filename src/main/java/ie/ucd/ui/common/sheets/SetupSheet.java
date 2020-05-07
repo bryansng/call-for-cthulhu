@@ -8,7 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-
 import ie.ucd.Common;
 import ie.ucd.Settings;
 import ie.ucd.Common.SheetType;
@@ -19,6 +18,7 @@ import ie.ucd.exceptions.ProjectsNullException;
 import ie.ucd.exceptions.SimilarStudentIDsException;
 import ie.ucd.exceptions.StudentsNullException;
 import ie.ucd.exceptions.UnexpectedStreamException;
+import ie.ucd.exceptions.UnsuitableColumnHeadersException;
 import ie.ucd.io.CSVFileReader;
 import ie.ucd.io.Parser;
 import ie.ucd.ui.setup.SetupPane;
@@ -102,6 +102,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 		if (includeLoadFromFileButton) {
 			clearButton = new Button("Clear Table");
 			clearButton.setOnAction(e -> {
+				setupPane.setEnableStreamHardConstraint(Settings.userSpecifiedSameStream);
 				if (!Common.isProjectsPopulated) {
 					Settings.loadedStudents = null;
 					Settings.loadedProjects = null;
@@ -177,6 +178,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 
 		Button generateButton = new Button("Generate Random " + sheetTypeName);
 		generateButton.setOnAction(evt -> {
+			setupPane.setEnableStreamHardConstraint(Settings.userSpecifiedSameStream);
 			if (sheetType == SheetType.Project) {
 				// clear current set first.
 				clearStudents();
@@ -194,7 +196,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 					if (!Common.isProjectsPopulated) {
 						clearStudents();
 						clearProjects();
-						Settings.prepareSetupSolution();
+						Settings.prepareSetupSolutionForGenerator();
 
 						// if projects not populated, we auto generate projects and populate the project sheets.
 						Settings.loadedProjects = Settings.setupSolution.generateProjects();
@@ -223,6 +225,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 
 	private void loadFromFile(File fromFile) {
 		CSVFileReader reader = new CSVFileReader();
+		setupPane.setEnableStreamHardConstraint(Settings.userSpecifiedSameStream);
 		if (sheetType == SheetType.Project) {
 			try {
 				// clear current set first.
@@ -234,7 +237,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 					throw new ProjectsNullException("Projects read is null.");
 				}
 
-				Settings.prepareSetupSolution();
+				Settings.prepareSetupSolutionForStudentGenerator();
 				setAll((ArrayList<E>) Settings.loadedProjects);
 				// enableStudentSheet();
 				setEnableSuccessfulLoad(true,
@@ -243,8 +246,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 				if (Common.DEBUG_SHOW_IS_PROJECTS_POPULATED)
 					System.out.println("Set isProjectsPopulated to " + Common.isProjectsPopulated);
 			} catch (UnexpectedStreamException e) {
-				setEnableErrorLoad(true,
-						"ERROR: Error occurred while reading file. Please ensure stream values to be either 'CS', 'CS+DS' or 'DS'");
+				setEnableErrorLoad(true, e.getMessage());
 			} catch (UnsupportedEncodingException e) {
 				setEnableErrorLoad(true, "ERROR: Unable to read file. Encoding UTF-8 not supported.");
 			} catch (FileNotFoundException e) {
@@ -253,8 +255,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 				setEnableErrorLoad(true,
 						"ERROR: Unable to finish reading file. Input/Output error occurred while trying to read the file.");
 			} catch (MissingFieldsException e) {
-				setEnableErrorLoad(true,
-						"ERROR: Error occurred while reading file. Please ensure no required fields are missing/empty.");
+				setEnableErrorLoad(true, e.getMessage());
 			} catch (Exception e) {
 				setEnableErrorLoad(true, "ERROR: Unable to read file. Please ensure you are loading a file for " + sheetTypeName
 						+ ".\nExpected format is: Staff Name (String),Research Activity (String),Stream (String: CS, CS, CS+DS)");
@@ -267,6 +268,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 
 					Settings.loadedStudents = reader.readStudents(null, Settings.loadedProjects, fromFile);
 					setupPane.setAllProjectSheet(Settings.loadedProjects);
+					setupPane.setEnableStreamHardConstraint(Common.doesLoadedFileHaveStream);
 				} else {
 					Settings.loadedStudents = reader.readStudents(null, Settings.loadedProjects, fromFile);
 				}
@@ -279,27 +281,31 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 				setEnableNavigateSolvers(true);
 
 				if (!Common.isProjectsPopulated) {
-					setEnableSuccessfulLoad(true,
-							String.format("SUCCESS: Loaded %d %s, and automatically speculated %d projects.",
-									Settings.loadedStudents.size(), sheetTypeName.toLowerCase(), Settings.loadedProjects.size()));
+					if (!Common.doesLoadedFileHaveStream) {
+						setEnableSuccessfulLoad(true, String.format(
+								"SUCCESS: Loaded %d %s, and automatically speculated %d projects.\nAlso, sameStream hard constraint has been disabled because no stream column is detected, or projects have no stream.",
+								Settings.loadedStudents.size(), sheetTypeName.toLowerCase(), Settings.loadedProjects.size()));
+					} else {
+						setEnableSuccessfulLoad(true,
+								String.format("SUCCESS: Loaded %d %s, and automatically speculated %d projects.",
+										Settings.loadedStudents.size(), sheetTypeName.toLowerCase(), Settings.loadedProjects.size()));
+					}
 				} else {
 					setEnableSuccessfulLoad(true,
 							String.format("SUCCESS: Loaded %d %s.", Settings.loadedStudents.size(), sheetTypeName.toLowerCase()));
 				}
+			} catch (UnsuitableColumnHeadersException e) {
+				setEnableErrorLoad(true, e.getMessage());
 			} catch (SimilarStudentIDsException e) {
-				setEnableErrorLoad(true, "ERROR: Error occurred while reading file. Please ensure students have unique IDs.");
+				setEnableErrorLoad(true, e.getMessage());
 			} catch (UnexpectedStreamException e) {
-				setEnableErrorLoad(true,
-						"ERROR: Error occurred while reading file. Please ensure stream values to be either 'CS' or 'DS'");
+				setEnableErrorLoad(true, e.getMessage());
 			} catch (MissingFieldsException e) {
-				setEnableErrorLoad(true,
-						"ERROR: Error occurred while reading file. Please ensure no required fields are missing/empty.");
+				setEnableErrorLoad(true, e.getMessage());
 			} catch (NumberFormatException e) {
-				setEnableErrorLoad(true,
-						"ERROR: Error occurred while reading file. Expected student id to be an integer number.");
+				setEnableErrorLoad(true, e.getMessage());
 			} catch (InadequatePreferenceListSizeException e) {
-				setEnableErrorLoad(true,
-						"ERROR: Unable to read file. A project in a student's preference list cannot be found in the Loaded projects. Please ensure you have the list of projects allocated for these students, or list of students with these projects.");
+				setEnableErrorLoad(true, e.getMessage());
 			} catch (UnsupportedEncodingException e) {
 				setEnableErrorLoad(true, "ERROR: Unable to read file. Encoding UTF-8 not supported.");
 			} catch (FileNotFoundException e) {
@@ -308,8 +314,9 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 				setEnableErrorLoad(true,
 						"ERROR: Unable to finish reading file. Input/Output error occurred while trying to read the file.");
 			} catch (Exception e) {
+				e.printStackTrace();
 				setEnableErrorLoad(true, "ERROR: Unable to read file. Please ensure you are loading a file for " + sheetTypeName
-						+ ".\nExpected format is:\n- First Name,Last Name,ID,Stream,GPA,Project Assigned,Preference 1,Preference 2,Preference 3,Preference 4,Preference 5,Preference 6,Preference 7,Preference 8,Preference 9,Preference 10, or\n- First Name,Last Name,ID,Stream,Project Assigned,Preference 1,Preference 2,Preference 3,Preference 4,Preference 5,Preference 6,Preference 7,Preference 8,Preference 9,Preference 10, or\n- First Name,Last Name,ID,Stream,Preference 1,Preference 2,Preference 3,Preference 4,Preference 5,Preference 6,Preference 7,Preference 8,Preference 9,Preference 10");
+						+ ".\nExpected format is:\n- First Name,Last Name,ID,Stream,GPA,Project Assigned,Preference 1,...,Preference 10, or\n- First Name,Last Name,ID,Stream,Project Assigned,Preference 1,...,Preference 10, or\n- First Name,Last Name,ID,Stream,Preference 1,...,Preference 10");
 			}
 		}
 	}

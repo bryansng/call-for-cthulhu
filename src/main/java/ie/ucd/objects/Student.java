@@ -211,6 +211,20 @@ public class Student implements StudentInterface, SearchMatchable {
 		return preferenceList;
 	}
 
+	public String getResearchActivityFromPreferenceList(Integer index) {
+		Project project = getProjectFromPreferenceList(index);
+		return project == null ? "" : project.getResearchActivity();
+	}
+
+	public Project getProjectFromPreferenceList(Integer index) {
+		Project project = null;
+		try {
+			project = preferenceList.get(index);
+		} catch (IndexOutOfBoundsException e) {
+		}
+		return project;
+	}
+
 	public boolean isPreferenceViolation() {
 		return preferenceViolation;
 	}

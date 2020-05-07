@@ -49,10 +49,10 @@ public class SetupPane extends TabPane {
 		Label sublabelOthers = new Label("Others");
 		sublabelOthers.getStyleClass().add("sub-label");
 
-		Label labelProjects = new Label("Optional. Load/Generate Projects");
+		Label labelProjects = new Label("2. Load/Generate Projects (optional)");
 		labelProjects.getStyleClass().add("main-label");
 
-		Label labelStudents = new Label("2. Load/Generate Students");
+		Label labelStudents = new Label("3. Load/Generate Students");
 		labelStudents.getStyleClass().add("main-label");
 
 		constraints = new Constraints(true, true);
@@ -81,8 +81,8 @@ public class SetupPane extends TabPane {
 		VBox.setVgrow(part3, Priority.ALWAYS);
 
 		Tab tab1 = new Tab("1. Settings", part1);
-		Tab tab2 = new Tab("Optional. Load/Generate Projects", part2);
-		tab3 = new Tab("2. Load/Generate Students", part3);
+		Tab tab2 = new Tab("2. Load/Generate Projects (optional)", part2);
+		tab3 = new Tab("3. Load/Generate Students", part3);
 
 		// disableStudentSheet();
 
@@ -256,5 +256,10 @@ public class SetupPane extends TabPane {
 
 	public void setAllProjectSheet(ArrayList<Project> projects) {
 		projectSheet.setAll(projects);
+	}
+
+	public void setEnableStreamHardConstraint(boolean value) {
+		Settings.enableSameStream = value;
+		constraints.getHardConstraints().enableStream(value);
 	}
 }

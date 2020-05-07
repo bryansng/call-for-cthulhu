@@ -37,6 +37,9 @@ public class Common {
 	public static boolean isProjectsPopulated = false;
 	public static final boolean DEBUG_SHOW_IS_PROJECTS_POPULATED = false;
 
+	// keep tracks if students loaded have stream column information.
+	public static boolean doesLoadedFileHaveStream = false;
+
 	// the below are used during calculating of global/local satisfaction.
 	public static final double MAX_GPA = 4.2;
 	public static final double PROFIT_GPA_MULTIPLIER = 5.0;

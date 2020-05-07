@@ -27,8 +27,10 @@ public class SoftConstraints extends VBox {
 
 		equallyDistributedAcrossSupervisors = new CheckBox(equallyDistributedAcrossSupervisorsText);
 		equallyDistributedAcrossSupervisors.setWrapText(true);
+		equallyDistributedAcrossSupervisors.setMinHeight(CheckBox.USE_PREF_SIZE);
 		higherGPAHigherPreferences = new CheckBox(higherGPAHigherPreferencesText);
 		higherGPAHigherPreferences.setWrapText(true);
+		higherGPAHigherPreferences.setMinHeight(CheckBox.USE_PREF_SIZE);
 
 		if (!enableToggle) {
 			equallyDistributedAcrossSupervisors.setDisable(true);

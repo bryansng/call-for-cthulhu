@@ -51,21 +51,29 @@ public class Settings {
 	public static double COST_PER_HARD_VIOLATION = (TOTAL_POINTS - (NUM_SOFT_CONSTRAINTS * COST_PER_SOFT_VIOLATION))
 			/ NUM_HARD_CONSTRAINTS;
 
-	public static void prepareSetupSolution() {
+	public static void prepareSetupSolutionForSolvers() {
 		// if projects loaded/generated.
 		if (Common.isProjectsPopulated) {
 			setupSolution = new CandidateSolution(numberOfStudents, parser.getStaffMembers(), parser.getNames(),
 					loadedProjects, loadedStudents);
-		} else {
+			// if projects not loaded/generated, but we click generate students.
+		} else if (!Common.isProjectsPopulated && dummyStaffMembers == null) {
+			setupSolution = new CandidateSolution(numberOfStudents, parser.getStaffMembers(), parser.getNames(),
+					loadedProjects, loadedStudents);
+			// if projects not loaded/generated, and we just load students.
+		} else if (!Common.isProjectsPopulated) {
 			setupSolution = new CandidateSolution(numberOfStudents, dummyStaffMembers, parser.getNames(), loadedProjects,
 					loadedStudents);
 		}
+	}
 
-		// if projects not loaded/generated, but we click generate students.
-		if (!Common.isProjectsPopulated && dummyStaffMembers == null) {
-			setupSolution = new CandidateSolution(numberOfStudents, parser.getStaffMembers(), parser.getNames(),
-					loadedProjects, loadedStudents);
-		}
+	public static void prepareSetupSolutionForGenerator() {
+		setupSolution = new CandidateSolution(numberOfStudents, parser.getStaffMembers(), parser.getNames(), null, null);
+	}
+
+	public static void prepareSetupSolutionForStudentGenerator() {
+		setupSolution = new CandidateSolution(numberOfStudents, parser.getStaffMembers(), parser.getNames(), loadedProjects,
+				null);
 	}
 
 	public static void updateNumEnabledConstraints() {
@@ -87,6 +95,7 @@ public class Settings {
 				? ((TOTAL_POINTS - (NUM_SOFT_CONSTRAINTS * COST_PER_SOFT_VIOLATION)) / NUM_HARD_CONSTRAINTS)
 				: 0.0;
 
+		System.out.println(String.format("%s %s", enableHigherGPAHigherPreferences, enableGPA));
 		System.out.println("soft: " + COST_PER_SOFT_VIOLATION);
 		System.out.println("hard: " + COST_PER_HARD_VIOLATION);
 	}
@@ -94,6 +103,7 @@ public class Settings {
 	// hard.
 	public static boolean enableStudentAssignedPreferredProject = true;
 	public static boolean enableSameStream = true;
+	public static boolean userSpecifiedSameStream = enableSameStream;
 	public static boolean enableStudentAssignedOneProject = true;
 	public static boolean enableProjectAssignedToOneStudent = true;
 	// soft.

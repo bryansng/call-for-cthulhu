@@ -36,7 +36,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) {
-		Scene scene = new Scene(new MainUI(stage));
+		Scene scene = new Scene(new MainUI(stage), 1280, 800);
 		stage.setScene(scene);
 		stage.show();
 	}

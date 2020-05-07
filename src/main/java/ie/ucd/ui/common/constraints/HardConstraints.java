@@ -33,12 +33,16 @@ public class HardConstraints extends VBox {
 
 		studentAssignedPreferredProject = new CheckBox(studentAssignedPreferredProjectText);
 		studentAssignedPreferredProject.setWrapText(true);
+		studentAssignedPreferredProject.setMinHeight(CheckBox.USE_PREF_SIZE);
 		sameStream = new CheckBox(sameStreamText);
 		sameStream.setWrapText(true);
+		sameStream.setMinHeight(CheckBox.USE_PREF_SIZE);
 		studentAssignedOneProject = new CheckBox(studentAssignedOneProjectText);
 		studentAssignedOneProject.setWrapText(true);
+		studentAssignedOneProject.setMinHeight(CheckBox.USE_PREF_SIZE);
 		projectAssignedToOneStudent = new CheckBox(projectAssignedToOneStudentText);
 		projectAssignedToOneStudent.setWrapText(true);
+		projectAssignedToOneStudent.setMinHeight(CheckBox.USE_PREF_SIZE);
 
 		if (!enableToggle) {
 			studentAssignedPreferredProject.setDisable(true);
@@ -57,6 +61,7 @@ public class HardConstraints extends VBox {
 
 			sameStream.setOnAction((evt) -> {
 				Settings.enableSameStream = sameStream.isSelected();
+				Settings.userSpecifiedSameStream = Settings.enableSameStream;
 				if (Common.DEBUG_SHOW_PARAMETER_CHANGE_ON_TYPE)
 					System.out.println(
 							String.format("%b %b %b %b", Settings.enableStudentAssignedPreferredProject, Settings.enableSameStream,
@@ -137,5 +142,11 @@ public class HardConstraints extends VBox {
 		projectAssignedToOneStudent.setIndeterminate(true);
 		projectAssignedToOneStudent.setSelected(false);
 		projectAssignedToOneStudent.setText(projectAssignedToOneStudentText);
+	}
+
+	public void enableStream(boolean value) {
+		sameStream.setDisable(!value);
+		sameStream.setIndeterminate(!value);
+		sameStream.setSelected(value ? Settings.enableSameStream : false);
 	}
 }

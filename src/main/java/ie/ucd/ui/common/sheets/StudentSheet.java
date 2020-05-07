@@ -222,43 +222,83 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 
 		TableColumn<Student, String> columnPreferenceProject1 = new TableColumn<Student, String>("Preference 1");
 		columnPreferenceProject1.setCellValueFactory(
-				data -> new SimpleStringProperty(data.getValue().getPreferenceList().get(0).getResearchActivity()));
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(0)));
 
-		TableColumn<Student, String> columnPreferenceProject2 = new TableColumn<Student, String>("Preference 2");
+		TableColumn<Student, String> columnPreferenceProject2 = new TableColumn<Student, String>("2");
 		columnPreferenceProject2.setCellValueFactory(
-				data -> new SimpleStringProperty(data.getValue().getPreferenceList().get(1).getResearchActivity()));
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(1)));
 
-		TableColumn<Student, String> columnPreferenceProject3 = new TableColumn<Student, String>("Preference 3");
+		TableColumn<Student, String> columnPreferenceProject3 = new TableColumn<Student, String>("3");
 		columnPreferenceProject3.setCellValueFactory(
-				data -> new SimpleStringProperty(data.getValue().getPreferenceList().get(2).getResearchActivity()));
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(2)));
 
-		TableColumn<Student, String> columnPreferenceProject4 = new TableColumn<Student, String>("Preference 4");
+		TableColumn<Student, String> columnPreferenceProject4 = new TableColumn<Student, String>("4");
 		columnPreferenceProject4.setCellValueFactory(
-				data -> new SimpleStringProperty(data.getValue().getPreferenceList().get(3).getResearchActivity()));
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(3)));
 
-		TableColumn<Student, String> columnPreferenceProject5 = new TableColumn<Student, String>("Preference 5");
+		TableColumn<Student, String> columnPreferenceProject5 = new TableColumn<Student, String>("5");
 		columnPreferenceProject5.setCellValueFactory(
-				data -> new SimpleStringProperty(data.getValue().getPreferenceList().get(4).getResearchActivity()));
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(4)));
 
-		TableColumn<Student, String> columnPreferenceProject6 = new TableColumn<Student, String>("Preference 6");
+		TableColumn<Student, String> columnPreferenceProject6 = new TableColumn<Student, String>("6");
 		columnPreferenceProject6.setCellValueFactory(
-				data -> new SimpleStringProperty(data.getValue().getPreferenceList().get(5).getResearchActivity()));
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(5)));
 
-		TableColumn<Student, String> columnPreferenceProject7 = new TableColumn<Student, String>("Preference 7");
+		TableColumn<Student, String> columnPreferenceProject7 = new TableColumn<Student, String>("7");
 		columnPreferenceProject7.setCellValueFactory(
-				data -> new SimpleStringProperty(data.getValue().getPreferenceList().get(6).getResearchActivity()));
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(6)));
 
-		TableColumn<Student, String> columnPreferenceProject8 = new TableColumn<Student, String>("Preference 8");
+		TableColumn<Student, String> columnPreferenceProject8 = new TableColumn<Student, String>("8");
 		columnPreferenceProject8.setCellValueFactory(
-				data -> new SimpleStringProperty(data.getValue().getPreferenceList().get(7).getResearchActivity()));
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(7)));
 
-		TableColumn<Student, String> columnPreferenceProject9 = new TableColumn<Student, String>("Preference 9");
+		TableColumn<Student, String> columnPreferenceProject9 = new TableColumn<Student, String>("9");
 		columnPreferenceProject9.setCellValueFactory(
-				data -> new SimpleStringProperty(data.getValue().getPreferenceList().get(8).getResearchActivity()));
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(8)));
 
-		TableColumn<Student, String> columnPreferenceProject10 = new TableColumn<Student, String>("Preference 10");
+		TableColumn<Student, String> columnPreferenceProject10 = new TableColumn<Student, String>("10");
 		columnPreferenceProject10.setCellValueFactory(
-				data -> new SimpleStringProperty(data.getValue().getPreferenceList().get(9).getResearchActivity()));
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(9)));
+
+		TableColumn<Student, String> columnPreferenceProject11 = new TableColumn<Student, String>("11");
+		columnPreferenceProject11.setCellValueFactory(
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(10)));
+
+		TableColumn<Student, String> columnPreferenceProject12 = new TableColumn<Student, String>("12");
+		columnPreferenceProject12.setCellValueFactory(
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(11)));
+
+		TableColumn<Student, String> columnPreferenceProject13 = new TableColumn<Student, String>("13");
+		columnPreferenceProject13.setCellValueFactory(
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(12)));
+
+		TableColumn<Student, String> columnPreferenceProject14 = new TableColumn<Student, String>("14");
+		columnPreferenceProject14.setCellValueFactory(
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(13)));
+
+		TableColumn<Student, String> columnPreferenceProject15 = new TableColumn<Student, String>("15");
+		columnPreferenceProject15.setCellValueFactory(
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(14)));
+
+		TableColumn<Student, String> columnPreferenceProject16 = new TableColumn<Student, String>("16");
+		columnPreferenceProject16.setCellValueFactory(
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(15)));
+
+		TableColumn<Student, String> columnPreferenceProject17 = new TableColumn<Student, String>("17");
+		columnPreferenceProject17.setCellValueFactory(
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(16)));
+
+		TableColumn<Student, String> columnPreferenceProject18 = new TableColumn<Student, String>("18");
+		columnPreferenceProject18.setCellValueFactory(
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(17)));
+
+		TableColumn<Student, String> columnPreferenceProject19 = new TableColumn<Student, String>("19");
+		columnPreferenceProject19.setCellValueFactory(
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(18)));
+
+		TableColumn<Student, String> columnPreferenceProject20 = new TableColumn<Student, String>("Preference 20");
+		columnPreferenceProject20.setCellValueFactory(
+				data -> new SimpleStringProperty(data.getValue().getResearchActivityFromPreferenceList(19)));
 
 		// checks if the current row, i.e. student has hard constraint violations, if so, color row red, else green.
 		tableView.setRowFactory(new Callback<TableView<Student>, TableRow<Student>>() {
@@ -300,6 +340,16 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 		tableView.getColumns().add(columnPreferenceProject8);
 		tableView.getColumns().add(columnPreferenceProject9);
 		tableView.getColumns().add(columnPreferenceProject10);
+		tableView.getColumns().add(columnPreferenceProject11);
+		tableView.getColumns().add(columnPreferenceProject12);
+		tableView.getColumns().add(columnPreferenceProject13);
+		tableView.getColumns().add(columnPreferenceProject14);
+		tableView.getColumns().add(columnPreferenceProject15);
+		tableView.getColumns().add(columnPreferenceProject16);
+		tableView.getColumns().add(columnPreferenceProject17);
+		tableView.getColumns().add(columnPreferenceProject18);
+		tableView.getColumns().add(columnPreferenceProject19);
+		tableView.getColumns().add(columnPreferenceProject20);
 
 		return tableView;
 	}

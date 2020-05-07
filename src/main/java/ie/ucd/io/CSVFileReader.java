@@ -10,6 +10,7 @@ import ie.ucd.exceptions.InadequatePreferenceListSizeException;
 import ie.ucd.exceptions.MissingFieldsException;
 import ie.ucd.exceptions.SimilarStudentIDsException;
 import ie.ucd.exceptions.UnexpectedStreamException;
+import ie.ucd.exceptions.UnsuitableColumnHeadersException;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.StaffMember;
 import ie.ucd.objects.Student;
@@ -66,11 +67,13 @@ public class CSVFileReader {
             // csvReader = new CSVReaderBuilder(new FileReader(fromFile)).withCSVParser(csvParser).build();
         }
 
-        int flag = 0;
+        int currLine = 1;
+        Boolean isHeaderLine = true;
         assert csvReader != null;
         while ((line = csvReader.readNext()) != null) {
-            if (flag == 0) {
-                flag = 1;
+            if (isHeaderLine) {
+                isHeaderLine = false;
+                currLine++;
                 continue;
             }
 
@@ -78,21 +81,25 @@ public class CSVFileReader {
                 System.out.println(line[0] + ": " + allStaffMembers.get(line[0]));
 
             if (!(line[2].equals("CS") || line[2].equals("CS+DS") || line[2].equals("DS"))) {
-                throw new UnexpectedStreamException(
-                        "Error occurred while reading projects. Expected stream info to be either 'CS', 'CS+DS' or 'DS'.");
+                throw new UnexpectedStreamException(String.format(
+                        "ERROR: Error occurred while reading file. Please ensure stream values to be either 'CS', 'CS+DS' or 'DS' at line %d.",
+                        currLine));
             }
 
             if (!(line.length != 4 || line.length != 3)
                     || !(!line[0].equals("") && !line[1].equals("") && !line[2].equals(""))) {
                 // System.out.println("stuff empty");
-                throw new MissingFieldsException(
-                        "Error occurred while reading Projects. Missing fields exception raised.");
+                throw new MissingFieldsException(String.format(
+                        "ERROR: Error occurred while reading file. Please ensure no required fields are missing/empty at line %d.",
+                        currLine));
             }
 
             if (line.length == 4)
                 projects.add(new Project(allStaffMembers.get(line[0]), line[1], line[2], Double.parseDouble(line[3])));
             else if (line.length == 3)
                 projects.add(new Project(allStaffMembers.get(line[0]), line[1], line[2], Common.getProbability()));
+
+            currLine++;
         }
         return projects;
     }
@@ -100,11 +107,217 @@ public class CSVFileReader {
     public ArrayList<Student> readStudents(String filename, ArrayList<Project> projects)
             throws UnsupportedEncodingException, FileNotFoundException, IOException,
             InadequatePreferenceListSizeException, SimilarStudentIDsException, MissingFieldsException,
-            UnexpectedStreamException, NumberFormatException {
+            UnexpectedStreamException, NumberFormatException, UnsuitableColumnHeadersException {
         return readStudents(filename, projects, null);
     }
 
     public ArrayList<Student> readStudents(String filename, ArrayList<Project> projects, File fromFile)
+            throws UnsupportedEncodingException, FileNotFoundException, IOException,
+            InadequatePreferenceListSizeException, SimilarStudentIDsException, MissingFieldsException,
+            UnexpectedStreamException, NumberFormatException, UnsuitableColumnHeadersException {
+        CSVReader csvReader = null;
+        CSVParser csvParser = getParser();
+        ArrayList<Student> students = new ArrayList<Student>();
+        HashSet<Integer> studentIDs = new HashSet<>();
+
+        // for dummy staff members.
+        ArrayList<StaffMember> dummyStaffMembers = new ArrayList<>();
+        ArrayList<Project> dummyProjects = new ArrayList<>();
+        HashMap<String, StaffMember> existingStaffMembers = new HashMap<>();
+        HashMap<String, Project> existingProjects = new HashMap<>();
+        Common.doesLoadedFileHaveStream = false;
+
+        String[] line;
+        if (fromFile == null) {
+            InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
+            csvReader = new CSVReaderBuilder(new InputStreamReader(is)).withCSVParser(csvParser).build();
+        } else {
+            csvReader = new CSVReaderBuilder(new InputStreamReader(new FileInputStream(fromFile), "UTF-8"))
+                    .withCSVParser(csvParser).build();
+        }
+
+        Boolean isHeaderLine = true, hasProjectAssigned = false;
+        Integer firstNameIndex = null, lastNameIndex = null, studentIDIndex = null, streamIndex = null, gpaIndex = null,
+                projectAssignedIndex = null, preferenceStartIndex = null, preferenceEndIndex = null;
+        // int aIndex = 0;
+        assert csvReader != null;
+        int currLine = 1;
+        while ((line = csvReader.readNext()) != null) {
+            // get column indexes of data.
+            if (isHeaderLine) {
+                String[] headers = line;
+                for (int i = 0; i < headers.length; i++) {
+                    String currHeader = headers[i].toLowerCase();
+                    if (currHeader.equals("student") || currHeader.equals("first name")) {
+                        firstNameIndex = i;
+                    } else if (currHeader.equals("last name")) {
+                        lastNameIndex = i;
+                    } else if (currHeader.equals("id") || currHeader.equals("student number")) {
+                        studentIDIndex = i;
+                    } else if (currHeader.equals("stream")) {
+                        streamIndex = i;
+                    } else if (currHeader.equals("gpa")) {
+                        gpaIndex = i;
+                    } else if (currHeader.equals("project assigned")) {
+                        hasProjectAssigned = true;
+                        projectAssignedIndex = i;
+                    } else if (currHeader.equals("1") || currHeader.equals("preference 1")) {
+                        preferenceStartIndex = i;
+                        preferenceEndIndex = headers.length - 1;
+                        // System.out.println(preferenceStartIndex + " " + preferenceEndIndex);
+                        break;
+                    }
+                }
+
+                // minimum required headers for solvers to work.
+                if (firstNameIndex == null && studentIDIndex == null && preferenceStartIndex == null
+                        && preferenceEndIndex == null) {
+                    throw new UnsuitableColumnHeadersException(String.format(
+                            "ERROR: Error occurred while reading file. Unable to parse CSV's column headers at line %d. Please ensure CSV file has the minimum expected column headers.\ni.e. First Name, Student ID, Preference 1, ..., Preference 20",
+                            currLine));
+                }
+
+                Common.doesLoadedFileHaveStream = (streamIndex == null || !Common.isProjectsPopulated) ? false : true;
+                isHeaderLine = false;
+                currLine++;
+                continue;
+            }
+
+            String firstName = null, lastName = null, stream = null, projectAssignedStr = null;
+            Integer studentID = null;
+            Double gpa = null;
+            Project projectAssigned = null;
+            try {
+                firstName = line[firstNameIndex];
+                lastName = lastNameIndex != null ? line[lastNameIndex] : "";
+                studentID = Integer.parseInt(line[studentIDIndex]);
+                stream = streamIndex != null ? (line[streamIndex].equals("null")) ? null : line[streamIndex] : null;
+                gpa = (Settings.enableGPA && isGPA(line[gpaIndex]))
+                        ? (line[gpaIndex].equals("null")) ? null : Double.parseDouble(line[gpaIndex])
+                        : null;
+                projectAssignedStr = projectAssignedIndex != null ? line[projectAssignedIndex].trim() : null;
+            } catch (IndexOutOfBoundsException e) {
+                throw new MissingFieldsException(String.format(
+                        "ERROR: Error occurred while reading file. Please ensure no required fields are missing/empty at line %d.",
+                        currLine));
+            } catch (NumberFormatException e) {
+                if (studentID == null) {
+                    throw new NumberFormatException(String.format(
+                            "ERROR: Error occurred while reading file. Expected student id to be an integer, but got: '%s' at line %d.",
+                            line[studentIDIndex], currLine));
+                }
+            }
+
+            if (studentIDs.contains(studentID)) {
+                throw new SimilarStudentIDsException(String.format(
+                        "ERROR: Error occurred while reading file. Please ensure students have unique IDs at line %d.",
+                        currLine));
+            }
+            studentIDs.add(studentID);
+
+            if (stream != null && !(stream.equals("CS") || stream.equals("DS"))) {
+                throw new UnexpectedStreamException(String.format(
+                        "ERROR: Error occurred while reading file. Please ensure stream values to be either 'CS' or 'DS' at line %d.",
+                        currLine));
+            }
+
+            ArrayList<Project> thisStudentsPreference = new ArrayList<Project>();
+            // if projects not loaded/generated.
+            if (!Common.isProjectsPopulated) {
+                // if is ProjectAssigned.
+                if (projectAssigned == null && hasProjectAssigned && projectAssignedStr != null
+                        && !projectAssignedStr.equals("")) {
+                    Project project = null;
+
+                    // update maps.
+                    // if already exist, we just fetch it from the projects map.
+                    if (existingStaffMembers.containsKey(projectAssignedStr)
+                            && existingProjects.containsKey(projectAssignedStr)) {
+                        project = existingProjects.get(projectAssignedStr);
+                    } else {
+                        StaffMember sm = new StaffMember(Integer.toString(existingStaffMembers.size()),
+                                projectAssignedStr, "", null, true);
+                        project = sm.getProject();
+
+                        dummyStaffMembers.add(sm);
+                        dummyProjects.add(project);
+                        existingStaffMembers.put(projectAssignedStr, sm);
+                        existingProjects.put(projectAssignedStr, project);
+                    }
+                    projectAssigned = project;
+                }
+
+                // find actual Project objects from the strings.
+                for (int curr = preferenceStartIndex; curr <= preferenceEndIndex; curr++) {
+                    String projectStr = line[curr].trim();
+                    Project project = null;
+
+                    if (projectStr.equals("")) {
+                        continue;
+                    }
+
+                    // update maps.
+                    // if already exist, we just fetch it from the projects map.
+                    if (existingStaffMembers.containsKey(projectStr) && existingProjects.containsKey(projectStr)) {
+                        project = existingProjects.get(projectStr);
+                    } else {
+                        StaffMember sm = new StaffMember(Integer.toString(existingStaffMembers.size()), projectStr, "",
+                                null, true);
+                        project = sm.getProject();
+
+                        dummyStaffMembers.add(sm);
+                        dummyProjects.add(project);
+                        existingStaffMembers.put(projectStr, sm);
+                        existingProjects.put(projectStr, project);
+                    }
+
+                    // if is Project object of preference list.
+                    thisStudentsPreference.add(project);
+                }
+            } else {
+                // find actual Project objects from the strings.
+                for (int curr = preferenceStartIndex; curr <= preferenceEndIndex; curr++) {
+                    for (Project project : projects) {
+                        // if is ProjectAssigned.
+                        if (projectAssigned == null && hasProjectAssigned && projectAssignedStr != null
+                                && project.getResearchActivity().equals(projectAssignedStr)) {
+                            projectAssigned = project;
+                        }
+
+                        // if is Project object of preference list.
+                        if (project.getResearchActivity().equals(line[curr])) {
+                            thisStudentsPreference.add(project);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // if (thisStudentsPreference.size() != 10) {
+            //     throw new InadequatePreferenceListSizeException(
+            //             "ERROR: Unable to read file. A project in a student's preference list cannot be found in the Loaded projects. Please ensure you have the list of projects allocated for these students, or list of students with these projects.");
+            // }
+            // System.out.println(thisStudentsPreference.size() + " " + (thisStudentsPreference.size() == 10));
+            // System.out.println("actual " + (thisStudentsPreference.size() < 10) + ", expected: false");
+
+            if (hasProjectAssigned && projectAssigned != null) {
+                students.add(new Student(firstName, lastName, studentID, stream, gpa, projectAssigned,
+                        thisStudentsPreference));
+            } else {
+                students.add(new Student(firstName, lastName, studentID, stream, gpa, thisStudentsPreference));
+            }
+            // System.out.println(aIndex + " " + students.get(students.size() - 1));
+            // aIndex += 1;
+            currLine++;
+        }
+        if (!Common.isProjectsPopulated) {
+            Settings.dummyStaffMembers = dummyStaffMembers;
+            Settings.loadedProjects = dummyProjects;
+        }
+        return students;
+    }
+
+    public ArrayList<Student> readStudentsV1(String filename, ArrayList<Project> projects, File fromFile)
             throws UnsupportedEncodingException, FileNotFoundException, IOException,
             InadequatePreferenceListSizeException, SimilarStudentIDsException, MissingFieldsException,
             UnexpectedStreamException, NumberFormatException {
@@ -118,6 +331,7 @@ public class CSVFileReader {
         ArrayList<Project> dummyProjects = new ArrayList<>();
         HashMap<String, StaffMember> existingStaffMembers = new HashMap<>();
         HashMap<String, Project> existingProjects = new HashMap<>();
+        Common.doesLoadedFileHaveStream = false;
 
         String[] line;
         if (fromFile == null) {
@@ -211,7 +425,7 @@ public class CSVFileReader {
                         project = existingProjects.get(projectAssignedStr);
                     } else {
                         StaffMember sm = new StaffMember(Integer.toString(existingStaffMembers.size()),
-                                projectAssignedStr, "", stream, true);
+                                projectAssignedStr, "", null, true);
                         project = sm.getProject();
 
                         dummyStaffMembers.add(sm);
@@ -233,7 +447,7 @@ public class CSVFileReader {
                         project = existingProjects.get(projectStr);
                     } else {
                         StaffMember sm = new StaffMember(Integer.toString(existingStaffMembers.size()), projectStr, "",
-                                stream, true);
+                                null, true);
                         project = sm.getProject();
 
                         dummyStaffMembers.add(sm);
@@ -264,10 +478,10 @@ public class CSVFileReader {
                 }
             }
 
-            if (thisStudentsPreference.size() != 10) {
-                throw new InadequatePreferenceListSizeException(
-                        "Preference list size must be equal to 10, but is %d, check if readStudents() is given the correct ArrayList projects tailored for these students.");
-            }
+            // if (thisStudentsPreference.size() != 10) {
+            //     throw new InadequatePreferenceListSizeException(
+            //             "Preference list size must be equal to 10, but is %d, check if readStudents() is given the correct ArrayList projects tailored for these students.");
+            // }
             // System.out.println(thisStudentsPreference.size() + " " + (thisStudentsPreference.size() == 10));
             // System.out.println("actual " + (thisStudentsPreference.size() < 10) + ", expected: false");
 
