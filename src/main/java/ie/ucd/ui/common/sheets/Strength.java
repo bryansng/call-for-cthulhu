@@ -31,23 +31,43 @@ public class Strength extends HBox {
 	}
 
 	public void setProgressBar(Double progress) {
+		setProgressBar(progress, false);
+	}
+
+	public void setProgressBar(Double progress, Boolean hasHardConstraintViolations) {
 		bar.setProgress(progress); // between 0.0 and 1.0
 
-		if (progress < 0.25) {
-			setLabelText(String.format("%.04f", progress), "Horrible");
-			rating.setStyle("-fx-background-color: #a40000; -fx-font-weight: bold; -fx-text-fill: black;");
-		} else if (progress >= 0.25 && progress < 0.5) {
-			setLabelText(String.format("%.04f", progress), "Weak");
-			rating.setStyle("-fx-background-color: #ef2929; -fx-font-weight: bold; -fx-text-fill: black;");
-		} else if (progress >= 0.5 && progress < 0.85) {
-			setLabelText(String.format("%.04f", progress), "Fair");
-			rating.setStyle("-fx-background-color: #fce94f; -fx-font-weight: bold; -fx-text-fill: black;");
-		} else if (progress >= 0.85 && progress < 0.95) {
-			setLabelText(String.format("%.04f", progress), "Good");
-			rating.setStyle("-fx-background-color: #8ae234; -fx-font-weight: bold; -fx-text-fill: black;");
-		} else if (progress >= 0.95) {
-			setLabelText(String.format("%.04f", progress), "Excellent");
-			rating.setStyle("-fx-background-color: #4e9a06; -fx-font-weight: bold; -fx-text-fill: black;");
+		if (hasHardConstraintViolations) {
+			if (progress < 0.5) {
+				setLabelText(String.format("%.04f", progress), "Unusable");
+				rating.setStyle("-fx-background-color: #5e0101; -fx-font-weight: bold; -fx-text-fill: #b5b5b5;");
+			} else if (progress >= 0.5 && progress < 0.85) {
+				setLabelText(String.format("%.04f", progress), "Horrible");
+				rating.setStyle("-fx-background-color: #a40000; -fx-font-weight: bold; -fx-text-fill: black;");
+			} else if (progress >= 0.85 && progress < 0.95) {
+				setLabelText(String.format("%.04f", progress), "Weak");
+				rating.setStyle("-fx-background-color: #ef2929; -fx-font-weight: bold; -fx-text-fill: black;");
+			} else if (progress >= 0.95) {
+				setLabelText(String.format("%.04f", progress), "Fair");
+				rating.setStyle("-fx-background-color: #fce94f; -fx-font-weight: bold; -fx-text-fill: black;");
+			}
+		} else {
+			if (progress < 0.25) {
+				setLabelText(String.format("%.04f", progress), "Horrible");
+				rating.setStyle("-fx-background-color: #a40000; -fx-font-weight: bold; -fx-text-fill: black;");
+			} else if (progress >= 0.25 && progress < 0.5) {
+				setLabelText(String.format("%.04f", progress), "Weak");
+				rating.setStyle("-fx-background-color: #ef2929; -fx-font-weight: bold; -fx-text-fill: black;");
+			} else if (progress >= 0.5 && progress < 0.85) {
+				setLabelText(String.format("%.04f", progress), "Fair");
+				rating.setStyle("-fx-background-color: #fce94f; -fx-font-weight: bold; -fx-text-fill: black;");
+			} else if (progress >= 0.85 && progress < 0.95) {
+				setLabelText(String.format("%.04f", progress), "Good");
+				rating.setStyle("-fx-background-color: #8ae234; -fx-font-weight: bold; -fx-text-fill: black;");
+			} else if (progress >= 0.95) {
+				setLabelText(String.format("%.04f", progress), "Excellent");
+				rating.setStyle("-fx-background-color: #4e9a06; -fx-font-weight: bold; -fx-text-fill: black;");
+			}
 		}
 	}
 

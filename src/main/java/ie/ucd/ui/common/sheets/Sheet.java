@@ -1,14 +1,12 @@
 package ie.ucd.ui.common.sheets;
 
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Predicate;
-
 import ie.ucd.Settings;
 import ie.ucd.Common.SheetType;
 import ie.ucd.interfaces.SearchMatchable;
@@ -20,7 +18,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -36,28 +33,24 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 	protected FileChooser fileChooser;
 	protected Button clearButton;
 
-	public Sheet(Stage stage, boolean includeSaveToFileButton, SheetType sheetType) {
+	public Sheet(Stage stage, boolean includeLoadFromFileButton, boolean includeSaveToFileButton, SheetType sheetType) {
 		super();
 		this.sheetType = sheetType;
-		initLayout(stage, includeSaveToFileButton);
+		initLayout(stage, includeLoadFromFileButton, includeSaveToFileButton);
 	}
 
-	private void initLayout(Stage stage, boolean includeSaveToFileButton) {
+	private void initLayout(Stage stage, boolean includeLoadFromFileButton, boolean includeSaveToFileButton) {
 		initFileChooser();
 
 		getStyleClass().add("more-smaller-main-container");
 		getChildren().addAll(initSearchBox(), initTableView());
 		tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-		HBox bottom = new HBox();
+		HBox bottom = new HBox(15);
 		if (includeSaveToFileButton) {
 			bottom.getChildren().add(initSaveButton(stage));
 		}
-		Node spacer = new Pane();
-		HBox.setHgrow(spacer, Priority.ALWAYS);
-		bottom.getChildren().add(spacer);
-
-		bottom.getChildren().add(initClearButton());
+		bottom.getChildren().add(initClearButton(includeLoadFromFileButton));
 		getChildren().add(bottom);
 	}
 
@@ -89,12 +82,8 @@ public abstract class Sheet<E> extends VBox implements SheetInterface<E> {
 		return saveButton;
 	}
 
-	protected Node initClearButton() {
-		clearButton = new Button("Clear Table");
-		clearButton.setOnAction(e -> {
-			clear();
-		});
-		return clearButton;
+	protected Node initClearButton(Boolean includeLoadFromFileButton) {
+		return new Region();
 	}
 
 	public void search(String searchTerm) {

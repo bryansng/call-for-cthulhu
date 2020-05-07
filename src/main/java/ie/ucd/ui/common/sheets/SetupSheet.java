@@ -44,7 +44,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 
 	public SetupSheet(Stage stage, boolean includeLoadFromFileButton, boolean includeSaveToFileButton,
 			SheetType sheetType, SetupPane setupPane) {
-		super(stage, includeSaveToFileButton, sheetType);
+		super(stage, includeLoadFromFileButton, includeSaveToFileButton, sheetType);
 		if (includeLoadFromFileButton) {
 			this.setupPane = setupPane;
 			if (sheetType == SheetType.Project) {
@@ -98,30 +98,33 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 		getChildren().add(0, allParts);
 	}
 
-	protected Node initClearButton() {
-		clearButton = new Button("Clear Table");
-		clearButton.setOnAction(e -> {
-			if (!Common.isProjectsPopulated) {
-				Settings.loadedStudents = null;
-				Settings.loadedProjects = null;
-				Settings.dummyStaffMembers = null;
-				clearStudents();
-				clearProjects();
-			} else {
-				if (sheetType == SheetType.Project) {
+	protected Node initClearButton(Boolean includeLoadFromFileButton) {
+		if (includeLoadFromFileButton) {
+			clearButton = new Button("Clear Table");
+			clearButton.setOnAction(e -> {
+				if (!Common.isProjectsPopulated) {
+					Settings.loadedStudents = null;
+					Settings.loadedProjects = null;
+					Settings.dummyStaffMembers = null;
 					clearStudents();
 					clearProjects();
-					setEnableNavigateSolvers(false);
-					Common.isProjectsPopulated = false;
-					if (Common.DEBUG_SHOW_IS_PROJECTS_POPULATED)
-						System.out.println("Set isProjectsPopulated to " + Common.isProjectsPopulated);
-				} else if (sheetType == SheetType.Student) {
-					clearStudents();
-					setEnableNavigateSolvers(false);
+				} else {
+					if (sheetType == SheetType.Project) {
+						clearStudents();
+						clearProjects();
+						setEnableNavigateSolvers(false);
+						Common.isProjectsPopulated = false;
+						if (Common.DEBUG_SHOW_IS_PROJECTS_POPULATED)
+							System.out.println("Set isProjectsPopulated to " + Common.isProjectsPopulated);
+					} else if (sheetType == SheetType.Student) {
+						clearStudents();
+						setEnableNavigateSolvers(false);
+					}
 				}
-			}
-		});
-		return clearButton;
+			});
+			return clearButton;
+		}
+		return super.initClearButton(includeLoadFromFileButton);
 	}
 
 	private Node initLoadButton(Stage stage) {

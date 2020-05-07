@@ -102,6 +102,7 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 				setAll(solution.getStudents());
 
 				// update constraints.
+				Boolean hasHardConstraintViolations = false;
 				HardConstraints hard = constraints.getHardConstraints();
 				SoftConstraints soft = constraints.getSoftConstraints();
 				double hardCost = 0.0;
@@ -110,6 +111,7 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 				// hard
 				if (Settings.enableStudentAssignedPreferredProject) {
 					if (solution.getViolationsStudentAssignedPreferredProject() > 0) {
+						hasHardConstraintViolations = true;
 						hardCost += (1.0 * solution.getViolationsStudentAssignedPreferredProject()) / solution.getNumberOfStudents()
 								* Settings.COST_PER_HARD_VIOLATION;
 
@@ -122,6 +124,7 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 
 				if (Settings.enableSameStream) {
 					if (solution.getViolationsSameStream() > 0) {
+						hasHardConstraintViolations = true;
 						hardCost += (1.0 * solution.getViolationsSameStream()) / solution.getNumberOfStudents()
 								* Settings.COST_PER_HARD_VIOLATION;
 
@@ -133,6 +136,7 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 
 				if (Settings.enableStudentAssignedOneProject) {
 					if (solution.getViolationsStudentAssignedOneProject() > 0) {
+						hasHardConstraintViolations = true;
 						hardCost += (1.0 * solution.getViolationsStudentAssignedOneProject()) / solution.getNumberOfStudents()
 								* Settings.COST_PER_HARD_VIOLATION;
 
@@ -145,6 +149,7 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 
 				if (Settings.enableProjectAssignedToOneStudent) {
 					if (solution.getViolationsProjectAssignedToOneStudent() > 0) {
+						hasHardConstraintViolations = true;
 						hardCost += (1.0 * solution.getViolationsProjectAssignedToOneStudent()) / solution.getProjects().size()
 								* Settings.COST_PER_HARD_VIOLATION;
 
@@ -181,7 +186,7 @@ public class StudentSheet extends SetupSheet<Student> implements StudentSheetInt
 				}
 
 				// update strength.
-				strength.setProgressBar(Settings.TOTAL_POINTS - hardCost - softCost);
+				strength.setProgressBar(Settings.TOTAL_POINTS - hardCost - softCost, hasHardConstraintViolations);
 			} catch (NoSuchElementException e) {
 			}
 		}

@@ -53,12 +53,12 @@ public class MainUI extends GridPane {
 
 	public void handleThemes(Theme theme) {
 		switch (theme) {
-		case DARK:
-			getStylesheets().setAll("ui/solver/constraints.css", "ui/common.css", "ui/modena_dark.css");
-			break;
-		default:
-			getStylesheets().setAll("ui/solver/constraints.css", "ui/common.css");
-			break;
+			case DARK:
+				getStylesheets().setAll("ui/solver/constraints.css", "ui/common.css", "ui/modena_dark.css");
+				break;
+			default:
+				getStylesheets().setAll("ui/solver/constraints.css", "ui/common.css");
+				break;
 		}
 	}
 

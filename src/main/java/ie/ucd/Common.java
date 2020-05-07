@@ -1,7 +1,6 @@
 package ie.ucd;
 
 import java.util.Random;
-
 import org.apache.commons.math3.distribution.AbstractRealDistribution;
 import org.apache.commons.math3.distribution.NormalDistribution;
 
@@ -36,7 +35,7 @@ public class Common {
 
 	// keep tracks if projects are loaded/generated.
 	public static boolean isProjectsPopulated = false;
-	public static final boolean DEBUG_SHOW_IS_PROJECTS_POPULATED = true;
+	public static final boolean DEBUG_SHOW_IS_PROJECTS_POPULATED = false;
 
 	// the below are used during calculating of global/local satisfaction.
 	public static final double MAX_GPA = 4.2;

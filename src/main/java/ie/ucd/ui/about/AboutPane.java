@@ -56,6 +56,7 @@ public class AboutPane extends ScrollPane {
 		howSAWorksText.setMaxWidth(500);
 		howGAWorksText.setMaxWidth(500);
 		solutionsText.setMaxWidth(500);
+		setMinWidth(600);
 
 		innerContainer.getChildren().addAll(new VBox(expectationLabel, expectationText),
 				new VBox(settingsLabel, settingsText), new VBox(gettingStartedLabel, gettingStartedText),
