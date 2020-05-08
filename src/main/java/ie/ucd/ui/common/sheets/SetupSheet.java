@@ -16,8 +16,10 @@ import ie.ucd.exceptions.EmptyResearchActivityException;
 import ie.ucd.exceptions.InadequatePreferenceListSizeException;
 import ie.ucd.exceptions.InsufficientSuitableProjectsException;
 import ie.ucd.exceptions.MissingFieldsException;
+import ie.ucd.exceptions.ProjectsEmptyException;
 import ie.ucd.exceptions.ProjectsNullException;
 import ie.ucd.exceptions.SimilarStudentIDsException;
+import ie.ucd.exceptions.StudentsEmptyException;
 import ie.ucd.exceptions.StudentsNullException;
 import ie.ucd.exceptions.UnexpectedStreamException;
 import ie.ucd.exceptions.UnknownStaffMemberNameException;
@@ -236,8 +238,10 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 
 				Settings.loadedProjects = reader.readProject(null, new Parser().getStaffMembersMap(), fromFile);
 
-				if (Settings.loadedProjects == null || Settings.loadedProjects.size() == 0) {
-					throw new ProjectsNullException("Projects read is null.");
+				if (Settings.loadedProjects == null) {
+					throw new ProjectsNullException("ERROR: Error occurred while reading file. Projects read is null.");
+				} else if (Settings.loadedProjects.size() == 0) {
+					throw new ProjectsEmptyException("ERROR: Error occurred while reading file. Projects read is empty.");
 				}
 
 				Settings.prepareSetupSolutionForStudentGenerator();
@@ -246,7 +250,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 				// enableStudentSheet();
 				if (!Common.doesLoadedFileHaveStream) {
 					setEnableSuccessfulLoad(true, String.format(
-							"SUCCESS: Loaded %d %s.\nAlso, sameStream hard constraint has been disabled because no stream column is detected, or projects have no stream.",
+							"SUCCESS: Loaded %d %s.\nAlso, sameStream hard constraint has been disabled because insufficient stream information between students and projects for its evaluation.",
 							Settings.loadedProjects.size(), sheetTypeName.toLowerCase()));
 				} else {
 					setEnableSuccessfulLoad(true,
@@ -255,6 +259,14 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 				Common.isProjectsPopulated = true;
 				if (Common.DEBUG_SHOW_IS_PROJECTS_POPULATED)
 					System.out.println("Set isProjectsPopulated to " + Common.isProjectsPopulated);
+			} catch (UnsuitableColumnHeadersException e) {
+				setEnableErrorLoad(true, e.getMessage());
+			} catch (NumberFormatException e) {
+				setEnableErrorLoad(true, e.getMessage());
+			} catch (ProjectsNullException e) {
+				setEnableErrorLoad(true, e.getMessage());
+			} catch (ProjectsEmptyException e) {
+				setEnableErrorLoad(true, e.getMessage());
 			} catch (EmptyResearchActivityException e) {
 				setEnableErrorLoad(true, e.getMessage());
 			} catch (UnknownStaffMemberNameException e) {
@@ -287,8 +299,10 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 					Settings.loadedStudents = reader.readStudents(null, Settings.loadedProjects, fromFile);
 				}
 
-				if (Settings.loadedStudents == null || Settings.loadedStudents.size() == 0) {
-					throw new StudentsNullException("Students read is null.");
+				if (Settings.loadedStudents == null) {
+					throw new StudentsNullException("ERROR: Error occurred while reading file. Students read is null.");
+				} else if (Settings.loadedStudents.size() == 0) {
+					throw new StudentsEmptyException("ERROR: Error occurred while reading file. Students read is empty.");
 				}
 
 				setAll((ArrayList<E>) Settings.loadedStudents);
@@ -297,7 +311,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 				if (!Common.isProjectsPopulated) {
 					if (!Common.doesLoadedFileHaveStream) {
 						setEnableSuccessfulLoad(true, String.format(
-								"SUCCESS: Loaded %d %s, and automatically speculated %d projects.\nAlso, sameStream hard constraint has been disabled because no stream column is detected, or projects have no stream.",
+								"SUCCESS: Loaded %d %s, and automatically speculated %d projects.\nAlso, sameStream hard constraint has been disabled because insufficient stream information between students and projects for its evaluation.",
 								Settings.loadedStudents.size(), sheetTypeName.toLowerCase(), Settings.loadedProjects.size()));
 					} else {
 						setEnableSuccessfulLoad(true,
@@ -308,6 +322,10 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 					setEnableSuccessfulLoad(true,
 							String.format("SUCCESS: Loaded %d %s.", Settings.loadedStudents.size(), sheetTypeName.toLowerCase()));
 				}
+			} catch (StudentsNullException e) {
+				setEnableErrorLoad(true, e.getMessage());
+			} catch (StudentsEmptyException e) {
+				setEnableErrorLoad(true, e.getMessage());
 			} catch (UnsuitableColumnHeadersException e) {
 				setEnableErrorLoad(true, e.getMessage());
 			} catch (EmptyPreferenceListException e) {
@@ -331,7 +349,7 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 						"ERROR: Unable to finish reading file. Input/Output error occurred while trying to read the file.");
 			} catch (Exception e) {
 				setEnableErrorLoad(true, "ERROR: Unable to read file. Please ensure you are loading a file for " + sheetTypeName
-						+ ".\nExpected format is:\n- First Name,Last Name,ID,Stream,GPA,Project Assigned,Preference 1,...,Preference 10, or\n- First Name,Last Name,ID,Stream,Project Assigned,Preference 1,...,Preference 10, or\n- First Name,Last Name,ID,Stream,Preference 1,...,Preference 10");
+						+ ".\nExpected format is:\n- First Name,Last Name,ID,Stream,GPA,Project Assigned,Preference 1,...,Preference 20, or\n- First Name,Last Name,ID,Stream,Project Assigned,Preference 1,...,Preference 20, or\n- First Name,Last Name,ID,Stream,Preference 1,...,Preference 20, or\n- Student Name,ID,Preference 1,...,Preference 20");
 			}
 		}
 	}

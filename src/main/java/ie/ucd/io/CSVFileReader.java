@@ -89,22 +89,23 @@ public class CSVFileReader {
                 String[] headers = line;
                 for (int i = 0; i < headers.length; i++) {
                     String currHeader = headers[i].toLowerCase();
-                    if (currHeader.equals("staff name")) {
+                    if (currHeader.endsWith("staff name")) {
                         staffNameIndex = i;
-                    } else if (currHeader.equals("research activity")) {
+                    } else if (currHeader.endsWith("research activity")) {
                         researchActivityIndex = i;
-                    } else if (currHeader.equals("stream")) {
+                    } else if (currHeader.endsWith("stream")) {
                         streamIndex = i;
-                    } else if (currHeader.equals("preferred probability")) {
+                    } else if (currHeader.endsWith("preferred probability")) {
                         preferredProbabilityIndex = i;
                     }
                 }
 
                 // minimum required headers for solvers to work.
-                if (staffNameIndex == null && researchActivityIndex == null) {
+                if (staffNameIndex == null || researchActivityIndex == null) {
                     throw new UnsuitableColumnHeadersException(String.format(
-                            "ERROR: Error occurred while reading file. Unable to parse CSV's column headers at line %d. Please ensure CSV file has the minimum expected column headers.\ni.e. Staff Name, Research Activity",
-                            currLine));
+                            "ERROR: Error occurred while reading file. Unable to parse CSV's column headers at line %d.\nCurrently parsed staff name at column %d, and research activity at column %d.\nPlease ensure CSV file has the minimum expected column headers.\ni.e. Staff Name, Research Activity",
+                            currLine, (staffNameIndex == null) ? null : staffNameIndex + 1,
+                            (researchActivityIndex == null) ? null : researchActivityIndex + 1));
                 }
 
                 Common.doesLoadedFileHaveStream = (streamIndex == null) ? false : true;
@@ -139,6 +140,12 @@ public class CSVFileReader {
             if (Common.DEBUG_IO_UNICODE && line[0].contains("Pep"))
                 System.out.println(line[0] + ": " + allStaffMembers.get(line[0]));
 
+            if (researchActivity.equals("")) {
+                throw new EmptyResearchActivityException(String.format(
+                        "ERROR: Error occurred while reading file. Please ensure research activity or project is not an empty string at line %d.",
+                        currLine));
+            }
+
             if (stream != null && !(stream.equals("CS") || stream.equals("CS+DS") || stream.equals("DS"))) {
                 throw new UnexpectedStreamException(String.format(
                         "ERROR: Error occurred while reading file. Please ensure stream values to be either 'CS', 'CS+DS' or 'DS' at line %d.",
@@ -151,12 +158,6 @@ public class CSVFileReader {
                         currLine));
             } else if (staffNameIndex == null) {
                 Project project = null;
-
-                if (researchActivity.equals("")) {
-                    throw new EmptyResearchActivityException(String.format(
-                            "ERROR: Error occurred while reading file. Please ensure research activity or project is not an empty string at line %d.",
-                            currLine));
-                }
 
                 // update maps.
                 // if already exist, we just fetch it from the projects map.
@@ -229,21 +230,24 @@ public class CSVFileReader {
             if (isHeaderLine) {
                 String[] headers = line;
                 for (int i = 0; i < headers.length; i++) {
+                    // System.out.println(headers[i]);
                     String currHeader = headers[i].toLowerCase();
-                    if (currHeader.equals("student") || currHeader.equals("first name")) {
+                    // System.out.println(currHeader);
+                    if (currHeader.endsWith("student") || currHeader.endsWith("first name")
+                            || currHeader.endsWith("student name")) {
                         firstNameIndex = i;
-                    } else if (currHeader.equals("last name")) {
+                    } else if (currHeader.endsWith("last name")) {
                         lastNameIndex = i;
-                    } else if (currHeader.equals("id") || currHeader.equals("student number")) {
+                    } else if (currHeader.endsWith("id") || currHeader.endsWith("student number")) {
                         studentIDIndex = i;
-                    } else if (currHeader.equals("stream")) {
+                    } else if (currHeader.endsWith("stream")) {
                         streamIndex = i;
-                    } else if (currHeader.equals("gpa")) {
+                    } else if (currHeader.endsWith("gpa")) {
                         gpaIndex = i;
-                    } else if (currHeader.equals("project assigned")) {
+                    } else if (currHeader.endsWith("project assigned")) {
                         hasProjectAssigned = true;
                         projectAssignedIndex = i;
-                    } else if (currHeader.equals("1") || currHeader.equals("preference 1")) {
+                    } else if (currHeader.equals("1") || currHeader.endsWith("preference 1")) {
                         preferenceStartIndex = i;
                         preferenceEndIndex = headers.length - 1;
                         // System.out.println(preferenceStartIndex + " " + preferenceEndIndex);
@@ -252,11 +256,14 @@ public class CSVFileReader {
                 }
 
                 // minimum required headers for solvers to work.
-                if (firstNameIndex == null && studentIDIndex == null && preferenceStartIndex == null
-                        && preferenceEndIndex == null) {
+                if (firstNameIndex == null || studentIDIndex == null || preferenceStartIndex == null
+                        || preferenceEndIndex == null) {
                     throw new UnsuitableColumnHeadersException(String.format(
-                            "ERROR: Error occurred while reading file. Unable to parse CSV's column headers at line %d. Please ensure CSV file has the minimum expected column headers.\ni.e. First Name, Student ID, Preference 1, ..., Preference 20",
-                            currLine));
+                            "ERROR: Error occurred while reading file. Unable to parse CSV's column headers at line %d.\nCurrently parsed first name at column %d, student id at column %d, preference start at column %d, and end at column %d.\nPlease ensure CSV file has the minimum expected column headers.\ni.e. First Name, Student ID, Preference 1, ..., Preference 20",
+                            currLine, (firstNameIndex == null) ? null : firstNameIndex + 1,
+                            (studentIDIndex == null) ? null : studentIDIndex + 1,
+                            (preferenceStartIndex == null) ? null : preferenceStartIndex + 1,
+                            (preferenceEndIndex == null) ? null : preferenceEndIndex + 1));
                 }
 
                 Common.doesLoadedFileHaveStream = (streamIndex == null || !Common.isProjectsPopulated) ? false : true;
