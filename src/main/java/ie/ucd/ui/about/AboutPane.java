@@ -33,7 +33,7 @@ public class AboutPane extends ScrollPane {
 		Label gettingStartedLabel = new Label("Getting Started");
 		gettingStartedLabel.getStyleClass().add("sub-label");
 		Label gettingStartedText = new Label(
-				"Project and student information can either be randomly generated or loaded into the program using CSVs on the Setup page under the 'Load/Generate Projects' and 'Load/Generate Students'. Valid CSV formats are as follows:\n\nProjects: <Staff Member> <Project Name> <Stream> <Preferred Probability (optional)>\nStudents: <First Name> <Last Name> <ID> <Stream> <GPA> <Project Preference #1> ... <Project Preference #10>");
+				"Project and student information can either be randomly generated or loaded into the program using CSVs on the Setup page under the 'Load/Generate Projects' and 'Load/Generate Students'. Valid CSV formats are as follows:\n\nProjects: <Staff Member> <Project Name> <Stream> <Preferred Probability (optional)>\nStudents: <First Name> <Last Name> <ID> <Stream> <GPA> <Project Preference #1> ... <Project Preference #20>");
 
 		Label howSAWorksLabel = new Label("Simulated Annealing");
 		howSAWorksLabel.getStyleClass().add("sub-label");

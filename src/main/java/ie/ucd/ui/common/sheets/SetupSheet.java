@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import ie.ucd.Common;
 import ie.ucd.Settings;
 import ie.ucd.Common.SheetType;
+import ie.ucd.exceptions.EmptyPreferenceListException;
+import ie.ucd.exceptions.EmptyResearchActivityException;
 import ie.ucd.exceptions.InadequatePreferenceListSizeException;
 import ie.ucd.exceptions.InsufficientSuitableProjectsException;
 import ie.ucd.exceptions.MissingFieldsException;
@@ -18,6 +20,7 @@ import ie.ucd.exceptions.ProjectsNullException;
 import ie.ucd.exceptions.SimilarStudentIDsException;
 import ie.ucd.exceptions.StudentsNullException;
 import ie.ucd.exceptions.UnexpectedStreamException;
+import ie.ucd.exceptions.UnknownStaffMemberNameException;
 import ie.ucd.exceptions.UnsuitableColumnHeadersException;
 import ie.ucd.io.CSVFileReader;
 import ie.ucd.io.Parser;
@@ -239,12 +242,23 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 
 				Settings.prepareSetupSolutionForStudentGenerator();
 				setAll((ArrayList<E>) Settings.loadedProjects);
+				setupPane.setEnableStreamHardConstraint(Common.doesLoadedFileHaveStream);
 				// enableStudentSheet();
-				setEnableSuccessfulLoad(true,
-						String.format("SUCCESS: Loaded %d %s.", Settings.loadedProjects.size(), sheetTypeName.toLowerCase()));
+				if (!Common.doesLoadedFileHaveStream) {
+					setEnableSuccessfulLoad(true, String.format(
+							"SUCCESS: Loaded %d %s.\nAlso, sameStream hard constraint has been disabled because no stream column is detected, or projects have no stream.",
+							Settings.loadedProjects.size(), sheetTypeName.toLowerCase()));
+				} else {
+					setEnableSuccessfulLoad(true,
+							String.format("SUCCESS: Loaded %d %s.", Settings.loadedProjects.size(), sheetTypeName.toLowerCase()));
+				}
 				Common.isProjectsPopulated = true;
 				if (Common.DEBUG_SHOW_IS_PROJECTS_POPULATED)
 					System.out.println("Set isProjectsPopulated to " + Common.isProjectsPopulated);
+			} catch (EmptyResearchActivityException e) {
+				setEnableErrorLoad(true, e.getMessage());
+			} catch (UnknownStaffMemberNameException e) {
+				setEnableErrorLoad(true, e.getMessage());
 			} catch (UnexpectedStreamException e) {
 				setEnableErrorLoad(true, e.getMessage());
 			} catch (UnsupportedEncodingException e) {
@@ -296,6 +310,8 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 				}
 			} catch (UnsuitableColumnHeadersException e) {
 				setEnableErrorLoad(true, e.getMessage());
+			} catch (EmptyPreferenceListException e) {
+				setEnableErrorLoad(true, e.getMessage());
 			} catch (SimilarStudentIDsException e) {
 				setEnableErrorLoad(true, e.getMessage());
 			} catch (UnexpectedStreamException e) {
@@ -314,7 +330,6 @@ public abstract class SetupSheet<E> extends Sheet<E> {
 				setEnableErrorLoad(true,
 						"ERROR: Unable to finish reading file. Input/Output error occurred while trying to read the file.");
 			} catch (Exception e) {
-				e.printStackTrace();
 				setEnableErrorLoad(true, "ERROR: Unable to read file. Please ensure you are loading a file for " + sheetTypeName
 						+ ".\nExpected format is:\n- First Name,Last Name,ID,Stream,GPA,Project Assigned,Preference 1,...,Preference 10, or\n- First Name,Last Name,ID,Stream,Project Assigned,Preference 1,...,Preference 10, or\n- First Name,Last Name,ID,Stream,Preference 1,...,Preference 10");
 			}

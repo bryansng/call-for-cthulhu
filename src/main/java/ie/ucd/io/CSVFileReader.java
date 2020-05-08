@@ -6,10 +6,13 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import ie.ucd.Common;
 import ie.ucd.Settings;
+import ie.ucd.exceptions.EmptyPreferenceListException;
+import ie.ucd.exceptions.EmptyResearchActivityException;
 import ie.ucd.exceptions.InadequatePreferenceListSizeException;
 import ie.ucd.exceptions.MissingFieldsException;
 import ie.ucd.exceptions.SimilarStudentIDsException;
 import ie.ucd.exceptions.UnexpectedStreamException;
+import ie.ucd.exceptions.UnknownStaffMemberNameException;
 import ie.ucd.exceptions.UnsuitableColumnHeadersException;
 import ie.ucd.objects.Project;
 import ie.ucd.objects.StaffMember;
@@ -47,16 +50,24 @@ public class CSVFileReader {
 
     public ArrayList<Project> readProject(String filename, HashMap<String, StaffMember> allStaffMembers)
             throws MissingFieldsException, UnexpectedStreamException, UnsupportedEncodingException,
-            FileNotFoundException, IOException {
+            FileNotFoundException, IOException, UnknownStaffMemberNameException, EmptyResearchActivityException {
         return readProject(filename, allStaffMembers, null);
     }
 
     public ArrayList<Project> readProject(String filename, HashMap<String, StaffMember> allStaffMembers, File fromFile)
             throws MissingFieldsException, UnexpectedStreamException, UnsupportedEncodingException,
-            FileNotFoundException, IOException {
+            FileNotFoundException, IOException, UnknownStaffMemberNameException, EmptyResearchActivityException {
         CSVParser csvParser = getParser();
         CSVReader csvReader = null;
         ArrayList<Project> projects = new ArrayList<Project>();
+
+        // for dummy staff members.
+        ArrayList<StaffMember> dummyStaffMembers = new ArrayList<>();
+        ArrayList<Project> dummyProjects = new ArrayList<>();
+        HashMap<String, StaffMember> existingStaffMembers = new HashMap<>();
+        HashMap<String, Project> existingProjects = new HashMap<>();
+        Common.doesLoadedFileHaveStream = false;
+
         String[] line;
         if (fromFile == null) {
             InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
@@ -67,37 +78,106 @@ public class CSVFileReader {
             // csvReader = new CSVReaderBuilder(new FileReader(fromFile)).withCSVParser(csvParser).build();
         }
 
-        int currLine = 1;
         Boolean isHeaderLine = true;
+        Integer staffNameIndex = null, researchActivityIndex = null, streamIndex = null,
+                preferredProbabilityIndex = null;
+        int currLine = 1;
         assert csvReader != null;
         while ((line = csvReader.readNext()) != null) {
+            // dynamically get column indexes of data.
             if (isHeaderLine) {
+                String[] headers = line;
+                for (int i = 0; i < headers.length; i++) {
+                    String currHeader = headers[i].toLowerCase();
+                    if (currHeader.equals("staff name")) {
+                        staffNameIndex = i;
+                    } else if (currHeader.equals("research activity")) {
+                        researchActivityIndex = i;
+                    } else if (currHeader.equals("stream")) {
+                        streamIndex = i;
+                    } else if (currHeader.equals("preferred probability")) {
+                        preferredProbabilityIndex = i;
+                    }
+                }
+
+                // minimum required headers for solvers to work.
+                if (staffNameIndex == null && researchActivityIndex == null) {
+                    throw new UnsuitableColumnHeadersException(String.format(
+                            "ERROR: Error occurred while reading file. Unable to parse CSV's column headers at line %d. Please ensure CSV file has the minimum expected column headers.\ni.e. Staff Name, Research Activity",
+                            currLine));
+                }
+
+                Common.doesLoadedFileHaveStream = (streamIndex == null) ? false : true;
                 isHeaderLine = false;
                 currLine++;
                 continue;
             }
 
+            StaffMember staffMember = null;
+            String staffName = null, researchActivity = null, stream = null;
+            Double preferredProbability = null;
+            try {
+                staffName = staffNameIndex != null ? line[staffNameIndex] : null;
+                staffMember = staffName != null ? allStaffMembers.get(staffName) : null;
+                researchActivity = line[researchActivityIndex].trim();
+                stream = streamIndex != null ? (line[streamIndex].equals("null")) ? null : line[streamIndex] : null;
+                preferredProbability = preferredProbabilityIndex != null
+                        ? Double.parseDouble(line[preferredProbabilityIndex])
+                        : Common.getProbability();
+            } catch (IndexOutOfBoundsException e) {
+                throw new MissingFieldsException(String.format(
+                        "ERROR: Error occurred while reading file. Please ensure no required fields are missing/empty at line %d.",
+                        currLine));
+            } catch (NumberFormatException e) {
+                if (preferredProbability == null) {
+                    throw new NumberFormatException(String.format(
+                            "ERROR: Error occurred while reading file. Expected preferred probability to be a double, but got: '%s' at line %d.",
+                            line[preferredProbabilityIndex], currLine));
+                }
+            }
+
             if (Common.DEBUG_IO_UNICODE && line[0].contains("Pep"))
                 System.out.println(line[0] + ": " + allStaffMembers.get(line[0]));
 
-            if (!(line[2].equals("CS") || line[2].equals("CS+DS") || line[2].equals("DS"))) {
+            if (stream != null && !(stream.equals("CS") || stream.equals("CS+DS") || stream.equals("DS"))) {
                 throw new UnexpectedStreamException(String.format(
                         "ERROR: Error occurred while reading file. Please ensure stream values to be either 'CS', 'CS+DS' or 'DS' at line %d.",
                         currLine));
             }
 
-            if (!(line.length != 4 || line.length != 3)
-                    || !(!line[0].equals("") && !line[1].equals("") && !line[2].equals(""))) {
-                // System.out.println("stuff empty");
-                throw new MissingFieldsException(String.format(
-                        "ERROR: Error occurred while reading file. Please ensure no required fields are missing/empty at line %d.",
+            if (staffNameIndex != null && staffMember == null) {
+                throw new UnknownStaffMemberNameException(String.format(
+                        "ERROR: Error occurred while reading file. Unable to find staff member name in MiskatonicStaffMembers.xlsx from given CSV file at line %d.",
                         currLine));
-            }
+            } else if (staffNameIndex == null) {
+                Project project = null;
 
-            if (line.length == 4)
-                projects.add(new Project(allStaffMembers.get(line[0]), line[1], line[2], Double.parseDouble(line[3])));
-            else if (line.length == 3)
-                projects.add(new Project(allStaffMembers.get(line[0]), line[1], line[2], Common.getProbability()));
+                if (researchActivity.equals("")) {
+                    throw new EmptyResearchActivityException(String.format(
+                            "ERROR: Error occurred while reading file. Please ensure research activity or project is not an empty string at line %d.",
+                            currLine));
+                }
+
+                // update maps.
+                // if already exist, we just fetch it from the projects map.
+                if (existingStaffMembers.containsKey(researchActivity)
+                        && existingProjects.containsKey(researchActivity)) {
+                    project = existingProjects.get(researchActivity);
+                } else {
+                    StaffMember sm = new StaffMember(Integer.toString(existingStaffMembers.size()), researchActivity,
+                            "", stream, true);
+                    project = sm.getProject();
+
+                    dummyStaffMembers.add(sm);
+                    dummyProjects.add(project);
+                    existingStaffMembers.put(researchActivity, sm);
+                    existingProjects.put(researchActivity, project);
+                }
+
+                projects.add(project);
+            } else {
+                projects.add(new Project(staffMember, researchActivity, stream, preferredProbability));
+            }
 
             currLine++;
         }
@@ -107,14 +187,16 @@ public class CSVFileReader {
     public ArrayList<Student> readStudents(String filename, ArrayList<Project> projects)
             throws UnsupportedEncodingException, FileNotFoundException, IOException,
             InadequatePreferenceListSizeException, SimilarStudentIDsException, MissingFieldsException,
-            UnexpectedStreamException, NumberFormatException, UnsuitableColumnHeadersException {
+            UnexpectedStreamException, NumberFormatException, UnsuitableColumnHeadersException,
+            EmptyPreferenceListException {
         return readStudents(filename, projects, null);
     }
 
     public ArrayList<Student> readStudents(String filename, ArrayList<Project> projects, File fromFile)
             throws UnsupportedEncodingException, FileNotFoundException, IOException,
             InadequatePreferenceListSizeException, SimilarStudentIDsException, MissingFieldsException,
-            UnexpectedStreamException, NumberFormatException, UnsuitableColumnHeadersException {
+            UnexpectedStreamException, NumberFormatException, UnsuitableColumnHeadersException,
+            EmptyPreferenceListException {
         CSVReader csvReader = null;
         CSVParser csvParser = getParser();
         ArrayList<Student> students = new ArrayList<Student>();
@@ -140,10 +222,10 @@ public class CSVFileReader {
         Integer firstNameIndex = null, lastNameIndex = null, studentIDIndex = null, streamIndex = null, gpaIndex = null,
                 projectAssignedIndex = null, preferenceStartIndex = null, preferenceEndIndex = null;
         // int aIndex = 0;
-        assert csvReader != null;
         int currLine = 1;
+        assert csvReader != null;
         while ((line = csvReader.readNext()) != null) {
-            // get column indexes of data.
+            // dynamically get column indexes of data.
             if (isHeaderLine) {
                 String[] headers = line;
                 for (int i = 0; i < headers.length; i++) {
@@ -291,6 +373,12 @@ public class CSVFileReader {
                         }
                     }
                 }
+            }
+
+            if (thisStudentsPreference.size() == 0) {
+                throw new EmptyPreferenceListException(String.format(
+                        "ERROR: Error occurred while reading file. Please ensure student has a non-empty project preference list at line %d.",
+                        currLine));
             }
 
             // if (thisStudentsPreference.size() != 10) {
