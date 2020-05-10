@@ -281,7 +281,7 @@ public class CSVFileReader {
                 lastName = lastNameIndex != null ? line[lastNameIndex] : "";
                 studentID = Integer.parseInt(line[studentIDIndex]);
                 stream = streamIndex != null ? (line[streamIndex].equals("null")) ? null : line[streamIndex] : null;
-                gpa = (Settings.enableGPA && isGPA(line[gpaIndex]))
+                gpa = (Settings.enableGPA && gpaIndex != null && isGPA(line[gpaIndex]))
                         ? (line[gpaIndex].equals("null")) ? null : Double.parseDouble(line[gpaIndex])
                         : null;
                 projectAssignedStr = projectAssignedIndex != null ? line[projectAssignedIndex].trim() : null;

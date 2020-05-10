@@ -95,7 +95,6 @@ public class Settings {
 				? ((TOTAL_POINTS - (NUM_SOFT_CONSTRAINTS * COST_PER_SOFT_VIOLATION)) / NUM_HARD_CONSTRAINTS)
 				: 0.0;
 
-		System.out.println(String.format("%s %s", enableHigherGPAHigherPreferences, enableGPA));
 		System.out.println("soft: " + COST_PER_SOFT_VIOLATION);
 		System.out.println("hard: " + COST_PER_HARD_VIOLATION);
 	}
