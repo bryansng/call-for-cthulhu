@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -71,11 +72,12 @@ public class CSVFileReader {
         String[] line;
         if (fromFile == null) {
             InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
-            csvReader = new CSVReaderBuilder(new InputStreamReader(is)).withCSVParser(csvParser).build();
+            csvReader = new CSVReaderBuilder(new InputStreamReader(is, StandardCharsets.UTF_8)).withCSVParser(csvParser)
+                    .build();
         } else {
-            csvReader = new CSVReaderBuilder(new InputStreamReader(new FileInputStream(fromFile), "UTF-8"))
-                    .withCSVParser(csvParser).build();
-            // csvReader = new CSVReaderBuilder(new FileReader(fromFile)).withCSVParser(csvParser).build();
+            csvReader = new CSVReaderBuilder(
+                    new InputStreamReader(new FileInputStream(fromFile), StandardCharsets.UTF_8))
+                            .withCSVParser(csvParser).build();
         }
 
         Boolean isHeaderLine = true;
@@ -120,6 +122,15 @@ public class CSVFileReader {
             try {
                 staffName = staffNameIndex != null ? line[staffNameIndex] : null;
                 staffMember = staffName != null ? allStaffMembers.get(staffName) : null;
+                // if (staffName.startsWith("Tom") && staffName.endsWith("Torquemada")) {
+                //     System.out.println("from projects file: " + staffName);
+
+                //     for (String name : allStaffMembers.keySet()) {
+                //         if (name.startsWith("Tom") && name.endsWith("Torquemada")) {
+                //             System.out.println("from Miskatonic: " + name);
+                //         }
+                //     }
+                // }
                 researchActivity = line[researchActivityIndex].trim();
                 stream = streamIndex != null ? (line[streamIndex].equals("null")) ? null : line[streamIndex] : null;
                 preferredProbability = preferredProbabilityIndex != null
@@ -213,10 +224,12 @@ public class CSVFileReader {
         String[] line;
         if (fromFile == null) {
             InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
-            csvReader = new CSVReaderBuilder(new InputStreamReader(is)).withCSVParser(csvParser).build();
+            csvReader = new CSVReaderBuilder(new InputStreamReader(is, StandardCharsets.UTF_8)).withCSVParser(csvParser)
+                    .build();
         } else {
-            csvReader = new CSVReaderBuilder(new InputStreamReader(new FileInputStream(fromFile), "UTF-8"))
-                    .withCSVParser(csvParser).build();
+            csvReader = new CSVReaderBuilder(
+                    new InputStreamReader(new FileInputStream(fromFile), StandardCharsets.UTF_8))
+                            .withCSVParser(csvParser).build();
         }
 
         Boolean isHeaderLine = true, hasProjectAssigned = false;
