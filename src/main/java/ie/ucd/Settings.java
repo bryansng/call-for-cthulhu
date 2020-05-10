@@ -9,8 +9,8 @@ import ie.ucd.objects.Project;
 import ie.ucd.objects.StaffMember;
 
 public class Settings {
-	public static final boolean DEMO_SA_FAST = true;
-	public static final boolean DEMO_GA_FAST = true;
+	public static final boolean DEMO_SA_FAST = false;
+	public static final boolean DEMO_GA_FAST = false;
 
 	public static boolean enableDetailedGAVisuals = true;
 
