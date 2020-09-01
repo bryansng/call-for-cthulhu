@@ -1,10 +1,78 @@
 # COMP30880 Call for Cthulhu
 
-## Setting up environment
+|                                 Simulated Annealing                                  |                                Genetic Algorithm                                 |
+| :----------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: |
+| ![Simulated Annealing](./readme-resources/img/overview_sa.png "Simulated Annealing") | ![Genetic Algorithm](./readme-resources/img/overview_ga.png "Genetic Algorithm") |
+
+
+## About
+Call-for-Cthulu is a software engineering project that aims at to create a software application that employs machine learning algorithms (mainly Simulated Annealing and Genetic Algorithm) to assign final year projects to college students based on the students' preference list and GPA, as well as certain hard constraints and soft constraints as listed in the Setup page.
+
+Despite the name, it is not related to the survival horror game or the book written by Lovecraft.
+
+&nbsp;
+
+## Running the application
 1. Open a terminal and navigate to the file where run.sh is.
 2. Run run&#46;sh (i.e. `./run.sh`) (It uses maven to build the JAR, then Java to run the JAR))
 
-## How demands are met
+&nbsp;
+
+## Authors
+
+- [bryansng](https://github.com/bryansng)
+- [ankishraj](https://github.com/ankishraj)
+- [RSM61123](https://github.com/RSM61123)
+
+&nbsp;
+
+## Acknowledgments
+
+- [Tony Veale](https://people.ucd.ie/tony.veale)
+
+&nbsp;
+
+## Pages
+
+### Setup
+
+#### Settings tab
+
+![Settings tab](readme-resources/img/1_setup_part1_dark.png "Settings tab")
+
+#### Load/Generate Projects tab
+
+![Projects tab](readme-resources/img/1_setup_part2_dark.png "Projects tab")
+
+#### Load/Generate Students tab
+
+![Students tab](readme-resources/img/1_setup_part3_dark.png "Students tab")
+
+&nbsp;
+
+### Simulated Annealing
+
+![Simulated Annealing part 1](readme-resources/img/2_simulated_annealing_part1_dark.png "Simulated Annealing part 1")
+
+![Simulated Annealing part 2](readme-resources/img/2_simulated_annealing_part2_dark.png "Simulated Annealing part 2")
+
+&nbsp;
+
+### Genetic Algorithm
+
+![Genetic Algorithm part 1](readme-resources/img/3_genetic_algorithm_part1_dark.png "Genetic Algorithm part 1")
+![Genetic Algorithm part 2](readme-resources/img/3_genetic_algorithm_part2_dark.png "Genetic Algorithm part 2")
+
+&nbsp;
+
+### About
+
+![About](readme-resources/img/4_about_dark.png "About")
+
+&nbsp;
+
+
+<!-- ## How demands are met
 - Generate a spreadsheet of projects and supervisors, stating the target audience of each project.
   - Spreadsheet is generated in the form of Excel files (with .xlsx extensions). They are named `StaffProject<numberOfStudents>.xlsx`. Each row is in the form of \<Staff Name\> \<Research Activity\> \<Stream\>.
   - \<Staff Name\> and \<Research Activity\> values are taken directly from `MiskatonicStaffMembers.xlsx`. Difference between ours and the given excel file is:
@@ -25,4 +93,4 @@
 		![Alt text](readme-resources/img/bell_curve.png "Bell Curve")
 
   	- Preference Probability (aka PDF, Blue) vs Percentage Project Distribution (aka percentage of that project distributed to students, Orange)
-		![Alt text](readme-resources/img/preference_probability_vs_percentage_project_distribution.png "Preference Probability vs Percentage Project Distribution")
+		![Alt text](readme-resources/img/preference_probability_vs_percentage_project_distribution.png "Preference Probability vs Percentage Project Distribution") -->
