@@ -6,7 +6,7 @@
 
 
 ## About
-Call-for-Cthulu is a software engineering project that aims at to create a software application that employs machine learning algorithms (mainly Simulated Annealing and Genetic Algorithm) to assign final year projects to college students based on the students' preference list and GPA, as well as certain hard constraints and soft constraints as listed in the Setup page.
+Call-for-Cthulu is a software engineering project that aims to create a software application that employs machine learning algorithms (mainly Simulated Annealing and Genetic Algorithm) to assign final year projects to college students based on the students' preference list and GPA, as well as certain hard constraints and soft constraints as listed in Setup's Settings page.
 
 Despite the name, it is not related to the survival horror game or the book written by Lovecraft.
 
